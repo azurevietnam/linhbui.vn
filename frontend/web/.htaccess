@@ -1,0 +1,10 @@
+RewriteEngine on
+# www.tdhome.vn -> tdhome.vn
+RewriteCond %{HTTP_HOST} ^www\.tdhome\.vn$
+RewriteRule ^/?$ "http\:\/\/tdhome\.vn\/" [R=301,L]
+# block bad bots
+RewriteCond %{HTTP_USER_AGENT} libwww-perl.* 
+RewriteRule .* ? [F,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php 
