@@ -228,18 +228,18 @@ class FileUtils {
                         $formatInfo = getimagesize($params['toFolder'] . $img_name);
                         if ($formatInfo !== false && (isset($formatInfo['mime']) ? in_array($formatInfo['mime'], ['image/jpeg', 'image/png', 'image/gif']) : false)) {
                             // create watermark
-                            if ($params['createWatermark']) {
-                                $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
-                                if ($formatInfo[0] > 800 && $formatInfo[1] > 800) {
-                                    $watermark_img = 'watermark_lg.png';
-                                } else if ($formatInfo[0] > 300 && $formatInfo[1] > 300) {
-                                    $watermark_img = 'watermark_md.png';
-                                } else {
-                                    $watermark_img = 'watermark_sm.png';
-                                }
-                                $thumb->createWatermark(\Yii::$app->params['images_folder'] . '/' . $watermark_img, 'rt', '5');
-                                $thumb->save($params['toFolder'] . $img_name);
-                            }
+//                            if ($params['createWatermark']) {
+//                                $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
+//                                if ($formatInfo[0] > 800 && $formatInfo[1] > 800) {
+//                                    $watermark_img = 'watermark_lg.png';
+//                                } else if ($formatInfo[0] > 300 && $formatInfo[1] > 300) {
+//                                    $watermark_img = 'watermark_md.png';
+//                                } else {
+//                                    $watermark_img = 'watermark_sm.png';
+//                                }
+//                                $thumb->createWatermark(\Yii::$app->params['images_folder'] . '/' . $watermark_img, 'rt', '5');
+//                                $thumb->save($params['toFolder'] . $img_name);
+//                            }
                             if (count($params['resize']) > 0) {
                                 foreach ($params['resize'] as $dim) {
                                     $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
