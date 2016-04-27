@@ -1,26 +1,26 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@vngame.me',
+    'supportEmail' => 'support@xemtuvi.mobi',
     'user.passwordResetTokenExpire' => 3600,
     
-    'site_name' => 'vngame.me',
+    'site_name' => 'xemtuvi.mobi',
     'site_version' => '1.0',
     'fb_app_id' => '529991420517704',
     'ga_id' => 'UA-76773982-1',
     'gcse_cx' => '018283733847891945836:as0xxdwkweu',
     
     'root_url' => 'http://',
-    'backend_url' => 'http://admin.vngame.me',
-    'frontend_url' => 'http://vngame.me',
-    'images_url' => 'http://vngame.me/images',
-    'uploads_url' => 'http://admin.vngame.me/uploads',
+    'backend_url' => 'http://admin.xemtuvi.mobi',
+    'frontend_url' => 'http://xemtuvi.mobi',
+    'images_url' => 'http://xemtuvi.mobi/images',
+    'uploads_url' => 'http://admin.xemtuvi.mobi/uploads',
     
     'root_folder' => '/data/website',
-    'backend_folder' => '/data/website/vngame.me/backend/web',
-    'frontend_folder' => '/data/website/vngame.me/frontend/web',
-    'images_folder' => '/data/website/vngame.me/frontend/web/images',
-    'uploads_folder' => '/data/website/vngame.me/backend/web/uploads',
+    'backend_folder' => '/data/website/xemtuvi.mobi/backend/web',
+    'frontend_folder' => '/data/website/xemtuvi.mobi/frontend/web',
+    'images_folder' => '/data/website/xemtuvi.mobi/frontend/web/images',
+    'uploads_folder' => '/data/website/xemtuvi.mobi/backend/web/uploads',
     
     'relative_backend_folder' => '',
     'relative_frontend_folder' => '',
