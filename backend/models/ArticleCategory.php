@@ -32,50 +32,13 @@ use Yii;
  * @property string $updated_by
  * @property integer $is_active
  *
+ * @property Article[] $articles
  * @property ArticleCategory $parent
  * @property ArticleCategory[] $articleCategories
  * @property ArticleToArticleCategory[] $articleToArticleCategories
  */
 class ArticleCategory extends \common\models\ArticleCategory
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-               'imageName' => $this->image,
-               'imagePath' => $this->image_path,
-               'imagesFolder' => Yii::$app->params['images_folder'],
-               'imagesUrl' => Yii::$app->params['images_url'],
-               'suffix' => $suffix,
-               'defaultImage' => Yii::$app->params['default_image']
-           ]);
-        }
-        return $this->_image;
-    }
-        
-    /**
-    * function ->getBanner ($suffix, $refresh)
-    */
-    public $_banner;
-    public function getBanner ($suffix = null, $refresh = false)
-    {
-        if ($this->_banner === null || $refresh == true) {
-            $this->_banner = FileUtils::getImage([
-               'imageName' => $this->banner,
-               'imagePath' => $this->image_path,
-               'imagesFolder' => Yii::$app->params['images_folder'],
-               'imagesUrl' => Yii::$app->params['images_url'],
-               'suffix' => $suffix,
-               'defaultImage' => Yii::$app->params['default_image']
-           ]);
-        }
-        return $this->_banner;
-    }
     
     /**
     * function ->getLink ()
@@ -85,7 +48,7 @@ class ArticleCategory extends \common\models\ArticleCategory
     {
         if ($this->_link === null) {
             $_link = '';
-            if ($parent = $this->getParent()) {
+            if ($parent = $this->parent) {
                 $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article-category/index','parent_slug' => $parent->slug ,'slug' => $this->slug]);
             } else {
                 $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article-category/index', 'slug' => $this->slug]);
@@ -128,7 +91,7 @@ class ArticleCategory extends \common\models\ArticleCategory
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ArticleCategory::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -140,7 +103,7 @@ class ArticleCategory extends \common\models\ArticleCategory
                     'imageName' => $model->banner,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ArticleCategory::$banner_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -155,7 +118,6 @@ class ArticleCategory extends \common\models\ArticleCategory
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
             ]);
-        
             if ($model->save()) {
                 if ($log) {
                     $log->object_pk = $model->id;
@@ -191,7 +153,10 @@ class ArticleCategory extends \common\models\ArticleCategory
             $this->updated_at = $now;
             $this->updated_by = $username;
             if ($this->slug != $this->getOldAttribute('slug')) {
-                $old_slugs_arr = json_decode($this->old_slugs, true); is_array($old_slugs_arr) or $old_slugs_arr = array(); $old_slugs_arr[$now] = $this->getOldAttribute('slug'); $this->old_slugs = json_encode($old_slugs_arr);
+                $old_slugs_arr = json_decode($this->old_slugs, true);
+                is_array($old_slugs_arr) or $old_slugs_arr = array();
+                $old_slugs_arr[$now] = $this->getOldAttribute('slug');
+                $this->old_slugs = json_encode($old_slugs_arr);
             }
                   
             if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
@@ -210,7 +175,7 @@ class ArticleCategory extends \common\models\ArticleCategory
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ArticleCategory::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -222,7 +187,7 @@ class ArticleCategory extends \common\models\ArticleCategory
                     'imageName' => $this->banner,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ArticleCategory::$banner_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -291,10 +256,10 @@ class ArticleCategory extends \common\models\ArticleCategory
     public function rules()
     {
         return [
-            [['parent_id', 'status', 'is_hot', 'position', 'is_active'], 'integer', 'message' => '{attribute} phải là số tự nhiên'],
+            [['parent_id', 'status', 'is_hot', 'position', 'is_active'], 'integer'],
             [['long_description'], 'string'],
-            [['name', 'slug', 'created_at'], 'required', 'message' => '{attribute} không thể để trống'],
-            [['slug'], 'unique', 'message' => '{attribute} bị trùng lặp'],
+            [['name', 'slug', 'created_at'], 'required'],
+            [['slug'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'slug', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['old_slugs'], 'string', 'max' => 2000],
@@ -338,12 +303,17 @@ class ArticleCategory extends \common\models\ArticleCategory
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getArticles()
+    {
+        return $this->hasMany(Article::className(), ['article_category_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getParent()
     {
-        if (!empty($this->parent_id)) {
-            return static::findOne(['id' => $this->parent_id]);
-        }
-        return null;
+        return $this->hasOne(ArticleCategory::className(), ['id' => 'parent_id']);
     }
 
     /**

@@ -33,21 +33,27 @@ Url::remember();
             ['class' => 'yii\grid\SerialColumn'],
 
 //            'id',
-//            [
-//                'attribute' => 'image',
-//                'format' => 'raw',
-//                'value' => function ($model) {
-//                    return Html::img($model->getImage(), ['style'=>'max-height:100px;max-width:100px']);
-//                },
-//            ],            
-//            'slug',
+            [
+                'attribute' => 'image',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::img($model->getImage(), ['style'=>'max-height:100px;max-width:100px']);
+                },
+            ],            
 //            'old_slugs',
-            'name',
+            [
+                'attribute' => 'name',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::a($model->name, $model->getLink(), ['style'=>'color:#04a', 'target' => '_blank']);
+                },
+            ],
+            'slug',
             [
                 'attribute' => 'parent_id',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->getParent() ? $model->getParent()->name : '';
+                    return $model->parent ? $model->parent->name : '';
                 },
             ],
             // 'description',
@@ -69,19 +75,19 @@ Url::remember();
 //                },
 //            ],
             // 'updated_at',
-             'created_by',
+//             'created_by',
             // 'updated_by',
-            [
-                'attribute' => 'status',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    if (isset(ArticleCategory::$statuses[$model->status])) {
-                        $status = ArticleCategory::$statuses[$model->status];
-                        return Html::tag('span',  $status, ['class' => 'text-default']);
-                    }
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'status', ArticleCategory::$statuses, ['class'=>'form-control', 'prompt' => '']),
-            ],
+//            [
+//                'attribute' => 'status',
+//                'format' => 'raw',
+//                'value' => function ($model) {
+//                    if (isset(ArticleCategory::$statuses[$model->status])) {
+//                        $status = ArticleCategory::$statuses[$model->status];
+//                        return Html::tag('span',  $status, ['class' => 'text-default']);
+//                    }
+//                },
+//                'filter' => Html::activeDropDownList($searchModel, 'status', ArticleCategory::$statuses, ['class'=>'form-control', 'prompt' => '']),
+//            ],
             [
                 'attribute' => 'is_active',
                 'format' => 'raw',

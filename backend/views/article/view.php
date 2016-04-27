@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'article_category_id',
             'name',
             'content:ntext',
             'slug',
@@ -36,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'image',
             'image_path',
+            'page_title',
             'meta_title',
             'meta_keywords',
             'meta_description',

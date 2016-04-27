@@ -26,15 +26,4 @@ class ArticleCategory extends Html {
 //        ArticleCategory::STATUS_VIEW_ON_HOMEPAGE_AND_FOOTER => 'Hiển thị trên trang chủ và footer',
     ];
 
-    public static $image_resizes = [
-//        'desktop' => [660, 660],
-//        'mobile' => [220, 220],
-//        'tablet' => [400, 400],
-    ];
-    
-    public static $banner_resizes = [
-//        'desktop' => [1370, 1370],
-//        'mobile' => [420, 420],
-//        'tablet' => [780, 780],
-    ];
 }

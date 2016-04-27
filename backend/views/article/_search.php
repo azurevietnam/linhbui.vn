@@ -17,19 +17,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'article_category_id') ?>
+
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'content') ?>
 
     <?= $form->field($model, 'slug') ?>
 
-    <?= $form->field($model, 'old_slugs') ?>
+    <?php // echo $form->field($model, 'old_slugs') ?>
 
     <?php // echo $form->field($model, 'description') ?>
 
     <?php // echo $form->field($model, 'image') ?>
 
     <?php // echo $form->field($model, 'image_path') ?>
+
+    <?php // echo $form->field($model, 'page_title') ?>
 
     <?php // echo $form->field($model, 'meta_title') ?>
 

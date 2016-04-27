@@ -37,6 +37,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'h1') ?>
 
+    <?php // echo $form->field($model, 'page_title') ?>
+
     <?php // echo $form->field($model, 'image') ?>
 
     <?php // echo $form->field($model, 'banner') ?>

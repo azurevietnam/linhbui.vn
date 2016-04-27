@@ -23,17 +23,17 @@ use yii\widgets\ActiveForm;
 		<?php // echo $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
 		<?php // echo $form->field($model, 'banner', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getBanner() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
-		<?php echo $form->field($model, 'status')->dropDownList(\backend\models\ArticleCategory::$statuses, ['prompt' => 'Chọn']) ?>
+		<?php // echo $form->field($model, 'status')->dropDownList(\backend\models\ArticleCategory::$statuses, ['prompt' => 'Chọn']) ?>
 		<?= $form->field($model, 'is_active')->checkbox() ?>
-		<?php // echo $form->field($model, 'is_hot')->checkbox() ?>
+		<?= $form->field($model, 'is_hot')->checkbox() ?>
     </div>
     <div class="col-md-6">
 		<?= $form->field($model, 'parent_id')->dropDownList($this->context->nca, ['prompt' => 'Chọn']) ?>
 		<?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'meta_description')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'meta_keywords')->textInput(['maxlength' => true]) ?>
+		<?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
+        <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
 		<?= $form->field($model, 'position')->textInput() ?>
 		<?php // echo $form->field($model, 'image_path')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 		<?php // echo $model->created_at = $model->isNewRecord ? date('Y-m-d H:i:00') : date('Y-m-d H:i:s', $model->created_at) ?>

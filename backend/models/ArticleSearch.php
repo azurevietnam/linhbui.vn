@@ -18,7 +18,7 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
+            [['id', 'article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
             [['article_category_ids', 'name', 'content', 'slug', 'old_slugs', 'description', 'image', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1', 'created_at', 'updated_at', 'created_by', 'updated_by', 'auth_alias', 'long_description', 'published_at'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class ArticleSearch extends Article
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'article_category_id' => $this->article_category_id,
             'view_count' => $this->view_count,
             'like_count' => $this->like_count,
             'comment_count' => $this->comment_count,

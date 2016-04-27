@@ -9,6 +9,7 @@ use Yii;
  * This is the model class for table "article".
  *
  * @property integer $id
+ * @property integer $article_category_id 
  * @property string $name
  * @property string $content
  * @property string $slug
@@ -37,30 +38,13 @@ use Yii;
  * @property integer $published_at
  * @property integer $is_active
  *
+ * @property ArticleCategory $articleCategory 
  * @property ArticleToArticleCategory[] $articleToArticleCategories
- */
+ * @property ArticleToTag[] $articleToTags 
+*/
 class Article extends \common\models\Article
 {
         
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-               'imageName' => $this->image,
-               'imagePath' => $this->image_path,
-               'imagesFolder' => Yii::$app->params['images_folder'],
-               'imagesUrl' => Yii::$app->params['images_url'],
-               'suffix' => $suffix,
-               'defaultImage' => Yii::$app->params['default_image']
-           ]);
-        }
-        return $this->_image;
-    }
-    
     /**
     * function ->getLink ()
     */
@@ -68,33 +52,20 @@ class Article extends \common\models\Article
     public function getLink() {
         if ($this->_link === null) {
             $_link = '';
-//            if ($cate = $this->getArticleCategory()) {
-//                if ($parent_cate = $cate->getParent()) {
-////                    $_link = Yii::$app->params['frontend_url'] . '/' . $parent_cate->slug . '/' . $cate->slug . '/' . $this->slug . '.html';
-//                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'parent_cate_slug' => $parent_cate->slug , 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
-//                } else {
-////                    $_link = Yii::$app->params['frontend_url'] . '/' . $cate->slug . '/' . $this->slug . '.html';
-//                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
-//                }
-//            } else {
-                $_link = Yii::$app->params['frontend_url'] . '/' . $this->slug . '.html';
-//            }
+            if ($cate = $this->articleCategory) {
+                if ($parent_cate = $cate->parent) {
+                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'parent_cate_slug' => $parent_cate->slug , 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
+                } else {
+                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
+                }
+            } else {
+                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'slug' => $this->slug]);
+            }
             $this->_link = $_link;
         }
         return $this->_link;
     }
     
-    public $_article_category;
-    public function getArticleCategory() {
-        if (empty($this->_article_category)) {
-            if ($articleToArticleCategory = ArticleToArticleCategory::findOne(['article_id' => $this->id])) {
-                $this->_article_category = ArticleCategory::findOne(['id' => $articleToArticleCategory->article_category_id]) or null;
-            }
-        }
-        return $this->_article_category;
-    }
-    
-
     /**
     * function ::create ($data)
     */
@@ -287,10 +258,10 @@ class Article extends \common\models\Article
     public function rules()
     {
         return [
-            [['name', 'slug', 'article_category_ids', 'content', 'created_at', 'published_at'], 'required'],
+            [['name', 'slug', 'article_category_id', 'content', 'created_at', 'published_at'], 'required'],
             [['slug'], 'unique'],
             [['content', 'long_description'], 'string'],
-            [['view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
+            [['article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
             [['created_at', 'updated_at', 'published_at', 'article_category_ids', 'tag_ids'], 'safe'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
@@ -305,6 +276,7 @@ class Article extends \common\models\Article
     {
         return [
             'id' => 'ID',
+            'article_category_id' => 'Danh mục',
             'name' => 'Tiêu đề',
             'content' => 'Nội dung',
             'slug' => 'Slug',
@@ -337,11 +309,28 @@ class Article extends \common\models\Article
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getArticleToArticleCategories()
-    {
-        return $this->hasMany(ArticleToArticleCategory::className(), ['article_id' => 'id']);
-    }
+	
+   /**
+    * @return \yii\db\ActiveQuery
+    */
+   public function getArticleCategory() 
+   { 
+       return $this->hasOne(ArticleCategory::className(), ['id' => 'article_category_id']); 
+   } 
+ 
+   /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getArticleToArticleCategories()
+   {
+       return $this->hasMany(ArticleToArticleCategory::className(), ['article_id' => 'id']);
+   }
+ 
+   /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getArticleToTags() 
+   { 
+       return $this->hasMany(ArticleToTag::className(), ['article_id' => 'id']); 
+   }
 }

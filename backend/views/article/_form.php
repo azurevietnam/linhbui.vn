@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     
     <div class="col-md-6">
+		<?= $form->field($model, 'article_category_id')->dropDownList($this->context->ncac, ['prompt' => 'Chọn']) ?>
 		<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 		<?php // echo $form->field($model, 'article_category_ids')->dropDownList($this->context->ncac, ['prompt' => '']) ?>
 		<?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
@@ -36,17 +37,16 @@ use yii\widgets\ActiveForm;
             ]
         ]) ?>
         <?php // !$model->isNewRecord or $model->is_active = 1 ?>
-		<?= $form->field($model, 'is_active')->checkbox() ?>
 		<?php // echo $form->field($model, 'is_hot')->checkbox() ?>
+		<?= $form->field($model, 'is_active')->checkbox() ?>
     </div>
     <div class="col-md-6">
 		<?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
-		<?php // $form->field($model, 'meta_description')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
+		<?= $form->field($model, 'description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?php echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
             'data' => $this->context->tags_idToName,
             'language' => 'vi',
