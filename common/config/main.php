@@ -8,9 +8,9 @@ return [
         'db' => [
             // database config
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=vngame_me',
-            'username' => 'vngame',
-            'password' => 'ZNcbRr2bntbDztqe',
+            'dsn' => 'mysql:host=localhost;dbname=xemtuvi',
+            'username' => 'quyettv',
+            'password' => 'cxv#$@dFDEh231',
             'charset' => 'utf8',
         ],
         'mailer' => [
