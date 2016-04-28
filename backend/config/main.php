@@ -50,38 +50,19 @@ return [
             'rules' => [
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
-//                ['pattern' => 'sitemap-danh-muc-tin-tuc.xml', 'route' => 'sitemap/article-category'],
-                ['pattern' => 'sitemap-tin-tuc.xml', 'route' => 'sitemap/article'],
-//                ['pattern' => 'sitemap-danh-muc-san-pham.xml', 'route' => 'sitemap/product-category'],
-                ['pattern' => 'sitemap-<slug>.xml', 'route' => 'sitemap/product'],
-                // Thông tin
-                ['pattern' => '<slug>.html', 'route' => 'info/index'],
+                ['pattern' => 'sitemap-<slug>.xml', 'route' => 'sitemap/article'],
                 // Tags
-//                ['pattern' => 'tim-kiem', 'route' => 'tag/index'],
-//                ['pattern' => 'tim-kiem', 'route' => 'tag/index', 'suffix' => '/'],
                 ['pattern' => 'tim-kiem/<slug>', 'route' => 'tag/index'],
                 ['pattern' => 'tim-kiem/<slug>', 'route' => 'tag/index', 'suffix' => '/'], 
                 // Tin tức
                 ['pattern' => 'article/counter', 'route' => 'article/counter'],
-//                ['pattern' => 'tin-tuc/<parent_cate_slug>/<cate_slug>/<slug>.html', 'route' => 'article/index'],
-//                ['pattern' => 'tin-tuc/<cate_slug>/<slug>.html', 'route' => 'article/index'],
-                ['pattern' => 'tin-tuc/<slug>.html', 'route' => 'article/index'],
-                ['pattern' => 'tin-tuc/', 'route' => 'article/view-all'],
-                ['pattern' => 'tin-tuc', 'route' => 'article/view-all'],
+                ['pattern' => '<parent_cate_slug>/<cate_slug>/<slug>.html', 'route' => 'article/index'],
+                ['pattern' => '<cate_slug>/<slug>.html', 'route' => 'article/index'],
                 // Danh mục tin tức
-//                ['pattern' => '<parent_slug>/<slug>/', 'route' => 'article-category/index'],
-//                ['pattern' => '<parent_slug>/<slug>', 'route' => 'article-category/index'],
-//                ['pattern' => '<slug>/', 'route' => 'article-category/index'],
-//                ['pattern' => '<slug>', 'route' => 'article-category/index'],
-                // Sản phẩm
-                ['pattern' => 'product/counter', 'route' => 'product/counter'],
-                ['pattern' => '<parent_cate_slug>/<cate_slug>/<slug>.html', 'route' => 'product/index'],
-                ['pattern' => '<cate_slug>/<slug>.html', 'route' => 'product/index'],
-                // Danh mục sản phẩm
-                ['pattern' => '<parent_slug>/<slug>', 'route' => 'product-category/index'],
-                ['pattern' => '<parent_slug>/<slug>/', 'route' => 'product-category/index'],
-                ['pattern' => '<slug>', 'route' => 'product-category/index'],
-                ['pattern' => '<slug>/', 'route' => 'product-category/index'],
+                ['pattern' => '<parent_slug>/<slug>', 'route' => 'article-category/index', 'suffix' => '/'],
+                ['pattern' => '<parent_slug>/<slug>', 'route' => 'article-category/index'],
+                ['pattern' => '<slug>', 'route' => 'article-category/index', 'suffix' => '/'],
+                ['pattern' => '<slug>', 'route' => 'article-category/index'],
             ]
         ],
         'mailer' => [
