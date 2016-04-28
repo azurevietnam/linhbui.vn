@@ -18,7 +18,7 @@ class SitemapController extends BaseController
     public function actionIndex()
     {
         $items = [];
-        $article_categories = ArticleCategory::find()->leftJoin([Article::tableName() => 'a'], '(select count(a.id) from a where a.article_category_id = id) > 0')->andWhere(['is_active' => 1])->all();
+        $article_categories = ArticleCategory::find()->where(['in', 'id', 'select article_category_id from ' . Article::tableName()])->andWhere(['is_active' => 1])->all();
         foreach ($article_categories as $item) {
             $items[] = Url::to(['sitemap/article', 'slug' => $item->slug], true);
         }
