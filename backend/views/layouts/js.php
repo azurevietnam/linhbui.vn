@@ -183,16 +183,16 @@ use yii\web\View;
                         }
                     }
                 });
-                $("select").children("option").each(function(){
-                    var item = $(this);
-                    if (item.parent("select").val() == "") {
-                        if (ip.val().indexOf(item.html()) != -1) {
-                            item.parent("select").val(item.val());
-                            item.parent("select").parent(".form-group").toggleClass("has-warning");
-                            return false;
-                        }
-                    }
-                });
+//                $("select").children("option").each(function(){
+//                    var item = $(this);
+//                    if (item.parent("select").val() == "") {
+//                        if (ip.val().indexOf(item.html()) != -1) {
+//                            item.parent("select").val(item.val());
+//                            item.parent("select").parent(".form-group").toggleClass("has-warning");
+//                            return false;
+//                        }
+//                    }
+//                });
             });
         }
         
