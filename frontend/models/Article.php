@@ -85,8 +85,8 @@ class Article extends \common\models\Html
     public function getLink() {
         if ($this->_link === null) {
             $_link = '';
-            if ($cate = $this->getArticleCategory()) {
-                if ($parent_cate = $cate->getParent()) {
+            if ($cate = $this->articleCategory) {
+                if ($parent_cate = $cate->parent) {
                     $_link = Url::to(['article/index', 'parent_cate_slug' => $parent_cate->slug, 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
                 } else {
                     $_link = Url::to(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
