@@ -28,15 +28,15 @@
     }
     ?>
     <?php
-    if (isset($cate) && $cate !== null) {
+    if (isset($category) && $category !== null) {
     ?>
     <url>
-        <loc><?= $cate['url'] ?></loc>
+        <loc><?= $category['url'] ?></loc>
         <?php
-        if ($cate['img'] !== '') {
+        if ($category['img'] !== '') {
         ?>
         <image:image>
-            <image:loc><?= $cate['img'] ?></image:loc>
+            <image:loc><?= $category['img'] ?></image:loc>
         </image:image>
         <?php
         }
