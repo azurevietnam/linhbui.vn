@@ -9,8 +9,8 @@ return [
             // database config
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=xemtuvi',
-            'username' => 'quyettv',
-            'password' => 'cxv#$@dFDEh231',
+            'username' => 'xemtuvi_user',
+            'password' => '3XLrQLzc5sXtjzVc',
             'charset' => 'utf8',
         ],
         'mailer' => [
