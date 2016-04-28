@@ -34,13 +34,13 @@
             <?= $this->render('//modules/adsense', ['type' => 'square']) ?>
         </div>
         <?php
-        if ($references !== []) {
+        if ($related_items !== []) {
         ?>
         <div class="bottom_new clearfix">
             <p class="magb10"><strong class="s14">CÓ THỂ BẠN QUAN TÂM </strong></p>
             <ul class="list magb10 clearfix">
                 <?php
-                foreach ($references as $item) {
+                foreach ($related_items as $item) {
                 ?>
                 <li class="clearfix"><?= $item->a() ?></li>
                 <?php

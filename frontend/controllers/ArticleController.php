@@ -22,7 +22,7 @@ class ArticleController extends BaseController
             $this->breadcrumbs[] = ['label' => 'Tin tức', 'url' => Url::to(['view-all'], true)];
             if ($cate = $model->getArticleCategory()) {
 //                $this->breadcrumbs[] = ['label' => $cate->name, 'url' => $cate->getLink()];            
-                $references = $cate->getArticles(['limit' => 3, 'orderBy' => 'rand()', 'id_not_equal' => $model->id]);
+                $related_items = $cate->getArticles(['limit' => 3, 'orderBy' => 'rand()', 'id_not_equal' => $model->id]);
             }
             $this->breadcrumbs[] = ['label' => $model->name, 'url' => $this->link_canonical];            
             
@@ -43,7 +43,7 @@ class ArticleController extends BaseController
             
             return $this->render('index', [
                 'model' => $model,
-                'references' => $references ? $references : array()
+                'related_items' => isset($related_items) ? $related_items : array()
             ]);
         } else {
             Redirect::go();

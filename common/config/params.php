@@ -6,9 +6,9 @@ return [
     
     'site_name' => 'xemtuvi.mobi',
     'site_version' => '1.0',
-    'fb_app_id' => '529991420517704',
-    'ga_id' => 'UA-76773982-1',
-    'gcse_cx' => '018283733847891945836:as0xxdwkweu',
+    'fb_app_id' => '',
+    'ga_id' => '',
+    'gcse_cx' => '',
     
     'root_url' => 'http://',
     'backend_url' => 'http://admin.xemtuvi.mobi',
@@ -28,7 +28,6 @@ return [
     'relative_uploads_folder' => '/uploads',
     
     'default_image' => '',
-    'allow_rm_dir_contains_less' => 20,
     
     'wph_ratios' => [
         'article_image' => 1.75,
