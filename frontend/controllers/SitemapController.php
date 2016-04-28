@@ -18,10 +18,9 @@ class SitemapController extends BaseController
     public function actionIndex()
     {
         $items = [];
-        $items[] = Url::to(['sitemap/article'], true);
-        $categories = ProductCategory::getProductCategories(['not_parent' => true]);
-        foreach ($categories as $item) {
-            $items[] = Url::to(['sitemap/product', 'slug' => $item->slug], true);
+        $article_categories = ArticleCategory::find()->leftJoin([Article::tableName() => 'a'], '(select count(a.id) from a where a.article_category_id = id) > 0')->andWhere(['is_active' => 1])->all();
+        foreach ($article_categories as $item) {
+            $items[] = Url::to(['sitemap/article', 'slug' => $item->slug], true);
         }
         
         Yii::$app->response->format = Response::FORMAT_RAW;
@@ -34,64 +33,21 @@ class SitemapController extends BaseController
         ]);
     }
     
-//    public function actionArticleCategory()
-//    {
-//        $article_categories = ArticleCategory::find()->andWhere(['is_active' => 1])->all();
-//        $items = [];
-//        foreach ($article_categories as $item) {
-//            $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
-//        }
-//        $cate = null;
-//        $home = ['url' => Url::home(true), 'img' => ''];
-//        
-//        Yii::$app->response->format = Response::FORMAT_RAW;
-//        $headers = Yii::$app->response->headers;
-//        $headers->add('Content-Type', 'text/xml; charset=utf-8'); 
-//        $this->layout = false;
-//        
-//        return $this->render('details', [
-//            'home' => $home,
-//            'cate' => $cate,
-//            'items' => $items,
-//        ]);
-//    }
-    
-    public function actionArticle()
+    public function actionArticle($slug)
     {
-        $articles = Article::find()->andWhere(['is_active' => 1])->all();
-        $items = [];
-        foreach ($articles as $item) {
-            $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
-        }
-        $cate = ['url' => Url::to(['article/view-all'], true), 'img' => null];
-        $home = ['url' => Url::home(true), 'img' => ''];
-        
-        Yii::$app->response->format = Response::FORMAT_RAW;
-        $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml; charset=utf-8'); 
-        $this->layout = false;
-        
-        return $this->render('details', [
-            'home' => $home,
-            'cate' => $cate,
-            'items' => $items,
-        ]);
-    }
-    
-    public function actionProduct($slug)
-    {
-        if ($slug !== null && $category = ProductCategory::find()->where(['is_active' => 1])->andWhere(['slug' => $slug])->one()) {
-            $products = $category->getProducts();
-            $top_parent = $category->getTopParent();
-            if ($top_parent->id !== $category->id) {
-                $parent = ['url' => $top_parent->getLink(), 'img' => $top_parent->getImage()];
+        if ($slug !== null && $article_category = ArticleCategory::find()->where(['is_active' => 1])->andWhere(['slug' => $slug])->one()) {
+            $home = ['url' => Url::home(true), 'img' => ''];
+            if ($parent = $article_category->parent) {
+                $parent = ['url' => $parent->getLink(), 'img' => $parent->getImage()];
+            } else {
+                $parent = null;
             }
+            $category = ['url' => $article_category->getLink(), 'img' => $article_category->getImage()];
+            $articles = $article_category->getArticles();
             $items = [];
-            foreach ($products as $item) {
+            foreach ($articles as $item) {
                 $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
             }
-            $cate = ['url' => $category->getLink(), 'img' => $category->getImage()];
-            $home = ['url' => Url::home(true), 'img' => ''];
 
             Yii::$app->response->format = Response::FORMAT_RAW;
             $headers = Yii::$app->response->headers;
@@ -100,56 +56,12 @@ class SitemapController extends BaseController
 
             return $this->render('details', [
                 'home' => $home,
-                'cate' => $cate,
+                'parent' => $parent,
+                'category' => $category,
                 'items' => $items,
-                'parent' => isset($parent) ? $parent : null
             ]);
         } else {
             throw new NotFoundHttpException;
         }
     }
-    
-//    public function actionGallery()
-//    {
-//        $gallerys = Gallery::find()->andWhere(['is_active' => 1])->all();
-//        $items = [];
-//        foreach ($gallerys as $item) {
-//            $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
-//        }
-//        $cate = ['url' => Url::to(['gallery/view-all'], true), 'img' => $cate->getImage()];
-//        $home = ['url' => Url::home(true), 'img' => ''];
-//        
-//        Yii::$app->response->format = Response::FORMAT_RAW;
-//        $headers = Yii::$app->response->headers;
-//        $headers->add('Content-Type', 'text/xml; charset=utf-8'); 
-//        $this->layout = false;
-//        
-//        return $this->render('details', [
-//            'home' => $home,
-//            'cate' => $cate,
-//            'items' => $items,
-//        ]);
-//    }
-//    
-//    public function actionVideo()
-//    {
-//        $videos = Video::find()->andWhere(['is_active' => 1])->all();
-//        $items = [];
-//        foreach ($videos as $item) {
-//            $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
-//        }
-//        $cate = ['url' => Url::to(['video/view-all'], true), 'img' => $cate->getImage()];
-//        $home = ['url' => Url::home(true), 'img' => ''];
-//        
-//        Yii::$app->response->format = Response::FORMAT_RAW;
-//        $headers = Yii::$app->response->headers;
-//        $headers->add('Content-Type', 'text/xml; charset=utf-8'); 
-//        $this->layout = false;
-//        
-//        return $this->render('details', [
-//            'home' => $home,
-//            'cate' => $cate,
-//            'items' => $items,
-//        ]);
-//    }
 }
