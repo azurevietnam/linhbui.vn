@@ -6,7 +6,7 @@ use common\utils\FileUtils;
 use Yii;
 use yii\db\ActiveRecord;
 
-class Html extends ActiveRecord {
+class MyActiveRecord extends ActiveRecord {
     //put your code here
     
     public static $image_resizes = [
@@ -29,7 +29,7 @@ class Html extends ActiveRecord {
    * function ->getImage ($suffix, $refresh) 
    */ 
    public $_image; 
-   public function getImage ($suffix = null, $refresh = false) 
+   public function getImage($suffix = null, $refresh = false) 
    { 
        if ($this->_image === null || $refresh == true) { 
            $this->_image = FileUtils::getImage([ 
@@ -48,7 +48,7 @@ class Html extends ActiveRecord {
     * function ->getBanner ($suffix, $refresh)
     */
     public $_banner;
-    public function getBanner ($suffix = null, $refresh = false)
+    public function getBanner($suffix = null, $refresh = false)
     {
         if ($this->_banner === null || $refresh == true) {
             $this->_banner = FileUtils::getImage([
@@ -64,44 +64,35 @@ class Html extends ActiveRecord {
     }
     
     public $a = '';
-    public $img = '';
 
-    public function ast($params = '', $value = '') {
-        return $this->a($params, $value, true);
-    }
-
-    public function a($params = '', $value = '', $strong = false) {
+    public function a($params = [], $content = null)
+    {
         $result = "<a href=\"{$this->getLink()}\" title=\"" . str_replace("\"", "'", $this->name) . "\"";
         if (is_array($params)) {
-            if (count($params) > 0) {
-                foreach ($params as $attr => $val) {
-                    if ($attr == 0) {
-                        $result .= "class=\"$val\"";
-                    } else if ($attr == 1) {
-                        $result .= "id=\"$val\"";
-                    } else {
-                        $result .= $attr . "=\"$val\"";
-                    }
+            foreach ($params as $attr => $val) {
+                if ($attr == 0) {
+                    $result .= "class=\"$val\"";
+                } else if ($attr == 1) {
+                    $result .= "id=\"$val\"";
+                } else {
+                    $result .= $attr . "=\"$val\"";
                 }
             }
         } else if ($params != '') {
             $result .= "class=\"$params\"";
         }
-        $ins_opentag = '';
-        $ins_closetag = '';
-        if ($strong) {
-            $ins_opentag = '<strong>';
-            $ins_closetag = '</strong>';
-        }
-        if ($value != '') {
-            $result .= ">$ins_opentag{$value}$ins_closetag</a>";
+        if ($content !== null) {
+            $result .= ">$content</a>";
         } else {
-            $result .= ">$ins_opentag{$this->name}$ins_closetag</a>";
+            $result .= ">$this->name</a>";
         }
         return $result;
     }
+    
+    public $img = '';
 
-    public function img($params = [], $suffix = null) {
+    public function img($params = [], $suffix = null)
+    {
         $result = "<img title=\"" . str_replace("\"", "'", $this->name) . "\" alt=\"" . str_replace("\"", "'", $this->name) . "\"";
         $has_src = false;
         if (is_array($params)) {
@@ -117,7 +108,7 @@ class Html extends ActiveRecord {
                     $has_src = true;
                 }
             }
-        } else if ($params !== '') {
+        } else if ($params != '') {
             $result .= "class=\"$params\"";
         }
         if (!$has_src) {
@@ -130,33 +121,14 @@ class Html extends ActiveRecord {
         return $result;
     }
 
-    public function banner($params = [], $suffix = null) {
-        $result = "<img title=\"" . str_replace("\"", "'", $this->name) . "\" alt=\"" . str_replace("\"", "'", $this->name) . "\"";
-        $has_src = false;
-        if (is_array($params)) {
-            foreach ($params as $attr => $val) {
-                if ($attr == 0) {
-                    $result .= "class=\"$val\"";
-                } else if ($attr == 1) {
-                    $result .= "id=\"$val\"";
-                } else {
-                    $result .= "$attr=\"$val\"";
-                }
-                if ($attr == 'src') {
-                    $has_src = true;
-                }
-            }
-        } else if ($params !== '') {
-            $result .= "class=\"$params\"";
+    public function banner($params = [], $suffix = null)
+    {
+        if ($suffix !== null) {
+            $params['src'] = $this->getBanner($suffix, true);
+        } else {
+            $params['src'] = $this->getBanner();
         }
-        if (!$has_src) {
-            if ($suffix !== null) {
-                $result .= "src=\"{$this->getBanner($suffix, true)}\">";
-            } else {
-                $result .= "src=\"{$this->getBanner()}\">";
-            }
-        }
-        return $result;
+        return $this->img($params);
     }
     
     public function auth()
@@ -168,7 +140,7 @@ class Html extends ActiveRecord {
         return 'Admin';
     }
     
-    public function summary($column = 'description', $length = 40)
+    public function desc($column = 'description', $length = 40)
     {
         return StringUtils::summaryText($this->$column, $length);
     }
@@ -177,6 +149,25 @@ class Html extends ActiveRecord {
     {
         return date($format, $this->$column);
     }
-
     
+    /** 
+    * @inheritdoc 
+    * @return ArticleQuery the active query used by this AR class. 
+    */ 
+    public static function find() 
+    { 
+        return new MyActiveQuery(get_called_class());
+    }
+    
+    public $_all_children = 1;
+    public function getAllChildren()
+    {
+        if ($this->_all_children === 1) {
+            $this->_all_children = $this->getChildren();
+            foreach ($this->_all_children as $item) {
+                $this->_all_children = array_merge($this->_all_children, $item->getAllChildren());
+            }
+        }
+        return $this->_all_children;
+    }
 }

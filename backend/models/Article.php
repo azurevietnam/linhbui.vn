@@ -59,7 +59,7 @@ class Article extends \common\models\Article
                     $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
                 }
             } else {
-                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'slug' => $this->slug]);
+//                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'slug' => $this->slug]);
             }
             $this->_link = $_link;
         }

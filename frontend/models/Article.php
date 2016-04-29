@@ -2,15 +2,13 @@
 
 namespace frontend\models;
 
-use common\utils\StringUtils;
 use Yii;
-use yii\db\ActiveQuery;
 use yii\helpers\Url;
-
 /**
  * This is the model class for table "article".
  *
  * @property integer $id
+ * @property integer $article_category_id
  * @property string $name
  * @property string $content
  * @property string $slug
@@ -39,147 +37,65 @@ use yii\helpers\Url;
  * @property integer $published_at
  * @property integer $is_active
  *
+ * @property ArticleCategory $articleCategory
  * @property ArticleToArticleCategory[] $articleToArticleCategories
+ * @property ArticleCategory[] $articleCategories
+ * @property ArticleToTag[] $articleToTags
+ * @property Tag[] $tags
  */
-class Article extends \common\models\Html
+class Article extends \common\models\Article
 {
-
-    /**
-     * function ->getImage ($suffix, $refresh)
-     */
-//    public $_image;
-//
-//    public function getImage($suffix = null, $refresh = false) {
-//        if ($this->_image === null || $refresh == true) {
-//            $_image = '';
-//            if ($suffix == null) {
-//                if (is_file(Yii::$app->params['images_folder'] . $this->image_path . $this->image)) {
-//                    $_image = Yii::$app->params['images_url'] . $this->image_path . $this->image;
-//                } else {
-//                    $_image = Yii::$app->params['default_image'];
-//                }
-//            } else {
-//                $name_map = explode('.', $this->image);
-//                if (count($name_map) >= 2) {
-//                    $extension = $name_map[count($name_map) - 1];
-//                    $basename = substr($this->image, 0, -(1 + strlen($extension)));
-//                    if (is_file(Yii::$app->params['images_folder'] . $this->image_path . $basename . $suffix . '.' . $extension)) {
-//                        $_image = Yii::$app->params['images_url'] . $this->image_path . $basename . $suffix . '.' . $extension;
-//                    } else {
-//                        $_image = Yii::$app->params['default_image'];
-//                    }
-//                } else {
-//                    $_image = Yii::$app->params['default_image'];
-//                }
-//            }
-//            $this->_image = str_replace('%3A//', '://', str_replace('%2F', '/', rawurlencode($_image)));
-//        }
-//        return $this->_image;
-//    }
-
-    /**
-     * function ->getLink ()
-     */
     public $_link;
-
-    public function getLink() {
+    public function getLink()
+    {
         if ($this->_link === null) {
             $_link = '';
             if ($cate = $this->articleCategory) {
                 if ($parent_cate = $cate->parent) {
-                    $_link = Url::to(['article/index', 'parent_cate_slug' => $parent_cate->slug, 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
+                    $_link = Url::to(['article/index', 'parent_cate_slug' => $parent_cate->slug , 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
                 } else {
                     $_link = Url::to(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
                 }
             } else {
-//                $_link = Url::to(['article/index', 'slug' => $this->slug], true);
+//                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'slug' => $this->slug]);
             }
             $this->_link = $_link;
         }
         return $this->_link;
     }
 
-    public $_article_category;
-
-    public function getArticleCategory() {
-        if (empty($this->_article_category)) {
-            if ($articleToArticleCategory = ArticleToArticleCategory::findOne(['article_id' => $this->id])) {
-                $this->_article_category = ArticleCategory::findOne(['id' => $articleToArticleCategory->article_category_id]) or null;
-            }
-        }
-        return $this->_article_category;
-    }
-
-    public static function getArticles($params = []) {
-        $query = static::find()->where(['is_active' => 1])->andWhere(['<=', 'published_at', strtotime('now')]);
-        if (isset($params['id_in']) && is_array($params['id_in'])) {
-            $query->andWhere(['in', 'id', $params['id_in']]);
-        }
-        if (isset($params['id_not_in']) && is_array($params['id_not_in'])) {
-            $query->andWhere(['not in', 'id', $params['id_not_in']]);
-        }
-        if (!empty($params['id_not_equal'])) {
-            $query->andWhere(['!=', 'id', $params['id_not_equal']]);
-        }
-        if (!empty($params['is_hot'])) {
-            $query->andWhere(['is_hot' => $params['is_hot']]);
-        }
-        if (!empty($params['orderBy'])) {
-            $query->orderBy($params['orderBy']);
-        } else {
-            $query->orderBy('created_at desc');
-        }
-        if (!empty($params['limit'])) {
-            $query->limit($params['limit']);
-        }
-        if (!empty($params['offset'])) {
-            $query->offset($params['offset']);
-        }
-        $result = $query->all();
-        if (!is_array($result)) {
-            return [];
-        }
-        return $result;
-    }
-    
-    public function summary($column = 'description', $length = 40)
-    {
-        return StringUtils::summaryText($this->$column, $length);
-    }
-    
-    public function date($column = 'published_at', $format = 'd-m-Y H:i')
-    {
-        return date($format, $this->$column);
-    }
-
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'article';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
+            [['article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'created_at', 'updated_at', 'is_hot', 'position', 'status', 'published_at', 'is_active'], 'integer'],
             [['content', 'created_at', 'published_at'], 'required'],
             [['content', 'long_description'], 'string'],
-            [['view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
-            [['created_at', 'updated_at', 'published_at'], 'safe'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
-            [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255]
+            [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
+            [['article_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleCategory::className(), 'targetAttribute' => ['article_category_id' => 'id']],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
+            'article_category_id' => 'Article Category ID',
             'name' => 'Name',
             'content' => 'Content',
             'slug' => 'Slug',
@@ -211,10 +127,43 @@ class Article extends \common\models\Html
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
-    public function getArticleToArticleCategories() {
+    public function getArticleCategory()
+    {
+        return $this->hasOne(ArticleCategory::className(), ['id' => 'article_category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticleToArticleCategories()
+    {
         return $this->hasMany(ArticleToArticleCategory::className(), ['article_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticleCategories()
+    {
+        return $this->hasMany(ArticleCategory::className(), ['id' => 'article_category_id'])->viaTable('article_to_article_category', ['article_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticleToTags()
+    {
+        return $this->hasMany(ArticleToTag::className(), ['article_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('article_to_tag', ['article_id' => 'id']);
     }
 
 }

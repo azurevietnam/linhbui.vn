@@ -12,7 +12,7 @@ namespace common\models;
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-class ProductFile extends Html {
+class ProductFile extends MyActiveRecord {
     //put your code here
     const OS_ANDROID = 1;
     const OS_IOS = 2;

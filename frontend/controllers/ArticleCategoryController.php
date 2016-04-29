@@ -14,24 +14,26 @@ class ArticleCategoryController extends BaseController
     public function actionIndex()
     {
         $slug = Yii::$app->request->get('slug', '');
-        if ($cate = ArticleCategory::findOne(['is_active' => 1, 'slug' => $slug])) {
-            $this->link_canonical = $cate->getLink();
+        if ($category = ArticleCategory::find()->where(['slug' => $slug])->oneActive()) {
+            $this->link_canonical = $category->getLink();
             if (!Redirect::compareUrl($this->link_canonical)) {
                 $this->redirect($this->link_canonical);
-            }            
-            $this->breadcrumbs[] = ['label' => 'Tin tức', 'url' => Url::to(['article/view-all'], true)];
-            $this->breadcrumbs[] = ['label' => $cate->name, 'url' => $this->link_canonical];
+            }
+            if ($parent_category = $category->parent) {
+                $this->breadcrumbs[] = ['label' => $parent_category->name, 'url' => $parent_category->getLink()];
+            }
+            $this->breadcrumbs[] = ['label' => $category->name, 'url' => $this->link_canonical];
             
             if (!$this->seo_exist) {
-                $this->page_title = $cate->page_title;
-                $this->h1 = $cate->h1;
-                $this->meta_title = $cate->meta_title;
-                $this->meta_description = $cate->meta_description;
-                $this->meta_keywords = $cate->meta_keywords;
-                $this->long_description = $cate->long_description;
+                $this->page_title = $category->page_title;
+                $this->h1 = $category->h1;
+                $this->meta_title = $category->meta_title;
+                $this->meta_description = $category->meta_description;
+                $this->meta_keywords = $category->meta_keywords;
+                $this->long_description = $category->long_description;
             }
             if (!$this->seo_image_exist) {
-                $this->meta_image = $cate->getImage();
+                $this->meta_image = $category->getImage();
             }
             
             $page = Yii::$app->request->get('page', 0);
@@ -43,12 +45,10 @@ class ArticleCategoryController extends BaseController
                 $this->meta_description .= " - trang $page";
             }
             $page = $page > 0 ? $page : 1;
-            
-            $articles = $cate->getArticles([
-                'limit' => static::ITEMS_PER_PAGE,
-                'offset' => ($page - 1) * static::ITEMS_PER_PAGE,
-            ]);
-            $totalItems = $cate->countArticles();
+            $items = $category->getAllArticles();
+            $totalItems = $category->getArticles()
+                    ->offset(($page - 1) * static::ITEMS_PER_PAGE)
+                    ->countPublished();
             
             $total = ceil($totalItems / static::ITEMS_PER_PAGE);
             $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
@@ -62,8 +62,8 @@ class ArticleCategoryController extends BaseController
             ];
             
             return $this->render('index', [
-                'cate' => $cate,
-                'articles' => $articles,
+                'category' => $category,
+                'items' => $items,
                 'pagination' => $pagination,
             ]);
             

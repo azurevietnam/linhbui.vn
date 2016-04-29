@@ -12,7 +12,7 @@ namespace common\models;
  *
  * @author quyet
  */
-class SlideshowItem extends Html {
+class SlideshowItem extends MyActiveRecord {
     //put your code here
     const DEVICE_TYPE_DESKTOP = 1;
     const DEVICE_TYPE_MOBILE = 2;

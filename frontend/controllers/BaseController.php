@@ -74,33 +74,6 @@ class BaseController extends Controller {
             }
         }
         
-        $data1 = [];
-        $product_categories = ProductCategory::getProductCategories(['orderBy' => 'position asc']);
-        foreach ($product_categories as $item) {
-            $data1[$item->id] = [
-                'label' => $item->name,
-                'url' => $item->getLink(),
-                'parent_key' => $item->parent_id
-            ];
-        }
-        $data2 = [];
-        $data2['news'] = [
-            'label' => 'Tin',
-            'url' => Url::to(['article/view-all'], true),
-            'parent_key' => null,
-        ];
-        Menu::init([
-            'P' => $data1,
-            'A' => $data2
-        ]);
-        $top_menu = Menu::getTopParents();
-        $top_menu_values = array_values($top_menu);
-        $current_key = Menu::getCurrentKey();
-        ////
-        $this->game = isset($top_menu_values[0]) ? $top_menu_values[0] : new Menu();
-        $this->app = isset($top_menu_values[1]) ? $top_menu_values[1] : new Menu();
-        $this->news = isset($top_menu_values[2]) ? $top_menu_values[2] : new Menu();
-        
         return true;
     }
 }

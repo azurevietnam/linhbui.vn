@@ -12,7 +12,7 @@ namespace common\models;
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-class ArticleCategory extends Html {
+class ArticleCategory extends MyActiveRecord {
     //put your code here
     const STATUS_VIEW_ON_TOP = 1;
 //    const STATUS_VIEW_ON_HOMEPAGE = 1;

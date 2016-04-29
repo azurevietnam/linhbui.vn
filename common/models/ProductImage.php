@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  *
  * @author quyet
  */
-class ProductImage extends Html {
+class ProductImage extends MyActiveRecord {
     //put your code here
     public static $image_resizes = [
         'large' => [340, 340],

@@ -76,22 +76,7 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->link_canonical = Yii::$app->params['frontend_url'];
-        $new_products = \frontend\models\Product::getProducts(['limit' => 4, 'orderBy' => 'published_at desc']);
-        $hot_products = \frontend\models\Product::getProducts(['limit' => 1, 'is_hot' => 1, 'orderBy' => 'published_at desc']);
-        if (isset($hot_products[0])) {
-            $hot_product = $hot_products[0];
-        } else {
-            $hot_product = new \frontend\models\Product;
-        }
-        $top_download_products = \frontend\models\Product::getProducts(['limit' => 4, 'orderBy' => 'download_count desc']);
-        $product_categories = \frontend\models\ProductCategory::getProductCategories(['is_hot' => 1, 'orderBy' => 'position asc']);
-        $new_articles = Article::getArticles(['limit' => 6]);
         return $this->render('index', [
-            'hot_product' => $hot_product,
-            'new_articles' => $new_articles,
-            'new_products' => $new_products,
-            'top_download_products' => $top_download_products,
-            'product_categories' => $product_categories
         ]);
     }
 

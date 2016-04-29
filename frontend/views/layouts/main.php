@@ -19,18 +19,6 @@ AppAsset::register($this);
 <?php require_once 'meta.php'; ?>
 <?= Html::csrfMetaTags() ?> 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-function shownav(){if(document.getElementById('categories-list').style.display=="block"){document.getElementById('categories-list').style.display='none';}
-    else{document.getElementById('categories').style.display='none';document.getElementById('categories-list').style.display='block';}}
-function d_shownav(){document.getElementById('categories').style.display='none';document.getElementById('categories-list').style.display='block';}
-function d_hidenav(){document.getElementById('categories').style.display='none';document.getElementById('categories-list').style.display='none';}
-function d_shownav1(){document.getElementById('categories-list').style.display='none';document.getElementById('categories').style.display='block';}
-function d_hidenav1(){document.getElementById('categories-list').style.display='none';document.getElementById('categories').style.display='none';}
-function shownav1(){if (document.getElementById('categories').style.display=='block'){document.getElementById('categories').style.display='none';}
-    else{document.getElementById('categories-list').style.display = 'none';document.getElementById('categories').style.display='block';}}
-function showmenuc2(div_id){if (document.getElementById(div_id).style.display=='block'){document.getElementById(div_id).style.display='none';}
-    else{document.getElementById(div_id).style.display='block';}}
-</script>
 <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -58,18 +46,6 @@ src="https://www.facebook.com/tr?id=935301939844245&ev=PageView&noscript=1"
 </div>
 <script>
 <?php $this->beginBlock('JS_END') ?>
-/////////////
-function updateProductDownloadCount(id, download_count, next_url){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-            window.location = next_url;
-        }
-    };
-    xhttp.open("POST", "<?= Url::to(['product/counter'], true) ?>", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id=" + id + "&download_count=" + download_count + "&<?= Yii::$app->request->csrfParam; ?>=<?= Yii::$app->request->csrfToken; ?>");
-}
 //////////////
 paragraphStyle();
 window.addEventListener("resize", function(){

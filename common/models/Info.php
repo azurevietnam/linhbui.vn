@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-class Info extends Html {
+class Info extends MyActiveRecord {
     //put your code here
     
     const TYPE_FAQ = 1;

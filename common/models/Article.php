@@ -4,7 +4,7 @@ namespace common\models;
 
 use yii\db\ActiveRecord;
 
-class Article extends Html {
+class Article extends MyActiveRecord {
     public static $image_resizes = [
         'large' => [340, 340],
         'medium' => [230, 230],

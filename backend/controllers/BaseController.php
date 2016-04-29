@@ -25,15 +25,15 @@ class BaseController extends Controller {
         $product_categories = ProductCategory::find()->all();
         foreach ($product_categories as $item) {
            if (!ProductToProductCategory::find()->where(['product_category_id' => $item->id])->one()) {
-               if ($item->getParent() !== null) {
-//                    $ncp[$item->getParent()->name][$item->id] = $item->name;
+               if ($item->parent !== null) {
+//                    $ncp[$item->parent->name][$item->id] = $item->name;
                } else {
                     $ncp[$item->id] = $item->name;
                }
            }
            if (!ProductCategory::find()->where(['parent_id' => $item->id])->one()) {
-               if ($item->getParent() !== null) {
-                    $ncpc[$item->getParent()->name][$item->id] = $item->name;
+               if ($item->parent !== null) {
+                    $ncpc[$item->parent->name][$item->id] = $item->name;
                } else {
                     $ncpc[$item->id] = $item->name;
                }
@@ -48,15 +48,15 @@ class BaseController extends Controller {
         $article_categories = ArticleCategory::find()->all();
         foreach ($article_categories as $item) {
            if (!ArticleToArticleCategory::find()->where(['article_category_id' => $item->id])->one()) {
-               if ($item->getParent() !== null) {
-//                    $nca[$item->getParent()->name][$item->id] = $item->name;
+               if ($item->parent !== null) {
+//                    $nca[$item->parent->name][$item->id] = $item->name;
                } else {
                     $nca[$item->id] = $item->name;
                }
            }
            if (!ArticleCategory::find()->where(['parent_id' => $item->id])->one()) {
-               if ($item->getParent() !== null) {
-                    $ncac[$item->getParent()->name][$item->id] = $item->name;
+               if ($item->parent !== null) {
+                    $ncac[$item->parent->name][$item->id] = $item->name;
                } else {
                     $ncac[$item->id] = $item->name;
                }
