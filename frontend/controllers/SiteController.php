@@ -2,18 +2,17 @@
 namespace frontend\controllers;
 
 use frontend\models\Article;
+use frontend\models\ArticleCategory;
 use frontend\models\ContactForm;
-use frontend\models\Gallery;
 use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\SlideshowItem;
-use frontend\models\Video;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -75,8 +74,12 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        $this->link_canonical = Yii::$app->params['frontend_url'];
+        $this->link_canonical = Url::home(true);
+        $hot_items = Article::find()->orderBy('published_at desc')->limit(16)->allPublished();
+        $hot_categories = ArticleCategory::find()->where(['is_hot' => 1])->orderBy('position asc')->allActive();
         return $this->render('index', [
+            'hot_items' => $hot_items,
+            'hot_categories' => $hot_categories
         ]);
     }
 

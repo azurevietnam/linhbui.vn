@@ -78,7 +78,7 @@
             ?>
             <div class="box bottom25">
                 <p class="lineheigh"><?= $this->context->long_description ?></p>
-                <p><?= $this->render('//modules/like_share') ?></p>
+                <p><?= $this->render('//modules/like-share') ?></p>
             </div>
             <?php
         }

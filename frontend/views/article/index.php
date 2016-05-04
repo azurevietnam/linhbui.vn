@@ -15,7 +15,7 @@
                 <time class="fl"><em class="ic-lock"></em><?= $model->date() ?></time>
                 <span class="fl num-coment"><em class="comment"></em><?= $model->comment_count ?> bình luận</span>
             </p>
-            <?= $this->render('//modules/like_share', [
+            <?= $this->render('//modules/like-share', [
                 'options' => ['class' => 'addthis_tool fr']
             ]) ?>
         </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="box_like clearfix">
             <div class="addthis_tool">
-                <?= $this->render('//modules/like_share') ?>
+                <?= $this->render('//modules/like-share') ?>
             </div>
         </div>
         <div class="txt-center magT10">

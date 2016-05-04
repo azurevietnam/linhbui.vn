@@ -78,7 +78,7 @@ class BaseController extends Controller {
             'parent_key' => null
         ];
         $data2 = [];
-        $categories = ArticleCategory::find()->where(['is_hot' => 1])->limit(8)->orderBy('position asc')->allActive();
+        $categories = ArticleCategory::find()->where(['is_hot' => 1])->orderBy('position asc')->allActive();
         foreach ($categories as $item) {
             $data2[$item->id] = [
                 'label' => $item->name,
