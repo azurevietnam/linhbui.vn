@@ -4,11 +4,9 @@ return [
     'supportEmail' => 'support@xemtuvi.mobi',
     'user.passwordResetTokenExpire' => 3600,
     
-    'site_name' => 'xemtuvi.mobi',
-    'site_version' => '1.0',
     'fb_app_id' => '',
     'ga_id' => '',
-    'gcse_cx' => '',
+    'gcse_cx' => '018283733847891945836:xsypudiqkrc',
     
     'root_url' => 'http://',
     'backend_url' => 'http://admin.xemtuvi.mobi',

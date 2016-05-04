@@ -45,9 +45,11 @@ class ArticleCategoryController extends BaseController
                 $this->meta_description .= " - trang $page";
             }
             $page = $page > 0 ? $page : 1;
-            $items = $category->getAllArticles();
-            $totalItems = $category->getArticles()
+            $items = $category->getAllArticles()
+                    ->limit(static::ITEMS_PER_PAGE)
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
+                    ->allPublished();
+            $totalItems = $category->getAllArticles()
                     ->countPublished();
             
             $total = ceil($totalItems / static::ITEMS_PER_PAGE);

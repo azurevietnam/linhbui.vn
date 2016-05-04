@@ -155,19 +155,20 @@ class MyActiveRecord extends ActiveRecord {
     * @return ArticleQuery the active query used by this AR class. 
     */ 
     public static function find() 
-    { 
+    {
         return new MyActiveQuery(get_called_class());
     }
     
-    public $_all_children = 1;
     public function getAllChildren()
     {
-        if ($this->_all_children === 1) {
-            $this->_all_children = $this->getChildren();
-            foreach ($this->_all_children as $item) {
-                $this->_all_children = array_merge($this->_all_children, $item->getAllChildren());
-            }
+        $allChildren = $this->children;
+        foreach ($allChildren as $item) {
+            $allChildren = array_merge($allChildren, $item->allChildren);
         }
-        return $this->_all_children;
+        $query = static::find();
+        $query->where(['in', 'id', \yii\helpers\ArrayHelper::getColumn($allChildren, 'id')]);
+        $query->multiple = true;
+        return $query;
     }
+    
 }

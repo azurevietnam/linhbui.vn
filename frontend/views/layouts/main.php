@@ -18,9 +18,19 @@ AppAsset::register($this);
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 <?php require_once 'meta.php'; ?>
 <?= Html::csrfMetaTags() ?> 
+<script type="text/javascript" language="javascript">
+function showmenu(div_id) {
+    if(document.getElementById(div_id).style.display === "block"){
+        document.getElementById(div_id).style.display = "none";
+    } else {
+        document.getElementById(div_id).style.display = "block";
+    }
+}
+	
+</script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Facebook Pixel Code -->
-<script>
+<!--<script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -31,19 +41,22 @@ fbq('init', '935301939844245');
 fbq('track', "PageView");</script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=935301939844245&ev=PageView&noscript=1"
-/></noscript>
+/></noscript>-->
 <!-- End Facebook Pixel Code -->
 <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div id="wrapper">
 <?php require_once 'header.php'; ?>
-<div class="containers">
-<div class="main">
-<?= $content ?>
-</div>
-</div>
+<section class="content">
+  <div class="main">
+    <div class="col2 clearfix">
+    <?= $content ?>
+    </div>
+  </div>
+</section>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'plugins.php'; ?>
 <script>
 <?php $this->beginBlock('JS_END') ?>
 //////////////
@@ -53,7 +66,7 @@ window.addEventListener("resize", function(){
 });
 function paragraphStyle() {
     var g;
-    var gs = document.getElementsByClassName("paragraph-2016-04");
+    var gs = document.getElementsByClassName("paragraph-2016-05");
     for (var k = 0; k < gs.length; k++) {
         g = gs[k];
         if (typeof(g) !== "undefined" && g !== null) {
@@ -82,9 +95,6 @@ function paragraphStyle() {
 <?php $this->endBlock(); ?>
 </script>
 <?php $this->registerJs($this->blocks['JS_END'], $this::POS_END, 'JS_END'); ?>
-<?php require_once 'footer.php'; ?>
-<?php require_once 'plugins.php'; ?>
-</div>
 <?php $this->endBody() ?>
 </body>
 </html>

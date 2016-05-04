@@ -55,27 +55,6 @@ class ArticleCategory extends \common\models\ArticleCategory
         return $this->_link;
     }
     
-    public $_children = 1;
-    public function getChildren()
-    {
-        if ($this->_children === 1) {
-            $this->_children = $this->getArticleCategories()->allActive();
-        }
-        return $this->_children;
-    }
-//    
-//    public $_all_articles = 1;
-//    public function getAllArticles()
-//    {
-//        if ($this->_all_articles === 1) {
-//            $this->_all_articles = $this->getArticles()->allPublished();
-//            foreach ($this->getAllChildren() as $children) {
-//                $this->_all_articles = array_merge($this->_all_articles, $children->getAllArticles());
-//            }
-//        }
-//        return $this->_all_articles;
-//    }
-    
     /**
      * @inheritdoc
      */
@@ -131,6 +110,14 @@ class ArticleCategory extends \common\models\ArticleCategory
             'is_active' => 'Is Active',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChildren()
+    {
+        return $this->hasMany(static::className(), ['parent_id' => 'id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -138,6 +125,14 @@ class ArticleCategory extends \common\models\ArticleCategory
     public function getArticles()
     {
         return $this->hasMany(Article::className(), ['article_category_id' => 'id']);
+    }
+    
+    public function getAllArticles()
+    {
+        $query = Article::find();
+        $query->where(['in', 'article_category_id', array_merge([$this->id], \yii\helpers\ArrayHelper::getColumn($this->getAllChildren()->allActive(), 'id'))]);
+        $query->multiple = true;
+        return $query;
     }
 
     /**
@@ -147,7 +142,7 @@ class ArticleCategory extends \common\models\ArticleCategory
     {
         return $this->hasOne(ArticleCategory::className(), ['id' => 'parent_id']);
     }
-
+    
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -171,4 +166,5 @@ class ArticleCategory extends \common\models\ArticleCategory
     {
         return $this->hasMany(Article::className(), ['id' => 'article_id'])->viaTable('article_to_article_category', ['article_category_id' => 'id']);
     }
+    
 }

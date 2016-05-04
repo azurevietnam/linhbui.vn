@@ -1,7 +1,54 @@
+<?php
 
+use yii\helpers\Url;
+
+?>
+<header>
+    <div class="main clearfix">
+        <h1 class="txt-logo fl"><a href="<?= Url::home(true) ?>" title="<?= Yii::$app->name ?>"><img src="<?= Url::home(true) ?>images/logo.png" title="<?= Yii::$app->name ?>" alt="<?= Yii::$app->name ?>"></a></h1>
+        <div class="box-adv" style="width:70%">
+            <?= $this->render('//modules/adsense') ?>
+        </div>
+    </div>
+</header>
+<nav>
+    <div class="main clearfix">
+        <button class="navbar-toggle collapsed" type="button" onClick="showmenu('list-cate')"> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </button>
+        <span class="sr-only">Menu danh mục</span>
+        <ul class="list-unstyle clearfix" id="list-cate">
+            <?php
+            foreach (frontend\models\Menu::getTopParents() as $item) {
+            ?>
+            <li class="fl<?= $item->isCurrent() ? ' active' : '' ?>"><?= $item->a([], "<strong>$item->label</strong>") ?><span class="line">|</span></li>
+            <?php
+            }
+            ?>
+        </ul>
+        <div class="search"><em class="ic-search" onClick="showmenu('form-search')"></em> </div>
+        <div class="form-search" id="form-search">
+            <gcse:search></gcse:search>
+        </div>
+    </div>
+</nav>
+<section class="mid-header">
+    <div class="main clearfix">
+        <?php
+        if (in_array(Yii::$app->controller->id, ['site'])) {
+        ?>
+            <strong>Hôm nay, ngày <?= date('d/m/Y H:i') ?></strong>
+            <?php echo $this->render('//modules/like-share', ['options' => ['class' => 'fr box-social']]) ?>
+        <?php
+        } else {
+        ?>
+            <?= $this->render('//modules/breadcrumbs') ?>
+        <?php
+        }
+        ?>
+    </div>
+</section>
 <?php
 if (!$this->context->is_mobile || $this->context->is_tablet) {
-$this->registerCss('
+    $this->registerCss('
     .form-search,#___gcse_0{max-width:280px}
     .gsc-input-box,.gsc-search-box,.gsc-control-cse,#___gcse_0,.form-search{border-radius:12px;}
     .gsc-search-box-tools .gsc-search-box .gsc-input{border-radius:12px}   

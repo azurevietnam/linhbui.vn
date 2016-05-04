@@ -2,8 +2,8 @@
 namespace frontend\controllers;
 
 use common\utils\MobileDetect;
+use frontend\models\ArticleCategory;
 use frontend\models\Menu;
-use frontend\models\ProductCategory;
 use frontend\models\ProductFile;
 use frontend\models\SeoInfo;
 use Yii;
@@ -15,9 +15,6 @@ use yii\web\Controller;
  */
 class BaseController extends Controller {
     public
-    $game,
-    $app,
-    $news,
     $link_canonical,
     $page_title,
     $meta_title,
@@ -73,6 +70,26 @@ class BaseController extends Controller {
                 $this->meta_image = $seoInfo->getImage();
             }
         }
+        
+        $data1 = [];
+        $data1[] = [
+            'label' => 'Trang chủ',
+            'url' => Url::home(true),
+            'parent_key' => null
+        ];
+        $data2 = [];
+        $categories = ArticleCategory::find()->where(['is_hot' => 1])->limit(8)->orderBy('position asc')->allActive();
+        foreach ($categories as $item) {
+            $data2[$item->id] = [
+                'label' => $item->name,
+                'url' => $item->getLink(),
+                'parent_key' => $item->parent_id
+            ];
+        }
+        Menu::init([
+            'H' => $data1,
+            'A' => $data2
+        ]);
         
         return true;
     }

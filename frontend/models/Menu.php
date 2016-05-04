@@ -123,6 +123,22 @@ class Menu
         return $result;
     }
     
+    public function getParent()
+    {
+        $cache_key = "frontend\models\Menu//$this->key//getParent";
+        $result = Yii::$app->cache->get($cache_key);
+        if ($result === false || !static::$cache_allowed) {
+            $result = null;
+            foreach (static::$data as $key => $item) {
+                if ($item->key === $this->parent_key) {
+                    $result = $item;
+                }
+            }
+            Yii::$app->cache->set($cache_key, $result, static::$cache_time);
+        }
+        return $result;
+    }
+    
     public function getAllChildren()
     {
         $cache_key = "frontend\models\Menu//$this->key//getAllChildren";
@@ -144,7 +160,7 @@ class Menu
         if (static::$top_parents === false || !static::$cache_allowed) {
             static::$top_parents = array();
             foreach (static::$data as $key => $item) {
-                if ($item->parent_key === null) {
+                if ($item->getParent() === null) {
                     static::$top_parents[$key] = $item;
                 }
             }

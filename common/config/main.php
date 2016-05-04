@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => 'Vngame.me',
+    'name' => 'Xemtuvi.mobi',
     'charset' => 'UTF-8',
     'language' => 'vi-VN',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
