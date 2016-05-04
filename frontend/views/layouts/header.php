@@ -36,7 +36,7 @@ use yii\helpers\Url;
         if (in_array(Yii::$app->controller->id, ['site'])) {
         ?>
             <strong>Hôm nay, ngày <?= date('d/m/Y H:i') ?></strong>
-            <?php echo $this->render('//modules/like-share', ['options' => ['class' => 'fr box-social']]) ?>
+            <?php // echo $this->render('//modules/like-share', ['options' => ['class' => 'fr box-social']]) ?>
         <?php
         } else {
         ?>
