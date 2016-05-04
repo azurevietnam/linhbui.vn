@@ -49,7 +49,7 @@ class BaseController extends Controller {
         foreach ($article_categories as $item) {
            if (!ArticleToArticleCategory::find()->where(['article_category_id' => $item->id])->one()) {
                if ($item->parent !== null) {
-//                    $nca[$item->parent->name][$item->id] = $item->name;
+                    $nca[$item->parent->name][$item->id] = $item->name;
                } else {
                     $nca[$item->id] = $item->name;
                }
