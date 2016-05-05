@@ -62,7 +62,7 @@ class Menu
                     $m->key = "$object_name.$key";
                     $m->parent_key =
                             isset($item['parent_key']) && $item['parent_key'] !== null
-                            ? "$object_name.{$item['parent_key']}"
+                            ? "{$object_name}_{$item['parent_key']}"
                             : null;
                     static::$data[$m->key] = $m;
                 }
