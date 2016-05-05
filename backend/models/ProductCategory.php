@@ -326,7 +326,8 @@ class ProductCategory extends \common\models\ProductCategory
             [['slug', 'name', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'image', 'banner', 'image_path', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['old_slugs'], 'string', 'max' => 2000],
             [['description', 'meta_description'], 'string', 'max' => 511],
-            ['parent_id', 'compare', 'compareAttribute' => 'id', 'operator' => '!=', 'message' => '{attribute} không được là chính nó.']
+            ['parent_id', 'compare', 'compareAttribute' => 'id', 'operator' => '!=', 'message' => '{attribute} không được là chính nó.'],
+            [['slug', 'parent_id'], 'unique', 'targetAttribute' => ['slug', 'parent_id'], 'message' => 'The combination of Slug and Parent ID has already been taken.'],
         ];
     }
 
