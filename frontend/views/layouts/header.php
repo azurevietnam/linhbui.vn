@@ -36,8 +36,8 @@ if ($this->context->h1 != '') {
                 } else {
             ?>
             <li class="fl<?= $item->isCurrent() ? ' active' : '' ?>">
-              <a href="javascript:void(0)" title="<?= $item->label ?>" onclick="showmenu('list-cate-hide')"><strong><?= $item->label ?></strong></a><span class="line">|</span>
-              <ul id="list-cate-hide" class="list-unstyle clearfix">
+              <a href="javascript:void(0)" title="<?= $item->label ?>" onclick="showmenu('<?= $item->key ?>')"><strong><?= $item->label ?></strong></a><span class="line">|</span>
+              <ul id="<?= $item->key ?>" class="list-unstyle clearfix">
                   <?php
                   foreach ($item->getChildren() as $c_item) {
                   ?>
