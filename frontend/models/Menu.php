@@ -59,7 +59,7 @@ class Menu
                     $m = new Menu();
                     $m->label = $item['label'];
                     $m->url = $item['url'];
-                    $m->key = "$object_name.$key";
+                    $m->key = "{$object_name}_{$key}";
                     $m->parent_key =
                             isset($item['parent_key']) && $item['parent_key'] !== null
                             ? "{$object_name}_{$item['parent_key']}"
