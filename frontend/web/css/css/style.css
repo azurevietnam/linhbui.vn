@@ -139,10 +139,10 @@ nav .main{background:#90150e}
 nav li a{color:#fff; font-size:14px; display:inline-block;line-height:35px;padding:0 10px;text-transform:uppercase}
 nav li span.line{color:#fff;padding:0 5px}
 nav li.active span.line, nav li:last-child span.line{display:none}
-nav li li a{color:#333;text-transform:none}
+nav li li a{color:#333;text-transform:none;background:none}
 nav li.fl.active a, nav li.fl:hover a{background:#b01b13}
-nav li.fl:hover li a{background:none;color:#333;}
-nav li.fl:hover a,nav li.fl.active a{color:#fff}
+nav li.fl:hover li a, nav li.fl.active li a{background:none;color:#333;}
+nav li.fl:hover a{color:#fff;background:none}
 nav li.fl li.fl{width:20%}
 nav li.fl li.fl a::before{content:"» ";color:#888}
 nav li li a:hover{text-decoration:none;}
@@ -424,7 +424,7 @@ header{padding:5px 10px}
 }
 @media(min-width:981px){
 	nav .main{position:relative}
-	nav li ul{position:absolute;top:40px;left:0;background:#fff;border:1px solid #eee;border-top:none;width:100%;z-index:99;box-shadow:0 3px 2px 0 #ccc}
+	nav li ul{position:absolute;top:35px;left:0;background:#fff;border:1px solid #eee;border-top:none;width:100%;z-index:99;box-shadow:0 3px 2px 0 #ccc}
 	button.collapsed, .sr-only{display:none}
 	
 	
