@@ -95,6 +95,13 @@ Url::remember();
                     return $model->is_active === 1 ? Html::tag('span', 'Ok', ['class' => 'label label-info']) : Html::tag('span', '<span class="fa fa-close"></span>', ['class' => 'label label-danger']);
                 },
             ],
+            [
+                'attribute' => 'is_hot',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->is_hot === 1 ? Html::tag('span', 'Hot', ['class' => 'label label-warning']) : Html::tag('span', '<span class="fa fa-close"></span>', ['class' => 'label label-default']);
+                },
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
