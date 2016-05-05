@@ -78,7 +78,7 @@ class Menu
             static::$current_key = '---';
             
             function get_arr($url) {
-                return explode('/', trim(trim(trim($url, '/')), 'http://'), 'https://');
+                return explode('/', trim(trim(trim($url, '/'), 'http://'), 'https://'));
             }
             
             $url = Yii::$app->request->absoluteUrl;
