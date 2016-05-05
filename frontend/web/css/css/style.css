@@ -126,7 +126,7 @@ button:hover{
 }
 .relative{position:relative}
 .absolt{position:absolute}
-
+.txt-logo{margin-top:20px}
 .txt-logo a img{display:block;}
 header{padding:10px 0}
 nav ul{max-width:1084px;margin:0 auto}
