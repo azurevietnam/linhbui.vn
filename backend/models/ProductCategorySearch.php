@@ -47,7 +47,6 @@ class ProductCategorySearch extends ProductCategory
             'query' => $query,
             'sort'=> [
                 'defaultOrder' => [
-                    'position' => SORT_ASC,
                     'id' => SORT_DESC,
                 ]
             ],

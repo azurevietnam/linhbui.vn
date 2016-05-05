@@ -47,7 +47,6 @@ class ArticleCategorySearch extends ArticleCategory
             'query' => $query,
             'sort'=> [
                 'defaultOrder' => [
-                    'position' => SORT_ASC,
                     'id' => SORT_DESC,
                 ]
             ],

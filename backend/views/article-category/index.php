@@ -55,6 +55,7 @@ Url::remember();
                 'value' => function ($model) {
                     return $model->parent ? $model->parent->name : '';
                 },
+                'filter' => Html::activeDropDownList($searchModel, 'parent_id', $this->context->nca, ['class'=>'form-control', 'prompt' => '']),
             ],
             // 'description',
             // 'long_description:ntext',
@@ -66,7 +67,7 @@ Url::remember();
             // 'image_path',
             // 'status',
             // 'is_hot',
-//             'position',
+             'position',
 //            [
 //                'attribute' => 'created_at',
 //                'format' => 'raw',
