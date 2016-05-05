@@ -16,9 +16,15 @@ if ($this->context->h1 != '') {
 <header>
     <div class="main clearfix">
         <div class="txt-logo fl"><a href="<?= Url::home(true) ?>" title="<?= Yii::$app->name ?>"><img src="<?= Url::home(true) ?>images/logo.png" title="<?= Yii::$app->name ?>" alt="<?= Yii::$app->name ?>"></a></div>
+        <?php
+        if (!$this->context->is_mobile) {
+        ?>
         <div class="box-adv" style="width:70%">
             <?= $this->render('//modules/adsense') ?>
         </div>
+        <?php
+        }
+        ?>
     </div>
 </header>
 <nav>
