@@ -430,7 +430,7 @@ header{padding:5px 10px}
 	
 }
 @media(max-width:980px){
-	nav li.fl:first-child, .banner-slide .main span.bt-next, .banner-slide .main span.bt-pre, #list-cate, nav li span.line{display:none}	
+	.banner-slide .main span.bt-next, .banner-slide .main span.bt-pre, #list-cate, nav li span.line{display:none}	
 	.form-search{right:10px}
 
 	nav{position:relative}
