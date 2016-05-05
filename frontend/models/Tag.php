@@ -36,6 +36,16 @@ use Yii;
  */
 class Tag extends \common\models\MyActiveRecord
 {
+    public $_link;
+    public function getLink()
+    {
+        if ($this->_link === null) {
+            $_link = '';
+            $_link = \yii\helpers\Url::to(['tag/index', 'slug' => $this->slug], true);
+            $this->_link = $_link;
+        }
+        return $this->_link;
+    }
     /**
      * @inheritdoc
      */
