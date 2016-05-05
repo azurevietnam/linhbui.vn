@@ -88,13 +88,13 @@ $this->registerCss('
 .gsib_a{padding:0px!important}
 .gsib_b{display:none}
 .search.relative.clearfix{/*margin-top:0px*/;z-index:100}
-.gsc-input-box{border:none!important;height:26px!important}
-.gsc-search-box-tools .gsc-search-box .gsc-input{font-size:1.1em;/*background:none!important;*/padding:1px!important;height:26px!important}   
+.gsc-input-box{border:none!important;height:32px!important}
+.gsc-search-box-tools .gsc-search-box .gsc-input{font-size:1.1em;/*background:none!important;*/padding:1px!important;height:32px!important}   
 .cse .gsc-control-cse,.gsc-control-cse{padding:0!important}
 form.gsc-search-box,table.gsc-search-box{margin-bottom:0}
 .gsc-search-button,.gsc-search-button-v2{display:none}
 .form-search{width:calc(100vw);right:0;box-sizing:border-box}
-.gsc-control-cse{border:1px solid #e88f1b !important;height:30px;}
+.gsc-control-cse{border:1px solid #e88f1b !important;height:36px;}
 /*Search Result*/
 .gsc-selected-option-container{min-width:100px;width:100px!important}
 .gsc-orderby-container{display:none}
