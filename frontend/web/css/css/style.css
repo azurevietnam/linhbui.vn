@@ -139,11 +139,14 @@ nav .main{background:#90150e}
 nav li a{color:#fff; font-size:14px; display:inline-block;line-height:35px;padding:0 10px;text-transform:uppercase}
 nav li span.line{color:#fff;padding:0 5px}
 nav li.active span.line, nav li:last-child span.line{display:none}
-nav li li a{color:#333}
+nav li li a{color:#333;text-transform:none}
 nav li.fl.active a, nav li.fl:hover a{background:#b01b13}
-nav li.fl:hover li{background:none}
+nav li.fl:hover li a{background:none;color:#333;}
 nav li.fl:hover a,nav li.fl.active a{color:#fff}
 nav li.fl li.fl{width:20%}
+nav li.fl li.fl a::before{content:"» ";color:#888}
+nav li li a:hover{text-decoration:none;}
+nav li li a:hover strong{color:#734200}
 nav ul #list-cate-hide{display:none}
 nav .ic-drop{position:absolute;background-color:#ce0008;width:35px;height:35px;background-position:14px 14px;right:0;display:none;top:0}
 .search{position:absolute;top:0;right:0;background:#e88f1b;padding-top:5px; width:45px;text-align:center;height:100%}
@@ -442,6 +445,12 @@ header{padding:5px 10px}
     position: absolute;
     top:9px;left:60px;color:#fff;width:calc(100% - 110px);text-align:left;font-size:18px;text-transform:uppercase;display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden
 }
+.search{max-height:40px}
+nav li.fl li.fl{width:48%;float:left}
+nav li.fl li.fl a::before, nav li li a strong{color:#f90 }
+nav li li a:hover strong{color:#fff}
+#list-cate-hide{background:#820c05}
+
 }
 
 @media(max-width:859px){
@@ -462,7 +471,7 @@ header{padding:5px 10px}
 	header .txt-logo, header .box-adv, .mid-header .box-social{display:none}
 	header .box-adv img{width:100%}
 	.mid-header .main{margin-bottom:10px}
-	.search{max-height:40px}
+	
 	
 	.boxadvs li{float:none;width:100%;padding-bottom:10px}
 	

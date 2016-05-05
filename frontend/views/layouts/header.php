@@ -27,8 +27,29 @@ if ($this->context->h1 != '') {
         <ul class="list-unstyle clearfix" id="list-cate">
             <?php
             foreach (frontend\models\Menu::getTopParents() as $item) {
+                ?>
+            <?php
+                if (count($item->getChildren()) == 0) {
             ?>
             <li class="fl<?= $item->isCurrent() ? ' active' : '' ?>"><?= $item->a([], "<strong>$item->label</strong>") ?><span class="line">|</span></li>
+            <?php
+                } else {
+            ?>
+            <li class="fl">
+              <a href="javascript:void(0)" title="<?= $item->label ?>" onclick="showmenu('list-cate-hide')"><strong><?= $item->label ?></strong></a><span class="line">|</span>
+              <ul id="list-cate-hide" class="list-unstyle clearfix">
+                  <?php
+                  foreach ($item->getChildren() as $c_item) {
+                  ?>
+                <li class="fl"><?= $c_item->a([], "<strong>$c_item->label</strong>") ?></li>
+                <?php
+                  }
+                ?>
+              </ul>
+            </li>
+            <?php
+                }
+            ?>
             <?php
             }
             ?>
