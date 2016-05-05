@@ -2,7 +2,6 @@
 namespace frontend\models;
 
 use Yii;
-use yii\helpers\Url;
 
 class Menu
 {

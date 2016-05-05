@@ -66,7 +66,6 @@ if ($this->context->h1 != '') {
         if (in_array(Yii::$app->controller->id, ['site'])) {
         ?>
             <strong>Hôm nay, ngày <?= date('d/m/Y H:i') ?></strong>
-            <?php // echo $this->render('//modules/like-share', ['options' => ['class' => 'fr box-social']]) ?>
         <?php
         } else {
         ?>
@@ -79,9 +78,9 @@ if ($this->context->h1 != '') {
 <?php
 if (!$this->context->is_mobile || $this->context->is_tablet) {
     $this->registerCss('
-    .form-search,#___gcse_0{max-width:280px}
-    .gsc-input-box,.gsc-search-box,.gsc-control-cse,#___gcse_0,.form-search{border-radius:12px;}
-    .gsc-search-box-tools .gsc-search-box .gsc-input{border-radius:12px}   
+    .form-search,#___gcse_0{max-width:300px}
+    .gsc-input-box,.gsc-search-box,.gsc-control-cse,#___gcse_0,.form-search{border-radius:0px;}
+    .gsc-search-box-tools .gsc-search-box .gsc-input{border-radius:0px}   
 ');
 }
 $this->registerCss('
@@ -93,8 +92,8 @@ $this->registerCss('
 .cse .gsc-control-cse,.gsc-control-cse{padding:0!important}
 form.gsc-search-box,table.gsc-search-box{margin-bottom:0}
 .gsc-search-button,.gsc-search-button-v2{display:none}
-.form-search,#___gcse_0{color:#999;width:calc(100vw);float:right}
-.gsc-control-cse{border:1px solid #eee !important;height:30px;}
+.form-search{width:calc(100vw);right:0;box-sizing:border-box}
+.gsc-control-cse{border:1px solid #e88f1b !important;height:30px;}
 /*Search Result*/
 .gsc-selected-option-container{min-width:100px;width:100px!important}
 .gsc-orderby-container{display:none}
