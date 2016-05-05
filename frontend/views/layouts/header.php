@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Menu;
 use yii\helpers\Url;
 
 ?>
@@ -23,10 +24,10 @@ if ($this->context->h1 != '') {
 <nav>
     <div class="main clearfix">
         <button class="navbar-toggle collapsed" type="button" onClick="showmenu('list-cate')"> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </button>
-        <span class="sr-only">Menu danh mục</span>
+        <span class="sr-only"><?= isset(Menu::$data[Menu::$current_key]) ? Menu::$data[Menu::$current_key]->label : 'Menu danh mục' ?></span>
         <ul class="list-unstyle clearfix" id="list-cate">
             <?php
-            foreach (frontend\models\Menu::getTopParents() as $item) {
+            foreach (Menu::getTopParents() as $item) {
                 ?>
             <?php
                 if (count($item->getChildren()) == 0) {
