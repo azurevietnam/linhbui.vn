@@ -35,13 +35,13 @@ if ($this->context->h1 != '') {
             <?php
                 } else {
             ?>
-            <li class="fl">
+            <li class="fl<?= $item->isCurrent() ? ' active' : '' ?>">
               <a href="javascript:void(0)" title="<?= $item->label ?>" onclick="showmenu('list-cate-hide')"><strong><?= $item->label ?></strong></a><span class="line">|</span>
               <ul id="list-cate-hide" class="list-unstyle clearfix">
                   <?php
                   foreach ($item->getChildren() as $c_item) {
                   ?>
-                <li class="fl"><?= $c_item->a([], "<strong>$c_item->label</strong>") ?></li>
+                <li class="fl<?= $c_item->isCurrent() ? ' active' : '' ?>"><?= $c_item->a([], "<strong>$c_item->label</strong>") ?></li>
                 <?php
                   }
                 ?>
