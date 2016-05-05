@@ -59,10 +59,10 @@ class Menu
                     $m = new Menu();
                     $m->label = $item['label'];
                     $m->url = $item['url'];
-                    $m->key = "{$object_name}_{$key}";
+                    $m->key = "{$object_name}__{$key}";
                     $m->parent_key =
                             isset($item['parent_key']) && $item['parent_key'] !== null
-                            ? "{$object_name}_{$item['parent_key']}"
+                            ? "{$object_name}__{$item['parent_key']}"
                             : null;
                     static::$data[$m->key] = $m;
                 }
@@ -74,7 +74,7 @@ class Menu
     public static function getCurrentKey()
     {
         if (static::$current_key === null) {
-            static::$current_key = '---';
+            static::$current_key = '___';
             
             function get_arr($url) {
                 return explode('/', ltrim(ltrim(trim(trim($url), '/'), 'http://'), 'https://'));
