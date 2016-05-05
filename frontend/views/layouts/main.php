@@ -55,10 +55,7 @@ src="https://www.facebook.com/tr?id=935301939844245&ev=PageView&noscript=1"
     </div>
   </div>
 </section>
-<?php require_once 'footer.php'; ?>
-<?php require_once 'plugins.php'; ?>
 <script>
-<?php $this->beginBlock('JS_END') ?>
 //////////////
 paragraphStyle();
 window.addEventListener("resize", function(){
@@ -92,9 +89,9 @@ function paragraphStyle() {
         }
     }
 }
-<?php $this->endBlock(); ?>
 </script>
-<?php $this->registerJs($this->blocks['JS_END'], $this::POS_END, 'JS_END'); ?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'plugins.php'; ?>
 <?php $this->endBody() ?>
 </body>
 </html>

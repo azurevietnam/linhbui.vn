@@ -4,7 +4,7 @@ return [
     'supportEmail' => 'support@xemtuvi.mobi',
     'user.passwordResetTokenExpire' => 3600,
     
-    'fb_app_id' => '',
+    'fb_app_id' => '118013195272925',
     'ga_id' => '',
     'gcse_cx' => '018283733847891945836:xsypudiqkrc',
     

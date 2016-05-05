@@ -49,24 +49,25 @@ class ArticleCategoryController extends BaseController
                     ->limit(static::ITEMS_PER_PAGE)
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
                     ->allPublished();
-            $totalItems = $category->getAllArticles()
-                    ->countPublished();
-            
-            $total = ceil($totalItems / static::ITEMS_PER_PAGE);
-            $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
-            $lastItemOnPage = ($totalItems < $page * static::ITEMS_PER_PAGE) ? $totalItems : $page * static::ITEMS_PER_PAGE;
-            $pagination = [
-                'firstItemOnPage' => $firstItemOnPage,
-                'lastItemOnPage' => $lastItemOnPage,
-                'totalItems' => $totalItems,
-                'current' => $page,
-                'total' => $total,
-            ];
+//            $totalItems = $category->getAllArticles()
+//                    ->countPublished();
+//            
+//            $total = ceil($totalItems / static::ITEMS_PER_PAGE);
+//            $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
+//            $lastItemOnPage = ($totalItems < $page * static::ITEMS_PER_PAGE) ? $totalItems : $page * static::ITEMS_PER_PAGE;
+//            $pagination = [
+//                'firstItemOnPage' => $firstItemOnPage,
+//                'lastItemOnPage' => $lastItemOnPage,
+//                'totalItems' => $totalItems,
+//                'current' => $page,
+//                'total' => $total,
+//            ];
             
             return $this->render('index', [
                 'category' => $category,
                 'items' => $items,
-                'pagination' => $pagination,
+//                'pagination' => $pagination,
+                'items_per_page' => static::ITEMS_PER_PAGE
             ]);
             
         } else {

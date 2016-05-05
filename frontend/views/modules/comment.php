@@ -5,7 +5,7 @@ $link = isset($link) ? $link : $this->context->link_canonical;
 <div id="comment" class="fb-comments <?= $class ?>" data-href="<?= $link ?>" data-numposts="5" data-colorscheme="light" data-width="100%"></div>
 <script>
 <?php $this->beginBlock('JS_END') ?>
-window.fbAsyncInit = function() {
+    window.fbAsyncInit = function() {
     FB.init({
       appId      : '<?= Yii::$app->params['fb_app_id'] ?>',
       xfbml      : true,

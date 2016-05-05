@@ -19,12 +19,12 @@ class ArticleController extends BaseController
             if (!Redirect::compareUrl($this->link_canonical)) {
                 $this->redirect($this->link_canonical);
             }
-            if ($cate = $model->articleCategory) {
-                if ($parent_cate = $cate->parent) {
-                    $this->breadcrumbs[] = ['label' => $parent_cate->name, 'url' => $parent_cate->getLink()];
+            if ($category = $model->articleCategory) {
+                if ($parent_category = $category->parent) {
+                    $this->breadcrumbs[] = ['label' => $parent_category->name, 'url' => $parent_category->getLink()];
                 }
-                $this->breadcrumbs[] = ['label' => $cate->name, 'url' => $cate->getLink()];            
-                $related_items = $cate->getArticles()->where(['<>', 'id', $model->id])->orderBy('rand()')->limit(6)->allPublished();
+                $this->breadcrumbs[] = ['label' => $category->name, 'url' => $category->getLink()];            
+                $related_items = $category->getArticles()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(6)->allPublished();
             }
             $this->breadcrumbs[] = ['label' => $model->name, 'url' => $this->link_canonical];            
             
@@ -56,7 +56,7 @@ class ArticleController extends BaseController
     public function actionCounter()
     {
         $id = Yii::$app->request->post('id');
-        if ($model = Product::findOne(['id' => $id])) {
+        if ($model = Article::findOne(['id' => $id])) {
             $comment_count = Yii::$app->request->post('comment_count');
             $like_count = Yii::$app->request->post('like_count');
             $share_count = Yii::$app->request->post('share_count');
