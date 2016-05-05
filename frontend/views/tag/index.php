@@ -1,67 +1,38 @@
-<!--
-<?= \frontend\models\Menu::$current_key ?>
--->
-<div class="ads txt-center magT10">
-    <div class="magb5">
-        <?= $this->render('//modules/adsense') ?>
-    </div>
-    <?= $this->render('//modules/breadcrumbs') ?>
-</div>
-<div class="application clearfix">
-    <div class="wrapper-right">
-        <div class="top-bar">
-            <h2 class="fl title"><strong><?= $tag->h1 ?></strong></h2>
-        </div>
-        <div class="search-results clearfix">
-            <ul class="search">
+<div class="col-l">
+    <div class="listArticles clearfix">
+        <div class="row-fluid clearfix">
+
+            <div class="list-news-other col-2 clearfix">
+                <ul class="list_col list-unstyle clearfix">
+                    <?php
+                    foreach (array_slice($items, 0, $items_per_page) as $item) {
+                    ?>
+                    <li class="thumb clearfix">
+                        <h3 class="title-news">
+                            <?= $item->a([], "<strong>$item->name</strong>") ?>
+                        </h3>
+                        <?= $item->a(['class' => 'cover'], $item->img()) ?>
+                        <div class="magl">
+                            <p class="desc"><?= $item->desc() ?></p>
+                            <p class="clearfix info-post">
+                                <time class="fl"><em class="ic-lock"></em><?= $item->date() ?></time>
+                                <span class="fl comment"><em class="ic-comment"></em><?= $item->comment_count ?></span>
+                                <span class="fl views"><em class="ic-views"></em><?= $item->view_count ?></span>
+                            </p>
+                        </div>
+                    </li>
+                    <?php
+                    }
+                    ?>
+                </ul>
                 <?php
-                foreach ($items as $item) {
+                if (isset($items[$items_per_page])) {
                 ?>
-                <li class="app clearfix">
-                    <div class="item-border clearfix">
-                        <div class="single-block">
-                            <ul class="apps-list">
-                                <li class="clearfix">
-                                    <?= $item->a('app-ico', $item->img('app-ico')) ?>
-                                    <div class="app-info">
-                                        <h2>
-                                            <span class="app-name">
-                                                <?= $item->a('goTo', "<span class=\"name\">{$item->name}</span>") ?>
-                                            </span>
-                                        </h2>
-                                        <p class="rating">
-                                            <span class="free fl">Free</span>
-                                            <span class="stars fl"><span style="width: 72px;">(<?= $item->review_score ?>)</span></span>
-                                            (<?= $item->review_score ?>)
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="dowload fl">
-                            <?php
-                            $download = $item->getDownloadLink($this->context->os_id);
-                            ?>
-                            <button type="button" <?= $download !== null ? "onclick=\"updateProductDownloadCount({$item->id}, 1 + {$item->download_count}, '$download')\"" : '' ?> class="btn_blues magT5"><span>Download</span></button>
-                            <p class="cl333">(<?= $item->view_count ?> lượt xem)</p>
-                        </div>
-                    </div>
-                </li>
+                <div class="load-more-wrap"><a class="ajax_load_more" href="<?= \yii\helpers\Url::current(['page' => $page + 1]) ?>">Xem thêm<i class="ic-down"></i></a></div>
                 <?php
                 }
                 ?>
-            </ul>
-            <?= $this->render('//modules/pagination', ['pagination' => $pagination]) ?>
-        </div>
-        <?php
-        if ($this->context->long_description !== '') {
-            ?>
-            <div class="box bottom25">
-                <p class="lineheigh"><?= $this->context->long_description ?></p>
-                <p><?= $this->render('//modules/like-share') ?></p>
             </div>
-            <?php
-        }
-        ?>
+        </div>
     </div>
 </div>

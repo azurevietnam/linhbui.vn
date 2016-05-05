@@ -34,7 +34,7 @@ use Yii;
  * @property ProductToTag[] $productToTags
  * @property Product[] $products
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends \common\models\MyActiveRecord
 {
     /**
      * @inheritdoc

@@ -45,7 +45,7 @@
                 ?>
                 <ul class="list_col list-unstyle clearfix">
                     <?php
-                    foreach (array_slice($items, 2, $items_per_page - 1) as $item) {
+                    foreach (array_slice($items, 2, $items_per_page - 2) as $item) {
                     ?>
                     <li class="thumb clearfix">
                         <h3 class="title-news">
