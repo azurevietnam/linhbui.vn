@@ -50,14 +50,14 @@ yii\helpers\Url::remember();
             ],
 //            'content:ntext',
             'slug',
-//            [
-//                'attribute' => 'article_category_ids',
-//                'format' => 'raw',
-//                'value' => function ($model) {
-//                    return $model->getArticleCategory() !== null ? $model->getArticleCategory()->name : 'N/A';
-//                },
-//                'filter' => Html::activeDropDownList($searchModel, 'article_category_ids', ArrayHelper::merge($this->context->ncac, 'id', 'name'), [0 => 'N/A']), ['class'=>'form-control', 'prompt' => '']),
-//            ],
+            [
+                'attribute' => 'article_category_id',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->articleCategory ? $model->articleCategory->name : '';
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'article_category_id', $this->context->ncac, ['class'=>'form-control', 'prompt' => '']),
+            ],
 //            'old_slugs',
             // 'description',
             // 'image_path',
