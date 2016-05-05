@@ -3,9 +3,18 @@
 use yii\helpers\Url;
 
 ?>
+<?php
+if ($this->context->h1 != '') {
+?>
+<section class="topseo">
+    <div class="main"><h1><strong><?= $this->context->h1 ?></strong></h1></div>
+</section>
+<?php
+}
+?>
 <header>
     <div class="main clearfix">
-        <h1 class="txt-logo fl"><a href="<?= Url::home(true) ?>" title="<?= Yii::$app->name ?>"><img src="<?= Url::home(true) ?>images/logo.png" title="<?= Yii::$app->name ?>" alt="<?= Yii::$app->name ?>"></a></h1>
+        <div class="txt-logo fl"><a href="<?= Url::home(true) ?>" title="<?= Yii::$app->name ?>"><img src="<?= Url::home(true) ?>images/logo.png" title="<?= Yii::$app->name ?>" alt="<?= Yii::$app->name ?>"></a></div>
         <div class="box-adv" style="width:70%">
             <?= $this->render('//modules/adsense') ?>
         </div>
