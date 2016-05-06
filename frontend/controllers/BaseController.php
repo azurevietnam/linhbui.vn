@@ -42,15 +42,15 @@ class BaseController extends Controller {
         $this->is_tablet = $mobile_detect->isTablet();
         $this->meta_image = Yii::$app->params['default_image'];
         $this->breadcrumbs[] = ['label' => 'Trang chủ', 'url' => Url::home()];
-        if ($mobile_detect->isAndroidOs()) {
-            $this->os_id = ProductFile::OS_ANDROID;
-        } else if ($mobile_detect->isiOs()) {
-            $this->os_id = ProductFile::OS_IOS;
-        } else if ($mobile_detect->isWindowsPhoneOs()) {
-            $this->os_id = ProductFile::OS_WINDOWSPHONE;
-        } else {
-            $this->os_id = null;
-        }
+//        if ($mobile_detect->isAndroidOs()) {
+//            $this->os_id = ProductFile::OS_ANDROID;
+//        } else if ($mobile_detect->isiOs()) {
+//            $this->os_id = ProductFile::OS_IOS;
+//        } else if ($mobile_detect->isWindowsPhoneOs()) {
+//            $this->os_id = ProductFile::OS_WINDOWSPHONE;
+//        } else {
+//            $this->os_id = null;
+//        }
     }
     
     public function beforeAction($action) {
@@ -78,7 +78,7 @@ class BaseController extends Controller {
             'parent_key' => null
         ];
         $data2 = [];
-        $categories = ArticleCategory::find()->where(['is_hot' => 1])->orderBy('position asc')->allActive();
+        $categories = ArticleCategory::find()->orderBy('position asc')->allActive();
         foreach ($categories as $item) {
             $data2[$item->id] = [
                 'label' => $item->name,
