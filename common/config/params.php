@@ -5,7 +5,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     
     'fb_app_id' => '118013195272925',
-    'ga_id' => '',
+    'ga_id' => 'UA-77342591-1',
     'gcse_cx' => '018283733847891945836:xsypudiqkrc',
     
     'root_url' => 'http://',
