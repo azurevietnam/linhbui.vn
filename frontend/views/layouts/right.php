@@ -1,32 +1,39 @@
-<?php
-
-use frontend\models\Article;
-use frontend\models\ArticleCategory;
-
-?>
 <aside class="col-r">
-    <?php if (in_array(Yii::$app->controller->id, ['article', 'article-category'])) { ?>
-    <div class="banner-r">
-        <?= $this->render('//modules/adsense', ['type' => 'square']) ?>
-    </div>
-    <div class="title"><span class="ic-bullet2"></span><strong>Bài viết quan tâm</strong></div>
-    <ul class="list-unstyle list-news-thumb">
-        <?php foreach (Article::getArticles(['limit' => 5, 'orderBy' => 'rand()']) as $item) {
-            $item->getImage('--120x120');
-            ?>
-        <li class="clearfix">
-            <?= $item->a(null, "<span class=\"fl image\">{$item->img()}</span><strong>{$item->name}</strong>") ?>
-        </li>
-        <?php } ?>
-    </ul>
-    <?php } ?>
-    <div class="title"><span class="ic-bullet2"></span><strong>Điểm thi lớp 10 tỉnh thành</strong></div>
-    <ul class="list-unstyle citys-news">
-    <?php
-    $articleCategories = ArticleCategory::getArticleCategories([/*'offset' => \frontend\models\Menu::LIMIT, */'orderBy' => 'is_hot desc, position asc']);
-    foreach ($articleCategories as $item) {
-    ?>    <li><a href="<?= $item->getLink() ?>" title="<?= $item->name ?>"><strong><?= $item->name ?></strong></a></li>
-    <?php 
-    } 
-    ?></ul>
+<?php
+use frontend\models\Widget;
+$widgets = Widget::find()->where(['place' => Widget::PLACE_RIGHT])->allActive();
+foreach ($widgets as $widget) {
+    $class = "frontend\\models\\$widget->object_class";
+    $query = $class::find();
+    if ($widget->sql_where != '') {
+        $query->where($widget->sql_where);
+    }
+    if ($widget->sql_offset != '') {
+        $query->offset($widget->sql_offset);
+    }
+    if ($widget->sql_limit != '') {
+        $query->limit($widget->sql_limit);
+    }
+    if ($widget->sql_order_by != '') {
+        $query->orderBy($widget->sql_order_by);
+    }
+    $items = $query->allActive();
+    $content = '';
+    foreach ($items as $item) {
+        $item_html = str_replace(Widget::V_NAME, $item->name, $widget->item_template);
+        $item_html = str_replace(Widget::V_IMAGE, $item->img(), $item_html);
+        $item_html = str_replace(Widget::V_A_NAME, $item->a(), $item_html);
+        $item_html = str_replace(Widget::V_A_IMAGE, $item->a([], $item->img()), $item_html);
+        $item_html = str_replace(Widget::V_DESCRIPTION, $item->desc(), $item_html);
+        $content .= $item_html;
+    }
+    $html = str_replace(Widget::V_NAME, $widget->name, $widget->template);
+    $html = str_replace(Widget::V_ALL_ITEMS, $content, $html);
+    $html = str_replace(Widget::V_ADSENSE, $this->render('//modules/adsense'), $html);
+    if ($widget->style != '') {
+        $this->registerCss($widget->style);
+    }
+    echo $html;
+}
+?>
 </aside>

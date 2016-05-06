@@ -97,4 +97,33 @@ use yii\helpers\Url;
         ?>
     </section>
 </div>
-<?= $this->render('//layouts/right') ?>
+<aside class="col-r">
+    <div class="topic box_event">
+        <div class="clearfix">
+            <?php
+            foreach (array_slice($hot_items, 10, 6) as $item) {
+            ?>
+            <article class="result_event clearfix">
+                <?= $item->a(['class' => 'cover'], $item->img()) ?>
+                <div class="title-news">
+                    <?= $item->a([], "<strong>$item->name</strong>") ?>
+                </div>
+            </article>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
+    <div class="box-adv">
+        <?= $this->render('//modules/adsense', ['type' => 'square']) ?>
+    </div>
+<!--    <div class="boxbor">
+        <div class="title"><strong>Có thể bạn quan tâm</strong></div>
+        <ul class="list_col list-unstyle">
+            <li class="thumb clearfix">
+                <a class="cover" title="" href="#"><img alt="" title="" src="http://www.phunungaynay.vn/wp-content/uploads/2015/05/2015052524.jpg"></a>
+                <h3 class="title-news"><a href="#"><strong>Tử vi tuần mới 25/05 – 31/05/2015 của 12 cung hoàng đạo</strong></a></h3>
+            </li>
+        </ul>
+    </div>-->
+</aside>

@@ -27,7 +27,8 @@
         "janisto/yii2-timepicker": "*",
         "kartik-v/yii2-widget-select2": "*",
         "kartik-v/yii2-widget-rating": "*",
-        "tinify/tinify" : "*"
+        "tinify/tinify" : "*",
+        "mmedojevicbg/yii2-text-area-tokens": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
