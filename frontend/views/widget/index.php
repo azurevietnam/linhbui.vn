@@ -25,9 +25,9 @@ foreach ($widgets as $widget) {
             $content = '';
             foreach ($items as $item) {
                 $item_html = str_replace(Widget::V_NAME, $item->name, $widget->item_template);
-                $item_html = str_replace(Widget::V_IMAGE, $item->img(), $item_html);
+                $item_html = str_replace(Widget::V_IMAGE, $item->img([], Widget::$image_resizes['medium']), $item_html);
                 $item_html = str_replace(Widget::V_NAME_URL, $item->a(), $item_html);
-                $item_html = str_replace(Widget::V_IMAGE_URL, $item->a([], $item->img()), $item_html);
+                $item_html = str_replace(Widget::V_IMAGE_URL, $item->a([], $item->img([], Widget::$image_resizes['medium'])), $item_html);
                 $item_html = str_replace(Widget::V_DESCRIPTION, $item->desc(), $item_html);
                 $content .= $item_html;
             }
