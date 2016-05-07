@@ -54,7 +54,8 @@ use janisto\timepicker\TimePicker;
     <div class="col-md-12">
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Thêm mới' : 'Cập nhật', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-            <?= Html::a('Xem trước', ['preview', 'id' => $model->id, 'back_url' => Url::current()], ['class' => 'btn btn-info']) ?>
+            <?php echo Html::a('Xem trước', ['preview', 'back_url' => Url::current()], ['target' => '_blank', 'class' => 'btn btn-info', 'id' => 'preview-bt']) ?>
+            
         </div>
     </div>
 
@@ -121,5 +122,23 @@ insertAtCaret: function(myValue){
     }
   });
 }
+});
+
+
+$("#preview-bt").click(function(){
+    var a = $(this);
+    $.post(
+        "' . Url::toRoute(['widget/save-preview-data']) . '",
+        {
+            "data": $("#w0").serialize()
+        },function(data, textStatus, jqXHR){
+            alert("Dữ liệu đã được gửi, Ok để xem trước");
+            location.href = a.attr("href");
+//            window.open(a.attr("href"), "_blank");
+        }
+    ).fail(function(jqXHR, textStatus, errorThrown){
+        alert("Không gửi được dữ liệu");
+    });
+    return false;
 });
 ');

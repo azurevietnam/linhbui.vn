@@ -60,15 +60,27 @@ class WidgetController extends Controller
         }
     }
     
-    public function actionPreview($id)
+    const PREVIEW_SESSION_KEY = 'Preview Model';
+    
+    public function actionPreview()
     {
-        if ($model = $this->findModel($id)) {
-            return $this->render('preview', [
-                'model' => $model,
-            ]);
-        } else {
-            throw new NotFoundHttpException();
+        $model = Yii::$app->session->get(static::PREVIEW_SESSION_KEY);
+        return $this->render('preview', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionSavePreviewData()
+    {
+        if (Yii::$app->request->isPost) {
+            $data = array();
+            parse_str(Yii::$app->request->post('data'), $data);
+            $model = new Widget();
+            $model->load($data);
+            Yii::$app->session->set(static::PREVIEW_SESSION_KEY, $model);
+            return;
         }
+        return false;
     }
 
     /**
@@ -78,8 +90,14 @@ class WidgetController extends Controller
      */
     public function actionCreate()
     {
+        
         $username = Yii::$app->user->identity->username;
         $model = new Widget();
+        
+        if (Yii::$app->session->has(static::PREVIEW_SESSION_KEY)) {
+            $model = Yii::$app->session->get(static::PREVIEW_SESSION_KEY);
+            Yii::$app->session->remove(static::PREVIEW_SESSION_KEY);
+        }
         
         if (Yii::$app->request->isPost && $model = Widget::create(Yii::$app->request->post())) {
             return $this->redirect(['update', 'id' => $model->id]);
@@ -100,10 +118,15 @@ class WidgetController extends Controller
     public function actionUpdate($id)
     {
         $username = Yii::$app->user->identity->username;
+        
         if ($model = $this->findModel($id)) {
             if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
                 return $this->goBack(Url::previous());
             } else {
+                if (Yii::$app->session->has(static::PREVIEW_SESSION_KEY)) {
+                    $model = Yii::$app->session->get(static::PREVIEW_SESSION_KEY);
+                    Yii::$app->session->remove(static::PREVIEW_SESSION_KEY);
+                }
                 return $this->render('update', [
                     'username' => $username,
                     'model' => $model,
