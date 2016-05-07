@@ -25,7 +25,7 @@ return [
     'relative_images_folder' => '/images',
     'relative_uploads_folder' => '/uploads',
     
-    'default_image' => '',
+    'default_image' => 'http://xemtuvi.mobi/images/default.jpg',
     
     'wph_ratios' => [
         'article_image' => 1.75,
