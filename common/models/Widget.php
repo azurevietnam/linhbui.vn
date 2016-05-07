@@ -39,6 +39,11 @@ class Widget extends MyActiveRecord {
         'tag/index' => 'Trang Tag'
     ];
     
+    public static $url_param_names = [
+        'slug' => 'Slug',
+//        'page' => 'Trang'
+    ];
+    
     public static $places = [
         Widget::PLACE_RIGHT => 'Cột bên phải',
         Widget::PLACE_BOTTOM => 'Chân trang'

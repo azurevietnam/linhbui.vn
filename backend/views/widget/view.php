@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'route',
+            'url_param_name:url',
+            'url_param_values:url',
             'place',
             'position',
             'name',

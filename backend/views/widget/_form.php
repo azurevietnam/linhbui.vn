@@ -17,6 +17,13 @@ use janisto\timepicker\TimePicker;
     
     <div class="col-md-6">
 	<?= $form->field($model, 'route')->dropDownList(\backend\models\Widget::$routes, ['prompt' => 'Chọn']) ?>
+	<?= $form->field($model, 'url_param_name')->dropDownList(\backend\models\Widget::$url_param_names, ['prompt' => 'Chọn']) ?>
+    <?php
+    $array_url_param_values = json_decode($model->url_param_values);
+    is_array($array_url_param_values) or $array_url_param_values = array();
+    $model->url_param_values = implode("\n", $array_url_param_values);
+    ?>
+	<?= $form->field($model, 'url_param_values')->textarea(['maxlength' => true, 'rows' => 6, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
 	<?= $form->field($model, 'place')->dropDownList(\backend\models\Widget::$places, ['prompt' => 'Chọn']) ?>
 	<?= $form->field($model, 'position')->textInput() ?>
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

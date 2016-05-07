@@ -9,6 +9,8 @@ use Yii;
  *
  * @property integer $id
  * @property string $route
+ * @property string $url_param_name
+ * @property string $url_param_values
  * @property integer $place
  * @property integer $position
  * @property string $name
@@ -44,9 +46,9 @@ class Widget extends \common\models\Widget
     {
         return [
             [['place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active', 'created_at', 'updated_at'], 'integer'],
-            [['route', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['route', 'url_param_name', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['url_param_values', 'style'], 'string', 'max' => 2000],
             [['template', 'item_template'], 'string', 'max' => 511],
-            [['style'], 'string', 'max' => 2000],
         ];
     }
 
@@ -58,6 +60,8 @@ class Widget extends \common\models\Widget
         return [
             'id' => 'ID',
             'route' => 'Route',
+            'url_param_name' => 'Url Param Name',
+            'url_param_values' => 'Url Param Values',
             'place' => 'Place',
             'position' => 'Position',
             'name' => 'Name',

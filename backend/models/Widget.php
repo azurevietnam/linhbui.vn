@@ -10,6 +10,8 @@ use Yii;
  *
  * @property integer $id
  * @property string $route
+ * @property string $url_param_name
+ * @property string $url_param_values
  * @property integer $place
  * @property integer $position
  * @property string $name
@@ -51,6 +53,14 @@ class Widget extends \common\models\Widget
             
             $model->created_at = $now;
             $model->created_by = $username;
+            
+        
+            $array_url_param_values = explode("\n", str_replace("\r", "", $model->url_param_values));
+            foreach ($array_url_param_values as &$item) {
+                $item = trim($item);
+            }
+            $model->url_param_values = json_encode($array_url_param_values);
+            
             if ($model->save()) {
                 if ($log) {
                     $log->object_pk = $model->id;
@@ -85,6 +95,12 @@ class Widget extends \common\models\Widget
             
             $this->updated_at = $now;
             $this->updated_by = $username;
+            
+            $array_url_param_values = explode("\n", str_replace("\r", "", $this->url_param_values));
+            foreach ($array_url_param_values as &$item) {
+                $item = trim($item);
+            }
+            $this->url_param_values = json_encode($array_url_param_values);
             
             if ($this->save()) {
                 if ($log) {
@@ -141,9 +157,9 @@ class Widget extends \common\models\Widget
         return [
             [['place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['route', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
-            [['template', 'item_template'], 'string', 'max' => 511],
-            [['style'], 'string', 'max' => 2000]
+            [['route', 'url_param_name', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['url_param_values', 'style'], 'string', 'max' => 2000],
+            [['template', 'item_template'], 'string', 'max' => 511]
         ];
     }
 
@@ -155,6 +171,8 @@ class Widget extends \common\models\Widget
         return [
             'id' => 'ID',
             'route' => 'Route',
+            'url_param_name' => 'Url Param Name',
+            'url_param_values' => 'Url Param Values',
             'place' => 'Place',
             'position' => 'Position',
             'name' => 'Name',

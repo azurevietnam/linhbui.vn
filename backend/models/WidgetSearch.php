@@ -19,7 +19,7 @@ class WidgetSearch extends Widget
     {
         return [
             [['id', 'place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
-            [['route', 'name', 'template', 'item_template', 'style', 'object_class', 'sql_order_by', 'sql_where', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['route', 'url_param_name', 'url_param_values', 'name', 'template', 'item_template', 'style', 'object_class', 'sql_order_by', 'sql_where', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
         ];
     }
 
@@ -73,6 +73,8 @@ class WidgetSearch extends Widget
         ]);
 
         $query->andFilterWhere(['like', 'route', $this->route])
+            ->andFilterWhere(['like', 'url_param_name', $this->url_param_name])
+            ->andFilterWhere(['like', 'url_param_values', $this->url_param_values])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'template', $this->template])
             ->andFilterWhere(['like', 'item_template', $this->item_template])

@@ -19,11 +19,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'route') ?>
 
+    <?= $form->field($model, 'url_param_name') ?>
+
+    <?= $form->field($model, 'url_param_values') ?>
+
     <?= $form->field($model, 'place') ?>
 
-    <?= $form->field($model, 'position') ?>
+    <?php // echo $form->field($model, 'position') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?php // echo $form->field($model, 'name') ?>
 
     <?php // echo $form->field($model, 'template') ?>
 
