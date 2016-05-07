@@ -65,17 +65,18 @@ use janisto\timepicker\TimePicker;
 <?php
 $template_buttons = '<div class=\"my-buttons\">';
 foreach (\backend\models\Widget::$template_variables as $key => $name) {
-    $template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\" title=\\\"$key\\\">$name</button>";
+    $template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
 }
 $template_buttons .= '</div>';
 
 $item_template_buttons = '<div class=\"my-buttons\">';
 foreach (\backend\models\Widget::$item_template_variables as $key => $name) {
-    $item_template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\" title=\\\"$key\\\">$name</button>";
+    $item_template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
 }
 $item_template_buttons .= '</div>';
 
 $this->registerJs('
+$("[data-toggle=\"tooltip\"]").tooltip();
 $("' . $template_buttons . '").insertBefore($("#widget-template"));
 $("' . $item_template_buttons . '").insertBefore($("#widget-item_template"));
 $(".my-buttons").children("button").click(function(){
