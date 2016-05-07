@@ -133,9 +133,9 @@ $("#preview-bt").click(function(){
             "data": $("#w0").serialize()
         },function(data, textStatus, jqXHR){
             if (data == true) {
-                if (confirm("Dữ liệu đã được gửi, Ok để xem trước")) {
+//                if (confirm("Dữ liệu đã được gửi, Ok để xem trước")) {
                     location.href = a.attr("href");
-                }
+//                }
             } else {
                 alert(data);
             }
