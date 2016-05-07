@@ -28,7 +28,7 @@ class Widget extends MyActiveRecord {
         'ArticleCategory' => 'Danh mục bài viết',
 //        'Product' => 'Sản phẩm',
 //        'ProductCategory'=> 'Danh mục sản phẩm',
-        'Tag' => 'Tags',
+        'Tag' => 'Tag',
     ];
     
     public static $places = [

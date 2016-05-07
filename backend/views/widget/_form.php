@@ -89,7 +89,7 @@ $("' . $template_buttons . '").insertBefore($("#widget-template"));
 $("' . $item_template_buttons . '").insertBefore($("#widget-item_template"));
 $(".my-buttons").children("button").click(function(){
     var bt = $(this);
-    var text = bt.parent().next();
+    var text = bt.parent(".my-buttons").next();
     text.insertAtCaret(bt.val());
 });
 
