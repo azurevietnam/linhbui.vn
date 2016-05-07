@@ -65,15 +65,23 @@ use janisto\timepicker\TimePicker;
 <?php
 $template_buttons = '<div class=\"my-buttons\">';
 foreach (\backend\models\Widget::$template_variables as $key => $name) {
-    $template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
+    $template_buttons .= "<button class=\\\"btn btn-md btn-default\\\" type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
 }
 $template_buttons .= '</div>';
 
 $item_template_buttons = '<div class=\"my-buttons\">';
 foreach (\backend\models\Widget::$item_template_variables as $key => $name) {
-    $item_template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
+    $item_template_buttons .= "<button class=\\\"btn btn-md btn-default\\\" type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
 }
 $item_template_buttons .= '</div>';
+
+$this->registerCss('
+.my-buttons button {
+    margin: 0 1px 1px 0;
+    padding: 3px 6px;
+    border-radius: 0px;
+}
+');
 
 $this->registerJs('
 $("[data-toggle=\"tooltip\"]").tooltip();
@@ -85,8 +93,9 @@ $(".my-buttons").children("button").click(function(){
     text.insertAtCaret(bt.val());
 });
 
-////////////////////
-// fn insertAtCaret:
+//////////////////////
+// fn insertAtCaret //
+//////////////////////
 jQuery.fn.extend({
 insertAtCaret: function(myValue){
   return this.each(function(i) {
@@ -114,10 +123,4 @@ insertAtCaret: function(myValue){
   });
 }
 });
-
-');
-$this->registerCss('
-.my-buttons button {
-    margin: 0 0.1em 0.1em 0;
-}
 ');

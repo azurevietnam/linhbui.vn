@@ -26,8 +26,9 @@ class Widget extends MyActiveRecord {
     public static $object_classes = [
         'Article' => 'Bài viết',
         'ArticleCategory' => 'Danh mục bài viết',
-        'Product' => 'Sản phẩm',
-        'ProductCategory'=> 'Danh mục sản phẩm',
+//        'Product' => 'Sản phẩm',
+//        'ProductCategory'=> 'Danh mục sản phẩm',
+        'Tag' => 'Tags',
     ];
     
     public static $places = [
@@ -36,18 +37,18 @@ class Widget extends MyActiveRecord {
     ];
     
     public static $template_variables = [
-        Widget::V_ALL_ITEMS => 'Các item',
+        Widget::V_ALL_ITEMS => 'Các Item',
         Widget::V_NAME => 'Tên',
         Widget::V_IMAGE => 'Ảnh',
-        Widget::V_A_NAME => 'Tên gắn link',
-        Widget::V_A_IMAGE => 'Ảnh gắn link',
+        Widget::V_A_NAME => 'Tên và URL',
+        Widget::V_A_IMAGE => 'Ảnh và URL',
         Widget::V_ADSENSE => 'Quảng cáo',
     ];
     
     public static $item_template_variables = [
         Widget::V_NAME => 'Tên',
         Widget::V_IMAGE => 'Ảnh',
-        Widget::V_A_NAME => 'Tên gắn link',
-        Widget::V_A_IMAGE => 'Ảnh gắn link',
+        Widget::V_A_NAME => 'Tên và URL',
+        Widget::V_A_IMAGE => 'Ảnh và URL',
     ];
 }
