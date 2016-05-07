@@ -106,7 +106,7 @@ class WidgetController extends Controller
         $model = new Widget();
         
         if (Yii::$app->session->has(static::PREVIEW_SESSION_KEY)) {
-            $model->load(Yii::$app->session->get(static::PREVIEW_SESSION_KEY)->attributes);
+            $model = Yii::$app->session->get(static::PREVIEW_SESSION_KEY);
             Yii::$app->session->remove(static::PREVIEW_SESSION_KEY);
         }
         
