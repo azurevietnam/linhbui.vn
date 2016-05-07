@@ -14,56 +14,47 @@ use janisto\timepicker\TimePicker;
 <div class="widget-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    
-    <div class="col-md-6">
-	<?= $form->field($model, 'route')->dropDownList(\backend\models\Widget::$routes, ['prompt' => 'Chọn']) ?>
-	<?= $form->field($model, 'url_param_name')->dropDownList(\backend\models\Widget::$url_param_names, ['prompt' => 'Chọn']) ?>
-    <?php
-    $array_url_param_values = json_decode($model->url_param_values);
-    is_array($array_url_param_values) or $array_url_param_values = array();
-    $model->url_param_values = implode("\n", $array_url_param_values);
-    ?>
-	<?= $form->field($model, 'url_param_values')->textarea(['maxlength' => true, 'rows' => 6, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
-	<?= $form->field($model, 'place')->dropDownList(\backend\models\Widget::$places, ['prompt' => 'Chọn']) ?>
-	<?= $form->field($model, 'position')->textInput() ?>
-	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-	<?= $form->field($model, 'template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
-	<?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
-	<?= $form->field($model, 'style')->textarea(['maxlength' => true, 'rows' => 12, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
-	<?= $form->field($model, 'object_class')->dropDownList(\backend\models\Widget::$object_classes, ['prompt' => 'Chọn']) ?>
-	<?= $form->field($model, 'sql_offset')->textInput() ?>
-	<?= $form->field($model, 'sql_limit')->textInput() ?>
-	<?= $form->field($model, 'sql_order_by')->textInput(['maxlength' => true]) ?>
-	<?= $form->field($model, 'sql_where')->textInput(['maxlength' => true]) ?>
-	<?php // echo $form->field($model, 'status')->textInput() ?>
-	<?= $form->field($model, 'is_active')->checkbox() ?>
-	<?php // $model->created_at = $model->isNewRecord ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s', $model->created_at) ?>
-	<?php /* echo $form->field($model, 'created_at')->widget(TimePicker::className(), [
-		'language' => 'vi',
-		'mode' => 'datetime',
-		'clientOptions' => [
-			'dateFormat' => 'yy-mm-dd',
-			'timeFormat' => 'HH:mm:ss',
-			'showSecond' => true,
-		],
-	]) */ ?>
-	<?php // $model->updated_at = !$model->isNewRecord ? date('Y-m-d H:i:s') : null ?>
-	<?php /* echo $form->field($model, 'updated_at')->widget(TimePicker::className(), [
-		'language' => 'vi',
-		'mode' => 'datetime',
-		'clientOptions' => [
-			'dateFormat' => 'yy-mm-dd',
-			'timeFormat' => 'HH:mm:ss',
-			'showSecond' => true,
-		],
-	]) */ ?>
-	<?php // echo $form->field($model, 'created_by')->textInput(['maxlength' => true, 'readonly' => true, 'value' => $model->isNewRecord ? $username : $model->created_by ]) ?>
-	<?php // echo $form->field($model, 'updated_by')->textInput(['maxlength' => true, 'readonly' => true, 'value' => !$model->isNewRecord ? $username : '' ]) ?>
+    <div class="col-md-12 row">
+        <fieldset class="col-md-6">
+            <legend>Các trang đặt Widget</legend>
+            <?= $form->field($model, 'route')->dropDownList(\backend\models\Widget::$routes, ['prompt' => 'Chọn']) ?>
+            <?= $form->field($model, 'url_param_name')->dropDownList(\backend\models\Widget::$url_param_names, ['prompt' => 'Chọn']) ?>
+            <?php
+            $array_url_param_values = json_decode($model->url_param_values);
+            is_array($array_url_param_values) or $array_url_param_values = array();
+            $model->url_param_values = implode("\n", $array_url_param_values);
+            ?>
+            <?= $form->field($model, 'url_param_values')->textarea(['maxlength' => true, 'rows' => 6, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
+        </fieldset>
+        <fieldset class="col-md-6">
+            <legend>Vị trí đặt Widget</legend>
+            <?= $form->field($model, 'place')->dropDownList(\backend\models\Widget::$places, ['prompt' => 'Chọn']) ?>
+            <?= $form->field($model, 'position')->textInput() ?>
+        </fieldset>
     </div>
-    
+    <div class="col-md-12 row">
+        <fieldset class="col-md-6">
+            <legend>Thuộc tính Widget</legend>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
+            <?= $form->field($model, 'style')->textarea(['maxlength' => true, 'rows' => 12, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
+            <?= $form->field($model, 'is_active')->checkbox() ?>
+        </fieldset>
+        <fieldset class="col-md-6">
+            <legend>Thuộc tính các Item trong Widget</legend>
+            <?= $form->field($model, 'object_class')->dropDownList(\backend\models\Widget::$object_classes, ['prompt' => 'Chọn']) ?>
+            <?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
+            <?= $form->field($model, 'sql_offset')->textInput() ?>
+            <?= $form->field($model, 'sql_limit')->textInput() ?>
+            <?= $form->field($model, 'sql_order_by')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'sql_where')->textInput(['maxlength' => true]) ?>
+            <?php // echo $form->field($model, 'status')->textInput() ?>
+        </fieldset>
+    </div>
     <div class="col-md-12">
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Thêm mới' : 'Cập nhật', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::a('Xem trước', ['preview', 'id' => $model->id, 'back_url' => Url::current()], ['class' => 'btn btn-info']) ?>
         </div>
     </div>
 

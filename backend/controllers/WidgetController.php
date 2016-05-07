@@ -59,6 +59,17 @@ class WidgetController extends Controller
             throw new NotFoundHttpException();
         }
     }
+    
+    public function actionPreview($id)
+    {
+        if ($model = $this->findModel($id)) {
+            return $this->render('preview', [
+                'model' => $model,
+            ]);
+        } else {
+            throw new NotFoundHttpException();
+        }
+    }
 
     /**
      * Creates a new Widget model.
