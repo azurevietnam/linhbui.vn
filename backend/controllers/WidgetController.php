@@ -77,6 +77,13 @@ class WidgetController extends Controller
             parse_str(Yii::$app->request->post('data'), $data);
             $model = new Widget();
             $model->load($data);
+            
+            $array_url_param_values = explode("\n", str_replace("\r", "", $model->url_param_values));
+            foreach ($array_url_param_values as &$item) {
+                $item = trim($item);
+            }
+            $model->url_param_values = json_encode($array_url_param_values);
+            
             if ($model->validate()) {
                 Yii::$app->session->set(static::PREVIEW_SESSION_KEY, $model);
                 return true;
