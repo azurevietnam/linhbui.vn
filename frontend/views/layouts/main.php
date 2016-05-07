@@ -52,6 +52,7 @@ src="https://www.facebook.com/tr?id=935301939844245&ev=PageView&noscript=1"
   <div class="main">
     <div class="col2 clearfix">
     <?= $content ?>
+    <?php require_once 'right.php'; ?>
     </div>
   </div>
 </section>

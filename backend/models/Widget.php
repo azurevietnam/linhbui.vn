@@ -9,6 +9,7 @@ use Yii;
  * This is the model class for table "widget".
  *
  * @property integer $id
+ * @property string $route
  * @property integer $place
  * @property integer $position
  * @property string $name
@@ -140,7 +141,7 @@ class Widget extends \common\models\Widget
         return [
             [['place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['route', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['template', 'item_template'], 'string', 'max' => 511],
             [['style'], 'string', 'max' => 2000]
         ];
@@ -153,6 +154,7 @@ class Widget extends \common\models\Widget
     {
         return [
             'id' => 'ID',
+            'route' => 'Route',
             'place' => 'Place',
             'position' => 'Position',
             'name' => 'Name',

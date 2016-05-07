@@ -42,6 +42,9 @@ return [
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
                 ['pattern' => 'sitemap-<slug>.xml', 'route' => 'sitemap/article'],
+                // Trang chủ
+                ['pattern' => '', 'route' => 'site/index'],
+                ['pattern' => '', 'route' => 'site/index', 'suffix' => '/'],
                 // Tags
                 ['pattern' => 'tim-kiem/<slug>', 'route' => 'tag/index'],
                 ['pattern' => 'tim-kiem/<slug>', 'route' => 'tag/index', 'suffix' => '/'], 

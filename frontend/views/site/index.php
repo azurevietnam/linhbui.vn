@@ -97,4 +97,3 @@ use yii\helpers\Url;
         ?>
     </section>
 </div>
-<?= $this->render('//layouts/right') ?>

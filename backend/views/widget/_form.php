@@ -16,6 +16,7 @@ use janisto\timepicker\TimePicker;
     <?php $form = ActiveForm::begin(); ?>
     
     <div class="col-md-6">
+	<?= $form->field($model, 'route')->dropDownList(\backend\models\Widget::$routes, ['prompt' => 'Chọn']) ?>
 	<?= $form->field($model, 'place')->dropDownList(\backend\models\Widget::$places, ['prompt' => 'Chọn']) ?>
 	<?= $form->field($model, 'position')->textInput() ?>
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
