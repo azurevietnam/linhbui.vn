@@ -132,9 +132,12 @@ $("#preview-bt").click(function(){
         {
             "data": $("#w0").serialize()
         },function(data, textStatus, jqXHR){
-            if (confirm("Dữ liệu đã được gửi, Ok để xem trước")) {
-            location.href = a.attr("href");
-//            window.open(a.attr("href"), "_blank");
+            if (data == true) {
+                if (confirm("Dữ liệu đã được gửi, Ok để xem trước")) {
+                    location.href = a.attr("href");
+                }
+            } else {
+                alert(data);
             }
         }
     ).fail(function(jqXHR, textStatus, errorThrown){

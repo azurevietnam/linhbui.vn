@@ -155,6 +155,7 @@ class Widget extends \common\models\Widget
     public function rules()
     {
         return [
+            [['object_class', 'place', 'template'], 'required'],
             [['place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['route', 'url_param_name', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],

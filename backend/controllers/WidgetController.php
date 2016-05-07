@@ -77,8 +77,12 @@ class WidgetController extends Controller
             parse_str(Yii::$app->request->post('data'), $data);
             $model = new Widget();
             $model->load($data);
-            Yii::$app->session->set(static::PREVIEW_SESSION_KEY, $model);
-            return;
+            if ($model->validate()) {
+                Yii::$app->session->set(static::PREVIEW_SESSION_KEY, $model);
+                return true;
+            } else {
+                return var_dump($model->errors);
+            }
         }
         return false;
     }
