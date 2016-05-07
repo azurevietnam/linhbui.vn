@@ -19,8 +19,8 @@ use janisto\timepicker\TimePicker;
 	<?= $form->field($model, 'place')->dropDownList(\backend\models\Widget::$places, ['prompt' => 'Chọn']) ?>
 	<?= $form->field($model, 'position')->textInput() ?>
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-	<?= $form->field($model, 'template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'class' => 'form-control my-template']) ?>
-	<?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'class' => 'form-control my-template']) ?>
+	<?= $form->field($model, 'template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical']) ?>
+	<?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical']) ?>
 	<?= $form->field($model, 'style')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical']) ?>
 	<?= $form->field($model, 'object_class')->dropDownList(\backend\models\Widget::$object_classes, ['prompt' => 'Chọn']) ?>
 	<?= $form->field($model, 'sql_offset')->textInput() ?>
@@ -63,23 +63,22 @@ use janisto\timepicker\TimePicker;
 
 </div>
 <?php
-$variables = \backend\models\Widget::$variables;
-$bts = '<div class=\"my-bts\">';
-$hightlight = '';
-foreach ($variables as $key => $name) {
-    $bts .= "<button type=\\\"button\\\" value=\\\"$key\\\">$name</button>";
-    $hightlight .= "$key|";
+$template_buttons = '<div class=\"my-buttons\">';
+foreach (\backend\models\Widget::$template_variables as $key => $name) {
+    $template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\">$name</button>";
 }
-$hightlight = rtrim($hightlight, '|');
-$bts .= '</div>';
+$template_buttons .= '</div>';
+
+$item_template_buttons = '<div class=\"my-buttons\">';
+foreach (\backend\models\Widget::$item_template_variables as $key => $name) {
+    $item_template_buttons .= "<button type=\\\"button\\\" value=\\\"$key\\\">$name</button>";
+}
+$item_template_buttons .= '</div>';
+
 $this->registerJs('
-$("textarea.my-template").each(function(){
-    var text = $(this);
-    $("' . $bts . '").insertBefore(text);
-//    var newText = text.val().replace(/' . $hightlight . '/gi, function myFunction(x){return "<mark>" + x + "</mark>";});
-//    $("<div class=\"backdrop\">" + newText + "</div>").insertBefore(text);
-});
-$(".my-bts").children("button").click(function(){
+$("' . $template_buttons . '").insertBefore($("#widget-template"));
+$("' . $item_template_buttons . '").insertBefore($("#widget-item_template"));
+$(".my-buttons").children("button").click(function(){
     var bt = $(this);
     var text = bt.parent().next();
     text.insertAtCaret(bt.val());
@@ -117,24 +116,7 @@ insertAtCaret: function(myValue){
 
 ');
 $this->registerCss('
-.my-template {
-        padding: 6px 12px;
-}
-.backdrop {
-    padding: 6px 12px;
-    position: absolute;
-    z-index: 1;
-    border: 1px solid #685972;
-    background-color: transparent;
-    overflow: auto;
-    pointer-events: none;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    color: #e00;
-    width: calc(100%);
-}
-.backdrop mark {
-    padding: 0 !important;
-    margin: 0 !important;
+.my-buttons button {
+    margin: 0 0.1em 0.1em 0;
 }
 ');

@@ -19,7 +19,7 @@ class Widget extends MyActiveRecord {
     const V_NAME = '[NAME]';
     const V_A_IMAGE = '[A IMG]';
     const V_A_NAME = '[A NAME]';
-    const V_ALL_ITEMS = '[ALL-ITEMS]';
+    const V_ALL_ITEMS = '[ITEMS]';
     const V_DESCRIPTION = '[DESC]';
     const V_ADSENSE = '[ADS]';
 
@@ -35,12 +35,19 @@ class Widget extends MyActiveRecord {
         Widget::PLACE_BOTTOM => 'Chân trang'
     ];
     
-    public static $variables = [
+    public static $template_variables = [
         Widget::V_ALL_ITEMS => 'Các items',
         Widget::V_NAME => 'Tên',
         Widget::V_IMAGE => 'Ảnh',
         Widget::V_A_NAME => 'Tên gắn link',
         Widget::V_A_IMAGE => 'Ảnh gắn link',
         Widget::V_ADSENSE => 'Quảng cáo',
+    ];
+    
+    public static $item_template_variables = [
+        Widget::V_NAME => 'Tên',
+        Widget::V_IMAGE => 'Ảnh',
+        Widget::V_A_NAME => 'Tên gắn link',
+        Widget::V_A_IMAGE => 'Ảnh gắn link',
     ];
 }
