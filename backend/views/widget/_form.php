@@ -132,9 +132,10 @@ $("#preview-bt").click(function(){
         {
             "data": $("#w0").serialize()
         },function(data, textStatus, jqXHR){
-            alert("Dữ liệu đã được gửi, Ok để xem trước");
+            if (confirm("Dữ liệu đã được gửi, Ok để xem trước")) {
             location.href = a.attr("href");
 //            window.open(a.attr("href"), "_blank");
+            }
         }
     ).fail(function(jqXHR, textStatus, errorThrown){
         alert("Không gửi được dữ liệu");
