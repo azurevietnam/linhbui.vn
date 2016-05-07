@@ -171,7 +171,7 @@ class Widget extends \common\models\Widget
     {
         return [
             'id' => 'ID',
-            'route' => 'Route',
+            'route' => 'Trang',
             'url_param_name' => 'Tên biến',
             'url_param_values' => '(Các) giá trị',
             'place' => 'Vị trí',
