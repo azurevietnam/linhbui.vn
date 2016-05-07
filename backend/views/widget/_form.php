@@ -22,7 +22,7 @@ use janisto\timepicker\TimePicker;
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical']) ?>
 	<?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical']) ?>
-	<?= $form->field($model, 'style')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical']) ?>
+	<?= $form->field($model, 'style')->textarea(['maxlength' => true, 'rows' => 12, 'style' => 'resize:vertical']) ?>
 	<?= $form->field($model, 'object_class')->dropDownList(\backend\models\Widget::$object_classes, ['prompt' => 'Chọn']) ?>
 	<?= $form->field($model, 'sql_offset')->textInput() ?>
 	<?= $form->field($model, 'sql_limit')->textInput() ?>
