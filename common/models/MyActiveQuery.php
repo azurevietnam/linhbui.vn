@@ -65,6 +65,6 @@ class MyActiveQuery extends ActiveQuery {
     }
     
     public function count($q = '*', $db = null) {
-        parent::count($q, $db);
+        return parent::count($q, $db);
     }
 }
