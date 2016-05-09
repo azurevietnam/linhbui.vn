@@ -6,31 +6,20 @@ use common\utils\FileUtils;
 use Yii;
 
 /**
- * This is the model class for table "widget".
+ * This is the model class for table "page_group".
  *
  * @property integer $id
- * @property integer $page_group_id
- * @property integer $place
- * @property integer $position
  * @property string $name
- * @property string $template
- * @property string $item_template
- * @property string $style
- * @property string $object_class
- * @property integer $sql_offset
- * @property integer $sql_limit
- * @property string $sql_order_by
- * @property string $sql_where
- * @property integer $status
- * @property integer $is_active
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $created_by
- * @property string $updated_by
+ * @property string $route
+ * @property string $url_regexp
  *
+ * @property HtmlBox[] $htmlBoxes
+ * @property HtmlBoxToPageGroup[] $htmlBoxToPageGroups
+ * @property SeoInfo[] $seoInfos
+ * @property SeoInfoToPageGroup[] $seoInfoToPageGroups
  * @property WidgetToPageGroup[] $widgetToPageGroups
  */
-class Widget extends \common\models\Widget
+class PageGroup extends \common\models\PageGroup
 {
 
     /**
@@ -40,19 +29,17 @@ class Widget extends \common\models\Widget
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;  
-        $model = new Widget();
+        $model = new PageGroup();
         if($model->load($data)) {
             if ($log = new UserLog()) {
                 $log->username = $username;
                 $log->action = 'Create';
-                $log->object_class = 'Widget';
+                $log->object_class = 'PageGroup';
                 $log->created_at = $now;
                 $log->is_success = 0;
                 $log->save();
             }
             
-            $model->created_at = $now;
-            $model->created_by = $username;
             if ($model->save()) {
                 if ($log) {
                     $log->object_pk = $model->id;
@@ -78,15 +65,13 @@ class Widget extends \common\models\Widget
             if ($log = new UserLog()) {
                 $log->username = $username;
                 $log->action = 'Update';
-                $log->object_class = 'Widget';
+                $log->object_class = 'PageGroup';
                 $log->object_pk = $this->id;
                 $log->created_at = $now;
                 $log->is_success = 0;
                 $log->save();
             }
             
-            $this->updated_at = $now;
-            $this->updated_by = $username;
             
             if ($this->save()) {
                 if ($log) {
@@ -111,7 +96,7 @@ class Widget extends \common\models\Widget
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
-            $log->object_class = 'Widget';
+            $log->object_class = 'PageGroup';
             $log->object_pk = $model->id;
             $log->created_at = $now;
             $log->is_success = 0;
@@ -132,22 +117,17 @@ class Widget extends \common\models\Widget
      */
     public static function tableName()
     {
-        return 'widget';
+        return 'page_group';
     }
 
-    public $page_group_ids;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['object_class'], 'required'],
-            [['page_group_id', 'place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
-            [['page_group_ids', 'created_at', 'updated_at'], 'safe'],
-            [['name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
-            [['template', 'item_template'], 'string', 'max' => 511],
-            [['style'], 'string', 'max' => 2000]
+            [['name', 'route'], 'string', 'max' => 255],
+            [['url_regexp'], 'string', 'max' => 2000]
         ];
     }
 
@@ -158,25 +138,42 @@ class Widget extends \common\models\Widget
     {
         return [
             'id' => 'ID',
-            'page_group_id' => 'Page Group ID',
-            'place' => 'Place',
-            'position' => 'Position',
             'name' => 'Name',
-            'template' => 'Template',
-            'item_template' => 'Item Template',
-            'style' => 'Style',
-            'object_class' => 'Object Class',
-            'sql_offset' => 'Sql Offset',
-            'sql_limit' => 'Sql Limit',
-            'sql_order_by' => 'Sql Order By',
-            'sql_where' => 'Sql Where',
-            'status' => 'Status',
-            'is_active' => 'Is Active',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
+            'route' => 'Route',
+            'url_regexp' => 'Url Regexp',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHtmlBoxes()
+    {
+        return $this->hasMany(HtmlBox::className(), ['page_group_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHtmlBoxToPageGroups()
+    {
+        return $this->hasMany(HtmlBoxToPageGroup::className(), ['page_group_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSeoInfos()
+    {
+        return $this->hasMany(SeoInfo::className(), ['page_group_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSeoInfoToPageGroups()
+    {
+        return $this->hasMany(SeoInfoToPageGroup::className(), ['page_group_id' => 'id']);
     }
 
     /**
@@ -184,6 +181,6 @@ class Widget extends \common\models\Widget
      */
     public function getWidgetToPageGroups()
     {
-        return $this->hasMany(WidgetToPageGroup::className(), ['widget_id' => 'id']);
+        return $this->hasMany(WidgetToPageGroup::className(), ['page_group_id' => 'id']);
     }
 }

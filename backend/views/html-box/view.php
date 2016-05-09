@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\SeoInfo */
+/* @var $model backend\models\HtmlBox */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Seo Infos', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Html Boxes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="seo-info-view">
+<div class="html-box-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,16 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'page_group_id',
-            'type',
-            'is_active',
-            'meta_title',
-            'meta_keywords',
-            'meta_description',
-            'h1',
-            'page_title',
-            'long_description:ntext',
-            'image',
+            'name',
+            'content:ntext',
             'image_path',
+            'place',
+            'position',
+            'is_active',
+            'status',
             'created_at',
             'created_by',
             'updated_at',

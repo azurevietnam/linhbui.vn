@@ -31,8 +31,6 @@ class ArticleCategoryController extends BaseController
                 $this->meta_description = $category->meta_description;
                 $this->meta_keywords = $category->meta_keywords;
                 $this->long_description = $category->long_description;
-            }
-            if (!$this->seo_image_exist) {
                 $this->meta_image = $category->getImage();
             }
             

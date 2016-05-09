@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\SeoInfo */
+/* @var $model backend\models\HtmlBox */
 
-$this->title = 'Create Seo Info';
-$this->params['breadcrumbs'][] = ['label' => 'Seo Infos', 'url' => ['index']];
+$this->title = 'Create Html Box';
+$this->params['breadcrumbs'][] = ['label' => 'Html Boxes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="seo-info-create">
+<div class="html-box-create">
 
 <!--    <h1><?= Html::encode($this->title) ?></h1>-->
 

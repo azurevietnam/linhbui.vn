@@ -4,8 +4,7 @@ namespace frontend\controllers;
 use common\utils\MobileDetect;
 use frontend\models\ArticleCategory;
 use frontend\models\Menu;
-use frontend\models\ProductFile;
-use frontend\models\SeoInfo;
+use frontend\models\PageGroup;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -27,7 +26,7 @@ class BaseController extends Controller {
     $meta_image,
     $breadcrumbs = array(),
     $seo_exist = false,
-    $seo_image_exist = false,
+//    $seo_image_exist = false,
     $is_mobile,
     $is_tablet,
     $os_id;
@@ -56,19 +55,15 @@ class BaseController extends Controller {
     public function beforeAction($action) {
         parent::beforeAction($action);
         
-        if ($seoInfo = SeoInfo::getCurrent()) {
+        if ($seoInfo = PageGroup::seoInfo()) {
             $this->seo_exist = true;
-            
             $this->page_title = $seoInfo->page_title;
             $this->h1 = $seoInfo->h1;
             $this->meta_title = $seoInfo->meta_title;
             $this->meta_description = $seoInfo->meta_description;
             $this->meta_keywords = $seoInfo->meta_keywords;
             $this->long_description = $seoInfo->long_description;
-            if ($seoInfo->getImage() !== null) {
-                $this->seo_image_exist = true;
-                $this->meta_image = $seoInfo->getImage();
-            }
+            $this->meta_image = $seoInfo->getImage();
         }
         
         $data1 = [];
@@ -90,6 +85,9 @@ class BaseController extends Controller {
             'H' => $data1,
             'A' => $data2
         ]);
+        
+//        var_dump(Yii::$app->requestedRoute);
+//        var_dump(Yii::$app->request->queryParams);die;
         
         return true;
     }

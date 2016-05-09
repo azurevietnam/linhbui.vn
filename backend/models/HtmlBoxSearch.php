@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Widget;
+use backend\models\HtmlBox;
 
 /**
- * WidgetSearch represents the model behind the search form about `backend\models\Widget`.
+ * HtmlBoxSearch represents the model behind the search form about `backend\models\HtmlBox`.
  */
-class WidgetSearch extends Widget
+class HtmlBoxSearch extends HtmlBox
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class WidgetSearch extends Widget
     public function rules()
     {
         return [
-            [['id', 'page_group_id', 'place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
-            [['name', 'template', 'item_template', 'style', 'object_class', 'sql_order_by', 'sql_where', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['id', 'page_group_id', 'place', 'position', 'is_active', 'status'], 'integer'],
+            [['name', 'content', 'image_path', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class WidgetSearch extends Widget
      */
     public function search($params)
     {
-        $query = Widget::find();
+        $query = HtmlBox::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,21 +65,15 @@ class WidgetSearch extends Widget
             'page_group_id' => $this->page_group_id,
             'place' => $this->place,
             'position' => $this->position,
-            'sql_offset' => $this->sql_offset,
-            'sql_limit' => $this->sql_limit,
-            'status' => $this->status,
             'is_active' => $this->is_active,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'template', $this->template])
-            ->andFilterWhere(['like', 'item_template', $this->item_template])
-            ->andFilterWhere(['like', 'style', $this->style])
-            ->andFilterWhere(['like', 'object_class', $this->object_class])
-            ->andFilterWhere(['like', 'sql_order_by', $this->sql_order_by])
-            ->andFilterWhere(['like', 'sql_where', $this->sql_where])
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'image_path', $this->image_path])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'updated_by', $this->updated_by]);
 

@@ -2,20 +2,18 @@
 
 namespace backend\controllers;
 
-use backend\controllers\BaseController;
-use backend\models\SeoInfo;
-use backend\models\SeoInfoSearch;
-use backend\models\SeoInfoToPageGroup;
 use Yii;
-use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
+use backend\models\HtmlBox;
+use backend\models\HtmlBoxSearch;
+use backend\controllers\BaseController;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
- * SeoInfoController implements the CRUD actions for SeoInfo model.
+ * HtmlBoxController implements the CRUD actions for HtmlBox model.
  */
-class SeoInfoController extends BaseController
+class HtmlBoxController extends BaseController
 {
     public function behaviors()
     {
@@ -30,12 +28,12 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Lists all SeoInfo models.
+     * Lists all HtmlBox models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SeoInfoSearch();
+        $searchModel = new HtmlBoxSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         Url::remember();
@@ -47,7 +45,7 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Displays a single SeoInfo model.
+     * Displays a single HtmlBox model.
      * @param integer $id
      * @return mixed
      */
@@ -63,23 +61,23 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Creates a new SeoInfo model.
+     * Creates a new HtmlBox model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
         $username = Yii::$app->user->identity->username;
-        $model = new SeoInfo();
+        $model = new HtmlBox();
         
-        if (Yii::$app->request->isPost && $model = SeoInfo::create(Yii::$app->request->post())) {
+        if (Yii::$app->request->isPost && $model = HtmlBox::create(Yii::$app->request->post())) {
             
             is_array($model->page_group_ids) or $model->page_group_ids = [];
             
             foreach ($model->page_group_ids as $page_group_id) {
-                SeoInfoToPageGroup::create([
-                    'SeoInfoToPageGroup' => [
-                        'seo_info_id' => $model->id,
+                HtmlBoxToPageGroup::create([
+                    'HtmlBoxToPageGroup' => [
+                        'html_box_id' => $model->id,
                         'page_group_id' => $page_group_id
                     ]
                 ]);
@@ -95,7 +93,7 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Updates an existing SeoInfo model.
+     * Updates an existing HtmlBox model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -105,7 +103,7 @@ class SeoInfoController extends BaseController
         $username = Yii::$app->user->identity->username;
         if ($model = $this->findModel($id)) {
             
-            $model->page_group_ids = ArrayHelper::getColumn(SeoInfoToPageGroup::findAll(['seo_info_id' => $model->id]), 'page_group_id', false);
+            $model->page_group_ids = ArrayHelper::getColumn(HtmlBoxToPageGroup::findAll(['html_box_id' => $model->id]), 'page_group_id', false);
             $oldPageGroupIds = $model->page_group_ids;
             
             if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
@@ -114,9 +112,9 @@ class SeoInfoController extends BaseController
                 
                 foreach ($model->page_group_ids as $page_group_id) {
                     if (!in_array($page_group_id, $oldPageGroupIds)) {
-                        SeoInfoToPageGroup::create([
-                            'SeoInfoToPageGroup' => [
-                                'seo_info_id' => $model->id,
+                        HtmlBoxToPageGroup::create([
+                            'HtmlBoxToPageGroup' => [
+                                'html_box_id' => $model->id,
                                 'page_group_id' => $page_group_id
                             ]
                         ]);
@@ -125,7 +123,7 @@ class SeoInfoController extends BaseController
                 
                 foreach ($oldPageGroupIds as $page_group_id) {
                     if (!in_array($page_group_id, $model->page_group_ids)) {
-                        SeoInfoToPageGroup::findOne(['seo_info_id' => $model->id, 'page_group_id' => $page_group_id])->delete();
+                        HtmlBoxToPageGroup::findOne(['html_box_id' => $model->id, 'page_group_id' => $page_group_id])->delete();
                     }
                 }
                 
@@ -142,7 +140,7 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Deletes an existing SeoInfo model.
+     * Deletes an existing HtmlBox model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -158,15 +156,15 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Finds the SeoInfo model based on its primary key value.
+     * Finds the HtmlBox model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SeoInfo the loaded model
+     * @return HtmlBox the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SeoInfo::findOne($id)) !== null) {
+        if (($model = HtmlBox::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

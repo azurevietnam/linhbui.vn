@@ -18,8 +18,8 @@ class SeoInfoSearch extends SeoInfo
     public function rules()
     {
         return [
-            [['id', 'type', 'is_active'], 'integer'],
-            [['url', 'page_title','meta_title', 'meta_keywords', 'meta_description', 'long_description', 'h1', 'image', 'image_path', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
+            [['id', 'page_group_id', 'type', 'is_active'], 'integer'],
+            [['meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'long_description', 'image', 'image_path', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
         ];
     }
 
@@ -62,19 +62,19 @@ class SeoInfoSearch extends SeoInfo
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'page_group_id' => $this->page_group_id,
             'type' => $this->type,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'meta_title', $this->meta_title])
+        $query->andFilterWhere(['like', 'meta_title', $this->meta_title])
             ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
             ->andFilterWhere(['like', 'meta_description', $this->meta_description])
-            ->andFilterWhere(['like', 'long_description', $this->long_description])
             ->andFilterWhere(['like', 'h1', $this->h1])
             ->andFilterWhere(['like', 'page_title', $this->page_title])
+            ->andFilterWhere(['like', 'long_description', $this->long_description])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'image_path', $this->image_path])
             ->andFilterWhere(['like', 'created_by', $this->created_by])

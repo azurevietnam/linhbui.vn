@@ -35,9 +35,6 @@ class ArticleController extends BaseController
                 $this->meta_description = $model->meta_description;
                 $this->meta_keywords = $model->meta_keywords;
                 $this->long_description = $model->long_description;
-            }
-            
-            if (!$this->seo_image_exist) {
                 $this->meta_image = $model->getImage();
             }
             

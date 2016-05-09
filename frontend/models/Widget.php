@@ -8,9 +8,7 @@ use Yii;
  * This is the model class for table "widget".
  *
  * @property integer $id
- * @property string $route
- * @property string $url_param_name
- * @property string $url_param_values
+ * @property integer $page_group_id
  * @property integer $place
  * @property integer $position
  * @property string $name
@@ -28,6 +26,9 @@ use Yii;
  * @property integer $updated_at
  * @property string $created_by
  * @property string $updated_by
+ *
+ * @property WidgetToPageGroup[] $widgetToPageGroups
+ * @property PageGroup[] $pageGroups
  */
 class Widget extends \common\models\Widget
 {
@@ -45,10 +46,10 @@ class Widget extends \common\models\Widget
     public function rules()
     {
         return [
-            [['place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active', 'created_at', 'updated_at'], 'integer'],
-            [['route', 'url_param_name', 'name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
-            [['url_param_values', 'style'], 'string', 'max' => 2000],
+            [['page_group_id', 'place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['template', 'item_template'], 'string', 'max' => 511],
+            [['style'], 'string', 'max' => 2000],
         ];
     }
 
@@ -59,9 +60,7 @@ class Widget extends \common\models\Widget
     {
         return [
             'id' => 'ID',
-            'route' => 'Route',
-            'url_param_name' => 'Url Param Name',
-            'url_param_values' => 'Url Param Values',
+            'page_group_id' => 'Page Group ID',
             'place' => 'Place',
             'position' => 'Position',
             'name' => 'Name',
@@ -80,5 +79,21 @@ class Widget extends \common\models\Widget
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWidgetToPageGroups()
+    {
+        return $this->hasMany(WidgetToPageGroup::className(), ['widget_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPageGroups()
+    {
+        return $this->hasMany(PageGroup::className(), ['id' => 'page_group_id'])->viaTable('widget_to_page_group', ['widget_id' => 'id']);
     }
 }

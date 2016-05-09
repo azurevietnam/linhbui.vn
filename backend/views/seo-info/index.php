@@ -35,13 +35,6 @@ yii\helpers\Url::remember();
                     return Html::img($model->getImage(), ['style'=>'max-height:100px;max-width:100px']);
                 },
             ],
-            [
-                'attribute' => 'url',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return Html::a($model->url, $model->url, ['style'=>'color:#04a', 'target' => '_blank']);
-                },
-            ],
 //            'type',
             'page_title',
 //            'meta_title',

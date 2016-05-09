@@ -1,14 +1,15 @@
 <?php
 
+use backend\models\Widget;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
-use janisto\timepicker\TimePicker;
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\Widget */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $this View */
+/* @var $model Widget */
+/* @var $form ActiveForm */
 ?>
 
 <div class="widget-form">
@@ -17,18 +18,21 @@ use janisto\timepicker\TimePicker;
     <div class="col-md-12 row">
         <fieldset class="col-md-6">
             <legend>Các trang đặt Widget</legend>
-            <?= $form->field($model, 'route')->dropDownList(\backend\models\Widget::$routes, ['prompt' => 'Chọn']) ?>
-            <?= $form->field($model, 'url_param_name')->dropDownList(\backend\models\Widget::$url_param_names, ['prompt' => 'Chọn']) ?>
-            <?php
-            $array_url_param_values = json_decode($model->url_param_values);
-            is_array($array_url_param_values) or $array_url_param_values = array();
-            $model->url_param_values = implode("\n", $array_url_param_values);
-            ?>
-            <?= $form->field($model, 'url_param_values')->textarea(['maxlength' => true, 'rows' => 6, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
+            <?php echo $form->field($model, 'page_group_ids')->widget(Select2::classname(), [
+                'data' => backend\models\PageGroup::arrayIdToName(),
+                'language' => 'vi',
+                'options' => [
+                    'placeholder' => '- Chọn -',
+                    'multiple' => true
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); ?>
         </fieldset>
         <fieldset class="col-md-6">
             <legend>Vị trí đặt Widget</legend>
-            <?= $form->field($model, 'place')->dropDownList(\backend\models\Widget::$places, ['prompt' => 'Chọn']) ?>
+            <?= $form->field($model, 'place')->dropDownList(Widget::$places, ['prompt' => 'Chọn']) ?>
             <?= $form->field($model, 'position')->textInput() ?>
         </fieldset>
     </div>
@@ -42,7 +46,7 @@ use janisto\timepicker\TimePicker;
         </fieldset>
         <fieldset class="col-md-6">
             <legend>Thuộc tính các Item trong Widget</legend>
-            <?= $form->field($model, 'object_class')->dropDownList(\backend\models\Widget::$object_classes, ['prompt' => 'Chọn']) ?>
+            <?= $form->field($model, 'object_class')->dropDownList(Widget::$object_classes, ['prompt' => 'Chọn']) ?>
             <?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
             <?= $form->field($model, 'sql_offset')->textInput() ?>
             <?= $form->field($model, 'sql_limit')->textInput() ?>
@@ -64,13 +68,13 @@ use janisto\timepicker\TimePicker;
 </div>
 <?php
 $template_buttons = '<div class=\"my-buttons\">';
-foreach (\backend\models\Widget::$template_variables as $key => $name) {
+foreach (Widget::$template_variables as $key => $name) {
     $template_buttons .= "<button class=\\\"btn btn-md btn-default\\\" type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
 }
 $template_buttons .= '</div>';
 
 $item_template_buttons = '<div class=\"my-buttons\">';
-foreach (\backend\models\Widget::$item_template_variables as $key => $name) {
+foreach (Widget::$item_template_variables as $key => $name) {
     $item_template_buttons .= "<button class=\\\"btn btn-md btn-default\\\" type=\\\"button\\\" value=\\\"$key\\\" data-toggle=\\\"tooltip\\\" title=\\\"$key\\\">$name</button>";
 }
 $item_template_buttons .= '</div>';

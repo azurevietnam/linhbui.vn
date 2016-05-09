@@ -1,7 +1,9 @@
 <?php
 
+use backend\models\PageGroup;
 use backend\models\SeoInfo;
 use dosamigos\ckeditor\CKEditor;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -17,7 +19,17 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     
     <div class="col-md-6">
-		<?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+        <?php echo $form->field($model, 'page_group_ids')->widget(Select2::classname(), [
+            'data' => PageGroup::arrayIdToName(),
+            'language' => 'vi',
+            'options' => [
+                'placeholder' => '- Chọn -',
+                'multiple' => true
+            ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); ?>
 		<?php // echo $form->field($model, 'type')->textInput() ?>
 		<?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
 		<?= $form->field($model, 'is_active')->checkbox() ?>

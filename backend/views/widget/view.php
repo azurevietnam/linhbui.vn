@@ -29,9 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'route',
-            'url_param_name:url',
-            'url_param_values:url',
+            'page_group_id',
             'place',
             'position',
             'name',

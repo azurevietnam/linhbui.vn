@@ -112,13 +112,25 @@ use yii\helpers\Url;
                 </ul>
             </li>
             <!-- Thông tin SEO -->
-            <li class="treeview <?= in_array(Yii::$app->controller->id, ['seo-info']) ? 'active' : '' ?>">
+<!--            <li class="treeview <?= in_array(Yii::$app->controller->id, ['seo-info']) ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-dot-circle-o"></i> <span>Thông tin SEO</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="<?= Yii::$app->controller->id == 'seo-info' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('seo-info/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                     <li class="<?= Yii::$app->controller->id == 'seo-info' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('seo-info/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
+                </ul>
+            </li>-->
+            <!-- Widget -->
+            <li class="treeview <?= in_array(Yii::$app->controller->id, ['widget', 'page-group', 'html-box', 'seo-info']) ? 'active' : '' ?>">
+                <a href="#">
+                    <i class="fa fa-puzzle-piece"></i> <span>Trang, widget, seo, ...</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?= Yii::$app->controller->id == 'page-group' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('page-group/index') ?>"><i class="fa fa-circle-o"></i> Trang</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'widget' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('widget/index') ?>"><i class="fa fa-circle-o"></i> Widget</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'html-box' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('html-box/index') ?>"><i class="fa fa-circle-o"></i> Box HTML </a></li>
+                    <li class="<?= Yii::$app->controller->id == 'seo-info' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('seo-info/index') ?>"><i class="fa fa-circle-o"></i> Thông tin SEO</a></li>
                 </ul>
             </li>
             <!-- Các trang tĩnh -->
@@ -129,16 +141,6 @@ use yii\helpers\Url;
                 <ul class="treeview-menu">
                     <li class="<?= Yii::$app->controller->id == 'info' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('info/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                     <li class="<?= Yii::$app->controller->id == 'info' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('info/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
-                </ul>
-            </li>
-            <!-- Widget -->
-            <li class="treeview <?= in_array(Yii::$app->controller->id, ['widget']) ? 'active' : '' ?>">
-                <a href="#">
-                    <i class="fa fa-puzzle-piece"></i> <span>Widget</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="<?= Yii::$app->controller->id == 'widget' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('widget/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-                    <li class="<?= Yii::$app->controller->id == 'widget' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('widget/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
             </li>
             <!-- Chuyển hướng liên kết -->

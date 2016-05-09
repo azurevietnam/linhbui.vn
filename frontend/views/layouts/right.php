@@ -3,7 +3,7 @@
 
 //(Yii::$app->getRequest()->getQueryParam('slug'));
 
- echo $this->render('//widget/index', ['route' => Yii::$app->requestedRoute]);
+ echo $this->render('//widget/index');
 
 ?>
 </aside>

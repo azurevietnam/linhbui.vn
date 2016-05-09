@@ -2,13 +2,15 @@
 
 namespace backend\controllers;
 
-use Yii;
 use backend\models\Widget;
 use backend\models\WidgetSearch;
-use yii\web\Controller;
-use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
+use backend\models\WidgetToPageGroup;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * WidgetController implements the CRUD actions for Widget model.
@@ -78,12 +80,6 @@ class WidgetController extends Controller
             $model = new Widget();
             $model->load($data);
             
-            $array_url_param_values = explode("\n", str_replace("\r", "", $model->url_param_values));
-            foreach ($array_url_param_values as &$item) {
-                $item = trim($item);
-            }
-            $model->url_param_values = json_encode($array_url_param_values);
-            
             if ($model->validate()) {
                 Yii::$app->session->set(static::PREVIEW_SESSION_KEY, $model);
                 return true;
@@ -111,6 +107,18 @@ class WidgetController extends Controller
         }
         
         if (Yii::$app->request->isPost && $model = Widget::create(Yii::$app->request->post())) {
+            
+            is_array($model->page_group_ids) or $model->page_group_ids = [];
+            
+            foreach ($model->page_group_ids as $page_group_id) {
+                WidgetToPageGroup::create([
+                    'WidgetToPageGroup' => [
+                        'widget_id' => $model->id,
+                        'page_group_id' => $page_group_id
+                    ]
+                ]);
+            }
+            
             return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -131,11 +139,35 @@ class WidgetController extends Controller
         $username = Yii::$app->user->identity->username;
         
         if ($model = $this->findModel($id)) {
+            
+            $model->page_group_ids = ArrayHelper::getColumn(WidgetToPageGroup::findAll(['widget_id' => $model->id]), 'page_group_id', false);
+            $oldPageGroupIds = $model->page_group_ids;
+            
             if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
+                
+                is_array($model->page_group_ids) or $model->page_group_ids = [];
+                
+                foreach ($model->page_group_ids as $page_group_id) {
+                    if (!in_array($page_group_id, $oldPageGroupIds)) {
+                        WidgetToPageGroup::create([
+                            'WidgetToPageGroup' => [
+                                'widget_id' => $model->id,
+                                'page_group_id' => $page_group_id
+                            ]
+                        ]);
+                    }
+                }
+                
+                foreach ($oldPageGroupIds as $page_group_id) {
+                    if (!in_array($page_group_id, $model->page_group_ids)) {
+                        WidgetToPageGroup::findOne(['widget_id' => $model->id, 'page_group_id' => $page_group_id])->delete();
+                    }
+                }
+                
                 return $this->goBack(Url::previous());
             } else {
                 if (Yii::$app->session->has(static::PREVIEW_SESSION_KEY)) {
-                    $model->load(Yii::$app->session->get(static::PREVIEW_SESSION_KEY)->attributes);
+                    $model->load([Widget::className() => Yii::$app->session->get(static::PREVIEW_SESSION_KEY)->attributes]);
                     Yii::$app->session->remove(static::PREVIEW_SESSION_KEY);
                 }
                 return $this->render('update', [

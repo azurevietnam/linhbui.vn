@@ -6,31 +6,26 @@ use common\utils\FileUtils;
 use Yii;
 
 /**
- * This is the model class for table "widget".
+ * This is the model class for table "html_box".
  *
  * @property integer $id
  * @property integer $page_group_id
+ * @property string $name
+ * @property string $content
+ * @property string $image_path
  * @property integer $place
  * @property integer $position
- * @property string $name
- * @property string $template
- * @property string $item_template
- * @property string $style
- * @property string $object_class
- * @property integer $sql_offset
- * @property integer $sql_limit
- * @property string $sql_order_by
- * @property string $sql_where
- * @property integer $status
  * @property integer $is_active
+ * @property integer $status
  * @property integer $created_at
- * @property integer $updated_at
  * @property string $created_by
+ * @property integer $updated_at
  * @property string $updated_by
  *
- * @property WidgetToPageGroup[] $widgetToPageGroups
+ * @property PageGroup $pageGroup
+ * @property HtmlBoxToPageGroup[] $htmlBoxToPageGroups
  */
-class Widget extends \common\models\Widget
+class HtmlBox extends \yii\db\ActiveRecord
 {
 
     /**
@@ -40,12 +35,12 @@ class Widget extends \common\models\Widget
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;  
-        $model = new Widget();
+        $model = new HtmlBox();
         if($model->load($data)) {
             if ($log = new UserLog()) {
                 $log->username = $username;
                 $log->action = 'Create';
-                $log->object_class = 'Widget';
+                $log->object_class = 'HtmlBox';
                 $log->created_at = $now;
                 $log->is_success = 0;
                 $log->save();
@@ -53,6 +48,22 @@ class Widget extends \common\models\Widget
             
             $model->created_at = $now;
             $model->created_by = $username;
+                
+            do {
+                $path = FileUtils::generatePath($now);
+            } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            $model->image_path = $path;
+            $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
+            $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
+            
+                    
+            $model->content = FileUtils::copyContentImages([
+                'content' => $model->content,
+                'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                'toFolder' => $targetFolder,
+                'toUrl' => $targetUrl,
+                'removeInputImage' => true,
+            ]);
             if ($model->save()) {
                 if ($log) {
                     $log->object_pk = $model->id;
@@ -78,7 +89,7 @@ class Widget extends \common\models\Widget
             if ($log = new UserLog()) {
                 $log->username = $username;
                 $log->action = 'Update';
-                $log->object_class = 'Widget';
+                $log->object_class = 'HtmlBox';
                 $log->object_pk = $this->id;
                 $log->created_at = $now;
                 $log->is_success = 0;
@@ -87,6 +98,25 @@ class Widget extends \common\models\Widget
             
             $this->updated_at = $now;
             $this->updated_by = $username;
+                  
+            if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
+                $path = $this->image_path;
+            } else {
+                do {
+                    $path = FileUtils::generatePath($now);
+                } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            }
+            $this->image_path = $path;
+            $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
+            $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
+            
+            $this->content = FileUtils::copyContentImages([
+                'content' => $this->content,
+                'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                'toFolder' => $targetFolder,
+                'toUrl' => $targetUrl,
+                'removeInputImage' => true,
+            ]);
             
             if ($this->save()) {
                 if ($log) {
@@ -111,7 +141,7 @@ class Widget extends \common\models\Widget
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
-            $log->object_class = 'Widget';
+            $log->object_class = 'HtmlBox';
             $log->object_pk = $model->id;
             $log->created_at = $now;
             $log->is_success = 0;
@@ -122,6 +152,7 @@ class Widget extends \common\models\Widget
                 $log->is_success = 1;
                 $log->save();
             }
+            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $model->image_path);
             return true;
         }
         return false;
@@ -132,7 +163,7 @@ class Widget extends \common\models\Widget
      */
     public static function tableName()
     {
-        return 'widget';
+        return 'html_box';
     }
 
     public $page_group_ids;
@@ -142,12 +173,10 @@ class Widget extends \common\models\Widget
     public function rules()
     {
         return [
-            [['object_class'], 'required'],
-            [['page_group_id', 'place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active'], 'integer'],
+            [['page_group_id', 'place', 'position', 'is_active', 'status'], 'integer'],
+            [['content'], 'string'],
             [['page_group_ids', 'created_at', 'updated_at'], 'safe'],
-            [['name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
-            [['template', 'item_template'], 'string', 'max' => 511],
-            [['style'], 'string', 'max' => 2000]
+            [['name', 'image_path', 'created_by', 'updated_by'], 'string', 'max' => 255]
         ];
     }
 
@@ -159,22 +188,16 @@ class Widget extends \common\models\Widget
         return [
             'id' => 'ID',
             'page_group_id' => 'Page Group ID',
+            'name' => 'Name',
+            'content' => 'Content',
+            'image_path' => 'Image Path',
             'place' => 'Place',
             'position' => 'Position',
-            'name' => 'Name',
-            'template' => 'Template',
-            'item_template' => 'Item Template',
-            'style' => 'Style',
-            'object_class' => 'Object Class',
-            'sql_offset' => 'Sql Offset',
-            'sql_limit' => 'Sql Limit',
-            'sql_order_by' => 'Sql Order By',
-            'sql_where' => 'Sql Where',
-            'status' => 'Status',
             'is_active' => 'Is Active',
+            'status' => 'Status',
             'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
             'created_by' => 'Created By',
+            'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
     }
@@ -182,8 +205,16 @@ class Widget extends \common\models\Widget
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWidgetToPageGroups()
+    public function getPageGroup()
     {
-        return $this->hasMany(WidgetToPageGroup::className(), ['widget_id' => 'id']);
+        return $this->hasOne(PageGroup::className(), ['id' => 'page_group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHtmlBoxToPageGroups()
+    {
+        return $this->hasMany(HtmlBoxToPageGroup::className(), ['html_box_id' => 'id']);
     }
 }

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\WidgetSearch */
+/* @var $model backend\models\HtmlBoxSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="widget-search">
+<div class="html-box-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,37 +19,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'page_group_id') ?>
 
-    <?= $form->field($model, 'place') ?>
-
-    <?= $form->field($model, 'position') ?>
-
     <?= $form->field($model, 'name') ?>
 
-    <?php // echo $form->field($model, 'template') ?>
+    <?= $form->field($model, 'content') ?>
 
-    <?php // echo $form->field($model, 'item_template') ?>
+    <?= $form->field($model, 'image_path') ?>
 
-    <?php // echo $form->field($model, 'style') ?>
+    <?php // echo $form->field($model, 'place') ?>
 
-    <?php // echo $form->field($model, 'object_class') ?>
-
-    <?php // echo $form->field($model, 'sql_offset') ?>
-
-    <?php // echo $form->field($model, 'sql_limit') ?>
-
-    <?php // echo $form->field($model, 'sql_order_by') ?>
-
-    <?php // echo $form->field($model, 'sql_where') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'position') ?>
 
     <?php // echo $form->field($model, 'is_active') ?>
 
+    <?php // echo $form->field($model, 'status') ?>
+
     <?php // echo $form->field($model, 'created_at') ?>
 
-    <?php // echo $form->field($model, 'updated_at') ?>
-
     <?php // echo $form->field($model, 'created_by') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
 
     <?php // echo $form->field($model, 'updated_by') ?>
 

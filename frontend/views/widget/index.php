@@ -1,11 +1,9 @@
 <?php
+
+use frontend\models\PageGroup;
 use frontend\models\Widget;
-$widgets = Widget::find()
-        ->where(['place' => Widget::PLACE_RIGHT])
-        ->andWhere(['in', 'route', ['*', $route]])
-        ->allActive();
+$widgets = PageGroup::widgets();
 foreach ($widgets as $widget) {
-    if ($widget->url_param_name == '' || in_array(Yii::$app->getRequest()->getQueryParam($widget->url_param_name), json_decode($widget->url_param_values))) {
         try {
             $class = "frontend\\models\\$widget->object_class";
             $query = $class::find();
@@ -41,6 +39,5 @@ foreach ($widgets as $widget) {
         } catch (Exception $e) {
             
         }
-    }
 }
 ?>
