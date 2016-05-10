@@ -28,8 +28,6 @@ class TagController extends BaseController
                 $this->meta_description = $tag->meta_description;
                 $this->meta_keywords = $tag->meta_keywords;
                 $this->long_description = $tag->long_description;
-            }
-            if (!$this->seo_image_exist) {
                 $this->meta_image = $tag->getImage();
             }
             
