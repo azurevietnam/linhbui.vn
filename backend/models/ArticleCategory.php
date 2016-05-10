@@ -49,9 +49,9 @@ class ArticleCategory extends \common\models\ArticleCategory
         if ($this->_link === null) {
             $_link = '';
             if ($parent = $this->parent) {
-                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article-category/index','parent_slug' => $parent->slug ,'slug' => $this->slug]);
+                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article-category/index',\common\models\PageGroup::URL_PARENT_SLUG => $parent->slug ,\common\models\PageGroup::URL_SLUG => $this->slug]);
             } else {
-                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article-category/index', 'slug' => $this->slug]);
+                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article-category/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
             }
             $this->_link = $_link;
         }

@@ -113,9 +113,9 @@ class Product extends \common\models\Product
             $_link = '';
             if ($cate = $this->getProductCategory()) {
                 if ($parent_cate = $cate->getParent()) {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', 'parent_cate_slug' => $parent_cate->slug , 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
+                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $parent_cate->slug , \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
                 } else {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
+                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
                 }
             } else {
 //                $_link = Yii::$app->params['frontend_url'] . '/' . $this->slug . '.html';

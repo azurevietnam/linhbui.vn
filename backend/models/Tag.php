@@ -61,7 +61,7 @@ class Tag extends \yii\db\ActiveRecord
         if ($this->_link === null) {
             $_link = '';
             if (true) {
-                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['tag/index', 'slug' => $this->slug]);
+                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['tag/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
             }
             $this->_link = $_link;
         }

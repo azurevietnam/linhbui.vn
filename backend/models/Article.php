@@ -54,12 +54,12 @@ class Article extends \common\models\Article
             $_link = '';
             if ($cate = $this->articleCategory) {
                 if ($parent_cate = $cate->parent) {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'parent_cate_slug' => $parent_cate->slug , 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
+                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $parent_cate->slug , \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
                 } else {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug]);
+                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
                 }
             } else {
-//                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'slug' => $this->slug]);
+//                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
             }
             $this->_link = $_link;
         }
