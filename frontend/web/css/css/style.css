@@ -379,6 +379,12 @@ ul.list_col li .desc{margin:-3px 0 0;color:#666;font-size:13px;line-height:150%}
 .boxbor ul.list_col li{padding:5px 10px;border:none;margin:0}
 .boxbor li .cover{max-height:60px;overflow:hidden}
 
+.boxbor.box-hoangdao ul.list_col li{width:32.3%;display:inline-block;vertical-align:top}
+.box-hoangdao ul.list_col .thumb .cover{float:none;width:100%;margin:0}
+.box-hoangdao ul.list_col .title-news{margin:5px 0;text-align:center}
+.box-hoangdao ul.list_col .title-news a strong{display:block}
+
+
 .list-news-other.col-2{width:100%;padding-left:0}
 .post .info-post{margin-top:15px}
 .col-2 .post .desc{margin-top:8px}
@@ -542,36 +548,3 @@ nav li li a:hover strong{color:#fff}
 	.img-bn{height:auto}
 	.desc-bnn{padding-bottom:10px}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

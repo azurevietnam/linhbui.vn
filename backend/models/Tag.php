@@ -30,28 +30,8 @@ use Yii;
  * @property integer $updated_at
  * @property string $updated_by
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends \common\models\Tag
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
-    
     /**
     * function ->getLink ()
     */
@@ -101,7 +81,7 @@ class Tag extends \yii\db\ActiveRecord
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(Tag::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -173,7 +153,7 @@ class Tag extends \yii\db\ActiveRecord
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(Tag::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {

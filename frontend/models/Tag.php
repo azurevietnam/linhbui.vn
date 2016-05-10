@@ -34,7 +34,7 @@ use Yii;
  * @property ProductToTag[] $productToTags
  * @property Product[] $products
  */
-class Tag extends \common\models\MyActiveRecord
+class Tag extends \common\models\Tag
 {
     public $_link;
     public function getLink()
