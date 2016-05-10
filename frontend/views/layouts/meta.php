@@ -20,7 +20,6 @@
 <meta property="og:url" content="<?= $this->context->link_canonical ?>">
 <meta property="og:image" content="<?= $this->context->meta_image ?>">
 <meta property="og:site_name" content="<?= Yii::$app->name ?>">
-<meta property="article:publisher" content="">
 <link rel="canonical" href="<?= $this->context->link_canonical ?>">
 <link rel="image_src" type="image/jpeg" href="<?= $this->context->meta_image ?>">
 <link rel="alternate" media="handheld" href="<?= $this->context->link_canonical ?>">
