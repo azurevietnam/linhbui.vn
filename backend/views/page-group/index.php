@@ -25,13 +25,36 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'route',
-//            'url_regexp:url',
-            'url_params',
+            [
+                'attribute' => 'route',
+                'format' => 'raw',
+                'value' => function($model) {
+                    if (isset(backend\models\PageGroup::$routes[$model->route])) {
+                        return backend\models\PageGroup::$routes[$model->route];
+                    } else {
+                        return $model->route;
+                    }
+                }
+            ],
+            [
+                'attribute' => 'url_params',
+                'format' => 'raw',
+                'value' => function($model) {
+                    $result = '';
+                    foreach ((array) json_decode($model->url_params) as $param => $value) {
+                        if ($value != '') {
+                            $result .= "<p>$param = $value</p>";
+                        }
+                    }
+                    return $result;
+                }
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}'
+            ],
         ],
     ]); ?>
 
