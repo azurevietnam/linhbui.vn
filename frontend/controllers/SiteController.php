@@ -75,7 +75,7 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->link_canonical = Url::home(true);
-        $hot_items = Article::find()->orderBy('published_at desc')->limit(16)->allPublished();
+        $hot_items = Article::find()->orderBy('published_at desc')->limit(10)->allPublished();
         $hot_categories = ArticleCategory::find()->where(['is_hot' => 1])->orderBy('position asc')->allActive();
         return $this->render('index', [
             'hot_items' => $hot_items,
