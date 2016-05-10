@@ -13,7 +13,7 @@ class ArticleController extends BaseController
     
     public function actionIndex()
     {
-        $slug = Yii::$app->request->get('slug', '');
+        $slug = Yii::$app->request->get(\common\models\PageGroup::URL_SLUG, '');
         if ($model = Article::find()->where(['slug' => $slug])->oneActive()) {
             $this->link_canonical = $model->getLink();
             if (!Redirect::compareUrl($this->link_canonical)) {

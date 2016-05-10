@@ -12,6 +12,7 @@ use Yii;
  * @property string $name
  * @property string $route
  * @property string $url_regexp
+ * @property string $url_params
  *
  * @property HtmlBox[] $htmlBoxes
  * @property HtmlBoxToPageGroup[] $htmlBoxToPageGroups
@@ -39,6 +40,11 @@ class PageGroup extends \common\models\PageGroup
                 $log->is_success = 0;
                 $log->save();
             }
+            
+            
+            $model->url_params = json_encode($model->url_params);
+            
+            $model->scenario = 'save';
             
             if ($model->save()) {
                 if ($log) {
@@ -72,6 +78,9 @@ class PageGroup extends \common\models\PageGroup
                 $log->save();
             }
             
+            $this->url_params = json_encode($this->url_params);
+            
+            $this->scenario = 'save';
             
             if ($this->save()) {
                 if ($log) {
@@ -127,7 +136,9 @@ class PageGroup extends \common\models\PageGroup
     {
         return [
             [['name', 'route'], 'string', 'max' => 255],
-            [['url_regexp'], 'string', 'max' => 2000]
+            [['url_regexp'], 'string', 'max' => 2000],
+            ['url_params', 'string', 'max' => 2000, 'on' => 'save'],
+            ['url_params', 'each', 'rule' => ['string'], 'on' => 'default'],
         ];
     }
 
@@ -141,6 +152,7 @@ class PageGroup extends \common\models\PageGroup
             'name' => 'Name',
             'route' => 'Route',
             'url_regexp' => 'Url Regexp',
+            'url_params' => 'Url Params',
         ];
     }
 

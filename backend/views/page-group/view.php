@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'route',
             'url_regexp:url',
+            'url_params:url',
         ],
     ]) ?>
 

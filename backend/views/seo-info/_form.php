@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     
     <div class="col-md-6">
-        <?php echo $form->field($model, 'page_group_ids')->widget(Select2::classname(), [
+        <?php /* echo $form->field($model, 'page_group_ids')->widget(Select2::classname(), [
             'data' => PageGroup::arrayIdToName(),
             'language' => 'vi',
             'options' => [
@@ -29,8 +29,8 @@ use yii\widgets\ActiveForm;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]); ?>
-		<?php // echo $form->field($model, 'type')->textInput() ?>
+        ]); */ ?>
+		<?php echo $form->field($model, 'page_group_id')->dropDownList(PageGroup::arrayIdToName(), ['prompt' => 'Chọn']) ?>
 		<?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
 		<?= $form->field($model, 'is_active')->checkbox() ?>
     </div>

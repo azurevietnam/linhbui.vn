@@ -20,7 +20,7 @@ class SitemapController extends BaseController
         $items = [];
         $article_categories = ArticleCategory::find()->where('id in (select article_category_id from ' . Article::tableName() . ')')->andWhere(['is_active' => 1])->all();
         foreach ($article_categories as $item) {
-            $items[] = Url::to(['sitemap/article', 'slug' => $item->slug], true);
+            $items[] = Url::to(['sitemap/article', \common\models\PageGroup::URL_SLUG => $item->slug], true);
         }
         
         Yii::$app->response->format = Response::FORMAT_RAW;

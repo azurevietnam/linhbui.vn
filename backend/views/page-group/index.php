@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'route',
-            'url_regexp:url',
+//            'url_regexp:url',
+            'url_params',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

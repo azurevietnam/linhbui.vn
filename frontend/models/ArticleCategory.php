@@ -46,9 +46,9 @@ class ArticleCategory extends \common\models\ArticleCategory
         if ($this->_link === null) {
             $_link = '';
             if ($parent = $this->parent) {
-                $_link = Url::to(['article-category/index','parent_slug' => $parent->slug ,'slug' => $this->slug], true);
+                $_link = Url::to(['article-category/index',\common\models\PageGroup::URL_PARENT_SLUG => $parent->slug ,\common\models\PageGroup::URL_SLUG => $this->slug], true);
             } else {
-                $_link = Url::to(['article-category/index', 'slug' => $this->slug], true);
+                $_link = Url::to(['article-category/index', \common\models\PageGroup::URL_SLUG => $this->slug], true);
             }
             $this->_link = $_link;
         }

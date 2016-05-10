@@ -11,7 +11,7 @@ class ProductController extends BaseController
 {
     public function actionIndex()
     {
-        $slug = Yii::$app->request->get('slug', '');
+        $slug = Yii::$app->request->get(\common\models\PageGroup::URL_SLUG, '');
         if ($model = Product::find()->where(['slug' => $slug])->andWhere(['<=', 'published_at', strtotime('now')])->one()) {
             $this->link_canonical = $model->getLink();
             if (!Redirect::compareUrl($this->link_canonical)) {

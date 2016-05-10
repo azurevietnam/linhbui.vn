@@ -19,7 +19,7 @@ class PageGroupSearch extends PageGroup
     {
         return [
             [['id'], 'integer'],
-            [['name', 'route', 'url_regexp'], 'safe'],
+            [['name', 'route', 'url_regexp', 'url_params'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class PageGroupSearch extends PageGroup
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'route', $this->route])
-            ->andFilterWhere(['like', 'url_regexp', $this->url_regexp]);
+            ->andFilterWhere(['like', 'url_regexp', $this->url_regexp])
+            ->andFilterWhere(['like', 'url_params', $this->url_params]);
 
         return $dataProvider;
     }

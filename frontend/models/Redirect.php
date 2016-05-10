@@ -63,7 +63,7 @@ class Redirect extends ActiveRecord
     public static function getRedirectUrlBySlug($slug = null)
     {
         $result = '';
-        !empty($slug) or $slug = Yii::$app->request->get('slug');
+        !empty($slug) or $slug = Yii::$app->request->get(\common\models\PageGroup::URL_SLUG);
         $slug_json = json_encode($slug);
 //        $urlManager = 'urlManager_'.strtotime('2016-02-26 10:00:00');
 //        var_dump(Yii::$app->$urlManager->createUrl(['article/index']));
@@ -80,7 +80,7 @@ class Redirect extends ActiveRecord
     public static function getRedirectSitemapBySlug($slug = null)
     {
         $result = '';
-        !empty($slug) or $slug = Yii::$app->request->get('slug');
+        !empty($slug) or $slug = Yii::$app->request->get(\common\models\PageGroup::URL_SLUG);
         $slug_json = json_encode($slug);
 //        $urlManager = 'urlManager_'.strtotime('2016-02-26 10:00:00');
 //        var_dump(Yii::$app->$urlManager->createUrl(['article/index']));

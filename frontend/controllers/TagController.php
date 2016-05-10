@@ -12,7 +12,7 @@ class TagController extends BaseController
 
     public function actionIndex()
     {
-        $slug = Yii::$app->request->get('slug', '');
+        $slug = Yii::$app->request->get(\common\models\PageGroup::URL_SLUG, '');
         if ($tag = Tag::findOne(['is_active' => 1, 'slug' => $slug])) {
             $this->link_canonical = $tag->getLink();
             if (!Redirect::compareUrl($this->link_canonical)) {

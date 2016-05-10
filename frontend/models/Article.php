@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 /**
  * This is the model class for table "article".
@@ -52,12 +52,12 @@ class Article extends \common\models\Article
             $_link = '';
             if ($cate = $this->articleCategory) {
                 if ($parent_cate = $cate->parent) {
-                    $_link = Url::to(['article/index', 'parent_cate_slug' => $parent_cate->slug , 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
+                    $_link = Url::to(['article/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $parent_cate->slug , \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug], true);
                 } else {
-                    $_link = Url::to(['article/index', 'cate_slug' => $cate->slug, 'slug' => $this->slug], true);
+                    $_link = Url::to(['article/index', \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug], true);
                 }
             } else {
-//                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', 'slug' => $this->slug]);
+                //
             }
             $this->_link = $_link;
         }
@@ -81,7 +81,7 @@ class Article extends \common\models\Article
             [['article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'created_at', 'updated_at', 'is_hot', 'position', 'status', 'published_at', 'is_active'], 'integer'],
             [['content', 'created_at', 'published_at'], 'required'],
             [['content', 'long_description'], 'string'],
-            [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
+            [['name', \common\models\PageGroup::URL_SLUG, 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
             [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
             [['article_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleCategory::className(), 'targetAttribute' => ['article_category_id' => 'id']],
@@ -98,7 +98,7 @@ class Article extends \common\models\Article
             'article_category_id' => 'Article Category ID',
             'name' => 'Name',
             'content' => 'Content',
-            'slug' => 'Slug',
+            \common\models\PageGroup::URL_SLUG => 'Slug',
             'old_slugs' => 'Old Slugs',
             'description' => 'Description',
             'image' => 'Image',
@@ -127,7 +127,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getArticleCategory()
     {
@@ -135,7 +135,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getArticleToArticleCategories()
     {
@@ -143,7 +143,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getArticleCategories()
     {
@@ -151,7 +151,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getArticleToTags()
     {
@@ -159,7 +159,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTags()
     {

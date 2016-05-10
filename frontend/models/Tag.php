@@ -41,7 +41,7 @@ class Tag extends \common\models\MyActiveRecord
     {
         if ($this->_link === null) {
             $_link = '';
-            $_link = \yii\helpers\Url::to(['tag/index', 'slug' => $this->slug], true);
+            $_link = \yii\helpers\Url::to(['tag/index', \common\models\PageGroup::URL_SLUG => $this->slug], true);
             $this->_link = $_link;
         }
         return $this->_link;

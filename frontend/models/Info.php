@@ -21,7 +21,7 @@ class Info extends \common\models\Info {
     public function getLink() {
         if ($this->_link === null) {
             $_link = '';
-            $_link = Url::to(['info/index', 'slug' => $this->slug], true);
+            $_link = Url::to(['info/index', \common\models\PageGroup::URL_SLUG => $this->slug], true);
             $this->_link = $_link;
         }
         return $this->_link;

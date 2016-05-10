@@ -1,4 +1,6 @@
 <?php
+
+use common\models\PageGroup;
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -41,22 +43,22 @@ return [
             'rules' => [
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
-                ['pattern' => 'sitemap-<slug>.xml', 'route' => 'sitemap/article'],
+                ['pattern' => 'sitemap-<' . PageGroup::URL_SLUG . '>.xml', 'route' => 'sitemap/article'],
                 // Trang chủ
                 ['pattern' => '', 'route' => 'site/index'],
                 ['pattern' => '', 'route' => 'site/index', 'suffix' => '/'],
                 // Tags
-                ['pattern' => 'tim-kiem/<slug>', 'route' => 'tag/index'],
-                ['pattern' => 'tim-kiem/<slug>', 'route' => 'tag/index', 'suffix' => '/'], 
+                ['pattern' => 'tim-kiem/<' . PageGroup::URL_SLUG . '>', 'route' => 'tag/index'],
+                ['pattern' => 'tim-kiem/<' . PageGroup::URL_SLUG . '>', 'route' => 'tag/index', 'suffix' => '/'], 
                 // Tin tức
                 ['pattern' => 'article/counter', 'route' => 'article/counter'],
-                ['pattern' => '<parent_cate_slug>/<cate_slug>/<slug>.html', 'route' => 'article/index'],
-                ['pattern' => '<cate_slug>/<slug>.html', 'route' => 'article/index'],
+                ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>.html', 'route' => 'article/index'],
+                ['pattern' => '<' . PageGroup::URL_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>.html', 'route' => 'article/index'],
                 // Danh mục tin tức
-                ['pattern' => '<parent_slug>/<slug>', 'route' => 'article-category/index', 'suffix' => '/'],
-                ['pattern' => '<parent_slug>/<slug>', 'route' => 'article-category/index'],
-                ['pattern' => '<slug>', 'route' => 'article-category/index', 'suffix' => '/'],
-                ['pattern' => '<slug>', 'route' => 'article-category/index'],
+                ['pattern' => '<' . PageGroup::URL_PARENT_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
+                ['pattern' => '<' . PageGroup::URL_PARENT_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
+                ['pattern' => '<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
+                ['pattern' => '<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
             ]
         ],
         'user' => [

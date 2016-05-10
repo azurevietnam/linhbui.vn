@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\PageGroup;
 use backend\models\PageGroupSearch;
-use yii\web\Controller;
+use backend\controllers\BaseController;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * PageGroupController implements the CRUD actions for PageGroup model.
  */
-class PageGroupController extends Controller
+class PageGroupController extends BaseController
 {
     public function behaviors()
     {

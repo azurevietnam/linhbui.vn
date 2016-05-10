@@ -12,7 +12,7 @@ class ProductCategoryController extends BaseController
 
     public function actionIndex()
     {
-        $slug = Yii::$app->request->get('slug', '');
+        $slug = Yii::$app->request->get(\common\models\PageGroup::URL_SLUG, '');
         if ($cate = ProductCategory::findOne(['is_active' => 1, 'slug' => $slug])) {
             $this->link_canonical = $cate->getLink();
             if (!Redirect::compareUrl($this->link_canonical)) {

@@ -22,34 +22,42 @@ use Yii;
  */
 class PageGroup extends \common\models\PageGroup
 {
-    public static $_pertinent_records = 1;
+    public static $_pertinent_record = 1;
 
-    public static function pertinentRecords()
+    public static function pertinentRecord()
     {
-        if (static::$_pertinent_records === 1) {
+        if (static::$_pertinent_record === 1) {
             $query = static::find();
-            $query->where(['or', ['route' => Yii::$app->requestedRoute], ['route' => '']]);
-            $result = [];
-            foreach ($query->all() as $record) {
-                if ($record->url_regexp == '' || preg_match($record->url_regexp, preg_quote(\yii\helpers\Url::current([], true)))) {
-                    $result[] = $record;
-                }
+            $query->where([
+                'or',
+                ['route' => Yii::$app->requestedRoute],
+                ['route' => '']
+            ]);
+            foreach (\common\models\PageGroup::$all_url_params as $param => $label) {
+                $query->andWhere([
+                    'or',
+                    [
+                        'or',
+                        ['like', 'url_params', "\"$param\":" . json_encode(Yii::$app->request->get($param))],
+                        ['like', 'url_params', "\"$param\":\"\""],
+                    ],
+                    ['not like', 'url_params', "\"$param\""],
+                ]);
             }
-            static::$_pertinent_records = $result;
+            if (!static::$_pertinent_record = $query->one()) {
+                static::$_pertinent_record = new PageGroup();
+            }
         }
-        return static::$_pertinent_records;
+        return static::$_pertinent_record;
     }
 
     public static $_seo_info = 1;
 
     public static function seoInfo()
     {
+//        var_dump(static::pertinentRecord());die;
         if (static::$_seo_info === 1) {
-            if (static::pertinentRecords() == []) {
-                static::$_seo_info = false;
-            } else {
-                static::$_seo_info = static::pertinentRecords()[0]->getSeoInfos()->oneActive();
-            }
+            static::$_seo_info = static::pertinentRecord()->getSeoInfos()->oneActive();
         }
         return static::$_seo_info;
     }
@@ -59,11 +67,7 @@ class PageGroup extends \common\models\PageGroup
     public static function widgets()
     {
         if (static::$_widgets === 1) {
-            if (static::pertinentRecords() == []) {
-                static::$_widgets = [];
-            } else {
-                static::$_widgets = static::pertinentRecords()[0]->getWidgets()->allActive();
-            }
+            static::$_widgets = static::pertinentRecord()->getWidgets()->allActive();
         }
         return static::$_widgets;
     }
@@ -73,11 +77,7 @@ class PageGroup extends \common\models\PageGroup
     public static function htmlBoxes()
     {
         if (static::$_html_boxes === 1) {
-            if (static::pertinentRecords() == []) {
-                static::$_html_boxes = [];
-            } else {
-                static::$_html_boxes = static::pertinentRecords()[0]->getHtmlBoxes()->allActive();
-            }
+            static::$_html_boxes = static::pertinentRecord()->getHtmlBoxes()->allActive();
         }
         return static::$_html_boxes;
     }
