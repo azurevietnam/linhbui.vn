@@ -99,29 +99,32 @@ $this->context->layout = false;
         <aside class="col-r">
 <?php
         try {
-            $class = "frontend\\models\\$model->object_class";
-            $query = $class::find();
-            if ($model->sql_where != '') {
-                $query->where($model->sql_where);
-            }
-            if ($model->sql_offset != '') {
-                $query->offset($model->sql_offset);
-            }
-            if ($model->sql_limit != '') {
-                $query->limit($model->sql_limit);
-            }
-            if ($model->sql_order_by != '') {
-                $query->orderBy($model->sql_order_by);
-            }
-            $items = $query->allActive();
             $content = '';
-            foreach ($items as $item) {
-                $item_html = str_replace(Widget::V_NAME, $item->name, $model->item_template);
-                $item_html = str_replace(Widget::V_IMAGE, $item->img(), $item_html);
-                $item_html = str_replace(Widget::V_NAME_URL, $item->a(), $item_html);
-                $item_html = str_replace(Widget::V_IMAGE_URL, $item->a([], $item->img()), $item_html);
-                $item_html = str_replace(Widget::V_DESCRIPTION, $item->desc(), $item_html);
-                $content .= $item_html;
+            $class = "frontend\\models\\$model->object_class";
+            if (class_exists($class)) {
+                $query = $class::find();
+                if ($model->sql_where != '') {
+                    $query->where($model->sql_where);
+                }
+                if ($model->sql_offset != '') {
+                    $query->offset($model->sql_offset);
+                }
+                if ($model->sql_limit != '') {
+                    $query->limit($model->sql_limit);
+                }
+                if ($model->sql_order_by != '') {
+                    $query->orderBy($model->sql_order_by);
+                }
+                $items = $query->allActive();
+                $image_size = isset(Widget::$image_resizes[$model->item_image_size]) ? Widget::$image_resizes[$model->item_image_size] : Widget::IMAGE_MEDIUM;
+                foreach ($items as $item) {
+                    $item_html = str_replace(Widget::V_NAME, $item->name, $model->item_template);
+                    $item_html = str_replace(Widget::V_IMAGE, $item->img([], $image_size), $item_html);
+                    $item_html = str_replace(Widget::V_NAME_URL, $item->a(), $item_html);
+                    $item_html = str_replace(Widget::V_IMAGE_URL, $item->a([], $item->img([], $image_size)), $item_html);
+                    $item_html = str_replace(Widget::V_DESCRIPTION, $item->desc(), $item_html);
+                    $content .= $item_html;
+                }
             }
             $html = str_replace(Widget::V_NAME, $model->name, $model->template);
             $html = str_replace(Widget::V_ITEMS, $content, $html);
