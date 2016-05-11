@@ -44,6 +44,7 @@ class TagController extends BaseController
             $items = $tag->getArticles()
                     ->limit(static::ITEMS_PER_PAGE + 1) // lấy thêm 1 item để kiểm tra xem có trang tiếp theo không
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
+                    ->orderBy('published_at desc')
                     ->allPublished();
 //            $totalItems = $tag->getArticles()
 //                    ->countPublished();
