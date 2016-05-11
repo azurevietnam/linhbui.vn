@@ -49,23 +49,17 @@ class BaseController extends Controller {
         foreach ($article_categories as $item) {
            if (!ArticleToArticleCategory::find()->where(['article_category_id' => $item->id])->one()) {
                if ($item->parent !== null) {
-                   if ($item->is_active == 1)
                     $nca[$item->parent->name][$item->id] = $item->name;
-                   else
-                       $nca[$item->id] = $item->name;
                } else {
                     $nca[$item->id] = $item->name;
                }
            }
            if (!ArticleCategory::find()->where(['parent_id' => $item->id])->one()) {
-               if ($item->parent !== null) {
-                   if ($item->is_active == 1)
-                    $ncac[$item->parent->name][$item->id] = $item->name;
-                   else
-                       $ncac[$item->id] = $item->name;
-               } else {
+//               if ($item->parent !== null) {
+//                    $ncac[$item->parent->name][$item->id] = $item->name;
+//               } else {
                     $ncac[$item->id] = $item->name;
-               }
+//               }
            }
         }
         $this->nca = $nca; // no contains article
