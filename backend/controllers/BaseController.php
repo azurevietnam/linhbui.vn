@@ -20,27 +20,27 @@ class BaseController extends Controller {
         $this->tags_idToName = ArrayHelper::map(Tag::find()->all(), 'id', 'name');
         
         /////////////////
-        $ncp = [];
-        $ncpc = [];
-        $product_categories = ProductCategory::find()->all();
-        foreach ($product_categories as $item) {
-           if (!ProductToProductCategory::find()->where(['product_category_id' => $item->id])->one()) {
-               if ($item->parent !== null) {
-//                    $ncp[$item->parent->name][$item->id] = $item->name;
-               } else {
-                    $ncp[$item->id] = $item->name;
-               }
-           }
-           if (!ProductCategory::find()->where(['parent_id' => $item->id])->one()) {
-               if ($item->parent !== null) {
-                    $ncpc[$item->parent->name][$item->id] = $item->name;
-               } else {
-                    $ncpc[$item->id] = $item->name;
-               }
-           }
-        }
-        $this->ncp = $ncp;
-        $this->ncpc = $ncpc;
+//        $ncp = [];
+//        $ncpc = [];
+//        $product_categories = ProductCategory::find()->all();
+//        foreach ($product_categories as $item) {
+//           if (!ProductToProductCategory::find()->where(['product_category_id' => $item->id])->one()) {
+//               if ($item->parent !== null) {
+////                    $ncp[$item->parent->name][$item->id] = $item->name;
+//               } else {
+//                    $ncp[$item->id] = $item->name;
+//               }
+//           }
+//           if (!ProductCategory::find()->where(['parent_id' => $item->id])->one()) {
+//               if ($item->parent !== null) {
+//                    $ncpc[$item->parent->name][$item->id] = $item->name;
+//               } else {
+//                    $ncpc[$item->id] = $item->name;
+//               }
+//           }
+//        }
+//        $this->ncp = $ncp;
+//        $this->ncpc = $ncpc;
         
         /////////////////
         $nca = [];
@@ -54,7 +54,7 @@ class BaseController extends Controller {
                     $nca[$item->id] = $item->name;
                }
            }
-           if (!ArticleCategory::find()->where(['parent_id' => $item->id])->one()) {
+           if (!ArticleCategory::find()->where(['parent_id' => $item->id])->oneActive()) {
                if ($item->parent !== null) {
                     $ncac[$item->parent->name][$item->id] = $item->name;
                } else {
