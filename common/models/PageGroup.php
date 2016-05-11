@@ -2,10 +2,10 @@
 namespace common\models;
 class PageGroup extends MyActiveRecord {
     
-    const URL_SLUG = 'slug';
-    const URL_PARENT_SLUG = 'parent_slug';
-    const URL_CATEGORY_SLUG = 'category_slug';
-    const URL_PARENT_CATEGORY_SLUG = 'parent_category_slug';
+    const URL_SLUG = '_slug';
+    const URL_PARENT_SLUG = '_parent_slug';
+    const URL_CATEGORY_SLUG = '_category_slug';
+    const URL_PARENT_CATEGORY_SLUG = '_parent_category_slug';
     
     public static $all_url_params = [
         PageGroup::URL_SLUG => 'SLUG',
