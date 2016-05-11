@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Article;
 use yii\helpers\Url;
 
 ?>
@@ -11,7 +12,7 @@ use yii\helpers\Url;
         <div class="slide_left">
             <div class="flex_viewport">
                 <div class="cover">
-                    <?= $hot_items[0]->a([], $hot_items[0]->img()) ?>
+                    <?= $hot_items[0]->a([], $hot_items[0]->img([], Article::IMAGE_LARGE)) ?>
                 </div>
                 <span class="desc">
                     <h2 class="title-news"><?= $hot_items[0]->a([], "<strong>{$hot_items[0]->name}</strong>") ?></h2>
@@ -64,7 +65,7 @@ use yii\helpers\Url;
                         <h2 class="title-news">
                             <?= $articles[0]->a([], "<strong>{$articles[0]->name}</strong>") ?>
                         </h2>
-                        <?= $articles[0]->a(['class' => 'cover'], $articles[0]->img()) ?>
+                        <?= $articles[0]->a(['class' => 'cover'], $articles[0]->img([], Article::IMAGE_MEDIUM)) ?>
                         <p class="desc">
                             <?= $articles[0]->desc() ?>
                         </p>
@@ -77,7 +78,7 @@ use yii\helpers\Url;
                         ?>
                         <li class="thumb clearfix">
                             <h3 class="title-news"><?= $item->a([], "<strong>$item->name</strong>") ?></h3>
-                            <?= $item->a(['class' => 'cover'], $item->img()) ?>
+                            <?= $item->a(['class' => 'cover'], $item->img([], Article::IMAGE_TINY)) ?>
                             <p class="desc">
                                 <?= $item->desc() ?>
                             </p>
