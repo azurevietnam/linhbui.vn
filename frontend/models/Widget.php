@@ -13,6 +13,9 @@ use Yii;
  * @property integer $position
  * @property string $name
  * @property string $template
+ * @property string $item_image_size
+ * @property string $link_target
+ * @property string $link_follow
  * @property string $item_template
  * @property string $style
  * @property string $object_class
@@ -47,7 +50,7 @@ class Widget extends \common\models\Widget
     {
         return [
             [['page_group_id', 'place', 'position', 'sql_offset', 'sql_limit', 'status', 'is_active', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['name', 'item_image_size', 'link_target', 'link_follow', 'object_class', 'sql_order_by', 'sql_where', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['template', 'item_template'], 'string', 'max' => 511],
             [['style'], 'string', 'max' => 2000],
         ];
@@ -65,6 +68,9 @@ class Widget extends \common\models\Widget
             'position' => 'Position',
             'name' => 'Name',
             'template' => 'Template',
+            'item_image_size' => 'Item Image Size',
+            'link_target' => 'Link Target',
+            'link_follow' => 'Link Follow',
             'item_template' => 'Item Template',
             'style' => 'Style',
             'object_class' => 'Object Class',

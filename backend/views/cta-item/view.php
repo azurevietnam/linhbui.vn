@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Widget */
+/* @var $model backend\models\CtaItem */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Widgets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Cta Items', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="widget-view">
+<div class="cta-item-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,27 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'page_group_id',
-            'place',
-            'position',
             'name',
-            'template',
-            'item_image_size',
-            'link_target',
-            'link_follow',
-            'item_template',
-            'style',
-            'object_class',
-            'sql_offset',
-            'sql_limit',
-            'sql_order_by',
-            'sql_where',
-            'status',
-            'is_active',
-            'created_at',
-            'updated_at',
+            'description',
+            'image',
+            'image_path',
+            'link',
             'created_by',
             'updated_by',
+            'created_at',
+            'updated_at',
+            'is_active',
+            'status',
         ],
     ]) ?>
 

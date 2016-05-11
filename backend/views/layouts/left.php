@@ -64,7 +64,7 @@ use yii\helpers\Url;
             <!-- Danh mục tin tức -->
             <li class="treeview <?= in_array(Yii::$app->controller->id, ['article-category']) ? 'active' : '' ?>">
                 <a href="#">
-                    <i class="fa fa-folder-open-o"></i> <span>Danh mục tin tức</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-folder-open"></i> <span>Danh mục tin tức</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="<?= Yii::$app->controller->id == 'article-category' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('article-category/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
@@ -111,6 +111,16 @@ use yii\helpers\Url;
                     <li class="<?= Yii::$app->controller->id == 'tag' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('tag/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
             </li>
+            <!-- Liên kết hay -->
+            <li class="treeview <?= in_array(Yii::$app->controller->id, ['cta-item']) ? 'active' : '' ?>">
+                <a href="#">
+                    <i class="fa fa-external-link-square"></i> <span>Liên kết hay</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?= Yii::$app->controller->id == 'cta-item' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('cta-item/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'cta-item' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('cta-item/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
+                </ul>
+            </li>
             <!-- Thông tin SEO -->
 <!--            <li class="treeview <?= in_array(Yii::$app->controller->id, ['seo-info']) ? 'active' : '' ?>">
                 <a href="#">
@@ -136,7 +146,7 @@ use yii\helpers\Url;
             <!-- Các trang tĩnh -->
             <li class="treeview <?= in_array(Yii::$app->controller->id, ['info']) ? 'active' : '' ?>">
                 <a href="#">
-                    <i class="fa fa-file-code-o"></i> <span>Các trang tĩnh</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-file-text"></i> <span>Các trang tĩnh</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="<?= Yii::$app->controller->id == 'info' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('info/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
@@ -153,23 +163,15 @@ use yii\helpers\Url;
                     <li class="<?= Yii::$app->controller->id == 'redirect-url' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('redirect-url/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
             </li>            
-            <!-- Nhật ký -->
-            <li class="treeview <?= Yii::$app->controller->id == 'user-log' ? 'active' : '' ?>">
-                <a href="#">
-                    <i class="fa fa-paw"></i> <span>Nhật ký</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="<?= Yii::$app->controller->id == 'user-log' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('user-log/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-                </ul>
-            </li>
             <!-- Người dùng -->
-            <li class="treeview <?= Yii::$app->controller->id == 'user' ? 'active' : '' ?>">
+            <li class="treeview <?= in_array(Yii::$app->controller->id, ['user', 'user-log']) ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-user-secret"></i> <span>Người dùng</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="<?= Yii::$app->controller->id == 'user' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('user/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                     <li class="<?= Yii::$app->controller->id == 'user' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('user/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'user-log' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('user-log/index') ?>"><i class="fa fa-circle-o"></i> Nhật ký</a></li>
                 </ul>
             </li>
             <!-- Phân quyền -->

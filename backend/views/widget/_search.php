@@ -29,6 +29,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'item_image_size') ?>
 
+    <?php // echo $form->field($model, 'link_target') ?>
+
+    <?php // echo $form->field($model, 'link_follow') ?>
+
     <?php // echo $form->field($model, 'item_template') ?>
 
     <?php // echo $form->field($model, 'style') ?>

@@ -26,22 +26,8 @@ class Widget extends MyActiveRecord {
     public static $object_classes = [
         'Article' => 'Bài viết',
         'ArticleCategory' => 'Danh mục bài viết',
-//        'Product' => 'Sản phẩm',
-//        'ProductCategory'=> 'Danh mục sản phẩm',
-        'Tag' => 'Tag',
-    ];
-    
-    public static $routes = [
-        '*' => 'Tất cả các trang',
-        'site/index' => 'Trang chủ',
-        'article/index' => 'Trang Bài viết chi tiết',
-        'article-category/index' => 'Trang Danh mục bài viết',
-        'tag/index' => 'Trang Tag'
-    ];
-    
-    public static $url_param_names = [
-        'slug' => 'Slug',
-//        'page' => 'Trang'
+        'Tag' => 'Tìm kiếm (tag)',
+        'CtaItem' => 'Liên kết hay',
     ];
     
     public static $places = [
