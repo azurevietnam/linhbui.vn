@@ -9,20 +9,26 @@ use yii\db\ActiveRecord;
 class MyActiveRecord extends ActiveRecord {
     //put your code here
     
+    const IMAGE_HUGE = 'huge';
+    const IMAGE_LARGE = 'large';
+    const IMAGE_MEDIUM = 'medium';
+    const IMAGE_SMALL = 'small';
+    const IMAGE_TINY = 'tiny';
+    
     public static $image_resizes = [
-        'huge' => [600, 600],
-        'large' => [340, 340],
-        'medium' => [230, 230],
-        'small' => [120, 120],
-        'tiny' => [60, 60],
+        MyActiveRecord::IMAGE_HUGE => [600, 600],
+        MyActiveRecord::IMAGE_LARGE => [340, 340],
+        MyActiveRecord::IMAGE_MEDIUM => [230, 230],
+        MyActiveRecord::IMAGE_SMALL => [120, 120],
+        MyActiveRecord::IMAGE_TINY => [60, 60],
     ];
     
     public static $banner_resizes = [
-        'huge' => [1200, 1200],
-        'large' => [600, 600],
-        'medium' => [340, 340],
-        'small' => [230, 230],
-        'tiny' => [120, 120],
+        MyActiveRecord::IMAGE_HUGE => [1200, 1200],
+        MyActiveRecord::IMAGE_LARGE => [600, 600],
+        MyActiveRecord::IMAGE_MEDIUM => [340, 340],
+        MyActiveRecord::IMAGE_SMALL => [230, 230],
+        MyActiveRecord::IMAGE_TINY => [120, 120],
     ];
     
     /** 

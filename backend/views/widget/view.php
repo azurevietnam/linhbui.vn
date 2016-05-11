@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'position',
             'name',
             'template',
+            'item_image_size',
             'item_template',
             'style',
             'object_class',

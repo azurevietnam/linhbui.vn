@@ -19,9 +19,9 @@ class FileUtils {
     const ALLOW_REMOVE_FOLDER_CONTAINS_LESS = 30;
 
     public static $file_name_replace = [
-        '#' => '_', 
-        '?' => '_', 
-        '/' => '_',
+        '#' => '-', 
+        '?' => '-', 
+        '/' => '-',
         '&ndash;' => '-',
         ' - ' => '-',
         ' ' => '-'

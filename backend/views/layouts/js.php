@@ -276,7 +276,7 @@ use yii\web\View;
         str = str.replace(/  /g, " ");
         str = str.replace(/\u2013|%u2013|%E2%80%93/g, "-");
         str = str.replace(/ - | /g, "-");
-        str = str.replace(/\/|\#|\?/g, "_");
+        str = str.replace(/\/|\#|\?/g, "-");
         return str;
     }
     

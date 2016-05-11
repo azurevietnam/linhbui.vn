@@ -11,7 +11,7 @@ class PageGroup extends MyActiveRecord {
         0 => ['name' => PageGroup::URL_SLUG, 'label' => 'slug'],
         1 => ['name' => PageGroup::URL_PARENT_SLUG, 'label' => 'parent slug'],
         2 => ['name' => PageGroup::URL_CATEGORY_SLUG, 'label' => 'category slug'],
-        3 => ['name' => PageGroup::URL_PARENT_CATEGORY_SLUG, 'label' => 'parent_category_slug'],
+        3 => ['name' => PageGroup::URL_PARENT_CATEGORY_SLUG, 'label' => 'parent category slug'],
     ];
     
     public static $routes = [
