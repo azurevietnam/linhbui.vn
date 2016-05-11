@@ -7,28 +7,33 @@ use Yii;
 use yii\db\ActiveRecord;
 
 class MyActiveRecord extends ActiveRecord {
-    //put your code here
     
-    const IMAGE_HUGE = 'huge';
-    const IMAGE_LARGE = 'large';
-    const IMAGE_MEDIUM = 'medium';
-    const IMAGE_SMALL = 'small';
-    const IMAGE_TINY = 'tiny';
+    const IMAGE_HUGE = [600, 600];
+    const IMAGE_LARGE = [340, 340];
+    const IMAGE_MEDIUM = [230, 230];
+    const IMAGE_SMALL = [120, 120];
+    const IMAGE_TINY = [60, 60];
+    
+    const BANNER_HUGE = [600, 600];
+    const BANNER_LARGE = [340, 340];
+    const BANNER_MEDIUM = [230, 230];
+    const BANNER_SMALL = [120, 120];
+    const BANNER_TINY = [60, 60];
     
     public static $image_resizes = [
-        MyActiveRecord::IMAGE_HUGE => [600, 600],
-        MyActiveRecord::IMAGE_LARGE => [340, 340],
-        MyActiveRecord::IMAGE_MEDIUM => [230, 230],
-        MyActiveRecord::IMAGE_SMALL => [120, 120],
-        MyActiveRecord::IMAGE_TINY => [60, 60],
+        'huge' => MyActiveRecord::IMAGE_HUGE,
+        'large' => MyActiveRecord::IMAGE_LARGE,
+        'medium' => MyActiveRecord::IMAGE_MEDIUM,
+        'small' => MyActiveRecord::IMAGE_SMALL,
+        'tiny' => MyActiveRecord::IMAGE_TINY,
     ];
     
     public static $banner_resizes = [
-        MyActiveRecord::IMAGE_HUGE => [1200, 1200],
-        MyActiveRecord::IMAGE_LARGE => [600, 600],
-        MyActiveRecord::IMAGE_MEDIUM => [340, 340],
-        MyActiveRecord::IMAGE_SMALL => [230, 230],
-        MyActiveRecord::IMAGE_TINY => [120, 120],
+        'huge' => MyActiveRecord::BANNER_HUGE,
+        'large' => MyActiveRecord::BANNER_LARGE,
+        'medium' => MyActiveRecord::BANNER_MEDIUM,
+        'small' => MyActiveRecord::BANNER_SMALL,
+        'tiny' => MyActiveRecord::BANNER_TINY,
     ];
     
     /** 

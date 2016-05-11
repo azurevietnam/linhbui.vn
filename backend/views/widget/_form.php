@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'object_class')->dropDownList(Widget::$object_classes, ['prompt' => 'Chọn']) ?>
             <?= $form->field($model, 'item_template')->textarea(['maxlength' => true, 'rows' => 8, 'style' => 'resize:vertical', 'spellcheck' => 'false']) ?>
             <?php // echo $form->field($model, 'sql_offset')->textInput() ?>
-            <?= $form->field($model, 'item_image_size')->dropDownList(array_combine(array_keys(Widget::$image_resizes), array_keys(Widget::$image_resizes))) ?>
+            <?= $form->field($model, 'item_image_size')->dropDownList(array_combine(array_keys(Widget::$image_resizes), array_keys(Widget::$image_resizes)), ['prompt' => 'Chọn']) ?>
             <?= $form->field($model, 'sql_limit')->textInput() ?>
             <?= $form->field($model, 'sql_order_by')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'sql_where')->textInput(['maxlength' => true]) ?>
