@@ -12,7 +12,7 @@ use yii\helpers\Url;
         <div class="slide_left">
             <div class="flex_viewport">
                 <div class="cover">
-                    <?= $hot_items[0]->a([], $hot_items[0]->img([], Article::IMAGE_LARGE)) ?>
+                    <?= $hot_items[0]->a([], $hot_items[0]->img([], Article::IMAGE_HUGE)) ?>
                 </div>
                 <span class="desc">
                     <h2 class="title-news"><?= $hot_items[0]->a([], "<strong>{$hot_items[0]->name}</strong>") ?></h2>
@@ -65,7 +65,7 @@ use yii\helpers\Url;
                         <h2 class="title-news">
                             <?= $articles[0]->a([], "<strong>{$articles[0]->name}</strong>") ?>
                         </h2>
-                        <?= $articles[0]->a(['class' => 'cover'], $articles[0]->img([], Article::IMAGE_MEDIUM)) ?>
+                        <?= $articles[0]->a(['class' => 'cover'], $articles[0]->img([], Article::IMAGE_LARGE)) ?>
                         <p class="desc">
                             <?= $articles[0]->desc() ?>
                         </p>

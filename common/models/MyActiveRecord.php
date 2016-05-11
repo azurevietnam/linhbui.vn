@@ -7,12 +7,12 @@ use Yii;
 use yii\db\ActiveRecord;
 
 class MyActiveRecord extends ActiveRecord {
-    
-    const IMAGE_HUGE = [600, 600];
-    const IMAGE_LARGE = [340, 340];
-    const IMAGE_MEDIUM = [230, 230];
-    const IMAGE_SMALL = [120, 120];
-    const IMAGE_TINY = [60, 60];
+    // 500, 400, 80, 160, 90, 350, 170
+    const IMAGE_HUGE = [500, 500];
+    const IMAGE_LARGE = [400, 400];
+    const IMAGE_MEDIUM = [350, 350];
+    const IMAGE_SMALL = [170, 170];
+    const IMAGE_TINY = [90, 90];
     
     const BANNER_HUGE = [600, 600];
     const BANNER_LARGE = [340, 340];
@@ -29,11 +29,11 @@ class MyActiveRecord extends ActiveRecord {
     ];
     
     public static $banner_resizes = [
-        'huge' => MyActiveRecord::BANNER_HUGE,
-        'large' => MyActiveRecord::BANNER_LARGE,
-        'medium' => MyActiveRecord::BANNER_MEDIUM,
-        'small' => MyActiveRecord::BANNER_SMALL,
-        'tiny' => MyActiveRecord::BANNER_TINY,
+//        'huge' => MyActiveRecord::BANNER_HUGE,
+//        'large' => MyActiveRecord::BANNER_LARGE,
+//        'medium' => MyActiveRecord::BANNER_MEDIUM,
+//        'small' => MyActiveRecord::BANNER_SMALL,
+//        'tiny' => MyActiveRecord::BANNER_TINY,
     ];
     
     /** 
