@@ -129,7 +129,7 @@ use yii\helpers\Url;
                 <ul class="treeview-menu">
                     <li class="<?= Yii::$app->controller->id == 'page-group' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('page-group/index') ?>"><i class="fa fa-circle-o"></i> Trang</a></li>
                     <li class="<?= Yii::$app->controller->id == 'widget' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('widget/index') ?>"><i class="fa fa-circle-o"></i> Widget</a></li>
-                    <li class="<?= Yii::$app->controller->id == 'html-box' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('html-box/index') ?>"><i class="fa fa-circle-o"></i> Box HTML </a></li>
+                    <!--<li class="<?= Yii::$app->controller->id == 'html-box' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('html-box/index') ?>"><i class="fa fa-circle-o"></i> Box HTML </a></li>-->
                     <li class="<?= Yii::$app->controller->id == 'seo-info' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('seo-info/index') ?>"><i class="fa fa-circle-o"></i> Thông tin SEO</a></li>
                 </ul>
             </li>
