@@ -51,6 +51,8 @@ class BaseController extends Controller {
                if ($item->parent !== null) {
                    if ($item->is_active == 1)
                     $nca[$item->parent->name][$item->id] = $item->name;
+                   else
+                       $nca[$item->id] = $item->name;
                } else {
                     $nca[$item->id] = $item->name;
                }
@@ -59,6 +61,8 @@ class BaseController extends Controller {
                if ($item->parent !== null) {
                    if ($item->is_active == 1)
                     $ncac[$item->parent->name][$item->id] = $item->name;
+                   else
+                       $ncac[$item->id] = $item->name;
                } else {
                     $ncac[$item->id] = $item->name;
                }
