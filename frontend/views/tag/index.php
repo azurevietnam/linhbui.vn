@@ -1,3 +1,6 @@
+<?php
+$item_per_line = 2;
+?>
 <div class="col-l">
     <div class="listArticles clearfix">
         <div class="row-fluid clearfix">
@@ -5,7 +8,9 @@
             <div class="list-news-other col-2 clearfix">
                 <ul class="list_col list-unstyle clearfix">
                     <?php
+                    $i = 0;
                     foreach (array_slice($items, 0, $items_per_page) as $item) {
+                        $i++;
                     ?>
                     <li class="thumb clearfix">
                         <h3 class="title-news">
@@ -21,6 +26,7 @@
                             </p>
                         </div>
                     </li>
+                    <?= $i % $item_per_line == 0 ? '<div class=clearfix></div>' : '' ?>
                     <?php
                     }
                     ?>
