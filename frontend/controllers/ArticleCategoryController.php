@@ -46,6 +46,7 @@ class ArticleCategoryController extends BaseController
             $items = $category->getAllArticles() // danh mục có thể có một hoặc nhiều danh mục con nên dùng hàm getAllArticles() thay cho getArticles()
                     ->limit(static::ITEMS_PER_PAGE + 1) // lấy thêm 1 item để kiểm tra xem có trang tiếp theo không
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
+                    ->orderBy('published_at desc')
                     ->allPublished();
 //            $totalItems = $category->getAllArticles()
 //                    ->countPublished();
