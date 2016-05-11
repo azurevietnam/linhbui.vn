@@ -162,7 +162,7 @@ class Widget extends \common\models\Widget
             'page_group_ids' => 'Các trang đặt widget',
             'place' => 'Vị trí',
             'position' => 'Thứ tự',
-            'name' => 'Name',
+            'name' => 'Tên',
             'template' => 'Html',
             'item_image_size' => 'Kích thước ảnh',
             'item_template' => 'Html',
