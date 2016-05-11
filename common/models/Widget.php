@@ -32,7 +32,7 @@ class Widget extends MyActiveRecord {
     
     public static $places = [
         Widget::PLACE_RIGHT => 'Cột bên phải',
-        Widget::PLACE_BOTTOM => 'Chân trang'
+//        Widget::PLACE_BOTTOM => 'Chân trang'
     ];
     
     public static $template_variables = [
