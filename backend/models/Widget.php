@@ -158,7 +158,7 @@ class Widget extends \common\models\Widget
     {
         return [
             'id' => 'ID',
-            'page_group_ids' => '(Các) trang đặt widget',
+            'page_group_ids' => 'Các trang đặt widget',
             'place' => 'Vị trí',
             'position' => 'Thứ tự',
             'name' => 'Name',
@@ -169,8 +169,8 @@ class Widget extends \common\models\Widget
             'object_class' => 'Đối tượng',
             'sql_offset' => 'Bắt đầu',
             'sql_limit' => 'Giới hạn',
-            'sql_order_by' => 'Sql Order By',
-            'sql_where' => 'Điều kiện (SLQ)',
+            'sql_order_by' => 'Sắp xếp',
+            'sql_where' => 'Điều kiện',
             'status' => 'Trạng thái',
             'is_active' => 'Kích hoạt',
             'created_at' => 'Created At',
