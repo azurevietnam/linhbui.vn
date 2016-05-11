@@ -3,6 +3,7 @@
 use frontend\models\PageGroup;
 use frontend\models\Widget;
 $widgets = PageGroup::widgets();
+//var_dump($widgets);die;
 foreach ($widgets as $widget) {
         try {
             $class = "frontend\\models\\$widget->object_class";
@@ -21,7 +22,7 @@ foreach ($widgets as $widget) {
             }
             $items = $query->allActive();
             $content = '';
-            $image_size = isset(Widget::$image_resizes[$widget->item_image_resize]) ? Widget::$image_resizes[$widget->item_image_size] : Widget::IMAGE_MEDIUM;
+            $image_size = isset(Widget::$image_resizes[$widget->item_image_size]) ? Widget::$image_resizes[$widget->item_image_size] : Widget::IMAGE_MEDIUM;
             foreach ($items as $item) {
                 $item_html = str_replace(Widget::V_NAME, $item->name, $widget->item_template);
                 $item_html = str_replace(Widget::V_IMAGE, $item->img([], $image_size), $item_html);
@@ -38,7 +39,7 @@ foreach ($widgets as $widget) {
             }
             echo $html;
         } catch (Exception $e) {
-            
+            var_dump($e->getMessage());
         }
 }
 ?>
