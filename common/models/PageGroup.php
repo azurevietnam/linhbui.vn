@@ -8,10 +8,10 @@ class PageGroup extends MyActiveRecord {
     const URL_PARENT_CATEGORY_SLUG = '_parent_category_slug';
     
     public static $all_url_params = [
-        PageGroup::URL_SLUG => 'SLUG',
-        PageGroup::URL_PARENT_SLUG => 'PARENT SLUG',
-        PageGroup::URL_CATEGORY_SLUG => 'CATEGORY SLUG',
-        PageGroup::URL_PARENT_CATEGORY_SLUG => 'PARENT CATEGORY SLUG',
+        0 => ['name' => PageGroup::URL_SLUG, 'label' => 'slug'],
+        1 => ['name' => PageGroup::URL_PARENT_SLUG, 'label' => 'parent slug'],
+        2 => ['name' => PageGroup::URL_CATEGORY_SLUG, 'label' => 'category slug'],
+        3 => ['name' => PageGroup::URL_PARENT_CATEGORY_SLUG, 'label' => 'parent_category_slug'],
     ];
     
     public static $routes = [

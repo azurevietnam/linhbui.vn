@@ -22,9 +22,9 @@ use janisto\timepicker\TimePicker;
     <div class="col-md-6">
         <?php
         $model->isNewRecord ?: $model->url_params = (array) json_decode($model->url_params);
-        foreach (backend\models\PageGroup::$all_url_params as $name => $label) {
+        foreach (backend\models\PageGroup::$all_url_params as $item) {
         ?>
-        <?= $form->field($model, "url_params[$name]")->textInput(['maxLength' => true])->label($label) ?>
+        <?= $form->field($model, "url_params[{$item['name']}]")->textInput(['maxLength' => true])->label($item['label']) ?>
         <?php
         }
         ?>
