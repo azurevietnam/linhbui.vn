@@ -50,8 +50,8 @@ class Widget extends MyActiveRecord {
     ];
     
     public static $template_variables = [
-        Widget::V_ITEMS => 'Các Item',
         Widget::V_NAME => 'Tên',
+        Widget::V_ITEMS => 'Các Item',
         Widget::V_ADSENSE => 'Quảng cáo',
     ];
     

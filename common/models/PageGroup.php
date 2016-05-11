@@ -16,9 +16,9 @@ class PageGroup extends MyActiveRecord {
     
     public static $routes = [
         'site/index' => 'Trang chủ',
-        'article/index' => 'Trang bài viết',
-        'article-category/index' => 'Trang danh mục bài viết',
-        'tag/index' => 'Trang tìm kiếm (tag)',
+        'article/index' => 'Bài viết',
+        'article-category/index' => 'Danh mục bài viết',
+        'tag/index' => 'Tìm kiếm (tag)',
     ];
 
     public static function arrayIdToName()
