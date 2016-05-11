@@ -102,6 +102,23 @@ class PageGroupController extends BaseController
             throw new NotFoundHttpException();
         }
     }
+    
+    public function actionUpdateNameOfUrlParams()
+    {
+        foreach (PageGroup::find()->all() as $model) {
+            $array_old_params = (array) json_decode($model->url_params);
+            $array_new_params = [];
+            $i = -1;
+            foreach ($array_old_params as $value) {
+                $i++;
+                $array_new_params[PageGroup::$all_url_params[$i]['name']] = $value;
+            }
+            $model->url_params = json_encode($array_new_params);
+            $model->scenario = 'save';
+            $model->save();
+            echo "$model->id: $model->url_params <br>";
+        }
+    }
 
     /**
      * Deletes an existing PageGroup model.
