@@ -38,7 +38,7 @@ class PageGroup extends \common\models\PageGroup
                     'or',
 //                    [
 //                        'or',
-                        ['like', 'url_params', "\"{$item['name']}\":" . json_encode(Yii::$app->request->get($item['name']))],
+                        ['like', 'url_params', "\"{$item['name']}\":" . json_encode(Yii::$app->request->get($item['name'], ''))],
 //                        ['like', 'url_params', "\"{$item['name']}\":\"\""],
 //                    ],
                     ['not like', 'url_params', "\"{$item['name']}\""],
