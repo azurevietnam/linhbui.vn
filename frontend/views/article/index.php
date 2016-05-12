@@ -4,7 +4,11 @@
         <p class="clearfix info-post">
             <time class="fl"><em class="ic-lock"></em><?= $model->date() ?></time>
             <span class="fl comment"><em class="ic-comment"></em><?= $model->comment_count ?></span>
-            <span class="fl views"><em class="ic-views"></em><?= $model->view_count ?></span></p>
+            <span class="fl views"><em class="ic-views"></em><?= $model->view_count ?></span>
+        </p>
+        <p class="text-detail paragraph-2016-05" style="font-weight:bold;color:#666">
+            <?= $model->description ?>
+        </p>
         <div class="text-detail paragraph-2016-05">
             <?= $model->content ?>
         </div>
