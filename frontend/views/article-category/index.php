@@ -59,7 +59,7 @@ $item_per_line = 2;
                         <h3 class="title-news">
                             <?= $item->a([], "<strong>$item->name</strong>") ?>
                         </h3>
-                        <?= $item->a(['class' => 'cover'], $item->img([], Article::IMAGE_SMALL)) ?>
+                        <?= $item->a(['class' => 'cover'], $item->img([], Article::IMAGE_TINY)) ?>
                         <div class="magl">
                             <p class="desc"><?= $item->desc() ?></p>
                             <p class="clearfix info-post">
