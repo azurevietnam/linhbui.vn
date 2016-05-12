@@ -15,6 +15,7 @@ class PageGroup extends MyActiveRecord {
     ];
     
     public static $routes = [
+        '*' => 'Tất cả',
         'site/index' => 'Trang chủ',
         'article/index' => 'Bài viết',
         'article-category/index' => 'Danh mục bài viết',

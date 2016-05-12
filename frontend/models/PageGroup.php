@@ -31,7 +31,7 @@ class PageGroup extends \common\models\PageGroup
             $query->where([
                 'or',
                 ['route' => Yii::$app->requestedRoute],
-                ['route' => '']
+                ['route' => '*']
             ]);
             foreach (\common\models\PageGroup::$all_url_params as $item) {
                 $query->andWhere([
