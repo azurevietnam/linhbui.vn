@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         }
                         if ($value != '') {
-                            $result .= "<p>$label <span class=\"label label-default\">$value</span></p>";
+                            $result .= "<p>$label<span style=\"border-radius:0\" class=\"label label-default\">$value</span></p>";
                         }
                     }
                     return $result;
