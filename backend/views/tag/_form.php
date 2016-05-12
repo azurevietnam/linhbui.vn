@@ -17,6 +17,7 @@ use janisto\timepicker\TimePicker;
     
     <div class="col-md-6">
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 	<?php // echo $form->field($model, 'old_slugs')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 	<?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
@@ -29,7 +30,6 @@ use janisto\timepicker\TimePicker;
 	<?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'rows' => 3, 'style' => 'resize:vertical']) ?>
 	<?= $form->field($model, 'meta_keywords')->textInput(['maxlength' => true]) ?>
-	<?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'position')->textInput() ?>
 	<?php // echo $form->field($model, 'image_path')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 	<?php // $form->field($model, 'status')->textInput() ?>
