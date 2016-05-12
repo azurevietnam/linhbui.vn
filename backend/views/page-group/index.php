@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'url_params',
                 'format' => 'raw',
                 'value' => function($model) {
-                    $result = '';
+                    $result = '<table>';
                     foreach ((array) json_decode($model->url_params) as $param => $value) {
                         $label = $param;
                         foreach (backend\models\PageGroup::$all_url_params as $id => $item) {
@@ -51,10 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         }
                         if ($value != '') {
-                            $result .= "<p>$label $value</p>";
+                            $result .= "<tr><td align=right>$label</td><td>$value</td></tr>";
                         }
                     }
-                    return $result;
+                    return "$result</table>";
                 }
             ],
 
