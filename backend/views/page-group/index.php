@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         }
                         if ($value != '') {
-                            $result .= "<tr><td align=right>$label</td><td>$value</td></tr>";
+                            $result .= "<tr><td>$label</td><td>$value</td></tr>";
                         }
                     }
                     return "$result</table>";
