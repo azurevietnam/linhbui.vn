@@ -23,7 +23,7 @@
                 foreach ($related_items as $item) {
                 ?>
                 <li class="clearfix">
-                    <?= $item->a(['class' => 'img-bn'], $item->img()) ?>
+                    <?= $item->a(['class' => 'img-bn'], $item->img([], \frontend\models\Article::IMAGE_SMALL)) ?>
                     <h3><?= $item->a([], "<strong>$item->name</strong>") ?></h3>
                 </li>
                 <?php
