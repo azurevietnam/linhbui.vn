@@ -3,6 +3,7 @@
 use frontend\models\PageGroup;
 use frontend\models\Widget;
 $widgets = PageGroup::widgets();
+
 //var_dump($widgets);die;
 foreach ($widgets as $widget) {
         try {
@@ -43,5 +44,13 @@ foreach ($widgets as $widget) {
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }
+}
+?>
+<?php
+foreach (\common\models\PageGroup::$all_url_params as $item) {
+    
+?>
+    <!--<?= "\"{$item['name']}\":" . json_encode(Yii::$app->request->get($item['name'])) ?>-->
+<?php
 }
 ?>
