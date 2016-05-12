@@ -29,7 +29,7 @@ use janisto\timepicker\TimePicker;
 	<?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'rows' => 3, 'style' => 'resize:vertical']) ?>
 	<?= $form->field($model, 'meta_keywords')->textInput(['maxlength' => true]) ?>
-	<?php // $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'position')->textInput() ?>
 	<?php // echo $form->field($model, 'image_path')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 	<?php // $form->field($model, 'status')->textInput() ?>
