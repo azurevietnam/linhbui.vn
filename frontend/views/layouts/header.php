@@ -64,7 +64,7 @@ if ($this->context->h1 != '') {
         </ul>
         <div class="search"><em class="ic-search" onClick="showmenu('form-search')"></em> </div>
         <div class="form-search" id="form-search">
-            <gcse:search></gcse:search>
+            <!--<gcse:search></gcse:search>-->
         </div>
     </div>
 </nav>
