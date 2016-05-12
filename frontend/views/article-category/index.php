@@ -1,4 +1,7 @@
 <?php
+
+use frontend\models\Article;
+use yii\helpers\Url;
 $item_per_line = 2;
 ?>
 <div class="col-l">
@@ -13,7 +16,7 @@ $item_per_line = 2;
                     <h2 class="title-news">
                         <?= $items[0]->a([], "<strong>{$items[0]->name}</strong>") ?>
                     </h2>
-                    <?= $items[0]->a(['class' => 'cover'], $items[0]->img()) ?>
+                    <?= $items[0]->a(['class' => 'cover'], $items[0]->img([], Article::IMAGE_MEDIUM)) ?>
                     <p class="clearfix info-post">
                         <time class="fl"><em class="ic-lock"></em><?= $items[0]->date() ?></time>
                         <span class="fl comment"><em class="ic-comment"></em><?= $items[0]->comment_count ?></span>
@@ -33,7 +36,7 @@ $item_per_line = 2;
                     <h2 class="title-news">
                         <?= $items[1]->a([], "<strong>{$items[1]->name}</strong>") ?>
                     </h2>
-                    <?= $items[1]->a(['class' => 'cover'], $items[1]->img()) ?>
+                    <?= $items[1]->a(['class' => 'cover'], $items[1]->img([], Article::IMAGE_MEDIUM)) ?>
                     <p class="clearfix info-post">
                         <time class="fl"><em class="ic-lock"></em><?= $items[1]->date() ?></time>
                         <span class="fl comment"><em class="ic-comment"></em><?= $items[1]->comment_count ?></span>
@@ -56,7 +59,7 @@ $item_per_line = 2;
                         <h3 class="title-news">
                             <?= $item->a([], "<strong>$item->name</strong>") ?>
                         </h3>
-                        <?= $item->a(['class' => 'cover'], $item->img()) ?>
+                        <?= $item->a(['class' => 'cover'], $item->img([], Article::IMAGE_SMALL)) ?>
                         <div class="magl">
                             <p class="desc"><?= $item->desc() ?></p>
                             <p class="clearfix info-post">
@@ -74,7 +77,7 @@ $item_per_line = 2;
                 <?php
                 if (isset($items[$items_per_page])) {
                 ?>
-                <div class="load-more-wrap"><a class="ajax_load_more" href="<?= \yii\helpers\Url::current(['page' => $page + 1]) ?>">Xem thêm<i class="ic-down"></i></a></div>
+                <div class="load-more-wrap"><a class="ajax_load_more" href="<?= Url::current(['page' => $page + 1]) ?>">Xem thêm<i class="ic-down"></i></a></div>
                 <?php
                 }
                 ?>
