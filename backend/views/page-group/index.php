@@ -43,8 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) {
                     $result = '';
                     foreach ((array) json_decode($model->url_params) as $param => $value) {
+                        $label = $param;
+                        foreach (backend\models\PageGroup::$all_url_params as $id => $item) {
+                            if ($item['name'] == $param) {
+                                $label = $item['label'];
+                                break;
+                            }
+                        }
                         if ($value != '') {
-                            $result .= "<p>$param = $value</p>";
+                            $result .= "<p>$label $value</p>";
                         }
                     }
                     return $result;
