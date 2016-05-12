@@ -43,9 +43,9 @@ if ($this->context->h1 != '') {
                 } else {
             ?>
             <li class="fl<?= $item->isCurrent() ? ' active' : '' ?>">
-                <a href="javascript:void(0)" title="<?= $item->label ?>" onclick="showmenu('<?= $item->key ?>')"><strong><?= $item->label ?></strong></a>
+                <a href="<?= $this->context->is_mobile ? 'javascript:void(0)' : $item->url ?>" title="<?= $item->label ?>" <?= $this->context->is_mobile ? "onclick=\"showmenu('$item->key')\"" : "onmouseover=\"h_showmenu('$item->key')\" onmouseout=\"h_hidemenu('$item->key')\"" ?>><strong><?= $item->label ?></strong></a>
                 <span class="line">|</span>
-                <ul style="display:none" id="<?= $item->key ?>" class="list-unstyle clearfix">
+                <ul style="display:none" id="<?= $item->key ?>" class="list-unstyle clearfix" <?= $this->context->is_mobile ? '' : "onmouseover=\"h_showmenu('$item->key')\" onmouseout=\"h_hidemenu('$item->key')\"" ?>>
                     <?php
                     foreach ($item->getChildren() as $c_item) {
                     ?>

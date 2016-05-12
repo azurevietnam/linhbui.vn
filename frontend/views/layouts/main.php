@@ -26,6 +26,12 @@ function showmenu(div_id) {
         document.getElementById(div_id).style.display = "block";
     }
 }
+function h_showmenu(id) {
+    document.getElementById(id).style.display = "block";
+}
+function h_hidemenu(id) {
+    document.getElementById(id).style.display = "none";
+}
 	
 </script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
