@@ -161,7 +161,7 @@ class FileUtils {
         isset($params['sequenceSuffixTemplate']) or $params['sequenceSuffixTemplate'] = static::SEQUENCE_TEMPLATE;
         isset($params['sequenceStart']) or $params['sequenceStart'] = 2;
         isset($params['imageNameReplace']) or $params['imageNameReplace'] = static::$file_name_replace;
-        isset($params['createWatermark']) or $params['createWatermark'] = true;
+        isset($params['createWatermark']) or $params['createWatermark'] = false;
         
         $resize_suffixes = [];
         foreach ($params['resize'] as $dim) {
@@ -297,9 +297,8 @@ class FileUtils {
             }
             $regex .= ')/';
         }
-        if (empty($params['removeInputImage'])) {
-            $params['removeInputImage'] = true;
-        }
+        isset($params['removeInputImage']) or $params['removeInputImage'] = false;
+        isset($params['createWatermark']) or $params['createWatermark'] = false;
         if (isset($params['defaultFromFolder'])) {
             $params['defaultFromFolder'] = rtrim($params['defaultFromFolder'], '/') . '/';
         }
@@ -322,6 +321,7 @@ class FileUtils {
                                 'fromFolder' => $fromFolder,
                                 'toFolder' => $params['toFolder'],
                                 'removeInputImage' => $params['removeInputImage'],
+                                'createWatermark' => $params['createWatermark'],
                     ]);
                     if ($copyResult['success']) {
                         $content = str_replace($img_url, $toUrl . $copyResult['imageName'], $content);

@@ -102,6 +102,7 @@ class Article extends \common\models\Article
                     'toFolder' => $targetFolder,
                     'resize' => array_values(Article::$image_resizes),
                     'removeInputImage' => true,
+                    'createWatermark' => true,
                 ]);
                 if ($copyResult['success']) {
                     $model->image = $copyResult['imageName'];
@@ -114,6 +115,7 @@ class Article extends \common\models\Article
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
+                'createWatermark' => true,
             ]);
                     
             $model->long_description = FileUtils::copyContentImages([
@@ -122,6 +124,7 @@ class Article extends \common\models\Article
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
+                'createWatermark' => true,
             ]);
         
             if ($model->save()) {
@@ -182,6 +185,7 @@ class Article extends \common\models\Article
                     'toFolder' => $targetFolder,
                     'resize' => array_values(Article::$image_resizes),
                     'removeInputImage' => true,
+                    'createWatermark' => true,
                 ]);
                 if ($copyResult['success']) {
                     $this->image = $copyResult['imageName'];
@@ -193,6 +197,7 @@ class Article extends \common\models\Article
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
+                'createWatermark' => true,
             ]);
             $this->long_description = FileUtils::copyContentImages([
                 'content' => $this->long_description,
@@ -200,6 +205,7 @@ class Article extends \common\models\Article
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
+                'createWatermark' => true,
             ]);
             
             if ($this->save()) {
