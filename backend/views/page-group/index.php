@@ -54,7 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             $result .= "<tr><td>$label</td><td>$value</td></tr>";
                         }
                     }
-                    return "$result</table>";
+                    $result .= '</table>';
+                    return $result;
                 }
             ],
 
