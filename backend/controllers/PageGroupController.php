@@ -111,7 +111,11 @@ class PageGroupController extends BaseController
             $i = -1;
             foreach ($array_old_params as $value) {
                 $i++;
-                $array_new_params[PageGroup::$all_url_params[$i]['name']] = $value;
+                if (isset(PageGroup::$all_url_params[$i])) {
+                    $array_new_params[PageGroup::$all_url_params[$i]['name']] = $value;
+                } else {
+                    //
+                }
             }
             $model->url_params = json_encode($array_new_params);
             $model->scenario = 'save';

@@ -55,8 +55,8 @@ return [
                 ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>.html', 'route' => 'article/index'],
                 ['pattern' => '<' . PageGroup::URL_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>.html', 'route' => 'article/index'],
                 // Danh mục tin tức
-                ['pattern' => '<' . PageGroup::URL_PARENT_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
-                ['pattern' => '<' . PageGroup::URL_PARENT_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
+                ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
+                ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
                 ['pattern' => '<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
                 ['pattern' => '<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
             ]
