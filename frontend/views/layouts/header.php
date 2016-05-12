@@ -97,7 +97,7 @@ $this->registerCss('
 .search.relative.clearfix{/*margin-top:0px*/;z-index:100}
 .gsc-input-box{border:none!important;height:32px!important}
 .gsc-input-box input[type=text]{color:#90150e;font-weight:bold}
-.gsc-search-box-tools .gsc-search-box .gsc-input{font-size:1.1em;background:none!important;padding:1px!important;height:32px!important}   
+.gsc-search-box-tools .gsc-search-box .gsc-input{font-size:1.1em;/*background:none!important;*/padding:1px!important;height:32px!important}   
 .cse .gsc-control-cse,.gsc-control-cse{padding:0!important}
 form.gsc-search-box,table.gsc-search-box{margin-bottom:0}
 .gsc-search-button,.gsc-search-button-v2{display:none}
