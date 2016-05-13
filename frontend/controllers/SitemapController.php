@@ -35,8 +35,8 @@ class SitemapController extends BaseController
     
     public function actionArticle()
     {
-        $slug = Yii::$app->request->get(\frontend\models\PageGroup::URL_SLUG);
-        if ($slug !== null && $article_category = ArticleCategory::find()->where(['is_active' => 1])->andWhere(['slug' => $slug])->one()) {
+        $slug = Yii::$app->request->get(\frontend\models\PageGroup::URL_SLUG, '');
+        if ($article_category = ArticleCategory::find()->where(['slug' => $slug])->oneActive()) {
             $home = ['url' => Url::home(true), 'img' => ''];
             if ($parent = $article_category->parent) {
                 $parent = ['url' => $parent->getLink(), 'img' => $parent->getImage()];
@@ -44,7 +44,7 @@ class SitemapController extends BaseController
                 $parent = null;
             }
             $category = ['url' => $article_category->getLink(), 'img' => $article_category->getImage()];
-            $articles = $article_category->getArticles();
+            $articles = $article_category->getArticles()->allPublished();
             $items = [];
             foreach ($articles as $item) {
                 $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
