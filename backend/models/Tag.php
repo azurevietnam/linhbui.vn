@@ -228,7 +228,8 @@ class Tag extends \common\models\Tag
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'slug', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'image', 'image_path', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['old_slugs'], 'string', 'max' => 2000],
-            [['meta_description', 'description'], 'string', 'max' => 511]
+            [['meta_description', 'description'], 'string', 'max' => 511],
+            ['slug', 'unique']
         ];
     }
 
