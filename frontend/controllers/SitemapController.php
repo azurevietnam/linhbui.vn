@@ -33,8 +33,9 @@ class SitemapController extends BaseController
         ]);
     }
     
-    public function actionArticle($slug)
+    public function actionArticle()
     {
+        $slug = Yii::$app->request->get(\frontend\models\PageGroup::URL_SLUG);
         if ($slug !== null && $article_category = ArticleCategory::find()->where(['is_active' => 1])->andWhere(['slug' => $slug])->one()) {
             $home = ['url' => Url::home(true), 'img' => ''];
             if ($parent = $article_category->parent) {
