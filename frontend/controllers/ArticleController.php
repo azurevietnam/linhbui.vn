@@ -38,8 +38,7 @@ class ArticleController extends BaseController
                 $this->meta_image = $model->getImage();
             }
             
-            $model->view_count++;
-            $model->save();
+            $model->updateCounters(['view_count' => 1]);
             
             return $this->render('index', [
                 'model' => $model,
