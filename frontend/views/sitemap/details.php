@@ -49,6 +49,27 @@
     }
     ?>
 <?php
+foreach ($children as $item) {
+?>
+    <url>
+        <loc><?= $item['url'] ?></loc>
+        <?php
+        if ($item['img'] !== '') {
+        ?>
+        <image:image>
+            <image:loc><?= $item['img'] ?></image:loc>
+        </image:image>
+        <?php
+        }
+        ?>
+        <lastmod><?= date('c', time()) ?></lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    </url>
+<?php
+}
+?>
+<?php
 foreach ($items as $item) {
 ?>
     <url>
