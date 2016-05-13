@@ -64,7 +64,7 @@ foreach ($children as $item) {
         ?>
         <lastmod><?= date('c', time()) ?></lastmod>
         <changefreq>always</changefreq>
-        <priority>1</priority>
+        <priority>1.0</priority>
     </url>
 <?php
 }
