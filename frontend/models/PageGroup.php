@@ -22,11 +22,11 @@ use Yii;
  */
 class PageGroup extends \common\models\PageGroup
 {
-    public static $_pertinent_record = 1;
+    public static $_pertinent_records = 1;
 
-    public static function pertinentRecord()
+    public static function pertinentRecords()
     {
-        if (static::$_pertinent_record === 1) {
+        if (static::$_pertinent_records === 1) {
             $query = static::find();
             $query->where([
                 'or',
@@ -44,20 +44,21 @@ class PageGroup extends \common\models\PageGroup
                     ['not like', 'url_params', "\"{$item['name']}\""],
                 ]);
             }
-            if (!static::$_pertinent_record = $query->one()) {
-                static::$_pertinent_record = new PageGroup();
-            }
+            static::$_pertinent_records = $query->all();
         }
-        return static::$_pertinent_record;
+        return static::$_pertinent_records;
     }
 
     public static $_seo_info = 1;
 
     public static function seoInfo()
     {
-//        var_dump(static::pertinentRecord());die;
         if (static::$_seo_info === 1) {
-            static::$_seo_info = static::pertinentRecord()->getSeoInfos()->oneActive();
+            if (isset(static::pertinentRecords()[0])) {
+                static::$_seo_info = static::pertinentRecords()[0]->getSeoInfos()->oneActive();
+            } else {
+                static::$_seo_info = false;
+            }
         }
         return static::$_seo_info;
     }
@@ -67,7 +68,10 @@ class PageGroup extends \common\models\PageGroup
     public static function widgets()
     {
         if (static::$_widgets === 1) {
-            static::$_widgets = static::pertinentRecord()->getWidgets()->allActive();
+            static::$_widgets = [];
+            foreach (static::pertinentRecords() as $item) {
+                static::$_widgets = array_merge(static::$_widgets, $item->getWidgets()->allActive());
+            }
         }
         return static::$_widgets;
     }
@@ -77,7 +81,10 @@ class PageGroup extends \common\models\PageGroup
     public static function htmlBoxes()
     {
         if (static::$_html_boxes === 1) {
-            static::$_html_boxes = static::pertinentRecord()->getHtmlBoxes()->allActive();
+            static::$_html_boxes = [];
+            foreach (static::pertinentRecords() as $item) {
+                static::$_html_boxes = array_merge(static::$_html_boxes, $item->getHtmlBoxes()->allActive());
+            }
         }
         return static::$_html_boxes;
     }
