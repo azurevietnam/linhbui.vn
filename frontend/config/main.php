@@ -43,6 +43,7 @@ return [
             'rules' => [
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
+                ['pattern' => 'sitemap-tim-kiem.xml', 'route' => 'sitemap/tag'],
                 ['pattern' => 'sitemap-<' . PageGroup::URL_SLUG . '>.xml', 'route' => 'sitemap/article'],
                 // Trang chủ
                 ['pattern' => '', 'route' => 'site/index'],

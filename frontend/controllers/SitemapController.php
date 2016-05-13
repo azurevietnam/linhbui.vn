@@ -22,6 +22,7 @@ class SitemapController extends BaseController
         foreach ($article_categories as $item) {
             $items[] = Url::to(['sitemap/article', \common\models\PageGroup::URL_SLUG => $item->slug], true);
         }
+        $items[] = Url::to(['sitemap/tag'], true);
         
         Yii::$app->response->format = Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
@@ -73,6 +74,35 @@ class SitemapController extends BaseController
         }
     }
     
+    public function actionTag()
+    {
+        $home = ['url' => Url::home(true), 'img' => ''];
+        
+        $category = null;
+        $parent = null;
+        $children = [];
+
+        $items = [];
+        $tags = \frontend\models\Tag::find()->allActive();
+        foreach ($tags as $item) {
+            $items[] = ['url' => $item->getLink(), 'img' => $item->getImage()];
+        }
+        
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml; charset=utf-8');
+        $this->layout = false;
+
+        return $this->render('details', [
+            'home' => $home,
+            'parent' => $parent,
+            'category' => $category,
+            'children' => $children,
+            'items' => $items,
+        ]);
+    }
+
+
 //    public function actionIndex()
 //    {
 //        $items = [];
