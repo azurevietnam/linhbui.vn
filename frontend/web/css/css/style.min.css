@@ -2,5 +2,9 @@ button,img{border:none}.banner-slide li,.search,.title-bnn{text-align:center}bod
 
 ul.list_col li .title-news {
     font-size: 14px;
-    margin-bottom: 8px;
+}
+@media (max-width: 480px) {
+.title-news {
+    font-size: 15px;
+}
 }
