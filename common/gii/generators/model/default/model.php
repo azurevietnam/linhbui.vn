@@ -54,7 +54,7 @@ if(isset($tableSchema->columns['slug'])) { ?>
     public function getLink ()
     {
         if ($this->_link === null) {
-            $this->_link = Url::to(['<?= Inflector::camel2id($modelClass) ?>/index', 'slug' => $this->slug], true);
+            $this->_link = Yii::$app->urlManager->createUrl(['<?= Inflector::camel2id($modelClass) ?>/index', 'slug' => $this->slug], true);
         }
         return $this->_link;
     }

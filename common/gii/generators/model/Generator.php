@@ -28,15 +28,17 @@ class Generator extends \yii\gii\Generator
     public $ns = 'app\models';
     public $tableName;
     public $modelClass;
-    public $baseClass = 'yii\db\ActiveRecord';
-    public $generateRelations = true;
+//    public $baseClass = 'yii\db\ActiveRecord';
+    public $baseClass = 'common\models\MyActiveRecord';
+    public $generateRelations = self::RELATIONS_ALL;
     public $generateLabelsFromComments = false;
     public $useTablePrefix = false;
     public $useSchemaName = true;
     public $generateQuery = false;
     public $queryNs = 'app\models';
     public $queryClass;
-    public $queryBaseClass = 'yii\db\ActiveQuery';
+//    public $queryBaseClass = 'yii\db\ActiveQuery';
+    public $queryBaseClass = 'common\models\MyActiveQuery';
 
 
     /**
