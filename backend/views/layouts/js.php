@@ -273,6 +273,7 @@ use yii\web\View;
     }
     
     function special_chars_filter(str) {
+        str = str.trim();
         str = str.replace(/  /g, " ");
         str = str.replace(/\u2013|%u2013|%E2%80%93/g, "-");
         str = str.replace(/ - | /g, "-");
