@@ -135,10 +135,7 @@ class Article extends \common\models\Article
                 }
                 return $model;
             }
-            ob_start();
-            var_dump($model->getErrors());
-            echo '<pre>' . ob_get_clean() . '</pre>';
-            die;
+            \common\utils\Dump::errors($model->getErrors());
 //            return $model;
         }
         return false;
