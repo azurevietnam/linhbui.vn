@@ -43,7 +43,7 @@ class TagController extends BaseController
             $page = $page > 0 ? $page : 1;
             
             $items = $tag->getArticles()
-                    ->limit(static::ITEMS_PER_PAGE + 1) // lấy thêm 1 item để kiểm tra xem có trang tiếp theo không
+                    ->limit(static::ITEMS_PER_PAGE)
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
                     ->orderBy('published_at desc')
                     ->allPublished();
