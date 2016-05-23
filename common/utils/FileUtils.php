@@ -237,8 +237,10 @@ class FileUtils {
                                 } else {
                                     $watermark_img = 'watermark_sm.png';
                                 }
-                                $thumb->createWatermark(\Yii::$app->params['images_folder'] . '/' . $watermark_img, 'lt', '5');
-                                $thumb->save($params['toFolder'] . $img_name);
+                                if (is_file(\Yii::$app->params['images_folder'] . '/' . $watermark_img)) {
+                                    $thumb->createWatermark(\Yii::$app->params['images_folder'] . '/' . $watermark_img, 'lt', '5');
+                                    $thumb->save($params['toFolder'] . $img_name);
+                                }
                             }
                             if (count($params['resize']) > 0) {
                                 foreach ($params['resize'] as $dim) {
