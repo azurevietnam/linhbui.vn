@@ -137,7 +137,7 @@ class Article extends \common\models\Article
             }
             ob_start();
             var_dump($model->getErrors());
-            echo '<code>' . ob_get_clean() . '</code>';
+            echo '<pre>' . ob_get_clean() . '</pre>';
             die;
 //            return $model;
         }
