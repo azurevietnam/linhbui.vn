@@ -136,8 +136,8 @@ class Article extends \common\models\Article
                 return $model;
             }
             ob_start();
-            ob_get_clean();
             var_dump($model->getErrors());
+            echo ob_get_clean();
             die;
 //            return $model;
         }
