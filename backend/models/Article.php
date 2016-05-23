@@ -265,13 +265,13 @@ class Article extends \common\models\Article
     {
         return [
             [['name', 'slug', 'article_category_id', 'content', 'created_at', 'published_at'], 'required'],
-            [['slug'], 'unique'],
             [['content', 'long_description'], 'string'],
             [['article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
             [['created_at', 'updated_at', 'published_at', 'article_category_ids', 'tag_ids'], 'safe'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
-            [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255]
+            [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
+            [['slug', 'name', 'page_title', 'meta_title', 'meta_description', 'description'], 'unique'],
         ];
     }
 
