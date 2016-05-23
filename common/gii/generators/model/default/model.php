@@ -99,7 +99,7 @@ if (isset($tableSchema->columns['image_path'])) { ?>
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
 <?php foreach($tableSchema->columns as $column) { ?>
-<?php if(preg_match('/^(image|avatar|banner|banner1|banner2|banner3|banner4|banner5|top_banner|bottom_banner|middle_banner|left_banner|right_banner)$/i', $column->name)) { ?>
+<?php if(preg_match('/^(image|avatar|banner)$/i', $column->name)) { ?>
             if (!empty($data['<?= strtolower($modelClass) . '-' . $column->name ?>'])) {
                 $copyResult = FileUtils::copyImage([
                     'imageName' => $model-><?= $column->name ?>,
