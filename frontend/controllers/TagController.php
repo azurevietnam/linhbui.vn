@@ -8,7 +8,7 @@ use Yii;
 
 class TagController extends BaseController
 {
-    const ITEMS_PER_PAGE = 10;
+    const ITEMS_PER_PAGE = 20;
 
     public function actionIndex()
     {
