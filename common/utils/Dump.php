@@ -16,7 +16,18 @@ class Dump {
     public static function errors($errors)
     {
         ob_start();
+        echo '<h2>Lỗi</h2>';
+        echo '<ul>';
+        foreach ($errors as $item) {
+            foreach ($item as $message) {
+                if (is_string($message)) {
+                    echo "<li>$message</li>";
+                }
+            }
+        }
+        echo '</ul>';
+        echo '<p>===================</p>';
         var_dump($errors);
-        die('<pre>' . ob_get_clean() . '</pre>');
+        die(ob_get_clean());
     }
 }
