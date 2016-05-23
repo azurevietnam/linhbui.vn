@@ -537,7 +537,7 @@ nav li li a:hover strong{color:#fff}
 	.link-hot-news .main a{display:block;margin:0}
 	.link-hot-news .main span.line{display:none}
 	
-	.col6.fl, .list-news-other{float:none;width:100%;margin-bottom:10px;border-bottom:1px solid #ededed;padding-bottom:10px}
+	.col6.fl, .list-news-other{float:none;width:100%;margin-bottom:10px;padding-bottom:10px}
 	.list-news-other{padding:0}
 	.col-2 .post, .col-2 .list_col li{width:100%;float:none;margin:0}
 	.col-2 .list_col li{margin-bottom:5px}
