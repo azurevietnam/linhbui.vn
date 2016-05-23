@@ -126,8 +126,8 @@ class ArticleCategory extends \common\models\ArticleCategory
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            \common\utils\Dump::errors($model->getErrors());
+            return;
         }
         return false;
     }

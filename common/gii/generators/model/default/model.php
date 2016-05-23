@@ -25,6 +25,7 @@ echo "<?php\n";
 namespace <?= $generator->ns ?>;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -104,7 +105,7 @@ if (isset($tableSchema->columns['image_path'])) { ?>
                     'imageName' => $model-><?= $column->name ?>,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    //'resize' => array(),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -132,8 +133,8 @@ if ($column->type === 'text') { ?>
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -196,7 +197,7 @@ if (isset($tableSchema->columns['image_path'])) { ?>
                     'imageName' => $this-><?= $column->name ?>,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    //'resize' => array(),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {

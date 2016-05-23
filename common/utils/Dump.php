@@ -16,7 +16,7 @@ class Dump {
     public static function errors($errors)
     {
         ob_start();
-        echo '<h2>Lỗi</h2>';
+        echo '<h2>Tóm tắt lỗi</h2>';
         echo '<ul>';
         foreach ($errors as $item) {
             foreach ($item as $message) {

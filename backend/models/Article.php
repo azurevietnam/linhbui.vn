@@ -136,7 +136,7 @@ class Article extends \common\models\Article
                 return $model;
             }
             \common\utils\Dump::errors($model->getErrors());
-//            return $model;
+            return;
         }
         return false;
     }
