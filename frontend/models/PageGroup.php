@@ -104,7 +104,7 @@ class PageGroup extends \common\models\PageGroup
     {
         return [
             [['name', 'route'], 'string', 'max' => 255],
-            [['url_regexp'], 'string', 'max' => 2000],
+            [['url_regexp', 'url_params'], 'string', 'max' => 2000],
         ];
     }
 
@@ -118,6 +118,7 @@ class PageGroup extends \common\models\PageGroup
             'name' => 'Name',
             'route' => 'Route',
             'url_regexp' => 'Url Regexp',
+            'url_params' => 'Url Params',
         ];
     }
 
@@ -126,8 +127,8 @@ class PageGroup extends \common\models\PageGroup
      */
     public function getHtmlBoxes()
     {
-//        return $this->hasMany(HtmlBox::className(), ['page_group_id' => 'id']);
         return $this->hasMany(HtmlBox::className(), ['id' => 'html_box_id'])->viaTable('html_box_to_page_group', ['page_group_id' => 'id']);
+//        return $this->hasMany(HtmlBox::className(), ['page_group_id' => 'id']);
     }
 
     /**

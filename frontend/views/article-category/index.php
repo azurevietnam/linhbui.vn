@@ -52,7 +52,7 @@ $item_per_line = 2;
                 <ul class="list_col list-unstyle clearfix">
                     <?php
                     $i = 0;
-                    foreach (array_slice($items, 2, $items_per_page - 2) as $item) {
+                    foreach (array_slice($items, 2) as $item) {
                         $i++;
                     ?>
                     <li class="thumb clearfix">
@@ -74,13 +74,7 @@ $item_per_line = 2;
                     }
                     ?>
                 </ul>
-                <?php
-                if (isset($items[$items_per_page])) {
-                ?>
-                <div class="load-more-wrap"><a class="ajax_load_more" href="<?= Url::current(['page' => $page + 1]) ?>">Xem thêm<i class="ic-down"></i></a></div>
-                <?php
-                }
-                ?>
+                <?= $this->render('//modules/pagination', ['pagination' => $pagination]) ?>
             </div>
         </div>
     </div>

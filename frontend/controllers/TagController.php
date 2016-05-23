@@ -39,6 +39,7 @@ class TagController extends BaseController
                 $this->meta_keywords .= " - trang $page";
                 $this->meta_description .= " - trang $page";
             }
+            
             $page = $page > 0 ? $page : 1;
             
             $items = $tag->getArticles()
@@ -46,26 +47,27 @@ class TagController extends BaseController
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
                     ->orderBy('published_at desc')
                     ->allPublished();
-//            $totalItems = $tag->getArticles()
-//                    ->countPublished();
-//            
-//            $total = ceil($totalItems / static::ITEMS_PER_PAGE);
-//            $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
-//            $lastItemOnPage = ($totalItems < $page * static::ITEMS_PER_PAGE) ? $totalItems : $page * static::ITEMS_PER_PAGE;
-//            $pagination = [
-//                'firstItemOnPage' => $firstItemOnPage,
-//                'lastItemOnPage' => $lastItemOnPage,
-//                'totalItems' => $totalItems,
-//                'current' => $page,
-//                'total' => $total,
-//            ];
+            
+            $totalItems = $tag->getArticles()
+                    ->countPublished();
+            
+            $total = ceil($totalItems / static::ITEMS_PER_PAGE);
+            $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
+            $lastItemOnPage = ($totalItems < $page * static::ITEMS_PER_PAGE) ? $totalItems : $page * static::ITEMS_PER_PAGE;
+            $pagination = [
+                'firstItemOnPage' => $firstItemOnPage,
+                'lastItemOnPage' => $lastItemOnPage,
+                'totalItems' => $totalItems,
+                'current' => $page,
+                'total' => $total,
+            ];
             
             return $this->render('index', [
                 'tag' => $tag,
                 'items' => $items,
-//                'pagination' => $pagination,
-                'page' => $page,
-                'items_per_page' => static::ITEMS_PER_PAGE
+                'pagination' => $pagination,
+//                'page' => $page,
+//                'items_per_page' => static::ITEMS_PER_PAGE
             ]);
             
         } else {

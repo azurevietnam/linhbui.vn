@@ -42,32 +42,35 @@ class ArticleCategoryController extends BaseController
                 $this->meta_keywords .= " - trang $page";
                 $this->meta_description .= " - trang $page";
             }
+            
             $page = $page > 0 ? $page : 1;
+            
             $items = $category->getAllArticles() // danh mục có thể có một hoặc nhiều danh mục con nên dùng hàm getAllArticles() thay cho getArticles()
-                    ->limit(static::ITEMS_PER_PAGE + 1) // lấy thêm 1 item để kiểm tra xem có trang tiếp theo không
+                    ->limit(static::ITEMS_PER_PAGE)
                     ->offset(($page - 1) * static::ITEMS_PER_PAGE)
                     ->orderBy('published_at desc')
                     ->allPublished();
-//            $totalItems = $category->getAllArticles()
-//                    ->countPublished();
-//            
-//            $total = ceil($totalItems / static::ITEMS_PER_PAGE);
-//            $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
-//            $lastItemOnPage = ($totalItems < $page * static::ITEMS_PER_PAGE) ? $totalItems : $page * static::ITEMS_PER_PAGE;
-//            $pagination = [
-//                'firstItemOnPage' => $firstItemOnPage,
-//                'lastItemOnPage' => $lastItemOnPage,
-//                'totalItems' => $totalItems,
-//                'current' => $page,
-//                'total' => $total,
-//            ];
+            
+            $totalItems = $category->getAllArticles()
+                    ->countPublished();
+            
+            $total = ceil($totalItems / static::ITEMS_PER_PAGE);
+            $firstItemOnPage = ($totalItems > 0) ? ($page-1) * static::ITEMS_PER_PAGE + 1 : 0;
+            $lastItemOnPage = ($totalItems < $page * static::ITEMS_PER_PAGE) ? $totalItems : $page * static::ITEMS_PER_PAGE;
+            $pagination = [
+                'firstItemOnPage' => $firstItemOnPage,
+                'lastItemOnPage' => $lastItemOnPage,
+                'totalItems' => $totalItems,
+                'current' => $page,
+                'total' => $total,
+            ];
             
             return $this->render('index', [
                 'category' => $category,
                 'items' => $items,
-//                'pagination' => $pagination,
-                'page' => $page,
-                'items_per_page' => static::ITEMS_PER_PAGE
+                'pagination' => $pagination,
+//                'page' => $page,
+//                'items_per_page' => static::ITEMS_PER_PAGE
             ]);
             
         } else {

@@ -43,27 +43,7 @@ use Yii;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
-<?php foreach($tableSchema->columns as $column) { ?>
-<?php if(preg_match('/^(image|avatar|banner|banner1|banner2|banner3|banner4|banner5|top_banner|bottom_banner|middle_banner|left_banner|right_banner)$/i', $column->name)) { ?>        
-    /**
-    * function ->get<?= Inflector::id2camel($column->name, '_') ?> ($suffix, $refresh)
-    */
-    public $_<?= $column->name ?>;
-    public function get<?= Inflector::id2camel($column->name, '_') ?> ($suffix = null, $refresh = false)
-    {
-        if ($this->_<?= $column->name ?> === null || $refresh == true) {
-            $this->_<?= $column->name ?> = FileUtils::getImage([
-                'imageName' => $this-><?= $column->name ?>,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_<?= $column->name ?>;
-    }
-<?php }}
+<?php
 if(isset($tableSchema->columns['slug'])) { ?>
     
     /**
