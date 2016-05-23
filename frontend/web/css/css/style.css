@@ -315,7 +315,7 @@ li:hover .img-bn img{opacity:1}
 .tile-pagecate .title{margin:0;background:none;padding:0;font-size:24px;line-height:28px}
 .list-news .image{max-height:150px;overflow:hidden}
 .news-rela{margin-bottom:20px}
-.news-rela li{float:left;width:25%;padding:0 15px 0 0;margin-bottom:15px}
+.news-rela li{width:24.5%;padding:0 15px 0 0;margin-bottom:15px;display:inline-block;vertical-align:top}
 .news-rela .img-bn{height:92px;overflow:hidden;margin-bottom:10px}
 .news-rela .img-bn img{width:100%;opacity:1;display:block}
 
@@ -415,6 +415,7 @@ ul.list_col li .desc{margin:-3px 0 0;color:#666;font-size:13px;line-height:150%}
 	.result-count {
     line-height: 35px;margin-top:10px
 }
+
 	
 
 
@@ -467,6 +468,7 @@ nav li li a:hover strong{color:#fff}
 	
 	.col-l, .col-r{width:100%;float: none;border:none;padding:0}
 	.col-l .list-news li{padding-right:0}
+	.breadcrumb{width:99%; text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
 	
 }
 @media(min-width:641px){
@@ -500,7 +502,7 @@ nav li li a:hover strong{color:#fff}
 	.topseo h1{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 	footer .main{padding:10px}
 	.info-l.fl, .box-social.fr{float:none}
-
+	ul.list_col li .title-news, .title-news{font-size:16px}
 	
 }
 @media(max-width:540px){
@@ -518,7 +520,6 @@ nav li li a:hover strong{color:#fff}
 	
 	.list-news .image, .col-r .list-news .image{width:100px;margin:0 10px 0 0}
 	.list-news .magl, .col-r .list-news .magl{margin-left:110px}
-	.title-news{font-size:14px}
 	.text-detail img{max-width:300px}
 	.list-news .magl, .col-r .list-news .magl{margin-left:inherit;overflow:inherit}
 	.news-rela li{margin-bottom:10px}
