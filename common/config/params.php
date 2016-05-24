@@ -39,9 +39,6 @@ return [
         'tablet' => 3
     ],
     
-    'cache_time' => [
-        'long' => 1800,
-        'medium' => 600,
-        'short' => 300
-    ]
+    'enable_cache' => true,
+    'cache_duration' => 1800,
 ];
