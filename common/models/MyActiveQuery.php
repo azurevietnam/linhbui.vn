@@ -36,7 +36,8 @@ class MyActiveQuery extends ActiveQuery {
     
     public function published()
     {
-        return $this->active()->andWhere('[[published_at]]<=' .  time());
+//        return $this->active()->andWhere('[[published_at]]<=' .  time());
+        return $this->active()->andWhere('[[published_at]]<=UNIX_TIMESTAMP(NOW())');
     }
     
     public function onePublished($db = null)
