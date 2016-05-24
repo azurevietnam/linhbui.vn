@@ -33,7 +33,7 @@ class PageGroup extends \common\models\PageGroup
                 ['route' => Yii::$app->requestedRoute],
                 ['route' => '*']
             ]);
-            foreach (\common\models\PageGroup::$all_url_params as $item) {
+            foreach (PageGroup::$all_url_params as $item) {
                 $query->andWhere([
                     'or',
                     [
@@ -54,10 +54,24 @@ class PageGroup extends \common\models\PageGroup
     public static function seoInfo()
     {
         if (static::$_seo_info === 1) {
-            if (isset(static::pertinentRecords()[0])) {
-                static::$_seo_info = static::pertinentRecords()[0]->getSeoInfos()->oneActive();
-            } else {
+            $key = 'SeoInfo ' . Yii::$app->request->absoluteUrl;
+            $data = Yii::$app->cache->get($key);
+            if ($data === false || !Yii::$app->params['enable_cache']) {
+                if (isset(static::pertinentRecords()[0])) {
+                    $data = static::pertinentRecords()[0]->getSeoInfos()->oneActive();
+                } else {
+                    $data = false;
+                }
+                if ($data === false) {
+                    $data = '_false';
+                }
+                Yii::$app->cache->set($key, $data, Yii::$app->params['cache_duration']);
+            }
+            
+            if ($data === '_false') {
                 static::$_seo_info = false;
+            } else {
+                static::$_seo_info = $data;
             }
         }
         return static::$_seo_info;
@@ -68,10 +82,16 @@ class PageGroup extends \common\models\PageGroup
     public static function widgets()
     {
         if (static::$_widgets === 1) {
-            static::$_widgets = [];
-            foreach (static::pertinentRecords() as $item) {
-                static::$_widgets = array_merge(static::$_widgets, $item->getWidgets()->allActive());
+            $key = 'Widgets ' . Yii::$app->request->absoluteUrl;
+            $data = Yii::$app->cache->get($key);
+            if ($data === false || !Yii::$app->params['enable_cache']) {
+                $data = [];
+                foreach (static::pertinentRecords() as $item) {
+                    $data = array_merge($data, $item->getWidgets()->allActive());
+                }
+                Yii::$app->cache->set($key, $data, Yii::$app->params['cache_duration']);
             }
+            static::$_widgets = $data;
         }
         return static::$_widgets;
     }
@@ -81,10 +101,16 @@ class PageGroup extends \common\models\PageGroup
     public static function htmlBoxes()
     {
         if (static::$_html_boxes === 1) {
-            static::$_html_boxes = [];
-            foreach (static::pertinentRecords() as $item) {
-                static::$_html_boxes = array_merge(static::$_html_boxes, $item->getHtmlBoxes()->allActive());
+            $key = 'HtmlBoxes ' . Yii::$app->request->absoluteUrl;
+            $data = Yii::$app->cache->get($key);
+            if ($data === false || !Yii::$app->params['enable_cache']) {
+                $data = [];
+                foreach (static::pertinentRecords() as $item) {
+                    $data = array_merge($data, $item->getHtmlBoxes()->allActive());
+                }
+                Yii::$app->cache->set($key, $data, Yii::$app->params['cache_duration']);
             }
+            static::$_html_boxes = $data;
         }
         return static::$_html_boxes;
     }
@@ -123,7 +149,7 @@ class PageGroup extends \common\models\PageGroup
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getHtmlBoxes()
     {
@@ -132,7 +158,7 @@ class PageGroup extends \common\models\PageGroup
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getHtmlBoxToPageGroups()
     {
@@ -140,7 +166,7 @@ class PageGroup extends \common\models\PageGroup
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSeoInfos()
     {
@@ -148,7 +174,7 @@ class PageGroup extends \common\models\PageGroup
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSeoInfoToPageGroups()
     {
@@ -156,7 +182,7 @@ class PageGroup extends \common\models\PageGroup
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
 //    public function getSeoInfos0()
 //    {
@@ -164,7 +190,7 @@ class PageGroup extends \common\models\PageGroup
 //    }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWidgetToPageGroups()
     {
@@ -172,7 +198,7 @@ class PageGroup extends \common\models\PageGroup
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWidgets()
     {

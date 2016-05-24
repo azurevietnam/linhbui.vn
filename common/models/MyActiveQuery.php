@@ -56,15 +56,42 @@ class MyActiveQuery extends ActiveQuery {
 
     public function all($db = null)
     {
-        return parent::all($db);
+        $cache_key = json_encode($this);
+        $result = \Yii::$app->cache->get($cache_key);
+        if ($result === false || !\Yii::$app->params['enable_cache']) {
+            $result = parent::all($db);
+            \Yii::$app->cache->set($cache_key, $result, \Yii::$app->params['cache_duration']);
+        }
+        return $result;
+//        return parent::all($db);
     }
 
     public function one($db = null)
     {
-        return parent::one($db);
+        $cache_key = json_encode($this);
+        $result = \Yii::$app->cache->get($cache_key);
+        if ($result === false || !\Yii::$app->params['enable_cache']) {
+            $result = parent::one($db);
+            if ($result === false) {
+                $result = '_false';
+            }
+            \Yii::$app->cache->set($cache_key, $result, \Yii::$app->params['cache_duration']);
+        }
+        if ($result === '_false') {
+            $result = false;
+        }
+        return $result;
+//        return parent::one($db);
     }
     
     public function count($q = '*', $db = null) {
-        return parent::count($q, $db);
+        $cache_key = json_encode($this);
+        $result = \Yii::$app->cache->get($cache_key);
+        if ($result === false || !\Yii::$app->params['enable_cache']) {
+            $result = parent::count($q, $db);
+            \Yii::$app->cache->set($cache_key, $result, \Yii::$app->params['cache_duration']);
+        }
+        return $result;
+//        return parent::count($q, $db);
     }
 }
