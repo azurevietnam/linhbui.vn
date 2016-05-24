@@ -1,5 +1,4 @@
 <title><?= $this->context->page_title ?></title>
-<meta name="title" content="<?= $this->context->meta_title ?>">
 <meta name="description" content="<?= $this->context->meta_description ?>">
 <meta name="keywords" content="<?= $this->context->meta_keywords ?>">
 <meta name="robots" content="<?= $this->context->meta_index ?>, <?= $this->context->meta_follow ?>">
