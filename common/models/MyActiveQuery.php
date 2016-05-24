@@ -57,7 +57,7 @@ class MyActiveQuery extends ActiveQuery {
 
     public function all($db = null)
     {
-        $cache_key = md5('all' . json_encode($this) . json_encode($db));
+        $cache_key = md5('all' . serialize($this) . serialize($db));
         $result = \Yii::$app->cache->get($cache_key);
         if ($result === false || !\Yii::$app->params['enable_cache']) {
             $result = parent::all($db);
@@ -69,7 +69,7 @@ class MyActiveQuery extends ActiveQuery {
 
     public function one($db = null)
     {
-        $cache_key = md5('one' . json_encode($this) . json_encode($db));
+        $cache_key = md5('one' . serialize($this) . serialize($db));
         $result = \Yii::$app->cache->get($cache_key);
         if ($result === false || !\Yii::$app->params['enable_cache']) {
             $result = parent::one($db);
@@ -86,7 +86,7 @@ class MyActiveQuery extends ActiveQuery {
     }
     
     public function count($q = '*', $db = null) {
-        $cache_key = md5('count' . json_encode($this) . $q . json_encode($db));
+        $cache_key = md5('count' . serialize($this) . $q . serialize($db));
         $result = \Yii::$app->cache->get($cache_key);
         if ($result === false || !\Yii::$app->params['enable_cache']) {
             $result = parent::count($q, $db);
