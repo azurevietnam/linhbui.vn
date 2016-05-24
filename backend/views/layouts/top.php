@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="<?= Yii::$app->params['backend_url'] ?>" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><?= Yii::$app->params['logo_mini'] ?></span>
+        <span class="logo-mini"><?= Yii::$app->params['logo_sm'] ?></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><?= Yii::$app->params['logo_lg'] ?></span>
     </a>
