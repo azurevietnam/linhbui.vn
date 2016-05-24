@@ -230,7 +230,7 @@ button.collapsed{float:left;background:#850d06;border:1px solid #7c0c05;padding:
 
 .banner-slide{background:#f0f2f4;padding:20px 0}
 .banner-slide li{float:left;width:31%;text-align:center;margin:0 1%}
-.img-bn{display:block;position:relative;background:#111;height:162px;border-right:1px solid #fff;overflow:hidden}
+.img-bn{display:block;position:relative;height:162px;border-right:1px solid #fff;overflow:hidden}
 .img-bn img{width:100%;opacity:0.8;}
 li:hover .img-bn img{opacity:1}
 .title-bnn{text-align:center;text-shadow:0 2px 3px #fff;padding:0 20px;line-height:22px;font-size:14px}
@@ -242,7 +242,7 @@ li:hover .img-bn img{opacity:1}
 .ic-pre, .ic-next{display:inline-block;padding:5px;}
 .ic-pre{background-position: -40px 0}
 .ic-next{background-position: -85px 0;}
-.title{padding:8px 0;color:#ad56a2;font-size:16px;text-transform:uppercase;margin:0 0 15px;border-top:2px solid #b35b11;border-bottom:1px solid #e0e0e0;}
+.title{padding:8px 0;font-size:16px;text-transform:uppercase;margin:0 0 15px;border-top:2px solid #b35b11;border-bottom:1px solid #e0e0e0;}
 .col-r .title{margin-top:15px}
 .title a{color:#333;font-size:16px}
 .ic-bullet{background-position: -172px 0;width:3px;height:7px;margin-right:5px}
@@ -317,7 +317,7 @@ li:hover .img-bn img{opacity:1}
 .news-rela{margin-bottom:20px}
 .news-rela li{width:24.5%;padding:0 15px 0 0;margin-bottom:15px;display:inline-block;vertical-align:top}
 .news-rela .img-bn{height:92px;overflow:hidden;margin-bottom:10px}
-.news-rela .img-bn img{width:100%;opacity:1;display:block}
+.news-rela .img-bn img{width:100%;opacity:1;display:block;height:100%}
 
 
 .link-hot-news .main{padding:10px;border-bottom:1px solid #ebebeb;color:#ccc}
