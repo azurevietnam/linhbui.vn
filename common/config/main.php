@@ -12,7 +12,7 @@ return [
             'username' => 'xemtuvi_user',
             'password' => '3XLrQLzc5sXtjzVc',
             'charset' => 'utf8',
-            'enableSchemaCache' => false,
+            'enableSchemaCache' => true,
             // Duration of schema cache.
             'schemaCacheDuration' => 3600,
             // Name of the cache component used to store schema information
