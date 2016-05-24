@@ -17,6 +17,7 @@ class Dump {
     {
         ob_start();
         echo '<h2>Tóm tắt lỗi</h2>';
+        if (is_array($errors)) {
         echo '<ul>';
         foreach ($errors as $item) {
             foreach ($item as $message) {
@@ -27,6 +28,7 @@ class Dump {
         }
         echo '</ul>';
         echo '<p>===================</p>';
+        }
         var_dump($errors);
         die(ob_get_clean());
     }
