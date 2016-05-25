@@ -65,59 +65,59 @@ class UserLogController extends BaseController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $username = Yii::$app->user->identity->username;
-        $model = new UserLog();
-        
-        if (Yii::$app->request->isPost && $model = UserLog::create(Yii::$app->request->post())) {
-            return $this->redirect(['update', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'username' => $username,
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing UserLog model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $username = Yii::$app->user->identity->username;
-        if ($model = $this->findModel($id)) {
-            if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
-                return $this->goBack(Url::previous());
-            } else {
-                return $this->render('update', [
-                    'username' => $username,
-                    'model' => $model,
-                ]);
-            }
-        } else {
-            throw new NotFoundHttpException();
-        }
-    }
-
-    /**
-     * Deletes an existing UserLog model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        if ($model = $this->findModel($id)) {
-            $model->delete();
-            return $this->goBack(Url::previous());
-        } else {
-            throw new NotFoundHttpException();
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $username = Yii::$app->user->identity->username;
+//        $model = new UserLog();
+//        
+//        if (Yii::$app->request->isPost && $model = UserLog::create(Yii::$app->request->post())) {
+//            return $this->redirect(['update', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'username' => $username,
+//                'model' => $model,
+//            ]);
+//        }
+//    }
+//
+//    /**
+//     * Updates an existing UserLog model.
+//     * If update is successful, the browser will be redirected to the 'view' page.
+//     * @param integer $id
+//     * @return mixed
+//     */
+//    public function actionUpdate($id)
+//    {
+//        $username = Yii::$app->user->identity->username;
+//        if ($model = $this->findModel($id)) {
+//            if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
+//                return $this->goBack(Url::previous());
+//            } else {
+//                return $this->render('update', [
+//                    'username' => $username,
+//                    'model' => $model,
+//                ]);
+//            }
+//        } else {
+//            throw new NotFoundHttpException();
+//        }
+//    }
+//
+//    /**
+//     * Deletes an existing UserLog model.
+//     * If deletion is successful, the browser will be redirected to the 'index' page.
+//     * @param integer $id
+//     * @return mixed
+//     */
+//    public function actionDelete($id)
+//    {
+//        if ($model = $this->findModel($id)) {
+//            $model->delete();
+//            return $this->goBack(Url::previous());
+//        } else {
+//            throw new NotFoundHttpException();
+//        }
+//    }
 
     /**
      * Finds the UserLog model based on its primary key value.

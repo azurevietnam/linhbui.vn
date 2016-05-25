@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
-use yii\db\ActiveQuery;
 
+use Yii;
+use yii\caching\TagDependency;
+use yii\db\ActiveQuery;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,6 +16,9 @@ use yii\db\ActiveQuery;
  * @author Quyet Tran <quyettvq at gmail.com>
  */
 class MyActiveQuery extends ActiveQuery {
+    
+    const CACHE_TAG = 'my_active_query';
+    
     public function active()
     {
         return $this->andWhere('[[is_active]]=1');
@@ -54,18 +59,23 @@ class MyActiveQuery extends ActiveQuery {
     {
         return $this->published()->count($q, $db);
     }
-
+    
     public function all($db = null)
     {
         $query = clone $this;
         if ($query->primaryModel !== null) {
             $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
         }
-        $cache_key = md5('all' . serialize($query) . serialize($db));
-        $result = \Yii::$app->cache->get($cache_key);
-        if ($result === false || !\Yii::$app->params['enable_cache']) {
+        $cache_key = md5(serialize([
+            __CLASS__,
+            __FUNCTION__,
+            $query,
+            $db,
+        ]));
+        $result = Yii::$app->cache->get($cache_key);
+        if ($result === false || !Yii::$app->params['enable_cache']) {
             $result = parent::all($db);
-            \Yii::$app->cache->set($cache_key, $result, \Yii::$app->params['cache_duration']);
+            Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
         }
         return $result;
 //        return parent::all($db);
@@ -77,14 +87,19 @@ class MyActiveQuery extends ActiveQuery {
         if ($query->primaryModel !== null) {
             $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
         }
-        $cache_key = md5('one' . serialize($query) . serialize($db));
-        $result = \Yii::$app->cache->get($cache_key);
-        if ($result === false || !\Yii::$app->params['enable_cache']) {
+        $cache_key = md5(serialize([
+            __CLASS__,
+            __FUNCTION__,
+            $query,
+            $db,
+        ]));
+        $result = Yii::$app->cache->get($cache_key);
+        if ($result === false || !Yii::$app->params['enable_cache']) {
             $result = parent::one($db);
             if ($result === false) {
                 $result = '_false';
             }
-            \Yii::$app->cache->set($cache_key, $result, \Yii::$app->params['cache_duration']);
+            Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
         }
         if ($result === '_false') {
             $result = false;
@@ -98,11 +113,17 @@ class MyActiveQuery extends ActiveQuery {
         if ($query->primaryModel !== null) {
             $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
         }
-        $cache_key = md5('count' . serialize($query) . $q . serialize($db));
-        $result = \Yii::$app->cache->get($cache_key);
-        if ($result === false || !\Yii::$app->params['enable_cache']) {
+        $cache_key = md5(serialize([
+            __CLASS__,
+            __FUNCTION__,
+            $query,
+            $q,
+            $db,
+        ]));
+        $result = Yii::$app->cache->get($cache_key);
+        if ($result === false || !Yii::$app->params['enable_cache']) {
             $result = parent::count($q, $db);
-            \Yii::$app->cache->set($cache_key, $result, \Yii::$app->params['cache_duration']);
+            Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
         }
         return $result;
 //        return parent::count($q, $db);
