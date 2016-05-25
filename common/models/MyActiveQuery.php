@@ -110,10 +110,10 @@ class MyActiveQuery extends ActiveQuery {
         if ($query->primaryModel !== null) {
             $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
         }
-        return [
+        return md5(serialize([
             $method,
             $query,
             $params
-        ];
+        ]));
     }
 }
