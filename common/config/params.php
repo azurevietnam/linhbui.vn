@@ -40,5 +40,5 @@ return [
     ],
     
     'enable_cache' => true,
-    'cache_duration' => 60,
+    'cache_duration' => 120,
 ];
