@@ -68,9 +68,9 @@ class MyActiveQuery extends ActiveQuery {
         }
         if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
             $result = parent::all($db);
-        }
-        if (Yii::$app->params['enable_cache']) {
-            Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+            if (Yii::$app->params['enable_cache']) {
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+            }
         }
         return $result;
     }
@@ -83,9 +83,9 @@ class MyActiveQuery extends ActiveQuery {
         }
         if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
             $result = parent::one($db);
-        }
-        if (Yii::$app->params['enable_cache']) {
-            Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+            if (Yii::$app->params['enable_cache']) {
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+            }
         }
         return $result;
     }
@@ -97,9 +97,9 @@ class MyActiveQuery extends ActiveQuery {
         }
         if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
             $result = parent::count($q, $db);
-        }
-        if (Yii::$app->params['enable_cache']) {
-            Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+            if (Yii::$app->params['enable_cache']) {
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+            }
         }
         return $result;
     }
