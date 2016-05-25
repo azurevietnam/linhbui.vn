@@ -63,15 +63,7 @@ class MyActiveQuery extends ActiveQuery {
     public function all($db = null)
     {
         if (Yii::$app->params['enable_cache']) {
-            $query = clone $this;
-            if ($query->primaryModel !== null) {
-                $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
-            }
-            $cache_key = md5(serialize([
-                __METHOD__,
-                $query,
-                $db
-            ]));
+            $cache_key = $this->getCacheKey(__METHOD__, $db);
             $result = Yii::$app->cache->get($cache_key);
         }
         if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
@@ -86,15 +78,7 @@ class MyActiveQuery extends ActiveQuery {
     public function one($db = null)
     {
         if (Yii::$app->params['enable_cache']) {
-            $query = clone $this;
-            if ($query->primaryModel !== null) {
-                $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
-            }
-            $cache_key = md5(serialize([
-                __METHOD__,
-                $query,
-                $db
-            ]));
+            $cache_key = $this->getCacheKey(__METHOD__, $db);
             $result = Yii::$app->cache->get($cache_key);
         }
         if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
@@ -108,16 +92,7 @@ class MyActiveQuery extends ActiveQuery {
     
     public function count($q = '*', $db = null) {
         if (Yii::$app->params['enable_cache']) {
-            $query = clone $this;
-            if ($query->primaryModel !== null) {
-                $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
-            }
-            $cache_key = md5(serialize([
-                __METHOD__,
-                $query,
-                $q,
-                $db
-            ]));
+            $cache_key = $this->getCacheKey(__METHOD__, [$db, $q]);
             $result = Yii::$app->cache->get($cache_key);
         }
         if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
@@ -127,5 +102,18 @@ class MyActiveQuery extends ActiveQuery {
             Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
         }
         return $result;
+    }
+    
+    protected function getCacheKey($method, $params)
+    {
+        $query = clone $this;
+        if ($query->primaryModel !== null) {
+            $query->primaryModel = "{$query->primaryModel->className()}#{$query->primaryModel->primaryKey}";
+        }
+        return [
+            $method,
+            $query,
+            $params
+        ];
     }
 }
