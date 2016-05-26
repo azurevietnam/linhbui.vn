@@ -14,9 +14,9 @@ class Menu
     
     public $parent_key;
     
-    public static $cache_allowed = false;
+    public static $enable_cache = false;
     
-    public static $cache_time = 60;
+    public static $cache_duration = 60;
     
     public static $current_key;
     
@@ -24,10 +24,10 @@ class Menu
     
     public static $top_parents = array();
     
-    public static function init(array $data, array $opts = [])
+    public static function init(array $data, array $options = [])
     {
-        if (isset($opts['cache'])) {
-            static::setCacheOptions($opts['cache']);
+        if (isset($options['cache'])) {
+            static::setCacheOptions($options['cache']);
         }
         
         static::setData($data);
@@ -37,22 +37,22 @@ class Menu
         return;
     }
     
-    public static function setCacheOptions(array $opts)
+    public static function setCacheOptions(array $options)
     {
-        if (isset($opts['allowed']) && is_bool($opts['allowed'])) {
-            static::$cache_allowed = $opts['allowed'];
+        if (isset($options['enable']) && is_bool($options['enable'])) {
+            static::$enable_cache = $options['enable'];
         }
         
-        if (isset($opts['time']) && is_numeric($opts['time'])) {
-            static::$cache_time = $opts['time'];
+        if (isset($options['duration']) && is_numeric($options['duration'])) {
+            static::$cache_duration = $options['duration'];
         }
     }
 
     public static function setData(array $data)
     {
-        $cache_key = 'frontend\models\Menu//setData';
+        $cache_key = __METHOD__;
         static::$data = Yii::$app->cache->get($cache_key);
-        if (static::$data === false || !static::$cache_allowed) {
+        if (static::$data === false || !static::$enable_cache) {
             static::$data = array();
             foreach ($data as $object_name => $object_data) {
                 foreach ($object_data as $key => $item) {
@@ -67,7 +67,7 @@ class Menu
                     static::$data[$m->key] = $m;
                 }
             }
-            Yii::$app->cache->set($cache_key, static::$data, static::$cache_time);
+            Yii::$app->cache->set($cache_key, static::$data, static::$cache_duration);
         }
     }
 
@@ -108,71 +108,71 @@ class Menu
     
     public function getChildren()
     {
-        $cache_key = "frontend\models\Menu//$this->key//getChildren";
+        $cache_key = __METHOD__ . $this->key;
         $result = Yii::$app->cache->get($cache_key);
-        if ($result === false || !static::$cache_allowed) {
+        if ($result === false || !static::$enable_cache) {
             $result = array();
             foreach (static::$data as $key => $item) {
                 if ($item->parent_key === $this->key) {
                     $result[$key] = $item;
                 }
             }
-            Yii::$app->cache->set($cache_key, $result, static::$cache_time);
+            Yii::$app->cache->set($cache_key, $result, static::$cache_duration);
         }
         return $result;
     }
     
     public function getParent()
     {
-        $cache_key = "frontend\models\Menu//$this->key//getParent";
+        $cache_key = __METHOD__ . $this->key;
         $result = Yii::$app->cache->get($cache_key);
-        if ($result === false || !static::$cache_allowed) {
+        if ($result === false || !static::$enable_cache) {
             $result = null;
             foreach (static::$data as $key => $item) {
                 if ($item->key === $this->parent_key) {
                     $result = $item;
                 }
             }
-            Yii::$app->cache->set($cache_key, $result, static::$cache_time);
+            Yii::$app->cache->set($cache_key, $result, static::$cache_duration);
         }
         return $result;
     }
     
     public function getAllChildren()
     {
-        $cache_key = "frontend\models\Menu//$this->key//getAllChildren";
+        $cache_key = __METHOD__ . $this->key;
         $result = Yii::$app->cache->get($cache_key);
-        if ($result === false || !static::$cache_allowed) {
+        if ($result === false || !static::$enable_cache) {
             $result = $this->getChildren();
             foreach ($result as $item) {
                 $result = array_merge($result, $item->getAllChildren());
             }
-            Yii::$app->cache->set($cache_key, $result, static::$cache_time);
+            Yii::$app->cache->set($cache_key, $result, static::$cache_duration);
         }
         return $result;
     }
 
     public static function getTopParents()
     {
-        $cache_key = 'frontend\models\Menu//getTopParents';
+        $cache_key = __METHOD__;
         static::$top_parents = Yii::$app->cache->get($cache_key);
-        if (static::$top_parents === false || !static::$cache_allowed) {
+        if (static::$top_parents === false || !static::$enable_cache) {
             static::$top_parents = array();
             foreach (static::$data as $key => $item) {
                 if ($item->getParent() === null) {
                     static::$top_parents[$key] = $item;
                 }
             }
-            Yii::$app->cache->set($cache_key, static::$top_parents, static::$cache_time);
+            Yii::$app->cache->set($cache_key, static::$top_parents, static::$cache_duration);
         }
         return static::$top_parents;
     }
     
-    public function a(array $opts = [], $content = true)
+    public function a(array $options = [], $content = true)
     {
         $result = "<a href=\"$this->url\" title=\"$this->label\"";
         
-        foreach ($opts as $attr => $value) {
+        foreach ($options as $attr => $value) {
             $result .= " $attr=\"$value\"";
         }
         
