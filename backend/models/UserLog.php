@@ -2,9 +2,7 @@
 
 namespace backend\models;
 
-use common\models\MyActiveQuery;
 use Yii;
-use yii\caching\TagDependency;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -25,13 +23,20 @@ class UserLog extends ActiveRecord
 {
     public function save($runValidation = true, $attributeNames = null) {
         if (parent::save($runValidation, $attributeNames)) {
-//            if ($this->is_success === 1) {
-                TagDependency::invalidate(Yii::$app->cache, 'hehe');
-//            }
+            if ($this->is_success === 1) {
+                try {
+                    $myfile = fopen(\common\models\MyActiveQuery::$cache_file_dependency, 'w');
+                    $txt = time();
+                    fwrite($myfile, $txt);
+                    fclose($myfile);
+                } catch (Exception $e) {
+                    
+                }
+            }
         }
         return;
     }
-//
+
 //    /**
 //    * function ::create ($data)
 //    */

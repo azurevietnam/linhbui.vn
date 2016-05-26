@@ -1,11 +1,13 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\MyActiveQuery;
 use common\utils\MobileDetect;
 use frontend\models\ArticleCategory;
 use frontend\models\Menu;
 use frontend\models\PageGroup;
 use Yii;
+use yii\caching\TagDependency;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -33,7 +35,6 @@ class BaseController extends Controller {
     public function init()
     {
         parent::init();
-        
         $this->meta_index = 'index';
         $this->meta_follow = 'follow';
         $mobile_detect = new MobileDetect;

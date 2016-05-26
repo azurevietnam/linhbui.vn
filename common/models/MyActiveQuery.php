@@ -2,7 +2,7 @@
 namespace common\models;
 
 use Yii;
-use yii\caching\TagDependency;
+use yii\caching\FileDependency;
 use yii\db\ActiveQuery;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +17,7 @@ use yii\db\ActiveQuery;
  */
 class MyActiveQuery extends ActiveQuery {
     
-    const CACHE_TAG = 'my_active_query';
+    public static $cache_file_dependency = __DIR__ . '/../file-dependencies/my-active-query.txt';
     
     public function active()
     {
@@ -70,7 +70,7 @@ class MyActiveQuery extends ActiveQuery {
         if (!Yii::$app->params['enable_cache'] || $result === false) {
             $result = parent::all($db);
             if (Yii::$app->params['enable_cache']) {
-                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => self::$cache_file_dependency]));
             }
         }
         return $result;
@@ -86,13 +86,13 @@ class MyActiveQuery extends ActiveQuery {
         if (!Yii::$app->params['enable_cache'] || $result === false) {
             $result = parent::one($db);
             if ($result === false) {
-                $result = '_false';
+                $result = 'F';
             }
             if (Yii::$app->params['enable_cache']) {
-                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => self::$cache_file_dependency]));
             }
         }
-        if ($result === '_false') {
+        if ($result === 'F') {
             $result = false;
         }
         return $result;
@@ -108,7 +108,7 @@ class MyActiveQuery extends ActiveQuery {
         if (!Yii::$app->params['enable_cache'] || (is_bool($result) && !$result)) {
             $result = parent::count($q, $db);
             if (Yii::$app->params['enable_cache']) {
-                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => self::$cache_file_dependency]));
             }
         }
         return $result;

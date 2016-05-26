@@ -17,6 +17,7 @@ class BaseController extends Controller {
     public $ncp, $ncpc, $nca, $ncac;
     public function init() {
         parent::init();
+                
         $this->tags_idToName = ArrayHelper::map(Tag::find()->all(), 'id', 'name');
         
         /////////////////
