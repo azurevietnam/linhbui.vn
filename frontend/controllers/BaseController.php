@@ -67,9 +67,9 @@ class BaseController extends Controller {
             $this->meta_image = $seoInfo->getImage();
         }
         
-        $key = 'Menu data';
-        $data = Yii::$app->cache->get($key);
-        if ($data === false || !\Yii::$app->params['enable_cache']) {
+//        $key = 'Menu data';
+//        $data = Yii::$app->cache->get($key);
+//        if ($data === false || !\Yii::$app->params['enable_cache']) {
             $data1 = [];
             $data1[] = [
                 'label' => 'Trang chủ',
@@ -89,8 +89,8 @@ class BaseController extends Controller {
                 'H' => $data1,
                 'A' => $data2
             ];
-            \Yii::$app->cache->set($key, $data, \Yii::$app->params['cache_duration']);
-        }
+//            \Yii::$app->cache->set($key, $data, \Yii::$app->params['cache_duration']);
+//        }
         
         Menu::init($data);
         
