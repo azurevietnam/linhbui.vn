@@ -2,9 +2,10 @@
 
 namespace backend\models;
 
-use Yii;
+use common\models\MyActiveQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "user_log".
@@ -25,7 +26,13 @@ class UserLog extends ActiveRecord
         if (parent::save($runValidation, $attributeNames)) {
             if ($this->is_success === 1) {
                 try {
-                    $myfile = fopen(\common\models\MyActiveQuery::$cache_file_dependency, 'w');
+                    $myarray = explode('/', MyActiveQuery::$cache_file_dependency);
+                    array_pop($myarray);
+                    $myfolder = implode('/', $myarray);
+                    if (!file_exists($myfolder)) {
+                        mkdir($myfolder, 0777, true);
+                    }
+                    $myfile = fopen(MyActiveQuery::$cache_file_dependency, 'w');
                     $txt = time();
                     fwrite($myfile, $txt);
                     fclose($myfile);

@@ -28,3 +28,4 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 /frontend/web/images/2016/
+/common/runtime/file-dependencies/
