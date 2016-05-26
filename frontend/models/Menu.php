@@ -59,10 +59,10 @@ class Menu
                     $m = new Menu();
                     $m->label = $item['label'];
                     $m->url = $item['url'];
-                    $m->key = "{$object_name}__{$key}";
+                    $m->key = "{$object_name}_{$key}";
                     $m->parent_key =
                             isset($item['parent_key']) && $item['parent_key'] !== null
-                            ? "{$object_name}__{$item['parent_key']}"
+                            ? "{$object_name}_{$item['parent_key']}"
                             : null;
                     static::$data[$m->key] = $m;
                 }
@@ -74,7 +74,7 @@ class Menu
     public static function getCurrentKey()
     {
         if (static::$current_key === null) {
-            static::$current_key = '___';
+            static::$current_key = '__';
             
             function get_arr($url) {
                 return explode('/', ltrim(ltrim(trim(trim($url), '/'), 'http://'), 'https://'));
@@ -108,7 +108,7 @@ class Menu
     
     public function getChildren()
     {
-        $cache_key = __METHOD__ . $this->key;
+        $cache_key = __METHOD__ . "#$this->key";
         $result = Yii::$app->cache->get($cache_key);
         if ($result === false || !static::$enable_cache) {
             $result = array();
@@ -124,7 +124,7 @@ class Menu
     
     public function getParent()
     {
-        $cache_key = __METHOD__ . $this->key;
+        $cache_key = __METHOD__ . "#$this->key";
         $result = Yii::$app->cache->get($cache_key);
         if ($result === false || !static::$enable_cache) {
             $result = null;
@@ -140,7 +140,7 @@ class Menu
     
     public function getAllChildren()
     {
-        $cache_key = __METHOD__ . $this->key;
+        $cache_key = __METHOD__ . "#$this->key";
         $result = Yii::$app->cache->get($cache_key);
         if ($result === false || !static::$enable_cache) {
             $result = $this->getChildren();
