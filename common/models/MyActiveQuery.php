@@ -17,7 +17,7 @@ use yii\db\ActiveQuery;
  */
 class MyActiveQuery extends ActiveQuery {
     
-    public static $cache_file_dependency = __DIR__ . '/../file-dependencies/my-active-query.txt';
+    public static $cache_file_dependency = __DIR__ . '/../../console/runtime/my-active-query.txt';
     
     public function active()
     {
