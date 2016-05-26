@@ -41,8 +41,17 @@ class MyActiveQuery extends ActiveQuery {
     
     public function published()
     {
-//        return $this->active()->andWhere('[[published_at]]<=' .  time());
-        return $this->active()->andWhere('[[published_at]]<=UNIX_TIMESTAMP(NOW())');
+        $cache_key = 'publishing delay key';
+        if (Yii::$app->params['enable_cache']) {
+            $time = Yii::$app->cache->get($cache_key);
+            if ($time === false) {
+                $time = time();
+                Yii::$app->cache->set($cache_key, $time, 60);
+            }
+        } else {
+            $time = time();
+        }
+        return $this->active()->andWhere('[[published_at]]<=' .  $time);
     }
     
     public function onePublished($db = null)
