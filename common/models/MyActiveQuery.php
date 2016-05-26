@@ -62,11 +62,12 @@ class MyActiveQuery extends ActiveQuery {
     
     public function all($db = null)
     {
+        $result = false;
         if (Yii::$app->params['enable_cache']) {
             $cache_key = $this->getCacheKey(__METHOD__, $db);
             $result = Yii::$app->cache->get($cache_key);
         }
-        if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
+        if (!Yii::$app->params['enable_cache'] || $result === false) {
             $result = parent::all($db);
             if (Yii::$app->params['enable_cache']) {
                 Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
@@ -77,25 +78,34 @@ class MyActiveQuery extends ActiveQuery {
 
     public function one($db = null)
     {
+        $result = false;
         if (Yii::$app->params['enable_cache']) {
             $cache_key = $this->getCacheKey(__METHOD__, $db);
             $result = Yii::$app->cache->get($cache_key);
         }
-        if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
+        if (!Yii::$app->params['enable_cache'] || $result === false) {
             $result = parent::one($db);
+            if ($result === false) {
+                $result = '_false';
+            }
             if (Yii::$app->params['enable_cache']) {
                 Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
             }
         }
+        if ($result === '_false') {
+            $result = false;
+        }
         return $result;
     }
     
-    public function count($q = '*', $db = null) {
+    public function count($q = '*', $db = null)
+    {
+        $result = false;
         if (Yii::$app->params['enable_cache']) {
             $cache_key = $this->getCacheKey(__METHOD__, [$db, $q]);
             $result = Yii::$app->cache->get($cache_key);
         }
-        if (!Yii::$app->params['enable_cache'] || !Yii::$app->cache->exists($cache_key)) {
+        if (!Yii::$app->params['enable_cache'] || (is_bool($result) && !$result)) {
             $result = parent::count($q, $db);
             if (Yii::$app->params['enable_cache']) {
                 Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new TagDependency(['tags' => self::CACHE_TAG]));
