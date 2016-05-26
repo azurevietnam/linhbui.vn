@@ -25,20 +25,16 @@ class UserLog extends ActiveRecord
     public function save($runValidation = true, $attributeNames = null) {
         if (parent::save($runValidation, $attributeNames)) {
             if ($this->is_success === 1) {
-                try {
-                    $myarray = explode('/', MyActiveQuery::$cache_file_dependency);
-                    array_pop($myarray);
-                    $myfolder = implode('/', $myarray);
-                    if (!file_exists($myfolder)) {
-                        mkdir($myfolder, 0777, true);
-                    }
-                    $myfile = fopen(MyActiveQuery::$cache_file_dependency, 'w');
-                    $txt = time();
-                    fwrite($myfile, $txt);
-                    fclose($myfile);
-                } catch (Exception $e) {
-                    
+                $my_array = explode('/', MyActiveQuery::$cache_file_dependency);
+                array_pop($my_array);
+                $my_folder = implode('/', $my_array);
+                if (!file_exists($my_folder)) {
+                    mkdir($my_folder, 0777, true);
                 }
+                $my_file = fopen(MyActiveQuery::$cache_file_dependency, 'w');
+                $txt = time();
+                fwrite($my_file, $txt);
+                fclose($my_file);
             }
         }
         return;
