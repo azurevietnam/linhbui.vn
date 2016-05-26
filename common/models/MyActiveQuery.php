@@ -41,7 +41,7 @@ class MyActiveQuery extends ActiveQuery {
     
     public function published()
     {
-        $cache_key = 'publishing delay key';
+        $cache_key = __METHOD__;
         if (Yii::$app->params['enable_cache']) {
             $time = Yii::$app->cache->get($cache_key);
             if ($time === false) {
