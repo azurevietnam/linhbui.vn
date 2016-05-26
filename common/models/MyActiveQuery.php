@@ -39,19 +39,14 @@ class MyActiveQuery extends ActiveQuery {
         return $this->active()->count($q, $db);
     }
     
-    public function published()
+    public function published($exacting = false)
     {
-        $cache_key = __METHOD__;
-        if (Yii::$app->params['enable_cache']) {
-            $time = Yii::$app->cache->get($cache_key);
-            if ($time === false) {
-                $time = time();
-                Yii::$app->cache->set($cache_key, $time, 60);
-            }
-        } else {
+        if ($exacting) {
             $time = time();
+        } else {
+            $time = strtotime(date('Y-m-d H:i'));
         }
-        return $this->active()->andWhere('[[published_at]]<=' .  $time);
+        return $this->active()->andWhere('[[published_at]]<=' . $time);
     }
     
     public function onePublished($db = null)
