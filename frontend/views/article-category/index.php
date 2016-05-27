@@ -49,15 +49,13 @@ $item_per_line = 2;
                 <?php
                 }
                 ?>
-                <div class="clearfix magb5">
-                    <?= $this->render('//modules/adsense') ?>
-                </div>
                 <ul class="list_col list-unstyle clearfix">
                     <?php
                     $i = 0;
                     foreach (array_slice($items, 2) as $item) {
                         $i++;
                     ?>
+                    <?= $i % 2 == 0 ? $this->render('//modules/adsense') : '' ?>
                     <li class="thumb clearfix">
                         <h3 class="title-news">
                             <?= $item->a([], "<strong>$item->name</strong>") ?>
