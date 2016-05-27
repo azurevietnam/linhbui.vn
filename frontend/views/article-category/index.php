@@ -49,6 +49,9 @@ $item_per_line = 2;
                 <?php
                 }
                 ?>
+                <div class="clearfix">
+                    <?= $this->render('//modules/adsense') ?>
+                </div>
                 <ul class="list_col list-unstyle clearfix">
                     <?php
                     $i = 0;
@@ -68,9 +71,8 @@ $item_per_line = 2;
                                 <span class="fl views"><em class="ic-views"></em><?= $item->view_count ?></span>
                             </p>
                         </div>
-                        <?= $i % 2 == 0 && $i < 5 ? $this->render('//modules/adsense') : ($i % $item_per_line == 0 ? '<div class=clearfix></div>' : '') ?>
                     </li>
-                    <?php // echo $i % $item_per_line == 0 ? '<div class=clearfix></div>' : '' ?>
+                    <?= $i % $item_per_line == 0 ? '<div class=clearfix></div>' : '' ?>
                     <?php
                     }
                     ?>
