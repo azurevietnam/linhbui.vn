@@ -161,7 +161,7 @@ class MyActiveRecord extends ActiveRecord {
         return date($format, $this->$column);
     }
     
-    public function contentWithAdsense($adsense, $number = 3, $str_find = '</p>')
+    public function contentWithAdsense($adsense, $number = 2, $str_find = '</p>')
     {
         $content = $this->content;
         $length = strlen($content);
