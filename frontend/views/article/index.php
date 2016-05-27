@@ -17,8 +17,8 @@
                 $pos = strpos($model->content, '</p>', $start_pos);
                 if ($pos !== false) {
                     $num++;
-                    $new_content = substr_replace($model->content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
                     $start_pos = $pos + 2;
+                    $new_content = substr_replace($model->content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
                 }
             } while ($pos !== false && $num < 3);
             ?>
