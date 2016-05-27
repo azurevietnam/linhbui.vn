@@ -49,7 +49,7 @@ $item_per_line = 2;
                 <?php
                 }
                 ?>
-                <div class="clearfix">
+                <div class="clearfix magb5">
                     <?= $this->render('//modules/adsense') ?>
                 </div>
                 <ul class="list_col list-unstyle clearfix">
