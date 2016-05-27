@@ -55,7 +55,6 @@ $item_per_line = 2;
                     foreach (array_slice($items, 2) as $item) {
                         $i++;
                     ?>
-                    <?= $i % 2 == 0 ? $this->render('//modules/adsense') : '' ?>
                     <li class="thumb clearfix">
                         <h3 class="title-news">
                             <?= $item->a([], "<strong>$item->name</strong>") ?>
@@ -69,6 +68,7 @@ $item_per_line = 2;
                                 <span class="fl views"><em class="ic-views"></em><?= $item->view_count ?></span>
                             </p>
                         </div>
+                        <?= $i % 2 == 0 ? $this->render('//modules/adsense') : '' ?>
                     </li>
                     <?= $i % $item_per_line == 0 ? '<div class=clearfix></div>' : '' ?>
                     <?php
