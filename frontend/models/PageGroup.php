@@ -35,7 +35,7 @@ class PageGroup extends \common\models\PageGroup
             ]);
             foreach (\common\models\PageGroup::$all_url_params as $item) {
                 $query->andWhere([
-                    'or',
+//                    'or',
 //                    [
                         'or',
                         ['like', 'url_params', "\"{$item['name']}\":" . json_encode(Yii::$app->request->get($item['name'], ''))],
