@@ -12,7 +12,7 @@
         <div class="text-detail paragraph-2016-05">
             <?php
             $new_content = $model->content;
-            $start_pos = 0;
+            $start_pos = 1000;
             $num = 0;
             do {
                 $pos = strpos($new_content, '</p>', $start_pos);
