@@ -44,7 +44,7 @@ class PageGroup extends \common\models\PageGroup
                     ['not like', 'url_params', "\"{$item['name']}\""],
                 ]);
             }
-            static::$_pertinent_records = $query->all();
+            static::$_pertinent_records = $query->distinct()->all();
         }
         return static::$_pertinent_records;
     }
@@ -70,7 +70,7 @@ class PageGroup extends \common\models\PageGroup
         if (static::$_widgets === 1) {
             static::$_widgets = [];
             foreach (static::pertinentRecords() as $item) {
-                static::$_widgets = array_merge(static::$_widgets, $item->getWidgets()->distinct(true)->orderBy('position asc')->allActive());
+                static::$_widgets = array_merge(static::$_widgets, $item->getWidgets()->orderBy('position asc')->allActive());
             }
         }
         return static::$_widgets;
