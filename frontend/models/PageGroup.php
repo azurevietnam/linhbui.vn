@@ -36,12 +36,12 @@ class PageGroup extends \common\models\PageGroup
             foreach (\common\models\PageGroup::$all_url_params as $item) {
                 $query->andWhere([
                     'or',
-                    [
+//                    [
                         'or',
                         ['like', 'url_params', "\"{$item['name']}\":" . json_encode(Yii::$app->request->get($item['name'], ''))],
                         ['like', 'url_params', "\"{$item['name']}\":\"*\""],
-                    ],
-                    ['not like', 'url_params', "\"{$item['name']}\""],
+//                    ],
+//                    ['not like', 'url_params', "\"{$item['name']}\""],
                 ]);
             }
             static::$_pertinent_records = $query->all();
