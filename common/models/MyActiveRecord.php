@@ -169,7 +169,7 @@ class MyActiveRecord extends ActiveRecord {
         $step = (int) floor($length / $number);
         
         for ($i = 1; $i <= $number; $i++) {
-            $start = $i * $step;
+            $start = $i * $step - $step / 2;
             $pos = strpos($content, $str_find, $start);
             $content = substr_replace($content, "$str_find $adsense", $pos, strlen($str_find));
         }
