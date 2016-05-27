@@ -10,12 +10,22 @@
             <?= $model->description ?>
         </p>
         <div class="text-detail paragraph-2016-05">
-            <?= $model->content ?>
+            <?php
+            $start_pos = 0;
+            $num = 0;
+            do {
+                $pos = strpos($model->content, '</p>', $start_pos);
+                if ($pos !== false) {
+                    $num++;
+                    $new_content = substr_replace($model->content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
+                }
+                $start_pos = $pos + 2;
+            } while ($pos !== false && $num < 3);
+            ?>
+            <?= $new_content ?>
         </div>
         <div class="box-social"><strong>Chia sẻ:</strong></div>
         <?= $this->render('//modules/like-share', ['options' => ['class' => 'box-social']]) ?>
-
-
         <div class="news-rela">
             <h2 class="title"><strong>Bài viết liên quan</strong></h2>
             <ul class="list-unstyle clearfix">
