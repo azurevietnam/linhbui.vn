@@ -44,7 +44,7 @@ class PageGroup extends \common\models\PageGroup
                     ['not like', 'url_params', "\"{$item['name']}\""],
                 ]);
             }
-            static::$_pertinent_records = $query->distinct()->all();
+            static::$_pertinent_records = $query->all();
         }
         return static::$_pertinent_records;
     }
