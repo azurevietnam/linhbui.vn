@@ -161,6 +161,22 @@ class MyActiveRecord extends ActiveRecord {
         return date($format, $this->$column);
     }
     
+    public function contentWithAdsense($adsense, $number = 3, $str_find = '</p>')
+    {
+        $content = $this->content;
+        $length = strlen($content);
+        
+        $step = (int) floor($length / $number);
+        
+        for ($i = 1; $i <= $number; $i++) {
+            $start = $i * $step;
+            $pos = strpos($content, $str_find, $start);
+            $content = substr_replace($content, "$str_find $adsense", $pos, strlen($str_find));
+        }
+        
+        return $content;
+    }
+    
     /** 
     * @inheritdoc 
     * @return ArticleQuery the active query used by this AR class. 

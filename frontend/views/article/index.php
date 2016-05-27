@@ -10,22 +10,7 @@
             <?= $model->description ?>
         </p>
         <div class="text-detail paragraph-2016-05">
-            <?php
-            $new_content = $model->content;
-            $length = strlen($new_content);
-            $start_pos = 1000;
-            $num = 0;
-            do {
-                $pos = strpos($new_content, '</p>', $start_pos);
-                if ($pos !== false) {
-                    $num++;
-                    $start_pos = 3 * $pos;
-                    $start_pos < $length or $start_pos = $length - 1;
-                    $new_content = substr_replace($new_content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
-                }
-            } while ($pos !== false && $num < 3);
-            ?>
-            <?= $new_content ?>
+            <?= $model->contentWithAdsense($this->render('//modules/adsense')) ?>
         </div>
         <div class="box-social"><strong>Chia sẻ:</strong></div>
         <?= $this->render('//modules/like-share', ['options' => ['class' => 'box-social']]) ?>
