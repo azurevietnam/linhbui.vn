@@ -45,6 +45,7 @@ use yii\helpers\Url;
         }
         ?>
     </div>
+    <?= $this->render('//modules/adsense') ?>
     <section class="categories">
         <?php
         foreach ($hot_categories as $category) {
