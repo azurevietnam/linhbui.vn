@@ -11,14 +11,15 @@
         </p>
         <div class="text-detail paragraph-2016-05">
             <?php
+            $new_content = $model->content;
             $start_pos = 0;
             $num = 0;
             do {
-                $pos = strpos($model->content, '</p>', $start_pos);
+                $pos = strpos($new_content, '</p>', $start_pos);
                 if ($pos !== false) {
                     $num++;
                     $start_pos = $pos + 2;
-                    $new_content = substr_replace($model->content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
+                    $new_content = substr_replace($new_content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
                 }
             } while ($pos !== false && $num < 3);
             ?>
