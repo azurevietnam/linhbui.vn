@@ -39,14 +39,14 @@ class MyActiveQuery extends ActiveQuery {
         return $this->active()->count($q, $db);
     }
     
-    public function published($exacting = false)
+    public function published($wrong_number = 120, $later = true)
     {
-        if ($exacting) {
-            $time = time();
+        if ($later) {
+            $time = (int) floor(time() / $wrong_number) * $wrong_number;
         } else {
-            $time = strtotime(date('Y-m-d H:i'));
+            $time = (int) ceil(time() / $wrong_number) * $wrong_number;
         }
-        return $this->active()->andWhere('[[published_at]]<=' . $time);
+        return $this->active()->andWhere("[[published_at]]<=$time");
     }
     
     public function onePublished($db = null)
