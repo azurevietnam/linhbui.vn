@@ -12,6 +12,7 @@
         <div class="text-detail paragraph-2016-05">
             <?php
             $new_content = $model->content;
+            $length = strlen($new_content);
             $start_pos = 1000;
             $num = 0;
             do {
@@ -19,6 +20,7 @@
                 if ($pos !== false) {
                     $num++;
                     $start_pos = 3 * $pos;
+                    $start_pos < $length or $start_pos = $length;
                     $new_content = substr_replace($new_content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
                 }
             } while ($pos !== false && $num < 3);
