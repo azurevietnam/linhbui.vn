@@ -34,15 +34,16 @@ class PageGroup extends \common\models\PageGroup
                 ['route' => '*']
             ]);
             foreach (\common\models\PageGroup::$all_url_params as $item) {
-                $query->andWhere([
-//                    'or',
-//                    [
+                $value = Yii::$app->request->get($item['name'], '');
+                if ($value != '') {
+                    $query->andWhere([
                         'or',
-                        ['like', 'url_params', "\"{$item['name']}\":" . json_encode(Yii::$app->request->get($item['name'], ''))],
+                        ['like', 'url_params', "\"{$item['name']}\":" . json_encode($value)],
                         ['like', 'url_params', "\"{$item['name']}\":\"*\""],
-//                    ],
-//                    ['not like', 'url_params', "\"{$item['name']}\""],
-                ]);
+                    ]);
+                } else {
+                    $query->andWhere(['like', 'url_params', "\"{$item['name']}\":\"\""]);
+                }
             }
             static::$_pertinent_records = $query->all();
         }
