@@ -18,7 +18,7 @@
                 $pos = strpos($new_content, '</p>', $start_pos);
                 if ($pos !== false) {
                     $num++;
-                    $start_pos = $pos + 100;
+                    $start_pos = $pos + 500;
                     $new_content = substr_replace($new_content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
                 }
             } while ($pos !== false && $num < 3);
