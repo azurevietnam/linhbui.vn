@@ -49,6 +49,9 @@ $item_per_line = 2;
                 <?php
                 }
                 ?>
+                <div class="clearfix">
+                    <?= $this->render('//modules/adsense') ?>
+                </div>
                 <ul class="list_col list-unstyle clearfix">
                     <?php
                     $i = 0;
