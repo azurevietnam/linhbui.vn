@@ -27,6 +27,9 @@
   })();
 </script>
 
+<?php
+if (Yii::$app->controller->id != 'site') {
+?>
 <!-- Facebook -->
 <div id="fb-root"></div>
 <script>
@@ -39,3 +42,6 @@
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
+<?php
+}
+?>
