@@ -167,7 +167,7 @@ class MyActiveRecord extends ActiveRecord {
         $length = strlen($content);
         
         for ($i = 1; $i <= $number; $i++) {
-            $start = (int) floor(($length / ($number + 1)) * $i);
+            $start = (int) floor(($length / $number) * ($i - 0.75));
             $pos = strpos($content, $str_find, $start);
             $content = substr_replace($content, "$str_find $adsense", $pos, strlen($str_find));
         }
