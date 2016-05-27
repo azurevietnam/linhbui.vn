@@ -20,7 +20,7 @@
                 if ($pos !== false) {
                     $num++;
                     $start_pos = 3 * $pos;
-                    $start_pos < $length or $start_pos = $length;
+                    $start_pos < $length or $start_pos = $length - 1;
                     $new_content = substr_replace($new_content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
                 }
             } while ($pos !== false && $num < 3);
