@@ -18,8 +18,8 @@
                 if ($pos !== false) {
                     $num++;
                     $new_content = substr_replace($model->content, "</p>{$this->render('//modules/adsense')}", $pos, strlen('</p>'));
+                    $start_pos = $pos + 2;
                 }
-                $start_pos = $pos + 1;
             } while ($pos !== false && $num < 3);
             ?>
             <?= $new_content ?>
