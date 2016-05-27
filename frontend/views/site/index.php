@@ -45,11 +45,13 @@ use yii\helpers\Url;
         }
         ?>
     </div>
-    <?= $this->render('//modules/adsense') ?>
     <section class="categories">
         <?php
+        $i = -1;
         foreach ($hot_categories as $category) {
+            $i++;
         ?>
+        <?= $i % 2 == 0 && $i < 5 ? $this->render('//modules/adsense') : '' ?>
         <div class="listArticles clearfix">
             <h3 class="title">
                 <?= $category->a([], "<strong>$category->name</strong>") ?>
