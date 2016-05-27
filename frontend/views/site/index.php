@@ -24,7 +24,7 @@ use yii\helpers\Url;
             <ul class="list list-unstyle">
                 <?php
                 $i = 0;
-                foreach (array_slice($hot_items, 1, 8) as $item) {
+                foreach (array_slice($hot_items, 1) as $item) {
                     $i++;
                 ?>
                 <li class="clearfix">
@@ -36,6 +36,7 @@ use yii\helpers\Url;
                     }
                     ?>
                     <?= $item->a([], "<strong>$item->name</strong>") ?>
+                </li>
                 <?php
                 }
                 ?>
