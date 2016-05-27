@@ -49,6 +49,9 @@ $item_per_line = 2;
                 <?php
                 }
                 ?>
+                <?php
+                if (isset($items[2])) {
+                ?>
                 <div class="clearfix">
                     <?= $this->render('//modules/adsense') ?>
                 </div>
@@ -77,6 +80,9 @@ $item_per_line = 2;
                     }
                     ?>
                 </ul>
+                <?php
+                }
+                ?>
                 <?= $this->render('//modules/pagination', ['pagination' => $pagination]) ?>
             </div>
         </div>
