@@ -68,7 +68,7 @@ $item_per_line = 2;
                                 <span class="fl views"><em class="ic-views"></em><?= $item->view_count ?></span>
                             </p>
                         </div>
-                        <?= $i % 2 == 0 ? $this->render('//modules/adsense') : '' ?>
+                        <?= $i % 2 == 0 && $i < 5 ? $this->render('//modules/adsense') : '' ?>
                     </li>
                     <?= $i % $item_per_line == 0 ? '<div class=clearfix></div>' : '' ?>
                     <?php
