@@ -71,8 +71,9 @@ class PageGroup extends \common\models\PageGroup
         if (static::$_widgets === 1) {
             static::$_widgets = [];
             foreach (static::pertinentRecords() as $item) {
-                static::$_widgets = array_merge(static::$_widgets, $item->getWidgets()->orderBy('position asc')->allActive());
+                static::$_widgets = array_merge(static::$_widgets, $item->getWidgets()->allActive());
             }
+            yii\helpers\ArrayHelper::multisort(static::$_widgets, ['position', 'id'], [SORT_ASC, SORT_ASC]);
         }
         return static::$_widgets;
     }
@@ -86,6 +87,7 @@ class PageGroup extends \common\models\PageGroup
             foreach (static::pertinentRecords() as $item) {
                 static::$_html_boxes = array_merge(static::$_html_boxes, $item->getHtmlBoxes()->allActive());
             }
+            yii\helpers\ArrayHelper::multisort(static::$_html_boxes, ['position', 'id'], [SORT_ASC, SORT_ASC]);
         }
         return static::$_html_boxes;
     }
