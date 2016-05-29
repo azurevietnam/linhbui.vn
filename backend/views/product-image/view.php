@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\ProductImage */
 
-$this->title = $model->id;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Product Images', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'image',
             'image_path',
             'color_code',
+            'name',
+            'caption',
         ],
     ]) ?>
 

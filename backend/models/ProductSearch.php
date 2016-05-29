@@ -18,8 +18,8 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'price', 'original_price', 'is_hot', 'is_active', 'status', 'position', 'view_count', 'like_count', 'share_count', 'comment_count', 'download_count', 'available_quantity', 'order_quantity', 'sold_quantity', 'total_quantity', 'total_revenue'], 'integer'],
-            [['product_category_ids', 'name', 'code', 'slug', 'old_slugs', 'manufacturer', 'image', 'banner', 'image_path', 'details', 'description', 'long_description', 'page_title', 'h1', 'meta_title', 'meta_description', 'meta_keywords', 'published_at', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['id', 'price', 'original_price', 'is_hot', 'is_active', 'status', 'position', 'view_count', 'like_count', 'share_count', 'comment_count', 'available_quantity', 'order_quantity', 'sold_quantity', 'total_quantity', 'total_revenue', 'download_count'], 'integer'],
+            [['name', 'code', 'slug', 'old_slugs', 'image', 'banner', 'image_path', 'details', 'description', 'long_description', 'page_title', 'h1', 'meta_title', 'meta_description', 'meta_keywords', 'published_at', 'created_at', 'updated_at', 'created_by', 'updated_by', 'manufacturer'], 'safe'],
             [['review_score'], 'number'],
         ];
     }
@@ -73,7 +73,6 @@ class ProductSearch extends Product
             'like_count' => $this->like_count,
             'share_count' => $this->share_count,
             'comment_count' => $this->comment_count,
-            'download_count' => $this->download_count,
             'published_at' => $this->published_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -83,13 +82,13 @@ class ProductSearch extends Product
             'total_quantity' => $this->total_quantity,
             'total_revenue' => $this->total_revenue,
             'review_score' => $this->review_score,
+            'download_count' => $this->download_count,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'old_slugs', $this->old_slugs])
-            ->andFilterWhere(['like', 'manufacturer', $this->manufacturer])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'banner', $this->banner])
             ->andFilterWhere(['like', 'image_path', $this->image_path])
@@ -102,19 +101,9 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'meta_description', $this->meta_description])
             ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'updated_by', $this->updated_by]);
+            ->andFilterWhere(['like', 'updated_by', $this->updated_by])
+            ->andFilterWhere(['like', 'manufacturer', $this->manufacturer]);
 
-        if ($this->product_category_ids != '') {
-            switch ([$this->product_category_ids]) {
-                case [0]:
-                    $query->andFilterWhere(['not in', 'id', ArrayHelper::getColumn(ProductToProductCategory::find()->asArray()->all(), 'product_id')]);
-                    break;
-                default:
-                    $query->leftJoin('product_to_product_category' , 'product_to_product_category.product_id = product.id')
-                        ->andFilterWhere(['in', 'product_category_id', [$this->product_category_ids]]);
-            }
-        }
-        
         return $dataProvider;
     }
 }

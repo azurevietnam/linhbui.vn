@@ -21,13 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'image') ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'caption') ?>
-
     <?= $form->field($model, 'image_path') ?>
 
     <?= $form->field($model, 'color_code') ?>
+
+    <?php // echo $form->field($model, 'name') ?>
+
+    <?php // echo $form->field($model, 'caption') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

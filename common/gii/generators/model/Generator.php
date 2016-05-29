@@ -30,7 +30,7 @@ class Generator extends \yii\gii\Generator
     public $modelClass;
 //    public $baseClass = 'yii\db\ActiveRecord';
     public $baseClass = 'common\models\MyActiveRecord';
-    public $generateRelations = self::RELATIONS_ALL;
+    public $generateRelations = true;
     public $generateLabelsFromComments = false;
     public $useTablePrefix = false;
     public $useSchemaName = true;

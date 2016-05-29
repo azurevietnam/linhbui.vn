@@ -89,6 +89,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'review_score') ?>
 
+    <?php // echo $form->field($model, 'download_count') ?>
+
+    <?php // echo $form->field($model, 'manufacturer') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

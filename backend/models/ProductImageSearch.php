@@ -19,7 +19,7 @@ class ProductImageSearch extends ProductImage
     {
         return [
             [['id', 'product_id'], 'integer'],
-            [['name', 'caption', 'image', 'image_path', 'color_code'], 'safe'],
+            [['image', 'image_path', 'color_code', 'name', 'caption'], 'safe'],
         ];
     }
 
@@ -42,9 +42,7 @@ class ProductImageSearch extends ProductImage
     public function search($params)
     {
         $query = ProductImage::find();
-        if (!empty($params['product_id'])) {
-            $query->where(['product_id' => $params['product_id']]);
-        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'=> [

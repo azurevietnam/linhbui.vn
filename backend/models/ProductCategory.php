@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -38,72 +39,6 @@ use Yii;
  */
 class ProductCategory extends \common\models\ProductCategory
 {
-        
-    
-    public $_parent = 1;
-    public function getParent()
-    {
-        if ($this->_parent === 1) {
-            if (!$_parent = ProductCategory::findOne(['id' => $this->parent_id])) {
-                $_parent = null;
-            }
-            $this->_parent = $_parent;
-        }
-        return $this->_parent;
-    }
-    
-    public $_top_parent = 1;
-    public function getTopParent()
-    {
-        if ($this->_top_parent === 1) {
-            $this->_top_parent = $this->getParent();
-            if ($this->_top_parent !== null) {
-                $this->_top_parent = $this->_top_parent->getTopParent();
-            } else {
-                $this->_top_parent = $this;
-            }
-        }
-        return $this->_top_parent;
-    }
-    
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
-        
-    /**
-    * function ->getBanner ($suffix, $refresh)
-    */
-    public $_banner;
-    public function getBanner ($suffix = null, $refresh = false)
-    {
-        if ($this->_banner === null || $refresh == true) {
-            $this->_banner = FileUtils::getImage([
-                'imageName' => $this->banner,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_banner;
-    }
-    
     /**
     * function ->getLink ()
     */
@@ -111,12 +46,7 @@ class ProductCategory extends \common\models\ProductCategory
     public function getLink ()
     {
         if ($this->_link === null) {
-            $_link = '';
-            if (true) {
-                // Put code here
-                
-            }
-            $this->_link = $_link;
+            $this->_link = Yii::$app->urlManager->createUrl(['product-category/index', 'slug' => $this->slug], true);
         }
         return $this->_link;
     }
@@ -189,8 +119,8 @@ class ProductCategory extends \common\models\ProductCategory
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -328,6 +258,7 @@ class ProductCategory extends \common\models\ProductCategory
             [['description', 'meta_description'], 'string', 'max' => 511],
             ['parent_id', 'compare', 'compareAttribute' => 'id', 'operator' => '!=', 'message' => '{attribute} không được là chính nó.'],
             [['slug', 'parent_id'], 'unique', 'targetAttribute' => ['slug', 'parent_id'], 'message' => 'The combination of Slug and Parent ID has already been taken.'],
+            [['name', 'page_title', 'meta_title', 'meta_description'], 'unique'],
         ];
     }
 
@@ -366,17 +297,10 @@ class ProductCategory extends \common\models\ProductCategory
     /**
      * @return \yii\db\ActiveQuery
      */
-//    public function getParent()
-//    {
-//        return $this->hasOne(ProductCategory::className(), ['id' => 'parent_id']);
-//    }
-//    public function getParent()
-//    {
-//       if (!empty($this->parent_id)) {
-//           return static::findOne(['id' => $this->parent_id]);
-//       }
-//       return null;
-//    }    
+    public function getParent()
+    {
+        return $this->hasOne(ProductCategory::className(), ['id' => 'parent_id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

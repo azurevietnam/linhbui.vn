@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\TableSchema;
-use yii\gii\generators\model\Generator;
+use common\gii\generators\model\Generator;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 use yii\web\View;
@@ -42,7 +42,9 @@ use Yii;
 <?php endforeach; ?>
 <?php endif; ?>
  */
-class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
+//class <?= $className ?> extends <?= "\\common\\models\\MyActiveRecord" . "\n" ?>
+class <?= $className ?> extends <?= "\\common\\models\\$className\n" ?>
+
 {
 <?php
 if(isset($tableSchema->columns['slug'])) { ?>

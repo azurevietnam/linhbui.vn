@@ -65,6 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'total_quantity',
             'total_revenue',
             'review_score',
+            'download_count',
+            'manufacturer',
         ],
     ]) ?>
 

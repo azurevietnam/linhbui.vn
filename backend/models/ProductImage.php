@@ -3,40 +3,23 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump; 
 use Yii;
-
 /**
- * This is the model class for table "product_image".
- *
- * @property integer $id
- * @property integer $product_id
- * @property string $image
- * @property string $image_path
- * @property string $color_code
- *
- * @property Product $product
- */
+* This is the model class for table "product_image".
+*
+* @property integer $id
+* @property integer $product_id
+* @property string $image
+* @property string $image_path
+* @property string $color_code
+* @property string $name
+* @property string $caption
+*
+* @property Product $product
+*/
 class ProductImage extends \common\models\ProductImage
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
 
     /**
     * function ::create ($data)
@@ -83,8 +66,8 @@ class ProductImage extends \common\models\ProductImage
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }

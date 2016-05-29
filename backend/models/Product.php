@@ -4,6 +4,7 @@ namespace backend\models;
 
 use yii\helpers\Url;
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -46,6 +47,8 @@ use Yii;
  * @property integer $total_quantity
  * @property integer $total_revenue
  * @property double $review_score
+ * @property integer $download_count 
+ * @property string $manufacturer 
  *
  * @property ProductFile[] $productFiles
  * @property ProductImage[] $productImages
@@ -55,72 +58,13 @@ use Yii;
 class Product extends \common\models\Product
 {
     
-    public $_product_category;
-
-    public function getProductCategory() {
-        if (empty($this->_product_category)) {
-            if ($productToProductCategory = ProductToProductCategory::findOne(['product_id' => $this->id])) {
-                $this->_product_category = ProductCategory::findOne(['id' => $productToProductCategory->product_category_id]) or null;
-            }
-        }
-        return $this->_product_category;
-    }
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
-        
-    /**
-    * function ->getBanner ($suffix, $refresh)
-    */
-    public $_banner;
-    public function getBanner ($suffix = null, $refresh = false)
-    {
-        if ($this->_banner === null || $refresh == true) {
-            $this->_banner = FileUtils::getImage([
-                'imageName' => $this->banner,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_banner;
-    }
-    
     /**
     * function ->getLink ()
     */
     public $_link;
     public function getLink() {
         if ($this->_link === null) {
-            $_link = '';
-            if ($cate = $this->getProductCategory()) {
-                if ($parent_cate = $cate->getParent()) {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $parent_cate->slug , \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
-                } else {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
-                }
-            } else {
-//                $_link = Yii::$app->params['frontend_url'] . '/' . $this->slug . '.html';
-            }
-            $this->_link = $_link;
+            $this->_link = Yii::$app->urlManager->createUrl(['product/index', 'slug' => $this->slug], true);
         }
         return $this->_link;
     }
@@ -203,8 +147,8 @@ class Product extends \common\models\Product
                 }
                 return $model;
             }
-            var_dump($model->getErrors());die;
-            return $model;
+            Dump::errors($model->errors);
+           return;
         }
         return false;
     }
@@ -349,13 +293,12 @@ class Product extends \common\models\Product
             [['price', 'original_price', 'is_hot', 'is_active', 'status', 'position', 'view_count', 'like_count', 'share_count', 'comment_count', 'download_count', 'available_quantity', 'order_quantity', 'sold_quantity', 'total_quantity', 'total_revenue'], 'integer'],
             [['details', 'long_description'], 'string'],
             [['tag_ids', 'product_category_ids', 'published_at', 'created_at', 'updated_at'], 'safe'],
-            [['review_score'], 'number', 'min' => 3, 'max' => 10],
+            [['review_score'], 'number', 'min' => 1, 'max' => 10],
             [['name', 'slug', 'image', 'banner', 'manufacturer', 'image_path', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 25],
             [['old_slugs'], 'string', 'max' => 2000],
             [['description', 'meta_description'], 'string', 'max' => 511],
-            [['code'], 'unique'],
-            [['slug'], 'unique'],
+            [['code', 'slug', 'name', 'page_title', 'meta_title', 'meta_description', 'description'], 'unique'],
         ];
     }
 

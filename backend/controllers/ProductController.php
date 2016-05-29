@@ -75,7 +75,7 @@ class ProductController extends BaseController
         
         if (Yii::$app->request->isPost && $model = Product::create(Yii::$app->request->post())) {
             
-            is_array($model->product_category_ids) or $model->product_category_ids = [$model->product_category_ids];
+            is_array($model->product_category_ids) or $model->product_category_ids = [];
             
             foreach ($model->product_category_ids as $product_category_id) {
                 ProductToProductCategory::create([
@@ -126,7 +126,7 @@ class ProductController extends BaseController
             
             if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
                 
-                is_array($model->product_category_ids) or $model->product_category_ids = [$model->product_category_ids];
+                is_array($model->product_category_ids) or $model->product_category_ids = [];
                 
                 foreach ($model->product_category_ids as $product_category_id) {
                     if (!in_array($product_category_id, $oldProductCategoryIds)) {

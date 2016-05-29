@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -29,9 +30,15 @@ use Yii;
  * @property string $created_by
  * @property integer $updated_at
  * @property string $updated_by
+ *
+ * @property ArticleToTag[] $articleToTags
+ * @property ProductToTag[] $productToTags
  */
+//class Tag extends \common\models\MyActiveRecord
 class Tag extends \common\models\Tag
+
 {
+    
     /**
     * function ->getLink ()
     */
@@ -39,11 +46,7 @@ class Tag extends \common\models\Tag
     public function getLink ()
     {
         if ($this->_link === null) {
-            $_link = '';
-            if (true) {
-                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['tag/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
-            }
-            $this->_link = $_link;
+            $this->_link = Yii::$app->urlManager->createUrl(['tag/index', 'slug' => $this->slug], true);
         }
         return $this->_link;
     }
@@ -81,7 +84,7 @@ class Tag extends \common\models\Tag
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => array_values(Tag::$image_resizes),
+                    //'resize' => array(),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -104,8 +107,8 @@ class Tag extends \common\models\Tag
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -153,7 +156,7 @@ class Tag extends \common\models\Tag
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => array_values(Tag::$image_resizes),
+                    //'resize' => array(),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -228,8 +231,7 @@ class Tag extends \common\models\Tag
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'slug', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'image', 'image_path', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['old_slugs'], 'string', 'max' => 2000],
-            [['meta_description', 'description'], 'string', 'max' => 511],
-            [['slug', 'name', 'page_title', 'meta_title', 'meta_description'], 'unique'],
+            [['meta_description', 'description'], 'string', 'max' => 511]
         ];
     }
 
@@ -240,27 +242,42 @@ class Tag extends \common\models\Tag
     {
         return [
             'id' => 'ID',
-            'name' => 'Tên tag',
+            'name' => 'Name',
             'slug' => 'Slug',
             'old_slugs' => 'Old Slugs',
-            'description' => 'Mô tả',
-            'long_description' => 'Mô tả chi tiết',
+            'page_title' => 'Page Title',
+            'h1' => 'H1',
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
             'meta_keywords' => 'Meta Keywords',
-            'h1' => 'H1',
-            'page_title' => 'Tiêu đề trang',
-            'image' => 'Ảnh đại diện',
-            'banner' => 'Banner',
-            'image_path' => 'Đường dẫn ảnh',
-            'status' => 'Trạng thái',
-            'is_hot' => 'Hot',
-            'position' => 'Vị trí',
-            'created_at' => 'Thêm mới lúc',
-            'updated_at' => 'Cập nhật lúc',
-            'created_by' => 'Thêm bởi',
-            'updated_by' => 'Cập nhật bởi',
-            'is_active' => 'Kích hoạt',
+            'description' => 'Description',
+            'position' => 'Position',
+            'long_description' => 'Long Description',
+            'image' => 'Image',
+            'image_path' => 'Image Path',
+            'is_active' => 'Is Active',
+            'is_hot' => 'Is Hot',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'created_by' => 'Created By',
+            'updated_at' => 'Updated At',
+            'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticleToTags()
+    {
+        return $this->hasMany(ArticleToTag::className(), ['tag_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductToTags()
+    {
+        return $this->hasMany(ProductToTag::className(), ['tag_id' => 'id']);
     }
 }
