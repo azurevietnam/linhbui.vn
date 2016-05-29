@@ -12,8 +12,7 @@ use yii\helpers\Url;
             <ul>
             <?php
             foreach (Menu::getTopParents() as $item) {
-            ?>
-                <li>
+            ?><li>
                     <?= $item->a() ?>
                     <?php
                     if (($children = $item->getChildren()) !== []) {
@@ -47,8 +46,7 @@ use yii\helpers\Url;
                     <?php
                     }
                     ?>
-                </li>
-            <?php
+                </li><?php
             }
             ?>
             </ul>

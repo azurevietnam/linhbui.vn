@@ -227,6 +227,7 @@ function setMargin(x) {
 function setActiveClass(x) {
     for (var i = 0; i < c.children.length; i++) {
         if (i === x) {
+            c.children[i].style.transition = "opacity " + String(0.001 * parseInt(opts.time_slide)) + "s ease";
             c.children[i].classList.add("active");
         } else {
             c.children[i].classList.remove("active");
