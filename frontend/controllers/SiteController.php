@@ -1,13 +1,12 @@
 <?php
 namespace frontend\controllers;
 
-use frontend\models\Article;
-use frontend\models\ArticleCategory;
 use frontend\models\ContactForm;
 use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\models\SlideshowItem;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
@@ -75,8 +74,18 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->link_canonical = Url::home(true);
-        
-        return $this->render('index', []);
+        $slideshow = [];
+        foreach (SlideshowItem::find()->allActive() as $item) {
+            $slideshow[] = [
+                'caption' => $item->caption,
+                'link' => $item->link,
+                'img_src' => $item->getImage(),
+                'img_alt' => $item->caption,
+            ];
+        }
+        return $this->render('index', [
+            'slideshow' => $slideshow
+        ]);
     }
 
     /**

@@ -54,7 +54,7 @@ html {
 .main-content {
     min-height: 25vw;
 }
-.header > *, .content > *, footer > * {
+.header > *, .main-content > *, footer > * {
     max-width: 1100px;
     margin: 0 auto;
 }
