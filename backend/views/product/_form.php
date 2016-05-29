@@ -42,11 +42,11 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="col-md-6">
         <?php echo $form->field($model, 'product_category_ids')->widget(Select2::classname(), [
-            'data' => $this->context->ncpc,
+            'data' => \backend\models\ProductCategory::arayIdToName(),
             'language' => 'vi',
             'options' => [
                 'placeholder' => '- Chọn -',
-                'multiple' => false
+                'multiple' => true
             ],
             'pluginOptions' => [
                 'allowClear' => true
@@ -59,10 +59,10 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?php echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
-            'data' => $this->context->tags_idToName,
+            'data' => \backend\models\Tag::arrayIdToName(),
             'language' => 'vi',
             'options' => [
-//                'placeholder' => '- Chọn -',
+                'placeholder' => '- Chọn -',
                 'multiple' => true
             ],
             'pluginOptions' => [

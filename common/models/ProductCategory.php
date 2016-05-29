@@ -1,30 +1,13 @@
 <?php
 namespace common\models;
 
+use yii\helpers\ArrayHelper;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of ProductCategory
- *
- * @author quyet
- */
 class ProductCategory extends MyActiveRecord {
-    //put your code here
-    const STATUS_VIEW_ON_TOP = 1;
-//    const STATUS_VIEW_ON_HOMEPAGE = 1;
-//    const STATUS_VIEW_ON_FOOTER = 2;
-//    const STATUS_VIEW_ON_HOMEPAGE_AND_FOOTER = 3;
-
-    public static $statuses = [
-        ProductCategory::STATUS_VIEW_ON_TOP => 'Hiển thị trên menu top',
-//        ProductCategory::STATUS_VIEW_ON_HOMEPAGE => 'Hiển thị trên trang chủ',
-//        ProductCategory::STATUS_VIEW_ON_FOOTER => 'Hiển thị trên footer',
-//        ProductCategory::STATUS_VIEW_ON_HOMEPAGE_AND_FOOTER => 'Hiển thị trên trang chủ và footer',
-    ];
-    
+    public static function arayIdToName()
+    {
+        $items = ProductCategory::find()->allActive();
+        $result = ArrayHelper::map($items, 'id', 'name');
+        return $result;
+    }
 }
