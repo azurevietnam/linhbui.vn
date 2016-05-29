@@ -15,63 +15,60 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <meta charset="<?= Yii::$app->charset ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 <?php require_once 'meta.php'; ?>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 <?= Html::csrfMetaTags() ?> 
 <script type="text/javascript" language="javascript">
-function showmenu(div_id) {
-    if(document.getElementById(div_id).style.display === "block"){
-        document.getElementById(div_id).style.display = "none";
-    } else {
-        document.getElementById(div_id).style.display = "block";
+//Top menu slide down and up
+var menu = {
+    showNext : function(e) {
+        var duration = 300;
+        var timeout = 20;
+        var u = e.nextElementSibling; // and overflow hidden
+        u.style.transition = "all " + 0.001 * duration + "s";
+        if (u.classList.contains("open")) {
+            u.style.height = u.scrollHeight + "px";
+        }
+        setTimeout(function() {
+            if (u.classList.contains("open")) {
+                u.classList.remove("open");
+                u.style.height = "0px";
+            } else {
+                u.classList.add("open");
+                u.style.height = u.scrollHeight + "px";
+            }
+            if (e.innerHTML === "+") {
+                e.innerHTML = "-";
+            } else if (e.innerHTML === "-") {
+                e.innerHTML = "+";
+            }
+        }, timeout);
+        setTimeout(function() {
+            if (u.classList.contains("open")) {
+                u.style.height = "auto";
+            }
+        }, duration + timeout);
     }
-}
-function h_showmenu(id) {
-    document.getElementById(id).style.display = "block";
-}
-function h_hidemenu(id) {
-    document.getElementById(id).style.display = "none";
-}
-	
-</script>
-<!-- Adsense -->
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
+};
+window.addEventListener("load", function() {
+    if (window.innerHeight < 741) { // value from CSS
+        mbts = document.querySelectorAll(".top-menu button");
+        for (var i = 0; i < mbts.length; i++) {
+            mbts[i].addEventListener("click", function() {
+                menu.showNext(this);
+            });
+        }
+    }
+});
 
-fbq('init', '935301939844245');
-fbq('track', "PageView");</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=935301939844245&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Facebook Pixel Code -->
-<?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
-<?php require_once 'header.php'; ?>
-<section class="content">
-  <div class="main">
-    <div class="col2 clearfix">
-    <?= $content ?>
-    <?php require_once 'right.php'; ?>
-    </div>
-  </div>
-</section>
-<script>
-//////////////
+//Paragraph html
 paragraphStyle();
 window.addEventListener("resize", function(){
     paragraphStyle();
 });
 function paragraphStyle() {
     var g;
-    var gs = document.getElementsByClassName("paragraph-2016-05");
+    var gs = document.getElementsByClassName("paragraph");
     for (var k = 0; k < gs.length; k++) {
         g = gs[k];
         if (typeof(g) !== "undefined" && g !== null) {
@@ -98,6 +95,19 @@ function paragraphStyle() {
     }
 }
 </script>
+<?php $this->head() ?>
+</head>
+<body>
+<?php $this->beginBody() ?>
+<!--HEADER-->
+<?php require_once 'header.php'; ?>
+<!--MAIN CONTENT-->
+<div class="main-content">
+<div>
+<?= $content ?>
+</div>
+</div>
+<!--FOOTER-->
 <?php require_once 'footer.php'; ?>
 <?php require_once 'plugins.php'; ?>
 <?php $this->endBody() ?>

@@ -1,13 +1,11 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\MyActiveQuery;
+use common\models\ProductCategory;
 use common\utils\MobileDetect;
-use frontend\models\ArticleCategory;
 use frontend\models\Menu;
 use frontend\models\PageGroup;
 use Yii;
-use yii\caching\TagDependency;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -28,7 +26,6 @@ class BaseController extends Controller {
     $meta_image,
     $breadcrumbs = array(),
     $seo_exist = false,
-//    $seo_image_exist = false,
     $is_mobile,
     $is_tablet,
     $os_id;
@@ -67,35 +64,31 @@ class BaseController extends Controller {
             $this->meta_image = $seoInfo->getImage();
         }
         
-//        $key = 'Menu data';
-//        $data = Yii::$app->cache->get($key);
-//        if ($data === false || !\Yii::$app->params['enable_cache']) {
-            $data1 = [];
-            $data1[] = [
-                'label' => 'Trang chủ',
-                'url' => Url::home(true),
-                'parent_key' => null
+        $data1 = [];
+        $data1[] = [
+            'label' => 'Trang chủ',
+            'url' => Url::home(true),
+            'parent_key' => null
+        ];
+        $data2 = [];
+        $categories = ProductCategory::find()->orderBy('position asc')->allActive();
+        foreach ($categories as $item) {
+            $data2[$item->id] = [
+                'label' => $item->name,
+                'url' => $item->getLink(),
+                'parent_key' => $item->parent_id
             ];
-            $data2 = [];
-            $categories = ArticleCategory::find()->orderBy('position asc')->allActive();
-            foreach ($categories as $item) {
-                $data2[$item->id] = [
-                    'label' => $item->name,
-                    'url' => $item->getLink(),
-                    'parent_key' => $item->parent_id
-                ];
-            }
-            $data = [
-                'H' => $data1,
-                'A' => $data2
-            ];
-//            \Yii::$app->cache->set($key, $data, \Yii::$app->params['cache_duration']);
-//        }
+        }
+        $data = [
+            'H' => $data1,
+            'A' => $data2
+        ];
         
         Menu::init($data);
         
 //        var_dump(Yii::$app->requestedRoute);
-//        var_dump(Yii::$app->request->queryParams);die;
+//        var_dump(Yii::$app->request->queryParams);
+//        die;
         
         return true;
     }

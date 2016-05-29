@@ -2,13 +2,14 @@
 
 namespace frontend\models;
 
-use yii\db\ActiveQuery;
-use yii\helpers\Url;
+use Yii;
+
 /**
  * This is the model class for table "article".
  *
  * @property integer $id
  * @property integer $article_category_id
+ * @property integer $type
  * @property string $name
  * @property string $content
  * @property string $slug
@@ -45,25 +46,6 @@ use yii\helpers\Url;
  */
 class Article extends \common\models\Article
 {
-    public $_link;
-    public function getLink()
-    {
-        if ($this->_link === null) {
-            $_link = '';
-            if ($cate = $this->articleCategory) {
-                if ($parent_cate = $cate->parent) {
-                    $_link = Url::to(['article/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $parent_cate->slug , \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug], true);
-                } else {
-                    $_link = Url::to(['article/index', \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug], true);
-                }
-            } else {
-                //
-            }
-            $this->_link = $_link;
-        }
-        return $this->_link;
-    }
-
     /**
      * @inheritdoc
      */
@@ -128,7 +110,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getArticleCategory()
     {
@@ -136,7 +118,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getArticleToArticleCategories()
     {
@@ -144,7 +126,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getArticleCategories()
     {
@@ -152,7 +134,7 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getArticleToTags()
     {
@@ -160,11 +142,10 @@ class Article extends \common\models\Article
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTags()
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('article_to_tag', ['article_id' => 'id']);
     }
-
 }

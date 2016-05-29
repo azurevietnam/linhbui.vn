@@ -1,6 +1,9 @@
 <!-- Google -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+<!-- Google adsense -->
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+
 <!-- Google analytics -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
