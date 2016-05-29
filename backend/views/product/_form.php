@@ -42,7 +42,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="col-md-6">
         <?php echo $form->field($model, 'product_category_ids')->widget(Select2::classname(), [
-            'data' => \backend\models\ProductCategory::arayIdToName(),
+            'data' => \backend\models\ProductCategory::noContainsProductCategories(),
             'language' => 'vi',
             'options' => [
                 'placeholder' => '- Chọn -',
@@ -58,7 +58,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
-        <?php echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
+        <?php /* echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
             'data' => \backend\models\Tag::arrayIdToName(),
             'language' => 'vi',
             'options' => [
@@ -68,7 +68,7 @@ use yii\widgets\ActiveForm;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]); ?>
+        ]); */ ?>
         <?php // echo $form->field($model, 'position')->textInput() ?>
         <?php // $form->field($model, 'view_count')->textInput() ?>
         <?php // $form->field($model, 'like_count')->textInput() ?>

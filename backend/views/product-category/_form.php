@@ -21,12 +21,11 @@ use janisto\timepicker\TimePicker;
         <?php // echo $form->field($model, 'old_slugs')->textInput(['maxlength' => true, 'readonly' => true]) ?>
         <?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
         <?php // echo $form->field($model, 'banner', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getBanner() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        <?= $form->field($model, 'status')->dropDownList(\backend\models\ProductCategory::$statuses, ['prompt' => 'Chọn']) ?>
         <?= $form->field($model, 'is_active')->checkbox() ?>
         <?php echo $form->field($model, 'is_hot')->checkbox() ?>
     </div>
     <div class="col-md-6">
-        <?= $form->field($model, 'parent_id')->dropDownList($this->context->ncp, ['prompt' => 'Chọn']) ?>
+        <?= $form->field($model, 'parent_id')->dropDownList(\backend\models\ProductCategory::noContainsProducts(), ['prompt' => 'Chọn']) ?>
         <?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
         <?php // $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>

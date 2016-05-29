@@ -19,7 +19,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     
     <div class="col-md-6">
-            <?= $form->field($model, 'type')->dropDownList(Article::$types) ?>
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             <?php // echo $form->field($model, 'article_category_ids')->dropDownList($this->context->ncac, ['prompt' => '']) ?>
             <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
@@ -37,17 +36,18 @@ use yii\widgets\ActiveForm;
             ]
         ]) ?>
         <?php // !$model->isNewRecord or $model->is_active = 1 ?>
-		<?php // echo $form->field($model, 'is_hot')->checkbox() ?>
+		<?php echo $form->field($model, 'is_hot')->checkbox() ?>
 		<?= $form->field($model, 'is_active')->checkbox() ?>
     </div>
     <div class="col-md-6">
+            <?= $form->field($model, 'type')->dropDownList(Article::$types) ?>
 		<?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
 		<?= $form->field($model, 'description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
-        <?php echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
+        <?php /* echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
             'data' => \backend\models\Tag::arrayIdToName(),
             'language' => 'vi',
             'options' => [
@@ -57,7 +57,7 @@ use yii\widgets\ActiveForm;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]); ?>
+        ]); */ ?>
 		<?php // echo $form->field($model, 'view_count')->textInput() ?>
 		<?php // echo $form->field($model, 'like_count')->textInput() ?>
 		<?php // echo $form->field($model, 'comment_count')->textInput() ?>

@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -37,27 +38,9 @@ use Yii;
  *
  * @property VideoToTag[] $videoToTags
  */
-class Video extends \common\models\Html
+//class Video extends \common\models\MyActiveRecord
+class Video extends \common\models\Video
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
     
     /**
     * function ->getLink ()
@@ -66,12 +49,7 @@ class Video extends \common\models\Html
     public function getLink ()
     {
         if ($this->_link === null) {
-            $_link = '';
-            if (true) {
-                // Put code here
-                
-            }
-            $this->_link = $_link;
+            $this->_link = Yii::$app->urlManager->createUrl(['video/index', 'slug' => $this->slug], true);
         }
         return $this->_link;
     }
@@ -110,7 +88,7 @@ class Video extends \common\models\Html
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(Video::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -133,8 +111,8 @@ class Video extends \common\models\Html
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -183,7 +161,7 @@ class Video extends \common\models\Html
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(Video::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -238,8 +216,6 @@ class Video extends \common\models\Html
         return false;
     }
     
-    public $tag_ids;
-    
     /**
      * @inheritdoc
      */
@@ -248,6 +224,8 @@ class Video extends \common\models\Html
         return 'video';
     }
 
+    public $tag_ids;
+    
     /**
      * @inheritdoc
      */
@@ -297,7 +275,6 @@ class Video extends \common\models\Html
             'like_count' => 'Like Count',
             'share_count' => 'Share Count',
             'long_description' => 'Long Description',
-            'tag_ids' => 'Tag',
         ];
     }
 

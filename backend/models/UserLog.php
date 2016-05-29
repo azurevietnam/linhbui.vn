@@ -6,7 +6,7 @@ use common\models\MyActiveQuery;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Exception;
-
+use Yii;
 /**
  * This is the model class for table "user_log".
  *

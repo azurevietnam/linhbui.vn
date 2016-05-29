@@ -51,9 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'product_category_ids',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->getProductCategory() !== null ? $model->getProductCategory()->name : 'N/A';
+                    return implode(';', ArrayHelper::getColumn($model->productCategories, 'name'));
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'product_category_ids', ArrayHelper::merge($this->context->ncpc, [0 => 'N/A']), ['class'=>'form-control', 'prompt' => '']),
             ],
 //            'code',
 //            'slug',

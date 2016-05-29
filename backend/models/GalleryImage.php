@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -18,27 +19,10 @@ use Yii;
  *
  * @property Gallery $gallery
  */
-class GalleryImage extends \common\models\Html
+//class GalleryImage extends \common\models\MyActiveRecord
+class GalleryImage extends \common\models\GalleryImage
+
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
 
     /**
     * function ::create ($data)
@@ -71,7 +55,7 @@ class GalleryImage extends \common\models\Html
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    //'resize' => array(),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -86,8 +70,8 @@ class GalleryImage extends \common\models\Html
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -127,7 +111,7 @@ class GalleryImage extends \common\models\Html
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    //'resize' => array(),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {

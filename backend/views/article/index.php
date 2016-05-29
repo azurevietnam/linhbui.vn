@@ -38,7 +38,7 @@ yii\helpers\Url::remember();
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::img($model->getImage('--120x120'), ['style'=>'max-height:100px;max-width:100px']);
+                    return Html::img($model->getImage(), ['style'=>'max-height:100px;max-width:100px']);
                 },
             ],
             [
@@ -51,12 +51,12 @@ yii\helpers\Url::remember();
 //            'content:ntext',
             'slug',
             [
-                'attribute' => 'article_category_id',
+                'attribute' => 'type',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->articleCategory ? $model->articleCategory->name : '';
+                    return isset(\backend\models\Article::$types[$model->type]) ? \backend\models\Article::$types[$model->type] : 'N/A';
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'article_category_id', $this->context->ncac, ['class'=>'form-control', 'prompt' => '']),
+                'filter' => Html::activeDropDownList($searchModel, 'type', \backend\models\Article ::$types, ['class'=>'form-control', 'prompt' => '']),
             ],
 //            'old_slugs',
             // 'description',

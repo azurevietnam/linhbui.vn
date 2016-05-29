@@ -44,7 +44,6 @@ use Yii;
  */
 //class <?= $className ?> extends <?= "\\common\\models\\MyActiveRecord" . "\n" ?>
 class <?= $className ?> extends <?= "\\common\\models\\$className\n" ?>
-
 {
 <?php
 if(isset($tableSchema->columns['slug'])) { ?>

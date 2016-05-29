@@ -54,7 +54,7 @@ use yii\widgets\ActiveForm;
             ],
         ]) ?>
         <?php // echo $form->field($model, 'status')->textInput() ?>
-        <?php // echo $form->field($model, 'is_hot')->checkbox() ?>
+        <?php echo $form->field($model, 'is_hot')->checkbox() ?>
         <?= $form->field($model, 'is_active')->checkbox() ?>
         <?php // echo $form->field($model, 'view_count')->textInput() ?>
         <?php // echo $form->field($model, 'comment_count')->textInput() ?>
@@ -73,8 +73,8 @@ use yii\widgets\ActiveForm;
     </div>
     
     <div class="col-md-6">
-        <?php echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
-            'data' => $this->context->tags_idToName,
+        <?php /* echo $form->field($model, 'tag_ids')->widget(Select2::classname(), [
+            'data' => \backend\models\Tag::arrayIdToName(),
             'language' => 'vi',
             'options' => [
 //                'placeholder' => '- Chọn -',
@@ -83,11 +83,11 @@ use yii\widgets\ActiveForm;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]); ?>
+        ]); */ ?>
         <?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'meta_keywords')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
         <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true, 'style' => 'resize:vertical']) ?>
     </div>

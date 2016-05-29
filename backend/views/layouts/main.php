@@ -37,9 +37,9 @@ use yii\helpers\Html;
                 $product_id = $this->context->product_id;
                 $menuItems = [
                     ['label' => 'Sản phẩm', 'url' => ['product/update', 'id' => $product_id]],
-                    ['label' => 'QL file', 'url' => ['product-file/index', 'product_id' => $product_id]],
+//                    ['label' => 'QL file', 'url' => ['product-file/index', 'product_id' => $product_id]],
                     ['label' => 'QL ảnh', 'url' => ['product-image/index', 'product_id' => $product_id]],
-                    ['label' => 'Thêm file', 'url' => ['product-file/create', 'product_id' => $product_id]],
+//                    ['label' => 'Thêm file', 'url' => ['product-file/create', 'product_id' => $product_id]],
                     ['label' => 'Thêm ảnh', 'url' => ['product-image/create', 'product_id' => $product_id]],
                 ];
             }

@@ -293,7 +293,7 @@ class Product extends \common\models\Product
             [['price', 'original_price', 'is_hot', 'is_active', 'status', 'position', 'view_count', 'like_count', 'share_count', 'comment_count', 'download_count', 'available_quantity', 'order_quantity', 'sold_quantity', 'total_quantity', 'total_revenue'], 'integer'],
             [['details', 'long_description'], 'string'],
             [['tag_ids', 'product_category_ids', 'published_at', 'created_at', 'updated_at'], 'safe'],
-            [['review_score'], 'number', 'min' => 1, 'max' => 10],
+            [['review_score'], 'number', 'min' => 0, 'max' => 10],
             [['name', 'slug', 'image', 'banner', 'manufacturer', 'image_path', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 25],
             [['old_slugs'], 'string', 'max' => 2000],
@@ -318,7 +318,7 @@ class Product extends \common\models\Product
             'image' => 'Ảnh đại diện',
             'banner' => 'Ảnh banner',
             'image_path' => 'Image Path',
-            'manufacturer' => 'Nhà phát triển',
+            'manufacturer' => 'Thương hiệu',
             'details' => 'Chi tiết',
             'description' => 'Tóm tắt',
             'long_description' => 'Long Description',
@@ -346,7 +346,7 @@ class Product extends \common\models\Product
             'sold_quantity' => 'Sold Quantity',
             'total_quantity' => 'Total Quantity',
             'total_revenue' => 'Total Revenue',
-            'review_score' => 'Điểm đánh giá',
+            'review_score' => 'Đánh giá',
             'product_category_ids' => 'Danh mục sản phẩm',
             'tag_ids' => 'Tag',
         ];
@@ -382,5 +382,11 @@ class Product extends \common\models\Product
     public function getProductToTags()
     {
         return $this->hasMany(ProductToTag::className(), ['product_id' => 'id']);
+    }
+    
+    public function getProductCategories()
+    {
+        return $this->hasMany(ProductCategory::className(), ['id' => 'product_category_id'])
+                ->via('productToProductCategories');
     }
 }

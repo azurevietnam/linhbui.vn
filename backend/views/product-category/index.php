@@ -36,11 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'parent_id',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->getParent() ? $model->getParent()->name : '';
+                    return $model->parent ? $model->parent->name : 'N/A';
                 },
             ],
 //            'old_slugs',
-            'position',
+//            'position',
             // 'image_path',
             // 'image',
             // 'banner',

@@ -317,4 +317,48 @@ class ProductCategory extends \common\models\ProductCategory
     {
         return $this->hasMany(ProductToProductCategory::className(), ['product_category_id' => 'id']);
     }
+    
+    public function getProducts()
+    {
+        return $this->hasMany(Product::className(), ['id' => 'product_id'])->via('productToProductCategories');
+    }
+    
+    public static function noContainsProducts()
+    {
+        $result = [];
+        $product_categories = ProductCategory::find()->allActive();
+        foreach ($product_categories as $item) {
+           if (!$item->getProducts()->oneActive()) {
+               if ($item->parent !== null) {
+                    $result[$item->parent->name][$item->id] = $item->name;
+               } else {
+                    $result[$item->id] = $item->name;
+               }
+           }
+        }
+        return $result;
+    }
+    
+    public static function noContainsProductCategories()
+    {
+        $result = [];
+        $product_categories = ProductCategory::find()->allActive();
+        foreach ($product_categories as $item) {
+           if (!ProductCategory::find()->where(['parent_id' => $item->id])->oneActive()) {
+               if ($item->parent !== null) {
+                    $result[$item->parent->name][$item->id] = $item->name;
+               } else {
+                    $result[$item->id] = $item->name;
+               }
+           }
+        }
+        return $result;
+    }
+    
+    public static function arayIdToName()
+    {
+        $items = ProductCategory::find()->allActive();
+        $result = ArrayHelper::map($items, 'id', 'name');
+        return $result;
+    }
 }

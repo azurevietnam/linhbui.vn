@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -37,27 +38,8 @@ use Yii;
  * @property GalleryImage[] $galleryImages
  * @property GalleryToTag[] $galleryToTags
  */
-class Gallery extends \common\models\Html
+class Gallery extends \common\models\Gallery
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
     
     /**
     * function ->getLink ()
@@ -66,12 +48,7 @@ class Gallery extends \common\models\Html
     public function getLink ()
     {
         if ($this->_link === null) {
-            $_link = '';
-            if (true) {
-                // Put code here
-                
-            }
-            $this->_link = $_link;
+            $this->_link = Yii::$app->urlManager->createUrl(['gallery/index', 'slug' => $this->slug], true);
         }
         return $this->_link;
     }
@@ -110,7 +87,7 @@ class Gallery extends \common\models\Html
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(Gallery::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -133,8 +110,8 @@ class Gallery extends \common\models\Html
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -183,7 +160,7 @@ class Gallery extends \common\models\Html
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(Gallery::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -272,7 +249,7 @@ class Gallery extends \common\models\Html
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Tên',
             'slug' => 'Slug',
             'old_slugs' => 'Old Slugs',
             'description' => 'Description',

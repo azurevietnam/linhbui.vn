@@ -100,7 +100,7 @@
                 </ul>
             </li>
             <!-- Tags -->
-            <li class="treeview <?= in_array(Yii::$app->controller->id, ['tag']) ? 'active' : '' ?>">
+<!--            <li class="treeview <?= in_array(Yii::$app->controller->id, ['tag']) ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-tags"></i> <span>Tags</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -108,9 +108,9 @@
                     <li class="<?= Yii::$app->controller->id == 'tag' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('tag/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                     <li class="<?= Yii::$app->controller->id == 'tag' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('tag/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
-            </li>
+            </li>-->
             <!-- Liên kết hay -->
-            <li class="treeview <?= in_array(Yii::$app->controller->id, ['cta-item']) ? 'active' : '' ?>">
+<!--            <li class="treeview <?= in_array(Yii::$app->controller->id, ['cta-item']) ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-external-link-square"></i> <span>Liên kết hay</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -118,7 +118,7 @@
                     <li class="<?= Yii::$app->controller->id == 'cta-item' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('cta-item/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                     <li class="<?= Yii::$app->controller->id == 'cta-item' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('cta-item/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
-            </li>
+            </li>-->
             <!-- Widget -->
             <li class="treeview <?= in_array(Yii::$app->controller->id, ['widget', 'page-group', 'html-box', 'seo-info']) ? 'active' : '' ?>">
                 <a href="#">
@@ -132,7 +132,7 @@
                 </ul>
             </li>
             <!-- Thông tin -->
-            <li class="treeview <?= in_array(Yii::$app->controller->id, ['info']) ? 'active' : '' ?>">
+<!--            <li class="treeview <?= in_array(Yii::$app->controller->id, ['info']) ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-file-text"></i> <span>Thông tin</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -140,7 +140,7 @@
                     <li class="<?= Yii::$app->controller->id == 'info' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('info/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                     <li class="<?= Yii::$app->controller->id == 'info' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('info/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
-            </li>
+            </li>-->
             <!-- Chuyển hướng liên kết -->
             <li class="treeview <?= in_array(Yii::$app->controller->id, ['redirect-url']) ? 'active' : '' ?>">
                 <a href="#">

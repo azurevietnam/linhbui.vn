@@ -73,7 +73,7 @@ class GalleryController extends BaseController
         
         if (Yii::$app->request->isPost && $model = Gallery::create(Yii::$app->request->post())) {
             
-            is_array($model->tag_ids) or $model->tag_ids = [$model->tag_ids];
+            is_array($model->tag_ids) or $model->tag_ids = [];
             
             foreach ($model->tag_ids as $tag_id) {
                 GalleryToTag::create([
@@ -110,7 +110,7 @@ class GalleryController extends BaseController
             
             if (Yii::$app->request->isPost && $model->update2(Yii::$app->request->post())) {
                 
-                is_array($model->tag_ids) or $model->tag_ids = [$model->tag_ids];
+                is_array($model->tag_ids) or $model->tag_ids = [];
                 
                 foreach ($model->tag_ids as $tag_id) {
                     if (!in_array($tag_id, $oldTagIds)) {

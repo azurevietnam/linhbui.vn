@@ -32,11 +32,12 @@ use Yii;
  * @property string $updated_by
  *
  * @property ArticleToTag[] $articleToTags
+ * @property GalleryToTag[] $galleryToTags 
  * @property ProductToTag[] $productToTags
+ * @property VideoToTag[] $videoToTags
  */
 //class Tag extends \common\models\MyActiveRecord
 class Tag extends \common\models\Tag
-
 {
     
     /**
@@ -84,7 +85,7 @@ class Tag extends \common\models\Tag
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    //'resize' => array(),
+                    'resize' => array_values(Tag::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -156,7 +157,7 @@ class Tag extends \common\models\Tag
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    //'resize' => array(),
+                    'resize' => array_values(Tag::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -274,10 +275,26 @@ class Tag extends \common\models\Tag
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
+    * @return \yii\db\ActiveQuery
+    */
+    public function getGalleryToTags() 
+    { 
+        return $this->hasMany(GalleryToTag::className(), ['tag_id' => 'id']); 
+    } 
+
+    /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
     public function getProductToTags()
     {
         return $this->hasMany(ProductToTag::className(), ['tag_id' => 'id']);
     }
+    
+    /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+    public function getVideoToTags() 
+    { 
+        return $this->hasMany(VideoToTag::className(), ['tag_id' => 'id']); 
+    } 
 }
