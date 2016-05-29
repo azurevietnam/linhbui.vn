@@ -264,9 +264,9 @@ class Article extends \common\models\Article
     public function rules()
     {
         return [
-            [['name', 'slug', 'article_category_id', 'content', 'created_at', 'published_at'], 'required'],
+            [['name', 'slug', 'content', 'created_at', 'published_at'], 'required'],
             [['content', 'long_description'], 'string'],
-            [['article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
+            [['article_category_id', 'type', 'view_count', 'like_count', 'comment_count', 'share_count', 'is_hot', 'position', 'status', 'is_active'], 'integer'],
             [['created_at', 'updated_at', 'published_at', 'article_category_ids', 'tag_ids'], 'safe'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
@@ -282,7 +282,8 @@ class Article extends \common\models\Article
     {
         return [
             'id' => 'ID',
-            'article_category_id' => 'Danh mục',
+            'article_category_id' => 'Danh mục bài viết',
+            'type' => 'Thể loại',
             'name' => 'Tiêu đề',
             'content' => 'Nội dung',
             'slug' => 'Slug',

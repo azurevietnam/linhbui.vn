@@ -43,7 +43,7 @@ class User extends \common\models\User
                'imagesFolder' => Yii::$app->params['images_folder'],
                'imagesUrl' => Yii::$app->params['images_url'],
                'suffix' => $suffix,
-               'defaultImage' => Yii::$app->params['backend_url'] . '/admin-lte/dist/img/ava_love.jpg'
+               'defaultImage' => Yii::$app->params['images_url'] . '/avatar.jpg'
            ]);
         }
         return $this->_image;
@@ -104,8 +104,8 @@ class User extends \common\models\User
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            \common\utils\Dump::errors($model->errors);
+            return;
         }
         return false;
     }

@@ -78,7 +78,7 @@ class Article extends \common\models\Article
     public function rules()
     {
         return [
-            [['article_category_id', 'view_count', 'like_count', 'comment_count', 'share_count', 'created_at', 'updated_at', 'is_hot', 'position', 'status', 'published_at', 'is_active'], 'integer'],
+            [['article_category_id', 'type', 'view_count', 'like_count', 'comment_count', 'share_count', 'created_at', 'updated_at', 'is_hot', 'position', 'status', 'published_at', 'is_active'], 'integer'],
             [['content', 'created_at', 'published_at'], 'required'],
             [['content', 'long_description'], 'string'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
@@ -96,6 +96,7 @@ class Article extends \common\models\Article
         return [
             'id' => 'ID',
             'article_category_id' => 'Article Category ID',
+            'type' => 'Type',
             'name' => 'Name',
             'content' => 'Content',
             'slug' => 'Slug',
