@@ -43,9 +43,7 @@ class ProductFileSearch extends ProductFile
     public function search($params)
     {
         $query = ProductFile::find();
-        if (!empty($params['product_id'])) {
-            $query->where(['product_id' => $params['product_id']]);
-        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'=> [
@@ -66,7 +64,7 @@ class ProductFileSearch extends ProductFile
         $query->andFilterWhere([
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'size' => $this->file_size,
+            'file_size' => $this->file_size,
             'os_id' => $this->os_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

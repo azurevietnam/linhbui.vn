@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_ref_url:url',
             'filename',
             'extension',
-            'size',
+            'file_size',
             'file_src',
             'os_id',
             'os_version',

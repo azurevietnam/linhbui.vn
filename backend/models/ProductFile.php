@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\utils\FileUtils;
+use common\utils\Dump;
 use Yii;
 
 /**
@@ -14,7 +15,7 @@ use Yii;
  * @property string $product_ref_url
  * @property string $filename
  * @property string $extension
- * @property double $size
+ * @property double $file_size
  * @property string $file_src
  * @property integer $os_id
  * @property string $os_version
@@ -25,7 +26,9 @@ use Yii;
  *
  * @property Product $product
  */
+//class ProductFile extends \common\models\MyActiveRecord
 class ProductFile extends \common\models\ProductFile
+
 {
 
     /**
@@ -56,8 +59,8 @@ class ProductFile extends \common\models\ProductFile
                 }
                 return $model;
             }
-            $model->getErrors();
-            return $model;
+            Dump::errors($model->errors);
+            return;
         }
         return false;
     }
@@ -155,14 +158,14 @@ class ProductFile extends \common\models\ProductFile
         return [
             'id' => 'ID',
             'product_id' => 'Product ID',
-            'product_version' => 'Version',
-            'product_ref_url' => 'Url download',
+            'product_version' => 'Product Version',
+            'product_ref_url' => 'Product Ref Url',
             'filename' => 'Filename',
             'extension' => 'Extension',
             'file_size' => 'File Size',
             'file_src' => 'File Src',
-            'os_id' => 'Hệ điều hành',
-            'os_version' => 'Version hệ điều hành',
+            'os_id' => 'Os ID',
+            'os_version' => 'Os Version',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
