@@ -25,13 +25,11 @@ class UserLog extends ActiveRecord
     public function save($runValidation = true, $attributeNames = null) {
         if (parent::save($runValidation, $attributeNames)) {
             if ($this->is_success === 1) {
-                $my_array = explode('/', MyActiveQuery::$cache_file_dependency);
-                array_pop($my_array);
-                $my_folder = implode('/', $my_array);
+                $my_folder = Yii::$app->params['cache_file_dependency_folder'];
                 if (!file_exists($my_folder)) {
                     mkdir($my_folder, 0777, true);
                 }
-                $my_file = fopen(MyActiveQuery::$cache_file_dependency, 'w');
+                $my_file = fopen(Yii::$app->params['cache_file_dependency_folder'] . '/' . MyActiveQuery::$cache_file_dependency, 'w');
                 $txt = time();
                 fwrite($my_file, $txt);
                 fclose($my_file);

@@ -15,7 +15,7 @@ MySQL - 5.6.26 : Database - xemtuvi
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 -- CREATE DATABASE /*!32312 IF NOT EXISTS*/`xemtuvi` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 
-USE `xemtuvi`;
+USE `linhbui`;
 
 /*Table structure for table `html_box` */
 
@@ -135,6 +135,9 @@ CREATE TABLE `widget` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `template` varchar(511) COLLATE utf8_unicode_ci DEFAULT NULL,
   `item_template` varchar(511) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item_image_size` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link_target` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link_follow` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `style` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `object_class` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sql_offset` int(11) DEFAULT NULL,

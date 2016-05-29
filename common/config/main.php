@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => 'Xemtuvi.mobi',
+    'name' => 'Linhbui.vn',
     'charset' => 'UTF-8',
     'language' => 'vi-VN',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -8,15 +8,15 @@ return [
         'db' => [
             // database config
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=xemtuvi',
-            'username' => 'xemtuvi_user',
-            'password' => '3XLrQLzc5sXtjzVc',
+            'dsn' => 'mysql:host=localhost;dbname=linhbui',
+            'username' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             'enableSchemaCache' => true,
             // Duration of schema cache.
             'schemaCacheDuration' => 3600,
             // Name of the cache component used to store schema information
-            'schemaCache' => 'cache',
+            'schemaCache' => 'schemaCache',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

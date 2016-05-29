@@ -70,11 +70,12 @@ class FileUtils {
     {
         isset($params['defaultImage']) or $params['defaultImage'] = '';
         if(isset($params['suffix'])) {
-            if (is_array($params['suffix'])) {
-                $suffix = static::getResizeSuffix($params['suffix']);
-            } else {
-                $suffix = $params['suffix'];
-            }
+//            if (is_array($params['suffix'])) {
+//                $suffix = static::getResizeSuffix($params['suffix']);
+//            } else {
+//                $suffix = $params['suffix'];
+//            }
+            $suffix = static::getResizeSuffix(static::dimArray($params['suffix']));
         } else {
             $suffix = null;
         }
@@ -228,22 +229,23 @@ class FileUtils {
                         $formatInfo = getimagesize($params['toFolder'] . $img_name);
                         if ($formatInfo !== false && (isset($formatInfo['mime']) ? in_array($formatInfo['mime'], ['image/jpeg', 'image/png', 'image/gif']) : false)) {
                             // create watermark
-                            if ($params['createWatermark']) {
-                                $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
-                                if ($formatInfo[0] > 800 && $formatInfo[1] > 800) {
-                                    $watermark_img = 'watermark_lg.png';
-                                } else if ($formatInfo[0] > 300 && $formatInfo[1] > 300) {
-                                    $watermark_img = 'watermark_md.png';
-                                } else {
-                                    $watermark_img = 'watermark_sm.png';
-                                }
-                                if (is_file(\Yii::$app->params['images_folder'] . '/' . $watermark_img)) {
-                                    $thumb->createWatermark(\Yii::$app->params['images_folder'] . '/' . $watermark_img, 'lt', '5');
-                                    $thumb->save($params['toFolder'] . $img_name);
-                                }
-                            }
+//                            if ($params['createWatermark']) {
+//                                $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
+//                                if ($formatInfo[0] > 800 && $formatInfo[1] > 800) {
+//                                    $watermark_img = 'watermark_lg.png';
+//                                } else if ($formatInfo[0] > 300 && $formatInfo[1] > 300) {
+//                                    $watermark_img = 'watermark_md.png';
+//                                } else {
+//                                    $watermark_img = 'watermark_sm.png';
+//                                }
+//                                if (is_file(\Yii::$app->params['images_folder'] . '/' . $watermark_img)) {
+//                                    $thumb->createWatermark(\Yii::$app->params['images_folder'] . '/' . $watermark_img, 'lt', '5');
+//                                    $thumb->save($params['toFolder'] . $img_name);
+//                                }
+//                            }
                             if (count($params['resize']) > 0) {
                                 foreach ($params['resize'] as $dim) {
+                                    $dim = static::dimArray($dim);
                                     $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
                                     $thumb->setOptions(['jpegQuality' => $params['resizeQuality']]);
                                     switch ($params['resizeType']) {
@@ -428,6 +430,14 @@ class FileUtils {
             }
         }
         return false;
+    }
+    
+    private function dimArray($dim)
+    {
+        if (is_string($dim)) {
+            $dim = explode('x', $dim);
+        }
+        return $dim;
     }
 
 }

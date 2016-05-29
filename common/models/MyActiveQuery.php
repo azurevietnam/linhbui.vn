@@ -17,7 +17,7 @@ use yii\db\ActiveQuery;
  */
 class MyActiveQuery extends ActiveQuery {
     
-    public static $cache_file_dependency = __DIR__ . '/../runtime/file-dependencies/my-active-query.txt';
+    public static $cache_file_dependency = 'my-active-query.txt';
     
     public function active()
     {
@@ -71,7 +71,7 @@ class MyActiveQuery extends ActiveQuery {
         if (!Yii::$app->params['enable_cache'] || $result === false) {
             $result = parent::all($db);
             if (Yii::$app->params['enable_cache']) {
-                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => self::$cache_file_dependency]));
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => Yii::$app->params['cache_file_dependency_folder'] . '/' . self::$cache_file_dependency]));
             }
         }
         return $result;
@@ -90,7 +90,7 @@ class MyActiveQuery extends ActiveQuery {
                 $result = 'F';
             }
             if (Yii::$app->params['enable_cache']) {
-                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => self::$cache_file_dependency]));
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => Yii::$app->params['cache_file_dependency_folder'] . '/' . self::$cache_file_dependency]));
             }
         }
         if ($result === 'F') {
@@ -109,7 +109,7 @@ class MyActiveQuery extends ActiveQuery {
         if (!Yii::$app->params['enable_cache'] || (is_bool($result) && !$result)) {
             $result = parent::count($q, $db);
             if (Yii::$app->params['enable_cache']) {
-                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => self::$cache_file_dependency]));
+                Yii::$app->cache->set($cache_key, $result, Yii::$app->params['cache_duration'], new FileDependency(['fileName' => Yii::$app->params['cache_file_dependency_folder'] . '/' . self::$cache_file_dependency]));
             }
         }
         return $result;
