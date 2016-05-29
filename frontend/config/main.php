@@ -77,7 +77,7 @@ return [
                 ['pattern' => "bo-suu-tap/<$slug>", 'route' => 'product-category/index'],
                 ['pattern' => "bo-suu-tap/<$slug>", 'route' => 'product-category/index', 'suffix' => '/'],
                 ['pattern' => "bo-suu-tap/<$parent_slug>/<$slug>", 'route' => 'product-category/index'],
-                ['pattern' => "bo-suu-tap/<$parent_slug>/<$slug>", 'route' => 'product-category/index', 'suffic' => '/'],
+                ['pattern' => "bo-suu-tap/<$parent_slug>/<$slug>", 'route' => 'product-category/index', 'suffix' => '/'],
                 // Bài viết
                 ['pattern' => 'article/counter', 'route' => 'article/counter'],
                 ['pattern' => "<$type>", 'route' => 'article/view-all'],

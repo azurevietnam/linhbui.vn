@@ -38,6 +38,20 @@ use Yii;
  */
 class ProductCategory extends \common\models\ProductCategory
 {
+    public $_link;
+    public function getLink()
+    {
+        if ($this->_link === null) {
+            if ($this->parent) {
+                $this->_link = \yii\helpers\Url::to(['product-category/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $this->parent->slug, \common\models\PageGroup::URL_SLUG => $this->slug], true);
+            } else {
+                $this->_link = \yii\helpers\Url::to(['product-category/index', \common\models\PageGroup::URL_SLUG => $this->slug], true);
+            }
+        }
+        
+        return $this->_link;
+    }
+
     /**
      * @inheritdoc
      */

@@ -1,84 +1,56 @@
+<?php
+
+use frontend\models\Menu;
+use yii\helpers\Url;
+
+?>
 <div class="header">
     <div>
-        <a class="logo" href="#" title="Linh Bùi"></a>
+        <a class="logo" href="<?= Url::home(true) ?>" title="Linh Bùi"></a>
         <div class="top-menu">
             <button type="button">Danh mục</button>
             <ul>
+            <?php
+            foreach (Menu::getTopParents() as $item) {
+            ?>
                 <li>
-                    <a href="#" title="Trang chủ">Trang chủ</a>
-                </li>
-                <li>
-                    <a href="#" title="Giới thiệu">Giới thiệu</a>
-                </li>
-                <li>
-                    <a href="#" title="Bộ sưu tập">Bộ sưu tập</a>
+                    <?= $item->a() ?>
+                    <?php
+                    if (($children = $item->getChildren()) !== []) {
+                    ?>
                     <button type="button">+</button>
-                    <ul><!--
-                        --><li>
-                            <a href="#">Áo dài</a>
+                    <ul>
+                        <?php
+                        foreach ($children as $c_item) {
+                        ?><li>
+                            <?= $c_item->a() ?>
+                            <?php
+                            if (($children2 = $c_item->getChildren()) !== []) {
+                            ?>
                             <button type="button">+</button>
                             <ul>
-                                <li>
-                                    <a href="#">Áo dài cưới</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo dài dạ tiệc</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo dài dạo phố</a>
-                                </li>
+                                <?php
+                                foreach ($children2 as $c2_item) {
+                                ?><li>
+                                    <?= $c2_item->a() ?>
+                                </li><?php
+                                }
+                                ?>
                             </ul>
-                        </li><!--
-                        --><li>
-                            <a href="#">Dạ hội</a>
-                            <button type="button">+</button>
-                            <ul>
-                                <li>
-                                    <a href="#">First Lady</a>
-                                </li>
-                                <li>
-                                    <a href="#">Party Queen</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gia mour</a>
-                                </li>
-                            </ul>
-                        </li><!--
-                        --><li>
-                            <a href="#">Áo cưới</a>
-                            <button type="button">+</button>
-                            <ul>
-                                <li>
-                                    <a href="#">Áo dài cưới</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo cưới cao cấp</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo cưới hoàng gia</a>
-                                </li>
-                            </ul>
-                        </li><!--
-                    --></ul>
+                            <?php
+                            }
+                            ?>
+                        </li><?php
+                        }
+                        ?>
+                    </ul>
+                    <?php
+                    }
+                    ?>
                 </li>
-                <li>
-                    <a href="#" title="Thư viện ảnh">Thư viện ảnh</a>
-                </li>
-                <li>
-                    <a href="#" title="Video clip">Video clip</a>
-                </li>
-                <li>
-                    <a href="#" title="Tin tức">Tin tức</a>
-                </li>
-                <li>
-                    <a href="#" title="Góc báo chí">Góc báo chí</a>
-                </li>
-                <li>
-                    <a href="#" title="Khách hàng">Khách hàng</a>
-                </li>
-                <li>
-                    <a href="#" title="Liên hệ">Liên hệ</a>
-                </li>
+            <?php
+            }
+            ?>
             </ul>
         </div>
     </div>

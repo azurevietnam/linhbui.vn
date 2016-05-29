@@ -1,10 +1,11 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\ProductCategory;
 use common\utils\MobileDetect;
+use frontend\models\Article;
 use frontend\models\Menu;
 use frontend\models\PageGroup;
+use frontend\models\ProductCategory;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -64,27 +65,62 @@ class BaseController extends Controller {
             $this->meta_image = $seoInfo->getImage();
         }
         
-        $data1 = [];
-        $data1[] = [
+        $data = [];
+        $data['trang-chu'] = [
             'label' => 'Trang chủ',
             'url' => Url::home(true),
             'parent_key' => null
         ];
-        $data2 = [];
+        $data['gioi-thieu'] = [
+            'label' => 'Giới thiệu',
+            'url' => Article::findOneByType(Article::TYPE_ABOUT_US)->getLink(),
+            'parent_key' => null
+        ];
+        $data['bo-suu-tap'] = [
+            'label' => 'Bộ sưu tập',
+            'url' => Url::to(['product-category/view-all'], true),
+            'parent_key' => null
+        ];
         $categories = ProductCategory::find()->orderBy('position asc')->allActive();
         foreach ($categories as $item) {
-            $data2[$item->id] = [
+            $data["bo-suu-tap-$item->id"] = [
                 'label' => $item->name,
                 'url' => $item->getLink(),
-                'parent_key' => $item->parent_id
+                'parent_key' => $item->parent_id !== null ? "bo-suu-tap-$item->parent_id" : 'bo-suu-tap'
             ];
         }
-        $data = [
-            'H' => $data1,
-            'A' => $data2
+        $data['video-clips'] = [
+            'label' => 'Video clips',
+            'url' => Url::to(['video/view-all'], true),
+            'parent_key' => null
         ];
-        
-        Menu::init($data);
+        $data['thu-vien-anh'] = [
+            'label' => 'Thư viện ảnh',
+            'url' => Url::to(['gallery/view-all'], true),
+            'parent_key' => null
+        ];
+        $data['tin-tuc'] = [
+            'label' => 'Tin tức',
+            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::ALIAS_NEWS], true),
+            'parent_key' => null
+        ];
+        $data['goc-bao-chi'] = [
+            'label' => 'Góc báo chí',
+            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::ALIAS_MAGAZINE], true),
+            'parent_key' => null
+        ];
+        $data['khach-hang'] = [
+            'label' => 'Khách hàng',
+            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::ALIAS_CUSTOMER_REVIEW], true),
+            'parent_key' => null
+        ];
+        $data['lien-he'] = [
+            'label' => 'Liên hệ',
+            'url' => Article::findOneByType(Article::TYPE_CONTACT_US)->getLink(),
+            'parent_key' => null
+        ];
+//        \common\utils\Dump::variable($data);
+        Menu::init(['' => $data]);
         
 //        var_dump(Yii::$app->requestedRoute);
 //        var_dump(Yii::$app->request->queryParams);

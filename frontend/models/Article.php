@@ -46,6 +46,42 @@ use Yii;
  */
 class Article extends \common\models\Article
 {
+    
+    public static function findOneByType($type)
+    {
+        $result = static::find()->where(['type' => $type])->orderBy('published_at desc')->onePublished();
+        
+        if (!$result) {
+            $result = new Article;
+        }
+        
+        return $result;
+    }
+
+    public $_link;
+    public function getLink()
+    {
+        if ($this->_link === null) {
+            switch ($this->type) {
+                case self::TYPE_NEWS:
+                    $this->_link = \yii\helpers\Url::to(['article/index', \common\models\PageGroup::URL_TYPE => self::ALIAS_NEWS, \common\models\PageGroup::URL_SLUG => $this->slug], true);
+                    break;
+                case self::TYPE_CUSTOMER_REVIEW:
+                    $this->_link = \yii\helpers\Url::to(['article/index', \common\models\PageGroup::URL_TYPE => self::ALIAS_CUSTOMER_REVIEW, \common\models\PageGroup::URL_SLUG => $this->slug], true);
+                    break;
+                case self::TYPE_MAGAZINE:
+                    $this->_link = \yii\helpers\Url::to(['article/index', \common\models\PageGroup::URL_TYPE => self::ALIAS_MAGAZINE, \common\models\PageGroup::URL_SLUG => $this->slug], true);
+                    break;
+                case self::TYPE_ABOUT_US:
+                case self::TYPE_CONTACT_US:
+                default :
+                    $this->_link = \yii\helpers\Url::to(['article/index', \common\models\PageGroup::URL_SLUG => $this->slug], true);
+            }
+        }
+        
+        return $this->_link;
+    }
+    
     /**
      * @inheritdoc
      */

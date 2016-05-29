@@ -76,18 +76,7 @@ class SiteController extends BaseController
     {
         $this->link_canonical = Url::home(true);
         
-//        $key = 'Home data';
-//        $data = Yii::$app->cache->get($key);
-//        if ($data === false || !\Yii::$app->params['enable_cache']) {
-            $hot_items = Article::find()->orderBy('published_at desc')->limit(8)->allPublished();
-            $hot_categories = ArticleCategory::find()->where(['is_hot' => 1])->orderBy('position asc')->allActive();
-            $data = [
-                'hot_items' => $hot_items,
-                'hot_categories' => $hot_categories
-            ];
-//            \Yii::$app->cache->set($key, $data, \Yii::$app->params['cache_duration']);
-//        }
-        return $this->render('index', $data);
+        return $this->render('index', []);
     }
 
     /**
