@@ -3,15 +3,15 @@ namespace common\models;
 class PageGroup extends MyActiveRecord {
     
     const URL_SLUG = '_slug';
-//    const URL_PARENT_SLUG = '_parent_slug';
     const URL_CATEGORY_SLUG = '_category_slug';
     const URL_PARENT_CATEGORY_SLUG = '_parent_category_slug';
+    const URL_TYPE = '_type';
     
     public static $all_url_params = [
         0 => ['name' => PageGroup::URL_SLUG, 'label' => '<b style="border-radius:0" class="label label-primary">slug</b>'],
-//        1 => ['name' => PageGroup::URL_PARENT_SLUG, 'label' => 'parent slug'],
-        2 => ['name' => PageGroup::URL_CATEGORY_SLUG, 'label' => '<b style="border-radius:0" class="label label-danger">category slug</b>'],
-        3 => ['name' => PageGroup::URL_PARENT_CATEGORY_SLUG, 'label' => '<b style="border-radius:0" class="label label-success">parent category slug</b>'],
+        1 => ['name' => PageGroup::URL_CATEGORY_SLUG, 'label' => '<b style="border-radius:0" class="label label-danger">category slug</b>'],
+        2 => ['name' => PageGroup::URL_PARENT_CATEGORY_SLUG, 'label' => '<b style="border-radius:0" class="label label-success">parent category slug</b>'],
+        3 => ['name' => PageGroup::URL_TYPE, 'label' => '<b style="border-radius:0" class="label label-info">type</b>'],
     ];
     
     public static $routes = [

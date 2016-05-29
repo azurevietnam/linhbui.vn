@@ -1,6 +1,11 @@
 <?php
 
 use common\models\PageGroup;
+
+$slug = PageGroup::URL_SLUG;
+$parent_slug = PageGroup::URL_PARENT_CATEGORY_SLUG;
+$type = PageGroup::URL_TYPE;
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -41,25 +46,43 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                // Sitemap
-                ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
-                ['pattern' => 'sitemap-tim-kiem.xml', 'route' => 'sitemap/tag'],
-                ['pattern' => 'sitemap-<' . PageGroup::URL_SLUG . '>.xml', 'route' => 'sitemap/article'],
                 // Trang chủ
                 ['pattern' => '', 'route' => 'site/index'],
                 ['pattern' => '', 'route' => 'site/index', 'suffix' => '/'],
-                // Tags
-                ['pattern' => 'tim-kiem/<' . PageGroup::URL_SLUG . '>', 'route' => 'tag/index'],
-                ['pattern' => 'tim-kiem/<' . PageGroup::URL_SLUG . '>', 'route' => 'tag/index', 'suffix' => '/'], 
-                // Tin tức
+                // Sitemap
+                ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
+                ['pattern' => 'sitemap-bai-viet.xml', 'route' => 'sitemap/article'],
+                ['pattern' => 'sitemap-san-pham.xml', 'route' => 'sitemap/product'],
+                ['pattern' => 'sitemap-bo-suu-tap.xml', 'route' => 'sitemap/product-category'],
+                ['pattern' => 'sitemap-video.xml', 'route' => 'sitemap/video'],
+                ['pattern' => 'sitemap-hinh-anh.xml', 'route' => 'sitemap/gallery'],
+                // Sản phẩm
+                ['pattern' => 'product/counter', 'route' => 'product/counter'],
+                ['pattern' => 'san-pham', 'route' => 'product/view-all'],
+                ['pattern' => 'san-pham', 'route' => 'product/view-all', 'suffix' => '/'],
+                ['pattern' => "san-pham/<$slug>", 'route' => 'product/index', 'suffix' => '.html'],
+                // Video
+                ['pattern' => 'video/counter', 'route' => 'video/counter'],
+                ['pattern' => 'video', 'route' => 'video/view-all'],
+                ['pattern' => 'video', 'route' => 'video/view-all', 'suffix' => '/'],
+                ['pattern' => "video/<$slug>", 'route' => 'video/index', 'suffix' => '.html'],
+                // Hình ảnh
+                ['pattern' => 'gallery/counter', 'route' => 'gallery/counter'],
+                ['pattern' => 'hinh-anh', 'route' => 'gallery/view-all'],
+                ['pattern' => 'hinh-anh', 'route' => 'gallery/view-all', 'suffix' => '/'],
+                ['pattern' => "hinh-anh/<$slug>", 'route' => 'gallery/index', 'suffix' => '.html'],
+                // Bộ sưu tập
+                ['pattern' => 'bo-suu-tap', 'route' => 'product-category/view-all'],
+                ['pattern' => 'bo-suu-tap', 'route' => 'product-category/view-all', 'suffix' => '/'],
+                ['pattern' => "bo-suu-tap/<$slug>", 'route' => 'product-category/index'],
+                ['pattern' => "bo-suu-tap/<$slug>", 'route' => 'product-category/index', 'suffix' => '/'],
+                ['pattern' => "bo-suu-tap/<$parent_slug>/<$slug>", 'route' => 'product-category/index'],
+                ['pattern' => "bo-suu-tap/<$parent_slug>/<$slug>", 'route' => 'product-category/index', 'suffic' => '/'],
+                // Bài viết
                 ['pattern' => 'article/counter', 'route' => 'article/counter'],
-                ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>.html', 'route' => 'article/index'],
-                ['pattern' => '<' . PageGroup::URL_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>.html', 'route' => 'article/index'],
-                // Danh mục tin tức
-                ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
-                ['pattern' => '<' . PageGroup::URL_PARENT_CATEGORY_SLUG . '>/<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
-                ['pattern' => '<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index'],
-                ['pattern' => '<' . PageGroup::URL_SLUG . '>', 'route' => 'article-category/index', 'suffix' => '/'],
+                ['pattern' => "<$type>", 'route' => 'article/view-all'],
+                ['pattern' => "<$type>", 'route' => 'article/view-all', 'suffix' => '/'],
+                ['pattern' => "$type/<$slug>", 'route' => 'article/index', 'suffix' => '.html'],
             ]
         ],
         'user' => [
