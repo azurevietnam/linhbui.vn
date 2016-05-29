@@ -29,11 +29,11 @@ class MyActiveRecord extends ActiveRecord {
     ];
     
     public static $banner_resizes = [
-//        'huge' => self::BANNER_HUGE,
-//        'large' => self::BANNER_LARGE,
-//        'medium' => self::BANNER_MEDIUM,
-//        'small' => self::BANNER_SMALL,
-//        'tiny' => self::BANNER_TINY,
+        'huge' => self::BANNER_HUGE,
+        'large' => self::BANNER_LARGE,
+        'medium' => self::BANNER_MEDIUM,
+        'small' => self::BANNER_SMALL,
+        'tiny' => self::BANNER_TINY,
     ];
     
     /** 

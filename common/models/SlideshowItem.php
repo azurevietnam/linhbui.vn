@@ -17,11 +17,4 @@ class SlideshowItem extends MyActiveRecord {
     const DEVICE_TYPE_DESKTOP = 1;
     const DEVICE_TYPE_MOBILE = 2;
     const DEVICE_TYPE_TABLET = 3;
-    
-    public static $image_resizes = [
-        'desktop' => [1180, 1180],
-        'mobile' => [420, 420],
-        'tablet' => [780, 780],
-    ];
-
 }

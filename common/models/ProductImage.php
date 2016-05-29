@@ -14,11 +14,4 @@ use yii\db\ActiveRecord;
  * @author quyet
  */
 class ProductImage extends MyActiveRecord {
-    //put your code here
-    public static $image_resizes = [
-        'large' => [340, 340],
-        'medium' => [230, 230],
-        'small' => [120, 120],
-    ];
-    
 }
