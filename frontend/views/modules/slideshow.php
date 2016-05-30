@@ -141,7 +141,7 @@
 <script>
 /* SLIDESHOW: BEGIN */
 // CONFIG
-// opts = {"auto_run":true,"time_slide":300,"time_out":3000,"pause_on_hover":true}
+// opts = {"auto_run":true,"time_slide":300,"time_out":3000,"pause_on_hover":true,"always_align_center":true}
 var opts = <?= json_encode($options) ?>;
 // PARAMS
 var g = document.getElementById("slideshow-container");
@@ -181,9 +181,9 @@ function run() {
     bt_prev.addEventListener("click", function() {
         prev();
     });
-    if (opts.auto_run) {
+    if (opts.auto_run || typeof opts.auto_run === "undefined") {
         var auto_run = setInterval(function() {next();}, opts.time_out);
-        if (opts.pause_on_hover) {
+        if (opts.pause_on_hover || typeof opts.pause_on_hover === "undefined") {
             g.addEventListener("mouseover", function() {
                 clearInterval(auto_run);
             });
