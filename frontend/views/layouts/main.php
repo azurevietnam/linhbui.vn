@@ -62,7 +62,9 @@ window.addEventListener("load", function() {
 });
 
 //Paragraph html
-paragraphStyle();
+window.addEventListener("load", function(){
+    paragraphStyle();
+});
 window.addEventListener("resize", function(){
     paragraphStyle();
 });
@@ -103,9 +105,7 @@ function paragraphStyle() {
 <?php require_once 'header.php'; ?>
 <!--MAIN CONTENT-->
 <div class="main-content">
-<div>
 <?= $content ?>
-</div>
 </div>
 <!--FOOTER-->
 <?php require_once 'footer.php'; ?>

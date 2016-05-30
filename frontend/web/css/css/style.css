@@ -3,22 +3,6 @@
     Author     : Tran Van Quyet <quyettvq at gmail.com>
 */
 @charset "UTF-8";
-@font-face {
-    font-family: Gotham;
-    src: url("fonts/Gotham-Medium.otf");
-}
-@font-face {
-    font-family: Gotham Thin;
-    src: url("fonts/Gotham-Thin.otf");
-}
-@font-face {
-    font-family: Gotham Ultra;
-    src: url("fonts/Gotham-Ultra.otf");
-}
-@font-face {
-    font-family: UVF LH;
-    src: url("fonts/UVF LH Line1 Sans Thin.ttf");
-}
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +16,7 @@
     outline: none;
 }
 html {
-    font-family: Gotham;
+    font-family: Arial;
     font-size: 14px;
     background-image: url(images/top-bg.png);
     background-size: auto;
@@ -54,7 +38,7 @@ html {
 .main-content {
     min-height: 25vw;
 }
-.header > *, .main-content > *, footer > * {
+.header > .wrap, .main-content > .wrap, footer > .wrap {
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -80,9 +64,9 @@ html {
 }
 .top-menu > ul > li {
     display: inline-block;
+    vertical-align: top;
 }
 .top-menu a {
-    font-family: Gotham;
     display: inline-block;
     padding: 1em;
     line-height: 1em;
@@ -114,6 +98,7 @@ html {
 }
 .top-menu > ul > li > ul > li {
     display: inline-block;
+    vertical-align: top;
     border-top: 1px solid #efdfaf;
 }
 .top-menu > ul > li > ul * {
@@ -151,16 +136,24 @@ footer {
         margin: 0.5em auto;
     }
     .top-menu > button {
-        margin: 0 auto;
-        padding: 1em;
-        font-size: 0.85em;
-        font-family: UVF LH;
-        font-weight: bold;
         display: block;
-        background: none;
-        border: 1px solid #eee;
-        color: #aaa;
-        text-transform: uppercase;
+        position: absolute;
+        top: -3.9em;
+        left: 0.9em;
+        padding: 0;
+        z-index: 2;
+        width: 2em;
+        height: 2em;
+        border-radius: 5px;
+        background: #fae9a6;
+        background: rgba(250, 233, 166, 0.8);
+        border: 1px solid #fae9a6;
+        box-shadow: 0 1px 5px 1px #fff;
+    }
+    .top-menu > button > svg {
+        width: 1.7em;
+        height: 1.7em;
+        opacity: 0.9;
     }
     .top-menu > ul > li > ul > li > a {
         display: inline-block;

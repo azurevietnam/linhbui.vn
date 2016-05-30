@@ -1,5 +1,4 @@
 <?php
-
 echo $this->render('//modules/slideshow', [
     'data' => $slideshow,
     'options' => [
@@ -9,3 +8,4 @@ echo $this->render('//modules/slideshow', [
         'pause_on_hover' => true
     ]
 ]);
+?>

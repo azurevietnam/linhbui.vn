@@ -1,5 +1,5 @@
 <footer>
-    <div>
+    <div class="wrap">
         <div class="dim-logo">
         </div>
     </div>
