@@ -84,7 +84,7 @@ class ProductCategory extends \common\models\ProductCategory
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-//                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ProductCategory::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -96,7 +96,7 @@ class ProductCategory extends \common\models\ProductCategory
                     'imageName' => $model->banner,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-//                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ProductCategory::$banner_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -168,7 +168,7 @@ class ProductCategory extends \common\models\ProductCategory
                     'imageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-//                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ProductCategory::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -180,7 +180,7 @@ class ProductCategory extends \common\models\ProductCategory
                     'imageName' => $this->banner,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-//                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(ProductCategory::$banner_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {

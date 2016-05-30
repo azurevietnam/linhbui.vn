@@ -11,8 +11,8 @@ class MyActiveRecord extends ActiveRecord {
     const IMAGE_HUGE = '500x500';
     const IMAGE_LARGE = '400x400';
     const IMAGE_MEDIUM = '350x350';
-    const IMAGE_SMALL = '170x170';
-    const IMAGE_TINY = '90x90';
+    const IMAGE_SMALL = '230x230';
+    const IMAGE_TINY = '120x120';
     
     const BANNER_HUGE = '600x600';
     const BANNER_LARGE = '340x340';

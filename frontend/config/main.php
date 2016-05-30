@@ -83,6 +83,7 @@ return [
                 ['pattern' => "<$type>", 'route' => 'article/view-all'],
                 ['pattern' => "<$type>", 'route' => 'article/view-all', 'suffix' => '/'],
                 ['pattern' => "$type/<$slug>", 'route' => 'article/index', 'suffix' => '.html'],
+                ['pattern' => "<$slug>", 'route' => 'article/index', 'suffix' => '.html'],
             ]
         ],
         'user' => [

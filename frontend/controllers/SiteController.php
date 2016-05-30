@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use frontend\models\ContactForm;
 use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
+use frontend\models\Product;
 use frontend\models\ProductCategory;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -85,9 +86,11 @@ class SiteController extends BaseController
             ];
         }
         $product_categories = ProductCategory::find()->limit(8)->orderBy('id desc')->allActive();
+        $products = Product::find()->limit(8)->orderBy('id desc')->allActive();
         return $this->render('index', [
             'slideshow' => $slideshow,
-            'product_categories' => $product_categories
+            'product_categories' => $product_categories,
+            'products' => $products
         ]);
     }
 

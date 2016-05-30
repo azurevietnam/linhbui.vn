@@ -29,7 +29,8 @@ return [
     
     'wph_ratios' => [
         'article_image' => 1.75,
-        'product_image' => 1.0,
+        'product_category_image' => 1.0,
+        'product_image' => 0.75,
         'banner' => 2.63,
     ],
 

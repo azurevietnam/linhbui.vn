@@ -434,7 +434,7 @@ class FileUtils {
     
     private function dimArray($dim)
     {
-        if (is_string($dim)) {
+        if (!is_array($dim)) {
             $dim = explode('x', $dim);
         }
         return $dim;

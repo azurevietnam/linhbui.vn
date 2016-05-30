@@ -123,10 +123,28 @@ footer {
     height: 229px;
     padding: 1em;
 }
+footer .dim-logo {
+    float: left;
+    background-size: 80%;
+    background-position: 0 center;
+    margin: 0;
+}
+footer .info {
+    float: left;
+    color: #fff;
+}
+footer .info .title {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 1em 0;
+}
 
 .list-view {
-    text-align: justify;
     margin-top: 1em;
+    color: #555;
+}
+.list-view .list {
+    text-align: justify;
 }
 .list-view .title {
     text-align: center;
@@ -153,7 +171,6 @@ footer {
 .list-view .thumb .desc {
     padding: 0.5em 0;
     background: #fff;
-    color: #555;
 }
 .list-view .thumb .name {
     opacity: 0.8;
@@ -288,6 +305,7 @@ footer {
 .breadcrumbs > li:not(:first-child)::before {
     content: " > ";
 }
+
 @media screen and (min-width: 1000px) {
     .list-view .thumb {
         width: 24%;
