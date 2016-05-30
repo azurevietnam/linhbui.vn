@@ -43,7 +43,7 @@
 }
 #slideshow-images {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1010px;
     margin: 0 auto;
 }
 #slideshow-images figure {
@@ -52,7 +52,7 @@
     margin: 0 0%;
     vertical-align: top;
     display: inline-block;
-    opacity: 0.5;
+    opacity: 0.3;
 }
 #slideshow-images figure:first-child {
     margin: 0 0% 0 0;
