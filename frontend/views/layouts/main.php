@@ -106,6 +106,7 @@ function paragraphStyle() {
 <!--MAIN CONTENT-->
 <div class="main-content">
 <?= $content ?>
+<div class="clearfix"></div>
 </div>
 <!--FOOTER-->
 <?php require_once 'footer.php'; ?>

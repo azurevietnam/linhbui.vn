@@ -138,10 +138,16 @@ class SiteController extends BaseController
             $object['name'] = $log->object_class;
             switch ($object['name']) {
                 case 'Article':
-                    $object['t_name'] = 'Tin tức';
+                    $object['t_name'] = 'Bài viết';
                     break;
                 case 'ArticleCategory':
-                    $object['t_name'] = 'Danh mục tin tức';
+                    $object['t_name'] = 'Danh mục bài viết';
+                    break;
+                case 'Product':
+                    $object['t_name'] = 'Sản phẩm';
+                    break;
+                case 'ProductCategory':
+                    $object['t_name'] = 'Danh mục sản phẩm';
                     break;
                 case 'SeoInfo':
                     $object['t_name'] = 'Thông tin SEO';

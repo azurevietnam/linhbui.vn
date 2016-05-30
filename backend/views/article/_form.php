@@ -36,8 +36,9 @@ use yii\widgets\ActiveForm;
             ]
         ]) ?>
         <?php // !$model->isNewRecord or $model->is_active = 1 ?>
-		<?php echo $form->field($model, 'is_hot')->checkbox() ?>
-		<?= $form->field($model, 'is_active')->checkbox() ?>
+            <?php echo $form->field($model, 'position')->textInput() ?>
+            <?php echo $form->field($model, 'is_hot')->checkbox() ?>
+            <?= $form->field($model, 'is_active')->checkbox() ?>
     </div>
     <div class="col-md-6">
             <?= $form->field($model, 'type')->dropDownList(Article::$types) ?>
@@ -83,7 +84,6 @@ use yii\widgets\ActiveForm;
 		<?php // echo $form->field($model, 'created_by')->textInput(['maxlength' => true, 'readonly' => true, 'value' => $model->isNewRecord ? $username : $model->created_by ]) ?>
 		<?php // echo $form->field($model, 'updated_by')->textInput(['maxlength' => true, 'readonly' => true, 'value' => !$model->isNewRecord ? $username : '' ]) ?>
 		<?php // echo $form->field($model, 'auth_alias')->textInput(['maxlength' => true]) ?>
-		<?php // echo $form->field($model, 'position')->textInput() ?>
 		<?php // echo $form->field($model, 'status')->textInput() ?>
 		<?php /* echo $form->field($model, 'long_description')->widget(CKEditor::className(), [
 			'preset' => 'full',

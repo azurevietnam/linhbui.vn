@@ -101,17 +101,17 @@ class BaseController extends Controller {
         ];
         $data['tin-tuc'] = [
             'label' => 'Tin tức',
-            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::ALIAS_NEWS], true),
+            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::getAliasOfType(Article::TYPE_NEWS)], true),
             'parent_key' => null
         ];
         $data['goc-bao-chi'] = [
             'label' => 'Góc báo chí',
-            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::ALIAS_MAGAZINE], true),
+            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::getAliasOfType(Article::TYPE_MAGAZINE)], true),
             'parent_key' => null
         ];
         $data['khach-hang'] = [
             'label' => 'Khách hàng',
-            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::ALIAS_CUSTOMER_REVIEW], true),
+            'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::getAliasOfType(Article::TYPE_CUSTOMER_REVIEW)], true),
             'parent_key' => null
         ];
         $data['lien-he'] = [

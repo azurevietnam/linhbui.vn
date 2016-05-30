@@ -20,35 +20,18 @@ use frontend\models\SiteParam;
             <div class="info">
                 <p class="title">Chăm sóc khách hàng</p>
                 <?php
-                $item = Article::findOneByType(Article::TYPE_ABOUT_US);
-                if ($item->id != null) {
-                ?>
-                <p>&gt; <?= $item->a() ?></p>
-                <?php
-                }
-                ?>
-                <?php
-                $item = Article::findOneByType(Article::TYPE_CONTACT_US);
-                if ($item->id != null) {
-                ?>
-                <p>&gt; <?= $item->a() ?></p>
-                <?php
-                }
-                ?>
-                <?php
-                $item = Article::findOneByType(Article::TYPE_PRICING);
-                if ($item->id != null) {
-                ?>
-                <p>&gt; <?= $item->a() ?></p>
-                <?php
-                }
-                ?>
-                <?php
-                $item = Article::findOneByType(Article::TYPE_FAQ);
-                if ($item->id != null) {
-                ?>
-                <p>&gt; <?= $item->a() ?></p>
-                <?php
+                $items = Article::find()
+                        ->where(['in', 'type', [
+                            Article::TYPE_ABOUT_US,
+                            Article::TYPE_CONTACT_US,
+                            Article::TYPE_PRICING,
+                            Article::TYPE_POLICY,
+                            Article::TYPE_FAQ
+                        ]])
+                        ->orderBy('position asc, published_at desc')
+                        ->allPublished();
+                foreach ($items as $item) {
+                    echo "<p>&gt; {$item->a()}</p>";
                 }
                 ?>
             </div>
@@ -58,5 +41,6 @@ use frontend\models\SiteParam;
                 <p class="title">Theo dõi chúng tôi trên</p>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
 </footer>

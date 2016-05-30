@@ -60,7 +60,7 @@ html {
 }
 
 .top-menu {
-    text-align: center;
+    text-align: justify;
     width: 100%;
 }
 .top-menu > ul > li {
@@ -120,7 +120,6 @@ html {
 
 footer {
     background: #d9ae5e;
-    height: 229px;
     padding: 1em;
 }
 footer .dim-logo {
@@ -155,8 +154,8 @@ footer .info .title {
     font-size: 1.4em;
 }
 .list-view .title i {
-    width: 0.4em;
-    height: 0.4em;
+    width: 8px;
+    height: 8px;
     transform: rotate(45deg);
     background: #d9ae5e;
     display: inline-block;
@@ -164,7 +163,7 @@ footer .info .title {
     font-style: normal;
 }
 .list-view .title span {
-    margin: 0 2em;
+    margin: 0 1.5em;
 }
 .list-view .introtext {
 }
@@ -288,9 +287,8 @@ footer .info .title {
 }
 
 .breadcrumbs {
-    padding: 0.5em;
-    background: #f2f2f2;
     font-style: italic;
+    font-size: 0.9em;
 }
 .breadcrumbs > li {
     list-style: none;
@@ -322,6 +320,9 @@ footer .info .title {
         width: 196px;
         height: 64px;
         margin: 0.5em auto;
+    }
+    .top-menu {
+        text-align: center;
     }
     .top-menu > button {
         display: block;
