@@ -77,9 +77,9 @@
     width: -webkit-fit-content;
     box-sizing: content-box;
     padding: 3px 6px;
-    z-index: 99;
-    bottom: 1.5em;
+    z-index: 9;
     text-align: center;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: 0 auto;

@@ -57,8 +57,9 @@ $id = uniqid('_');
     word-wrap: break-word;
     white-space: normal;
     padding: 3px 6px;
-    bottom: 1.2em;
+    z-index: 9;
     text-align: center;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -230,9 +231,9 @@ function run() {
         a.scrollIntoView({block: "start", behavior: "smooth"});
         prev();
     });
-    if (opts.auto_run) {
+    if (opts.auto_run || typeof opts.auto_run === "undefined") {
         var auto_run = setInterval(function() {next();}, opts.time_out);
-        if (opts.pause_on_hover) {
+        if (opts.pause_on_hover || typeof opts.pause_on_hover === "undefined") {
             g.addEventListener("mouseover", function() {
                 clearInterval(auto_run);
             });
