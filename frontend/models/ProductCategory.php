@@ -139,4 +139,23 @@ class ProductCategory extends \common\models\ProductCategory
     {
         return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('product_to_product_category', ['product_category_id' => 'id']);
     }
+    
+    public function getAllProducts()
+    {
+        $query = Product::find();
+        $query->where('id in (select product_id '
+                . 'from product_to_product_category '
+                . 'where product_category_id in ('
+                . implode(',', array_merge([$this->id], \yii\helpers\ArrayHelper::getColumn($this->allChildren, 'id')))
+                . '))');
+        $query->multiple = true;
+        return $query;
+    }
+    
+    public function getChildren()
+    {
+        return $this->hasMany(static::className(), ['parent_id' => 'id']);
+    }
+
+    
 }

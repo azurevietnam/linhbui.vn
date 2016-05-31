@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\PageGroup;
-use common\models\Gallery;
+use frontend\models\Gallery;
 use frontend\models\Redirect;
 use Yii;
 use yii\helpers\Url;
@@ -73,7 +73,7 @@ class GalleryController extends BaseController
     
     public function actionViewAll()
     {
-        $this->link_canonical = Url::to(['gallery/view-all'], true);
+        $this->link_canonical = Url::to(['view-all'], true);
         $this->breadcrumbs[] = ['label' => 'Thư viện ảnh', 'url' => $this->link_canonical];
         
         $page = Yii::$app->request->get('page', 0);
