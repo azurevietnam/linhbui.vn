@@ -25,13 +25,15 @@ return [
     'relative_images_folder' => '/images',
     'relative_uploads_folder' => '/uploads',
         
-    'default_image' => 'http://linhbui.vn/images/default.jpg',
+    'default_image' => '',
     
     'wph_ratios' => [
-        'article_image' => 1.75,
-        'product_category_image' => 1.0,
         'product_image' => 0.75,
-        'banner' => 2.63,
+        'product_category_image' => 1.0,
+        'article_image' => 1.75,
+        'gallery_image' => 1.75,
+        'video_image' => 1.75,
+        'slideshow_image' => 2.63,
     ],
 
     'decive_types' => [
