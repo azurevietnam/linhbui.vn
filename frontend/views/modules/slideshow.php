@@ -1,7 +1,6 @@
 <div id="slideshow-container">
     <div id="slideshow-images">
-    <div class="wrap">
-    <?php
+    <div class="wrap"><?php
     foreach ($data as $item) {
         ?><figure>
             <img src="<?= $item['img_src'] ?>" alt="<?= $item['img_alt'] ?>">
@@ -14,8 +13,7 @@
             ?>
         </figure><?php
     }
-    ?>
-    </div>
+    ?></div>
     </div>
     <?php
     $num = count($data);
@@ -52,7 +50,7 @@
     margin: 0 0%;
     vertical-align: top;
     display: inline-block;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 #slideshow-images figure:first-child {
     margin: 0 0% 0 0;
@@ -147,7 +145,7 @@ var opts = <?= json_encode($options) ?>;
 var g = document.getElementById("slideshow-container");
 var a = document.getElementById("slideshow-images");
 var c = a.children[0];
-var len = c.children.length;
+var num = c.children.length;
 var bt_prev = g.getElementsByClassName("bt-prev")[0];
 var bt_next = g.getElementsByClassName("bt-next")[0];
 var w, u, df, x, min_x, max_x; // w = width of #slideshow-images; u = width of #slideshow-container; x = key of current figure element of c
@@ -169,11 +167,13 @@ function setParams() {
     if (opts.always_align_center || typeof opts.always_align_center === "undefined") {
         if (!cloned) {
             cloned = true;
-            var html = c.innerHTML.trim();
-            c.innerHTML = html + html + html;
+            var c0 = c.children[0].cloneNode(true);
+            var cn = c.children[num - 1].cloneNode(true);
+            c.appendChild(c0);
+            c.insertBefore(cn, c.children[0]);
         }
-        min_x = len;
-        max_x = 2 * len - 1;
+        min_x = 1;
+        max_x = num;
         df = 0;
     } else {
         min_x = 0;

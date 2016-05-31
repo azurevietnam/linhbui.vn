@@ -7,7 +7,7 @@ use frontend\models\SiteParam;
 <footer>
     <div class="wrap">
         <div class="col-4">
-            <div class="dim-logo">
+            <div class="inv-logo">
             </div>
             <div class="clearfix"></div>
             <div class="info">
