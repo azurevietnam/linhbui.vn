@@ -28,12 +28,12 @@ return [
     'default_image' => '',
     
     'wph_ratios' => [
-        'product_image' => 0.75,
-        'product_category_image' => 1.0,
-        'article_image' => 1.75,
-        'gallery_image' => 1.75,
-        'video_image' => 1.75,
-        'slideshow_image' => 2.63,
+        'product_image' => 3/4,
+        'product_category_image' => 1/1,
+        'article_image' => 16/9, // 4^2 / 3^2
+        'gallery_image' => 16/9,
+        'video_image' => 16/9,
+        'slideshow_image' => 64/27, // 4^3 / 3^3
     ],
 
     'decive_types' => [

@@ -90,7 +90,7 @@ use yii\web\View;
             $arr_ip = Yii::$app->params['wph_ratios'];
             $arr_op = [];
             foreach ($arr_ip as $label => &$val) {
-                $val = number_format($val, 2, '.', ',');
+                $val = number_format($val, 3, '.', ',');
                 $arr_op[$val] = isset($arr_op[$val]) ? $arr_op[$val] . ", $label" : "$val = $label";
             }
             ksort($arr_op);
