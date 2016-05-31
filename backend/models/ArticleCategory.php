@@ -264,8 +264,9 @@ class ArticleCategory extends \common\models\ArticleCategory
             [['old_slugs'], 'string', 'max' => 2000],
             [['description', 'meta_title', 'meta_description', 'meta_keywords', 'h1', 'page_title', 'image', 'banner', 'image_path'], 'string', 'max' => 511],
             ['parent_id', 'compare', 'compareAttribute' => 'id', 'operator' => '!=', 'message' => '{attribute} không được là chính nó.'],
-            [['slug', 'parent_id'], 'unique', 'targetAttribute' => ['slug', 'parent_id'], 'message' => 'The combination of Slug and Parent ID has already been taken.'],
 //            [['name', 'page_title', 'meta_title', 'meta_description'], 'unique'],
+//            [['slug', 'parent_id'], 'unique', 'targetAttribute' => ['slug', 'parent_id'], 'message' => 'The combination of Slug and Parent ID has already been taken.'],
+            ['slug', 'unique'],
         ];
     }
 
