@@ -147,7 +147,7 @@ var opts = <?= json_encode($options) ?>;
 var g = document.getElementById("slideshow-container");
 var a = document.getElementById("slideshow-images");
 var c = a.children[0];
-var c_len = c.children.length;
+var len = c.children.length;
 var bt_prev = g.getElementsByClassName("bt-prev")[0];
 var bt_next = g.getElementsByClassName("bt-next")[0];
 var w, u, df, x, min_x, max_x; // w = width of #slideshow-images; u = width of #slideshow-container; x = key of current figure element of c
@@ -172,8 +172,8 @@ function setParams() {
             var html = c.innerHTML.trim();
             c.innerHTML = html + html + html;
         }
-        min_x = c_len;
-        max_x = 2 * c_len - 1;
+        min_x = len;
+        max_x = 2 * len - 1;
         df = 0;
     } else {
         min_x = 0;
