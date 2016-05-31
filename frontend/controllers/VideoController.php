@@ -21,6 +21,7 @@ class VideoController extends BaseController
                 $this->redirect($this->link_canonical);
             }
             $related_items = Video::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(6)->allPublished();
+            $this->breadcrumbs[] = ['label' => 'Video clips', 'url' => Url::to(['view-all'], true)];
             $this->breadcrumbs[] = ['label' => $model->name, 'url' => $this->link_canonical];            
             
             if (!$this->seo_exist) {

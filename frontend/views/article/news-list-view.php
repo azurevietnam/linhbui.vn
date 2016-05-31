@@ -13,7 +13,7 @@
             <a class="img-wrap" href="<?= $item->getLink() ?>" title="<?= $item->name ?>">
                 <img src="<?= $item->getImage(frontend\models\Article::IMAGE_TINY) ?>" title="<?= $item->name ?>" alt="<?= $item->name ?>">
             </a>
-            <p class="desc"><?= $item->description ?></p>
+            <p class="desc"><?= $item->desc() ?></p>
         </div>
         <?php
         }
