@@ -110,7 +110,7 @@ function paragraphStyle() {
 </div>
 <!--FOOTER-->
 <?php require_once 'footer.php'; ?>
-<?php require_once 'plugins.php'; ?>
+<?php // require_once 'plugins.php'; ?>
 <?php $this->endBody() ?>
 </body>
 </html>

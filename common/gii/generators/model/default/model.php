@@ -42,8 +42,7 @@ use Yii;
 <?php endforeach; ?>
 <?php endif; ?>
  */
-//class <?= $className ?> extends <?= "\\common\\models\\MyActiveRecord" . "\n" ?>
-class <?= $className ?> extends <?= "\\common\\models\\$className\n" ?>
+class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
 <?php
 if(isset($tableSchema->columns['slug'])) { ?>

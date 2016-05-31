@@ -1,6 +1,6 @@
 <div id="slideshow-container">
     <div id="slideshow-images">
-    <div class="wrap">
+        <div class="wrap">
     <?php
     foreach ($data as $item) {
         ?><figure>
@@ -15,7 +15,7 @@
         </figure><?php
     }
     ?>
-    </div>
+        </div>
     </div>
     <?php
     $num = count($data);
@@ -52,7 +52,7 @@
     margin: 0 0%;
     vertical-align: top;
     display: inline-block;
-    opacity: 0.6;
+    opacity: 0.3;
 }
 #slideshow-images figure:first-child {
     margin: 0 0% 0 0;
@@ -147,12 +147,9 @@ var opts = <?= json_encode($options) ?>;
 var g = document.getElementById("slideshow-container");
 var a = document.getElementById("slideshow-images");
 var c = a.children[0];
-var c_len = c.children.length;
 var bt_prev = g.getElementsByClassName("bt-prev")[0];
 var bt_next = g.getElementsByClassName("bt-next")[0];
-var w, u, df, x, min_x, max_x; // w = width of #slideshow-images; u = width of #slideshow-container; x = key of current figure element of c
-var cloned = false;
-var begin_set_time_slide = false;
+var w, u, df, x; // w = width of #slideshow-images; u = width of #slideshow-container; x = key of current figure element of c
 // RUN
 run();
 window.addEventListener("load", function(){
@@ -167,31 +164,17 @@ function setParams() {
     u = window.getComputedStyle(g, null).getPropertyValue("width");
     w = window.getComputedStyle(a, null).getPropertyValue("width");
     if (opts.always_align_center || typeof opts.always_align_center === "undefined") {
-        if (!cloned) {
-            cloned = true;
-            var html = c.innerHTML.trim();
-            c.innerHTML = html + html + html;
-        }
-        min_x = c_len;
-        max_x = 2 * c_len - 1;
         df = 0;
     } else {
-        min_x = 0;
-        max_x = c.children.length - 1;
         df = 0.5 * (parseInt(u) - parseInt(w)) / parseInt(w);
     }
-    x = min_x;
-    
-    if (!begin_set_time_slide) {
-        begin_set_time_slide = true;
-    } else {
-        c.style.transition = "margin " + String(0.001 * parseInt(opts.time_slide)) + "s ease";
-    }
+    x = 0;
+    c.style.transition = "margin " + String(0.001 * parseInt(opts.time_slide)) + "s ease";
 }
 function run() {
     setParams();
-    setActiveClass(min_x);
-    setMargin(min_x + df);
+    setActiveClass(0);
+    setMargin(df);
     bt_next.addEventListener("click", function() {
         next();
     });
@@ -213,34 +196,32 @@ function run() {
     }
 };
 function next() {
-    if (x < max_x) {
+    if (x < c.children.length - 1) {
         x++;
     } else {
-        x = min_x;
+        x = 0;
     }
     
     setActiveClass(x);
-    
-    if (x === min_x) {
+    if (x === 0) {
         setMargin(x + df);
-    } else if (x === max_x) {
+    } else if (x === c.children.length - 1) {
         setMargin(x - df);
     } else {
         setMargin(x);
     }
 };
 function prev() {
-    if (x > min_x) {
+    if (x > 0) {
         x--;
     } else {
-        x = max_x;
+        x = c.children.length - 1;
     }
     
     setActiveClass(x);
-    
-    if (x === min_x) {
+    if (x === 0) {
         setMargin(x + df);
-    } else if (x === max_x) {
+    } else if (x === c.children.length - 1) {
         setMargin(x - df);
     } else {
         setMargin(x);
@@ -251,7 +232,7 @@ function setMargin(x) {
     c.style.marginRight = "+" + String(x * parseInt(w)) + "px";
 };
 function setActiveClass(x) {
-    for (var i = min_x; i <= max_x; i++) {
+    for (var i = 0; i < c.children.length; i++) {
         if (i === x) {
             c.children[i].style.transition = "all " + String(0.001 * parseInt(opts.time_slide)) + "s ease";
             c.children[i].classList.add("active");
@@ -259,6 +240,7 @@ function setActiveClass(x) {
             c.children[i].classList.remove("active");
         }
     }
+    
 }
 /* SLIDESHOW: END */
 </script>
