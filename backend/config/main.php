@@ -40,7 +40,31 @@ return [
         ]         
     ],
     'components' => [
+        'request' => [
+            'baseUrl' => '/backend',
+            'csrfParam' => '_backendCSRF',
+            'csrfCookie' => [
+                'path' => '/backend',
+                'httpOnly' => true,
+            ],
+        ],
+        'session' => [
+            'name' => 'BACKENDSESSID',
+            'cookieParams' => [
+                'path' => '/backend',
+            ],
+        ],
+        'user' => [
+            'identityClass' => 'backend\models\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => [
+                'name' => '_backendIdentity',
+                'path' => '/backend',
+                'httpOnly' => true,
+            ],
+        ],
         'urlManager' => [
+            'scriptUrl' => '/backend/index.php',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],

@@ -10,6 +10,7 @@ class Article extends MyActiveRecord {
     const TYPE_PRICING  = 6;
     const TYPE_FAQ  = 7;
     const TYPE_POLICY  = 8;
+    const TYPE_GUIDE  = 9;
     
     public static $types = [
         self::TYPE_NEWS => 'Tin tức',
@@ -20,17 +21,19 @@ class Article extends MyActiveRecord {
         self::TYPE_PRICING => 'Báo giá',
         self::TYPE_FAQ => 'Câu hỏi thường gặp',
         self::TYPE_POLICY => 'Chính sách',
+        self::TYPE_GUIDE => 'Hướng dẫn',
     ];
     
     public static $type_aliases = [
         self::TYPE_NEWS => 'tin-tuc',
         self::TYPE_CUSTOMER_REVIEW => 'y-kien-khach-hang',
         self::TYPE_MAGAZINE => 'goc-bao-chi',
+        self::TYPE_FAQ => 'cau-hoi-thuong-gap',
         self::TYPE_ABOUT_US => 've-chung-toi',
         self::TYPE_CONTACT_US => 'lien-he',
         self::TYPE_PRICING => 'bao-gia',
-        self::TYPE_FAQ => 'cau-hoi-thuong-gap',
         self::TYPE_POLICY => 'chinh-sach',
+        self::TYPE_GUIDE => 'huong-dan',
     ];
     
 }

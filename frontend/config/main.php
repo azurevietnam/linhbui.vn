@@ -42,6 +42,9 @@ return [
         ]
     ],    
     'components' => [
+        'request' => [
+            'baseUrl' => '',
+        ],
         'urlManager' => [
             'scriptUrl' => '/index.php',
             'enablePrettyUrl' => true,

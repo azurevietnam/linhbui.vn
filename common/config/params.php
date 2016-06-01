@@ -20,10 +20,10 @@ return [
     'images_folder' => '/data/website/linhbui.vn/frontend/web/images',
     'uploads_folder' => '/data/website/linhbui.vn/backend/web/uploads',
     
-    'relative_backend_folder' => '',
-    'relative_frontend_folder' => '',
-    'relative_images_folder' => '/images',
-    'relative_uploads_folder' => '/uploads',
+    'relative_backend_folder' => '/backend/web',
+    'relative_frontend_folder' => '/frontend/web',
+    'relative_images_folder' => '/frontend/web/images',
+    'relative_uploads_folder' => '/backend/web/uploads',
         
     'default_image' => '',
     
