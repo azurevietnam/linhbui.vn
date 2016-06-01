@@ -15,7 +15,7 @@
             <div class="desc">
                 <h3 class="name"><?= $item->name ?></h3>
             </div>
-            <div class="clr"></div>
+            <div class="clearfix"></div>
         </a>
         <?php
         }

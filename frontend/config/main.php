@@ -5,6 +5,7 @@ use common\models\PageGroup;
 $slug = PageGroup::URL_SLUG;
 $parent_slug = PageGroup::URL_PARENT_CATEGORY_SLUG;
 $type = PageGroup::URL_TYPE;
+$alias = PageGroup::URL_ALIAS;
 
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
@@ -51,11 +52,7 @@ return [
                 ['pattern' => '', 'route' => 'site/index', 'suffix' => '/'],
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
-                ['pattern' => 'sitemap-bai-viet.xml', 'route' => 'sitemap/article'],
-                ['pattern' => 'sitemap-san-pham.xml', 'route' => 'sitemap/product'],
-                ['pattern' => 'sitemap-bo-suu-tap.xml', 'route' => 'sitemap/product-category'],
-                ['pattern' => 'sitemap-video.xml', 'route' => 'sitemap/video'],
-                ['pattern' => 'sitemap-hinh-anh.xml', 'route' => 'sitemap/gallery'],
+                ['pattern' => "sitemap-<$alias>.xml", 'route' => 'sitemap/details'],
                 // Sản phẩm
                 ['pattern' => 'product/counter', 'route' => 'product/counter'],
                 ['pattern' => 'san-pham', 'route' => 'product/view-all'],

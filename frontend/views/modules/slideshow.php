@@ -50,7 +50,7 @@
     margin: 0 0%;
     vertical-align: top;
     display: inline-block;
-    opacity: 0.6;
+    opacity: 0.4;
 }
 #slideshow-images figure:first-child {
     margin: 0 0% 0 0;

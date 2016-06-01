@@ -6,9 +6,9 @@
         <changefreq>always</changefreq>
         <priority>1.0</priority>
     </url>
-    <?php
-    if (isset($parent) && $parent !== null) {
-    ?>
+<?php
+if (isset($parent) && $parent !== null) {
+?>
     <url>
         <loc><?= $parent['url'] ?></loc>
         <?php
@@ -24,12 +24,12 @@
         <changefreq>always</changefreq>
         <priority>1.0</priority>
     </url>
-    <?php
-    }
-    ?>
-    <?php
-    if (isset($category) && $category !== null) {
-    ?>
+<?php
+}
+?>
+<?php
+if (isset($category) && $category !== null) {
+?>
     <url>
         <loc><?= $category['url'] ?></loc>
         <?php
@@ -45,9 +45,9 @@
         <changefreq>always</changefreq>
         <priority>1.0</priority>
     </url>
-    <?php
-    }
-    ?>
+<?php
+}
+?>
 <?php
 foreach ($children as $item) {
 ?>

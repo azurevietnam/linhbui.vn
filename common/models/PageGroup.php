@@ -6,6 +6,7 @@ class PageGroup extends MyActiveRecord {
     const URL_CATEGORY_SLUG = '_category_slug';
     const URL_PARENT_CATEGORY_SLUG = '_parent_category_slug';
     const URL_TYPE = '_type';
+    const URL_ALIAS = '_alias';
     
     public static $all_url_params = [
         0 => ['name' => PageGroup::URL_SLUG, 'label' => '<b style="border-radius:0" class="label label-primary">slug</b>'],
