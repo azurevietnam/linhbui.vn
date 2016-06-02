@@ -20,7 +20,7 @@ class ProductController extends BaseController
             if (!Redirect::compareUrl($this->link_canonical)) {
                 $this->redirect($this->link_canonical);
             }
-            $related_items = Product::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(6)->allPublished();
+            $related_items = Product::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(8)->allPublished();
             
             $this->breadcrumbs[] = ['label' => 'Sản phẩm', 'url' => Url::to(['view-all'], true)];            
             $this->breadcrumbs[] = ['label' => $model->name, 'url' => $this->link_canonical];            
@@ -35,10 +35,29 @@ class ProductController extends BaseController
                 $this->meta_image = $model->getImage();
             }
             
+            $slideshow = [];
+            $slideshow[] = [
+                'caption' => '',
+                'link' => '',
+                'img_src' => $model->getImage(),
+                'img_src_preview' => $model->getImage(\frontend\models\Product::IMAGE_MEDIUM),
+                'img_alt' => $model->name,
+            ];
+            foreach ($model->productImages as $item) {
+                $slideshow[] = [
+                    'caption' => $item->caption,
+                    'link' => '',
+                    'img_src' => $item->getImage(),
+                    'img_src_preview' => $item->getImage(\frontend\models\ProductImage::IMAGE_MEDIUM),
+                    'img_alt' => $item->caption,
+                ];
+            }
+            
             $model->updateCounters(['view_count' => 1]);
             
             return $this->render('index', [
                 'model' => $model,
+                'slideshow' => $slideshow,
                 'related_items' => isset($related_items) ? $related_items : array()
             ]);
         } else {

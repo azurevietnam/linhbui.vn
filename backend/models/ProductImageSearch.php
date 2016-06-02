@@ -43,6 +43,10 @@ class ProductImageSearch extends ProductImage
     {
         $query = ProductImage::find();
 
+        if (!empty($params['product_id'])) {
+            $query->where(['product_id' => $params['product_id']]);
+        }
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'=> [

@@ -23,7 +23,7 @@ class ArticleController extends BaseController
             }
             if ($type_alias != '') {
                 $this->breadcrumbs[] = ['label' => Article::getNameOfType($model->type), 'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::getAliasOfType($model->type)])];            
-                $related_items = Article::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(6)->allPublished();
+                $related_items = Article::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(8)->allPublished();
             }
             $this->breadcrumbs[] = ['label' => $model->name, 'url' => $this->link_canonical];            
             

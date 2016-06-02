@@ -7,7 +7,8 @@ use frontend\models\Article;
     'data' => $slideshow,
     'options' => [
         'time_slide' => 600,
-        'time_out' => 3000
+        'time_out' => 3000,
+        'img_max_width' => '1010px'
     ]
 ]);
 ?>

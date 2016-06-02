@@ -6,6 +6,9 @@ $id = uniqid('_');
         <div class="wrap">
         </div>
     </div>
+    <?php
+    if (isset($data[1])) {
+    ?>
     <button class="bt-prev">
         <svg fill="#333" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -18,6 +21,9 @@ $id = uniqid('_');
             <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
     </button>
+    <?php
+    }
+    ?>
 </div>
 
 <style>

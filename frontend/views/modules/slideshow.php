@@ -41,7 +41,7 @@
 }
 #slideshow-images {
     width: 100%;
-    max-width: 1010px;
+    max-width: <?= isset($options['img_max_width']) ? $options['img_max_width'] : 'calc(100%)' ?>;
     margin: 0 auto;
 }
 #slideshow-images figure {

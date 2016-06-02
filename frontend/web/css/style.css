@@ -379,7 +379,7 @@ footer .info .title {
 }
 @media screen and (max-width: 740px) {
     .dsk-padl5,
-    .dsk-padr10 {
+    .dsk-padl10 {
         padding-left: 0;
     }
     .dsk-padr5,

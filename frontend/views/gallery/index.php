@@ -1,15 +1,3 @@
-<?php
-    $slideshow = [];
-    foreach ($model->getGalleryImages()->all() as $item) {
-        $slideshow[] = [
-            'caption' => $item->caption,
-            'link' => 'javascript:void(0)',
-            'img_src' => $item->getImage(),
-            'img_src_preview' => $item->getImage(\frontend\models\Gallery::IMAGE_SMALL),
-            'img_alt' => $item->caption,
-        ];
-    }
-?>
 <div class="wrap">
     <div class="col-3">
         <?= $this->render('//layouts/left') ?>

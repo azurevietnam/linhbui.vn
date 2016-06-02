@@ -20,7 +20,7 @@ class GalleryController extends BaseController
             if (!Redirect::compareUrl($this->link_canonical)) {
                 $this->redirect($this->link_canonical);
             }
-            $related_items = Gallery::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(6)->allPublished();
+            $related_items = Gallery::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(8)->allPublished();
             $this->breadcrumbs[] = ['label' => 'Thư viện ảnh', 'url' => Url::to(['view-all'], true)];            
             $this->breadcrumbs[] = ['label' => $model->name, 'url' => $this->link_canonical];            
             
@@ -34,10 +34,22 @@ class GalleryController extends BaseController
                 $this->meta_image = $model->getImage();
             }
             
+            $slideshow = [];
+            foreach ($model->getGalleryImages()->all() as $item) {
+                $slideshow[] = [
+                    'caption' => $item->caption,
+                    'link' => 'javascript:void(0)',
+                    'img_src' => $item->getImage(),
+                    'img_src_preview' => $item->getImage(\frontend\models\GalleryImage::IMAGE_SMALL),
+                    'img_alt' => $item->caption,
+                ];
+            }
+            
             $model->updateCounters(['view_count' => 1]);
             
             return $this->render('index', [
                 'model' => $model,
+                'slideshow' => $slideshow,
                 'related_items' => isset($related_items) ? $related_items : array()
             ]);
         } else {
