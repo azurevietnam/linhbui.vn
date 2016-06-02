@@ -3,16 +3,18 @@
         <?= $this->render('//layouts/left') ?>
     </div>
     <div class="col-9">
-        <div class="video-container">
-            <iframe frameborder="0" allowfullscreen
-                src="<?= $model->source ?>?autoplay=1">
-            </iframe>
+        <div class="dsk-padl10">
+            <div class="video-container">
+                <iframe frameborder="0" allowfullscreen
+                    src="<?= $model->source ?>?autoplay=1">
+                </iframe>
+            </div>
+            <div class="col-12 paragraph">
+                <h2 class="title"><?= $model->name ?></h2>
+                <?= $model->description ?>
+            </div>
+            <?= $this->render('//modules/comment') ?>
         </div>
-        <div class="col-12 paragraph">
-            <h2 class="title"><?= $model->name ?></h2>
-            <?= $model->description ?>
-        </div>
-        <?= $this->render('//modules/comment') ?>
     </div>
 </div>
 <style>

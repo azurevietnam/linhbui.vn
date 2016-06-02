@@ -3,11 +3,13 @@
         <?= $this->render('//layouts/left') ?>
     </div>
     <div class="col-9">
-<?php
-    echo $this->render('//product/list-view', [
-        'title' => $category->name,
-        'items' => $items,
-    ]);
-?>
+        <div class="dsk-padl10">
+        <?php
+            echo $this->render('//product/list-view', [
+                'title' => $category->name,
+                'items' => $items,
+            ]);
+        ?>
+        </div>
     </div>
 </div>

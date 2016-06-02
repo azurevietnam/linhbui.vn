@@ -105,7 +105,6 @@ function paragraphStyle() {
 <!--HEADER-->
 <?php require_once 'header.php'; ?>
 <!--MAIN CONTENT-->
-<div class="main-content container">
 <?php
 if (!in_array(Yii::$app->controller->id, ['site'])) {
 ?>
@@ -113,6 +112,7 @@ if (!in_array(Yii::$app->controller->id, ['site'])) {
 <?php
 }    
 ?>
+<div class="main-content container">
 <?= $content ?>
 <div class="clearfix"></div>
 </div>

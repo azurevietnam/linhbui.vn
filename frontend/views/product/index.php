@@ -3,9 +3,11 @@
         <?= $this->render('//layouts/left') ?>
     </div>
     <div class="col-9">
-        <article class="paragraph">
-            <h2 class="title"><?= $model->name ?></h2>
-            <?= $model->details ?>
-        </article>
+        <div class="dsk-padl10">
+            <article class="paragraph">
+                <h2 class="title"><?= $model->name ?></h2>
+                <?= $model->details ?>
+            </article>
+        </div>
     </div>
 </div>

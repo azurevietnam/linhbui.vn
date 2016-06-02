@@ -4,7 +4,7 @@ use frontend\models\Menu;
 use yii\helpers\Url;
 
 ?>
-<div class="header container">
+<div class="header container magb5">
     <div class="wrap">
         <a class="logo" href="<?= Url::home(true) ?>" title="Linh Bùi"></a>
         <div class="menu top-menu">
