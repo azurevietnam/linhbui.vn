@@ -8,9 +8,9 @@ return [
         'db' => [
             // database config
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=linhbui',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=localhost;dbname=linhbui_vn',
+            'username' => 'linhbui_user',
+            'password' => '@1234567890#',
             'charset' => 'utf8',
             'enableSchemaCache' => true,
             // Duration of schema cache.

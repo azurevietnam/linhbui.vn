@@ -3,9 +3,9 @@
         <?= $this->render('//modules/breadcrumbs') ?>
     </div>
     <div class="col-9">
-        <h2><?= $model->name ?></h2>
         <article class="paragraph">
-        <?= $model->details ?>
+            <h2 class="title"><?= $model->name ?></h2>
+            <?= $model->details ?>
         </article>
     </div>
 </div>

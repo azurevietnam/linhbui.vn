@@ -45,6 +45,7 @@ var menu = {
         }, timeout);
         setTimeout(function() {
             if (u.classList.contains("open")) {
+                u.style.transition = "all 0s";
                 u.style.height = "auto";
             }
         }, duration + timeout);
@@ -75,7 +76,7 @@ function paragraphStyle() {
         g = gs[k];
         if (typeof(g) !== "undefined" && g !== null) {
             var g_w = parseInt(window.getComputedStyle(g, null).getPropertyValue("width"));
-            var els = g.querySelectorAll("table, img, iframe");
+            var els = g.querySelectorAll("*");
             for (var i = 0; i < els.length; i++) {
                 setStyle(els[i]);
             }

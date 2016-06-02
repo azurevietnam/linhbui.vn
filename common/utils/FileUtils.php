@@ -71,11 +71,11 @@ class FileUtils {
         isset($params['defaultImage']) or $params['defaultImage'] = '';
         if(isset($params['suffix'])) {
 //            if (is_array($params['suffix'])) {
-//                $suffix = static::getResizeSuffix($params['suffix']);
+//                $suffix = self::getResizeSuffix($params['suffix']);
 //            } else {
 //                $suffix = $params['suffix'];
 //            }
-            $suffix = static::getResizeSuffix(static::dimArray($params['suffix']));
+            $suffix = self::getResizeSuffix(self::dimArray($params['suffix']));
         } else {
             $suffix = null;
         }
@@ -148,7 +148,7 @@ class FileUtils {
 //            'resizeSuffixTemplate' => '_{x}x{y}',
 //            'sequenceSuffixTemplate' => '_{sequence}',
 //            'sequenceStart' => 2,
-//            'imageNameReplace' => static::$file_name_replace,
+//            'imageNameReplace' => self::$file_name_replace,
         ]
     )
     {
@@ -158,15 +158,15 @@ class FileUtils {
         isset($params['resize']) or $params['resize'] = [];
         isset($params['resizeType']) or $params['resizeType'] = 1;
         isset($params['resizeQuality']) or $params['resizeQuality'] = 100;
-        isset($params['resizeSuffixTemplate']) or $params['resizeSuffixTemplate'] = static::SUFFIX_TEMPLATE;
-        isset($params['sequenceSuffixTemplate']) or $params['sequenceSuffixTemplate'] = static::SEQUENCE_TEMPLATE;
+        isset($params['resizeSuffixTemplate']) or $params['resizeSuffixTemplate'] = self::SUFFIX_TEMPLATE;
+        isset($params['sequenceSuffixTemplate']) or $params['sequenceSuffixTemplate'] = self::SEQUENCE_TEMPLATE;
         isset($params['sequenceStart']) or $params['sequenceStart'] = 2;
-        isset($params['imageNameReplace']) or $params['imageNameReplace'] = static::$file_name_replace;
+        isset($params['imageNameReplace']) or $params['imageNameReplace'] = self::$file_name_replace;
         isset($params['createWatermark']) or $params['createWatermark'] = false;
         
         $resize_suffixes = [];
         foreach ($params['resize'] as $dim) {
-            $resize_suffixes[] = static::getResizeSuffix($dim, $params['resizeSuffixTemplate']);
+            $resize_suffixes[] = self::getResizeSuffix($dim, $params['resizeSuffixTemplate']);
         }
         $img_name = trim($params['imageName']);
         while (strpos($img_name, '  ') !== false) {
@@ -174,8 +174,8 @@ class FileUtils {
         }
         $img_extension = trim(strrev(explode('.', strrev($img_name))[0]));
         $img_basename = trim(rtrim($img_name, '.' . $img_extension));
-        if (static::fileWithSuffixesExists($params['toFolder'], $img_name, $resize_suffixes)) {
-            $suffix_rev_map = static::getSequenceSuffixRevMap($params['sequenceSuffixTemplate']);
+        if (self::fileWithSuffixesExists($params['toFolder'], $img_name, $resize_suffixes)) {
+            $suffix_rev_map = self::getSequenceSuffixRevMap($params['sequenceSuffixTemplate']);
             $img_basename = trim(strrev(preg_replace('/' . $suffix_rev_map[1] . '(|\s)[0-9](|\s)' . $suffix_rev_map[0] . '/', '', strrev($img_basename), 1)));
         }
         foreach ($params['imageNameReplace'] as $search => $replace) {
@@ -185,8 +185,8 @@ class FileUtils {
             $img_basename = 'Untitle';
         }
         $img_name = $img_basename . '.' . $img_extension;
-        while (static::fileWithSuffixesExists($params['toFolder'], $img_name, $resize_suffixes)) {
-            $img_name = $img_basename . static::getSequenceSuffix($params['sequenceStart'] ++, $params['sequenceSuffixTemplate']) . '.' . $img_extension;
+        while (self::fileWithSuffixesExists($params['toFolder'], $img_name, $resize_suffixes)) {
+            $img_name = $img_basename . self::getSequenceSuffix($params['sequenceStart'] ++, $params['sequenceSuffixTemplate']) . '.' . $img_extension;
         }
         $result = [
             'imageName' => $img_name,
@@ -198,7 +198,7 @@ class FileUtils {
             mkdir($params['toFolder'], 0777, true);
         }
         if (is_file($params['fromFolder'] . $params['imageName']) 
-        || static::checkRemoteFile($params['fromFolder'] . $params['imageName'])
+        || self::checkRemoteFile($params['fromFolder'] . $params['imageName'])
         ) {
             $name_map = explode('.', $img_name);
             if (count($name_map) > 1) {
@@ -245,21 +245,21 @@ class FileUtils {
 //                            }
                             if (count($params['resize']) > 0) {
                                 foreach ($params['resize'] as $dim) {
-                                    $dim = static::dimArray($dim);
+                                    $dim = self::dimArray($dim);
                                     $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
                                     $thumb->setOptions(['jpegQuality' => $params['resizeQuality']]);
                                     switch ($params['resizeType']) {
                                         case 1:
                                             if ($thumb->resize($dim[0], $dim[1])) {
-                                                if ($thumb->save($params['toFolder'] . $basename . static::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension)) {
-                                                    $result['resize'][] = $basename . static::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension;
+                                                if ($thumb->save($params['toFolder'] . $basename . self::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension)) {
+                                                    $result['resize'][] = $basename . self::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension;
                                                 }
                                             }
                                             break;
                                         case 2:
                                             if ($thumb->adaptiveResize($dim[0], $dim[1])) {
-                                                if ($thumb->save($params['toFolder'] . $basename . static::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension)) {
-                                                    $result['resize'][] = $basename . static::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension;
+                                                if ($thumb->save($params['toFolder'] . $basename . self::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension)) {
+                                                    $result['resize'][] = $basename . self::getResizeSuffix($dim, $params['resizeSuffixTemplate']) . '.' . $extension;
                                                 }
                                             }
                                     }
@@ -296,7 +296,7 @@ class FileUtils {
     {
         if (empty($params['regex'])) {
             $regex = '/(http|https):\/\/+[^\"]+.(';
-            foreach (static::$allow_extensions as $i => $ext) {
+            foreach (self::$allow_extensions as $i => $ext) {
                 $regex .= ($i > 0 ? '|' : '') . $ext . '|' . strtoupper($ext);
             }
             $regex .= ')/';
@@ -320,7 +320,7 @@ class FileUtils {
                     } else {
                         $fromFolder = $params['defaultFromFolder'];
                     }
-                    $copyResult = static::copyImage([
+                    $copyResult = self::copyImage([
                                 'imageName' => $img_name,
                                 'fromFolder' => $fromFolder,
                                 'toFolder' => $params['toFolder'],
@@ -340,7 +340,7 @@ class FileUtils {
     {
         if (is_dir($dir)) {
             $files = glob(rtrim($dir, '/') . '/*');
-            if (count($files) < static::ALLOW_REMOVE_FOLDER_CONTAINS_LESS) {
+            if (count($files) < self::ALLOW_REMOVE_FOLDER_CONTAINS_LESS) {
                 foreach ($files as $item) {
                     if (is_file($item)) {
                         @unlink($item);
@@ -351,7 +351,7 @@ class FileUtils {
             // remove corresponding folder on server2 by ftp
 //            $ftpPath = str_replace(Yii::$app->params['images_folder'], 'images', $dir);
 //            $contents = Yii::$app->ftpFs->listContents($ftpPath);
-//            if (count($contents) < static::ALLOW_REMOVE_FOLDER_CONTAINS_LESS) {
+//            if (count($contents) < self::ALLOW_REMOVE_FOLDER_CONTAINS_LESS) {
 //                foreach ($contents as $item) {
 //                    if ($item['type'] === 'file') {
 //                        if (Yii::$app->ftpFs->has($item['path'])) {
@@ -373,7 +373,7 @@ class FileUtils {
     // bị trùng với thư mục trên ftp thì thư mục trên ftp cũng sẽ được đồng nhất với thư mục trên local
     public static function generatePath($time)
     {
-        return '/' . date('Y', $time) . '/' . date('m', $time) . '/' . date('d', $time) . '/' . static::generateRandomString(2) . '/';
+        return '/' . date('Y', $time) . '/' . date('m', $time) . '/' . date('d', $time) . '/' . self::generateRandomString(2) . '/';
     }
 
     // private function
@@ -398,7 +398,7 @@ class FileUtils {
 
     public static function getSequenceSuffix($sequence, $template = '')
     {
-        $template != '' or $template = static::SEQUENCE_TEMPLATE;
+        $template != '' or $template = self::SEQUENCE_TEMPLATE;
         if ($result = str_replace('{sequence}', $sequence, $template)) {
             return $result;
         }
@@ -407,7 +407,7 @@ class FileUtils {
 
     public static function getResizeSuffix($dim, $template = '')
     {
-        $template != '' or $template = static::SUFFIX_TEMPLATE;
+        $template != '' or $template = self::SUFFIX_TEMPLATE;
         if ($result = str_replace('{y}', $dim[1], str_replace('{x}', $dim[0], $template))) {
             return $result;
         }
@@ -432,7 +432,7 @@ class FileUtils {
         return false;
     }
     
-    private function dimArray($dim)
+    private static function dimArray($dim)
     {
         if (!is_array($dim)) {
             $dim = explode('x', $dim);

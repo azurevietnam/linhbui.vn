@@ -9,16 +9,16 @@ return [
     'gcse_cx' => '',
     
     'root_url' => 'http://',
-    'backend_url' => 'http://admin.linhbui.vn',
+    'backend_url' => 'http://linhbui.vn/backend',
     'frontend_url' => 'http://linhbui.vn',
     'images_url' => 'http://linhbui.vn/images',
-    'uploads_url' => 'http://admin.linhbui.vn/uploads',
+    'uploads_url' => 'http://linhbui.vn/backend/uploads',
     
     'root_folder' => '/data/website',
-    'backend_folder' => '/data/website/linhbui.vn/backend/web',
-    'frontend_folder' => '/data/website/linhbui.vn/frontend/web',
-    'images_folder' => '/data/website/linhbui.vn/frontend/web/images',
-    'uploads_folder' => '/data/website/linhbui.vn/backend/web/uploads',
+    'backend_folder' => '/home/linhbui/domains/linhbui.vn/public_html/backend/web',
+    'frontend_folder' => '/home/linhbui/domains/linhbui.vn/public_html/frontend/web',
+    'images_folder' => '/home/linhbui/domains/linhbui.vn/public_html/frontend/web/images',
+    'uploads_folder' => '/home/linhbui/domains/linhbui.vn/public_html/backend/web/uploads',
     
     'relative_backend_folder' => '/backend/web',
     'relative_frontend_folder' => '/frontend/web',
@@ -44,5 +44,5 @@ return [
     
     'enable_cache' => true,
     'cache_duration' => 3600,
-    'cache_file_dependency_folder' => '/data/website/linhbui.vn/common/runtime/file-dependency'
+    'cache_file_dependency_folder' => '/home/linhbui/domains/linhbui.vn/public_html/common/runtime/file-dependency'
 ];

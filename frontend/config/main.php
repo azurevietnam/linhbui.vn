@@ -80,10 +80,10 @@ return [
                 ['pattern' => "bo-suu-tap/<$slug>", 'route' => 'product-category/index', 'suffix' => '/'],
                 // Bài viết
                 ['pattern' => 'article/counter', 'route' => 'article/counter'],
-                ['pattern' => "<$type>", 'route' => 'article/view-all'],
-                ['pattern' => "<$type>", 'route' => 'article/view-all', 'suffix' => '/'],
                 ['pattern' => "<$type>/<$slug>", 'route' => 'article/index', 'suffix' => '.html'],
                 ['pattern' => "<$slug>", 'route' => 'article/index', 'suffix' => '.html'],
+                ['pattern' => "<$type>", 'route' => 'article/view-all'],
+                ['pattern' => "<$type>", 'route' => 'article/view-all', 'suffix' => '/'],
             ]
         ],
         'user' => [

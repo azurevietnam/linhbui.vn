@@ -9,7 +9,7 @@
             </iframe>
         </div>
         <div class="col-12 paragraph">
-            <h2><?= $model->name ?></h2>
+            <h2 class="title"><?= $model->name ?></h2>
             <?= $model->description ?>
         </div>
         <?= $this->render('//modules/comment') ?>

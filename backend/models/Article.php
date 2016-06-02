@@ -45,24 +45,55 @@ use Yii;
 class Article extends \common\models\Article
 {
         
-    /**
-    * function ->getLink ()
-    */
-    public $_link;
-    public function getLink() {
-        if ($this->_link === null) {
-            $_link = '';
-            if ($cate = $this->articleCategory) {
-                if ($parent_cate = $cate->parent) {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $parent_cate->slug , \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
-                } else {
-                    $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', \common\models\PageGroup::URL_CATEGORY_SLUG => $cate->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
-                }
-            } else {
-//                $_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['article/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
-            }
-            $this->_link = $_link;
+    public static function getTypeByAlias($alias)
+    {
+        $aliases = array_flip(self::$type_aliases);
+        return isset($aliases[$alias]) ? $aliases[$alias] : '';
+    }
+
+    public static function getNameOfType($type)
+    {
+        return isset(self::$types[$type]) ? self::$types[$type] : '';
+    }
+    public static function getAliasOfType($type)
+    {
+        return isset(self::$type_aliases[$type]) ? self::$type_aliases[$type] : '';
+    }
+
+
+    public static function findOneByType($type)
+    {
+        $result = static::find()->where(['type' => $type])->orderBy('published_at desc')->onePublished();
+        
+        if (!$result) {
+            $result = new Article;
         }
+        
+        return $result;
+    }
+
+    public $_link;
+    public function getLink()
+    {
+        if ($this->_link === null) {
+            switch ($this->type) {
+                case self::TYPE_NEWS:
+                case self::TYPE_CUSTOMER_REVIEW:
+                case self::TYPE_MAGAZINE:
+                    $this->_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl([
+                            'article/index',
+                            \common\models\PageGroup::URL_TYPE => self::getAliasOfType($this->type),
+                            \common\models\PageGroup::URL_SLUG => $this->slug
+                        ]);
+                    break;
+                default :
+                    $this->_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl([
+                            'article/index',
+                            \common\models\PageGroup::URL_SLUG => $this->slug
+                        ]);
+            }
+        }
+        
         return $this->_link;
     }
     

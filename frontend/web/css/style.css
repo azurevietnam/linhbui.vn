@@ -25,8 +25,16 @@ html {
     background-repeat: repeat-x;
 }
 
-.paragraph * {
-    font-size: inherit;
+.paragraph {
+    width: 100%;
+    max-width: calc(100%);
+}
+
+.paragraph .title {
+    font-size: 1.2em;
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 1em;
 }
 
 .clearfix {
@@ -164,7 +172,7 @@ footer .info .title {
     font-style: normal;
 }
 .list-view .title span {
-    margin: 0 1.5em;
+    margin: 0 1.2em;
 }
 .list-view .introtext {
 }

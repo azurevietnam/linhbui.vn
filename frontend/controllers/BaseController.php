@@ -125,7 +125,6 @@ class BaseController extends Controller {
 //        var_dump(Yii::$app->requestedRoute);
 //        var_dump(Yii::$app->request->queryParams);
 //        die;
-        
         return true;
     }
 }

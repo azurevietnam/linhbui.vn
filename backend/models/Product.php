@@ -58,14 +58,14 @@ use Yii;
 class Product extends \common\models\Product
 {
     
-    /**
-    * function ->getLink ()
-    */
+    
     public $_link;
-    public function getLink() {
+    public function getLink()
+    {
         if ($this->_link === null) {
-            $this->_link = Yii::$app->urlManager->createUrl(['product/index', 'slug' => $this->slug], true);
+            $this->_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
         }
+        
         return $this->_link;
     }
 
