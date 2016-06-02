@@ -106,6 +106,13 @@ function paragraphStyle() {
 <?php require_once 'header.php'; ?>
 <!--MAIN CONTENT-->
 <div class="main-content">
+<?php
+if (!in_array(Yii::$app->controller->id, ['site'])) {
+?>
+<?= $this->render('//modules/breadcrumbs') ?>
+<?php
+}    
+?>
 <?= $content ?>
 <div class="clearfix"></div>
 </div>

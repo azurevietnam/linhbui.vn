@@ -12,7 +12,7 @@
 ?>
 <div class="wrap">
     <div class="col-3">
-        <?= $this->render('//modules/breadcrumbs') ?>
+        <?= $this->render('//layouts/left') ?>
     </div>
     <div class="col-9">
         <?= $this->render('//modules/slideshow-multi', [

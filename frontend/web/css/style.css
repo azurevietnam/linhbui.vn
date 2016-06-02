@@ -47,7 +47,7 @@ html {
 .main-content {
     min-height: 25vw;
 }
-.header > .wrap, .main-content > .wrap, footer > .wrap {
+.header > .wrap, .breadcrumbs > .wrap, .main-content > .wrap, footer > .wrap {
     max-width: 1010px;
     margin: 0 auto;
 }
@@ -80,6 +80,9 @@ html {
     display: inline-block;
     padding: 1em;
     line-height: 1em;
+}
+.top-menu > ul > li:first-child > a {
+    padding-left: 0;
 }
 .top-menu > ul > li > a {
     color: #cea00e;
@@ -296,21 +299,30 @@ footer .info .title {
 }
 
 .breadcrumbs {
-    font-style: italic;
+    font-weight: bold;
     font-size: 0.9em;
+    background: #fcf6de;
+    padding: 1.5em 0 0 0;
 }
-.breadcrumbs > li {
+.breadcrumbs ul {
+    background: #fff;
+    float: left;
+    padding: 0.5em;
+    border-radius: 6px 6px 0 0;
+}
+.breadcrumbs ul > li {
     list-style: none;
     display: inline;
+    color: #cea00e;
 }
-.breadcrumbs > li:last-of-type a {
-    color: #999;
+.breadcrumbs ul > li:last-of-type a {
+    color: #f1cc01;
 }
-.breadcrumbs > li:hover a {
+.breadcrumbs ul > li:hover a {
     text-decoration: underline;
 }
-.breadcrumbs > li:not(:first-child)::before {
-    content: " > ";
+.breadcrumbs ul > li:not(:first-child)::before {
+    content: " / ";
 }
 
 @media screen and (min-width: 1000px) {
