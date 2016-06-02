@@ -1,8 +1,6 @@
 <?php
 
-use backend\models\ProductCategory;
 use backend\models\ProductCategorySearch;
-use frontend\models\Article;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -35,10 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::img($model->getImage(), ['style'=>'max-height:60px;max-width:60px']);
+                    return Html::img($model->getImage(), ['style'=>'max-height:100px;max-width:100px']);
                 },
             ],
-            'name',
+            [
+                'attribute' => 'name',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::a($model->name, $model->getLink(), ['style'=>'color:#04a', 'target' => '_blank']);
+                },
+            ],
             [
                 'attribute' => 'parent_id',
                 'format' => 'raw',

@@ -53,7 +53,7 @@ var menu = {
 };
 window.addEventListener("load", function() {
     if (window.innerHeight < 741) { // value from CSS
-        mbts = document.querySelectorAll(".top-menu button");
+        mbts = document.querySelectorAll(".menu button");
         for (var i = 0; i < mbts.length; i++) {
             mbts[i].addEventListener("click", function() {
                 menu.showNext(this);
@@ -105,7 +105,7 @@ function paragraphStyle() {
 <!--HEADER-->
 <?php require_once 'header.php'; ?>
 <!--MAIN CONTENT-->
-<div class="main-content">
+<div class="main-content container">
 <?php
 if (!in_array(Yii::$app->controller->id, ['site'])) {
 ?>

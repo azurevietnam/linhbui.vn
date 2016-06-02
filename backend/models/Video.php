@@ -46,11 +46,12 @@ class Video extends \common\models\Video
     * function ->getLink ()
     */
     public $_link;
-    public function getLink ()
+    public function getLink()
     {
         if ($this->_link === null) {
-            $this->_link = Yii::$app->urlManager->createUrl(['video/index', 'slug' => $this->slug], true);
+            $this->_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['video/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
         }
+        
         return $this->_link;
     }
 

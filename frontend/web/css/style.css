@@ -47,7 +47,8 @@ html {
 .main-content {
     min-height: 25vw;
 }
-.header > .wrap, .breadcrumbs > .wrap, .main-content > .wrap, footer > .wrap {
+
+.container > .wrap {
     max-width: 1010px;
     margin: 0 auto;
 }
@@ -233,6 +234,9 @@ footer .info .title {
     content: "";
     clear: both;
     display: block;
+}
+.fluid {
+    margin: -0.5em;
 }
 [class*="col-"] {
     float: left;

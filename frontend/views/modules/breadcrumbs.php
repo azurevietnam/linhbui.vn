@@ -1,4 +1,4 @@
-<div class="breadcrumbs">
+<div class="breadcrumbs container">
 <div class="wrap">
 <ul>
 <?php

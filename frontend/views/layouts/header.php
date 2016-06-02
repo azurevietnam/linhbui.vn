@@ -4,10 +4,10 @@ use frontend\models\Menu;
 use yii\helpers\Url;
 
 ?>
-<div class="header">
+<div class="header container">
     <div class="wrap">
         <a class="logo" href="<?= Url::home(true) ?>" title="Linh Bùi"></a>
-        <div class="top-menu">
+        <div class="menu top-menu">
             <button type="button" title="Danh mục">
                 <svg fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none"/>

@@ -41,15 +41,13 @@ use Yii;
 class Gallery extends \common\models\Gallery
 {
     
-    /**
-    * function ->getLink ()
-    */
     public $_link;
-    public function getLink ()
+    public function getLink()
     {
         if ($this->_link === null) {
-            $this->_link = Yii::$app->urlManager->createUrl(['gallery/index', 'slug' => $this->slug], true);
+            $this->_link = Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['gallery/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
         }
+        
         return $this->_link;
     }
 

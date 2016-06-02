@@ -4,7 +4,7 @@ use frontend\models\Article;
 use frontend\models\SiteParam;
 
 ?>
-<footer>
+<footer class="container">
     <div class="wrap">
         <div class="col-4">
             <div class="inv-logo">

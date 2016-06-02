@@ -43,11 +43,16 @@ class ProductCategory extends \common\models\ProductCategory
     * function ->getLink ()
     */
     public $_link;
-    public function getLink ()
+    public function getLink()
     {
         if ($this->_link === null) {
-            $this->_link = Yii::$app->urlManager->createUrl(['product-category/index', 'slug' => $this->slug], true);
+            if ($this->parent) {
+                $this->_link =  Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product-category/index', \common\models\PageGroup::URL_PARENT_CATEGORY_SLUG => $this->parent->slug, \common\models\PageGroup::URL_SLUG => $this->slug]);
+            } else {
+                $this->_link =  Yii::$app->params['frontend_url'] . Yii::$app->frontendUrlManager->createUrl(['product-category/index', \common\models\PageGroup::URL_SLUG => $this->slug]);
+            }
         }
+        
         return $this->_link;
     }
 
