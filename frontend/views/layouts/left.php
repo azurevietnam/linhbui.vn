@@ -92,12 +92,11 @@ if (!$this->context->is_mobile) {
     padding-left: 0.5em;
 }
 .side-menu .title {
-    background: #cea00e;
     color: #fff;
     font-weight: bold;
-    font-size: 1em;
     border-top-width: 1px;
-    border-color: #cea00a;
+    background: #d9ae5e;
+    border-color: #d9ae5e;
 }
 .side-menu .title svg {
     width: 2em;
@@ -108,8 +107,16 @@ if (!$this->context->is_mobile) {
     margin-top: -0.3em
 }
 .side-menu li a {
-    padding: 1em;
+    width: 100%;
+    padding: 0.8em;
     display: inline-block;
+}
+.side-menu li a:hover {
+    text-decoration: underline;
+}
+.side-menu li.title a:hover {
+    text-decoration: none;
+    cursor: default;
 }
 .side-menu > ul > li {
     border: 1px solid #fdebc4;
@@ -125,4 +132,3 @@ if (!$this->context->is_mobile) {
 </style>
 <?php
 }
-?>

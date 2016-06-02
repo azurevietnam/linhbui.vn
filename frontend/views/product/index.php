@@ -45,7 +45,7 @@
         <div class="magt10">
         <?php
             echo $this->render('list-view', [
-                'title' => 'Sản phẩm tương tự',
+                'title' => 'Xem thêm',
                 'items' => $related_items,
             ]);
         ?>
