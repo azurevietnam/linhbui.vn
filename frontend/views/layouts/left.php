@@ -68,10 +68,10 @@ if (!$this->context->is_mobile) {
     background: none;
     position: absolute;
     border: none;
-    width: 2.5em;
-    line-height: calc(2.5em - 2px);
-    height: 2.5em;
-    top: 0.5em;
+    width: 3.2em;
+    line-height: calc(3.2em - 1px);
+    height: 3.2em;
+    top: 0;
     right: 0;
 }
 .side-menu li.active > a {
@@ -108,7 +108,7 @@ if (!$this->context->is_mobile) {
 }
 .side-menu li a {
     width: 100%;
-    padding: 0.8em;
+    padding: 0.75em;
     display: inline-block;
 }
 .side-menu li a:hover {
