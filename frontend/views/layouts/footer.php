@@ -11,9 +11,25 @@ use frontend\models\SiteParam;
             </div>
             <div class="clearfix"></div>
             <div class="info">
-                <p><i>Add:</i> <?= SiteParam::findOneByName(SiteParam::PARAM_ADDRESS)->value ?></p>
-                <p><i>Phone:</i> <?= SiteParam::findOneByName(SiteParam::PARAM_PHONE_NUMBER)->value ?></p>
-                <p><i>Email:</i> <?= SiteParam::findOneByName(SiteParam::PARAM_EMAIL)->value ?></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><i class="icon icon-place"></i></td>
+                            <td>&nbsp;</td>
+                            <td><?= SiteParam::findOneByName(SiteParam::PARAM_ADDRESS)->value ?></td>
+                        </tr>
+                        <tr>
+                            <td><i class="icon icon-phone"></i></td>
+                            <td>&nbsp;</td>
+                            <td><?= SiteParam::findOneByName(SiteParam::PARAM_PHONE_NUMBER)->value ?></td>
+                        </tr>
+                        <tr>
+                            <td><i class="icon icon-email"></i></td>
+                            <td>&nbsp;</td>
+                            <td><?= SiteParam::findOneByName(SiteParam::PARAM_EMAIL)->value ?></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-4">
@@ -31,7 +47,7 @@ use frontend\models\SiteParam;
                         ->orderBy('position asc, published_at desc')
                         ->allPublished();
                 foreach ($items as $item) {
-                    echo "<p>&gt; {$item->a()}</p>";
+                    echo "<p>&rsaquo; {$item->a()}</p>";
                 }
                 ?>
             </div>
@@ -39,6 +55,19 @@ use frontend\models\SiteParam;
         <div class="col-4">
             <div class="info">
                 <p class="title">Theo dõi chúng tôi trên</p>
+                <p>
+                    <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_FACEBOOK)->value ?>" title="Facebook" target="_blank">
+                        <i class="icon icon-facebook"></i>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_GOOGLE_PLUS)->value ?>" title="Google Plus" target="_blank">
+                        <i class="icon icon-google-plus"></i>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_INSTAGRAM)->value ?>" title="Instagram" target="_blank">
+                        <i class="icon icon-instagram"></i>
+                    </a>
+                </p>
             </div>
         </div>
         <div class="clearfix"></div>

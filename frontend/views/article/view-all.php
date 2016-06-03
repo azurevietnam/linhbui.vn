@@ -26,6 +26,7 @@
                 break;
         }
         ?>
+        <?= $this->render("//modules/pagination", ['pagination' => $pagination]) ?>
         </div>
     </div>
 </div>
