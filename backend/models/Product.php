@@ -294,7 +294,7 @@ class Product extends \common\models\Product
             [['details', 'long_description'], 'string'],
             [['tag_ids', 'product_category_ids', 'published_at', 'created_at', 'updated_at'], 'safe'],
             [['review_score'], 'number', 'min' => 0, 'max' => 10],
-            [['name', 'slug', 'image', 'banner', 'manufacturer', 'image_path', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['malterial', 'color', 'style', 'name', 'slug', 'image', 'banner', 'manufacturer', 'image_path', 'page_title', 'h1', 'meta_title', 'meta_keywords', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 25],
             [['old_slugs'], 'string', 'max' => 2000],
             [['description', 'meta_description'], 'string', 'max' => 511],
@@ -314,7 +314,7 @@ class Product extends \common\models\Product
             'slug' => 'Slug',
             'old_slugs' => 'Old Slugs',
             'price' => 'Giá bán',
-            'original_price' => 'Original Price',
+            'original_price' => 'Giá niêm yết',
             'image' => 'Ảnh đại diện',
             'banner' => 'Ảnh banner',
             'image_path' => 'Image Path',
@@ -349,6 +349,9 @@ class Product extends \common\models\Product
             'review_score' => 'Đánh giá',
             'product_category_ids' => 'Danh mục sản phẩm',
             'tag_ids' => 'Tag',
+            'color' => 'Màu sắc',
+            'style' => 'Kiểu dáng',
+            'malterial' => 'Chất liệu',
         ];
     }
 

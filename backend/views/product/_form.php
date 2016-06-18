@@ -23,24 +23,6 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
         <?php // echo $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-        <?php // echo $form->field($model, 'old_slugs')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        <?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        <?php echo $form->field($model, 'banner', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getBanner() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        <?php // echo $form->field($model, 'image_path')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        <?php $model->published_at = $model->isNewRecord ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s', $model->published_at) ?>
-        <?= $form->field($model, 'published_at')->widget(TimePicker::className(), [
-            'language' => 'vi',
-            'mode' => 'datetime',
-            'clientOptions' => [
-                'dateFormat' => 'yy-mm-dd',
-                'timeFormat' => 'HH:mm:ss',
-                'showSecond' => true,
-            ],
-        ]) ?>
-        <?php echo $form->field($model, 'is_hot')->checkbox() ?>
-        <?= $form->field($model, 'is_active')->checkbox() ?>
-    </div>
-    <div class="col-md-6">
         <?php echo $form->field($model, 'product_category_ids')->widget(Select2::classname(), [
             'data' => \backend\models\ProductCategory::noContainsProductCategories(),
             'language' => 'vi',
@@ -52,6 +34,26 @@ use yii\widgets\ActiveForm;
                 'allowClear' => true
             ],
         ]); ?>
+        <?php // echo $form->field($model, 'old_slugs')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+        <?= $form->field($model, 'image', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getImage() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
+        <?php // echo $form->field($model, 'banner', ['template' => '{label}<div class="picturecut_image_container" ' . (!$model->isNewRecord ? 'style="background-image:url(' . $model->getBanner() . ')"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>
+        <?= $form->field($model, 'price')->textInput()->label() ?>
+        <?= $form->field($model, 'original_price')->textInput()->label() ?>
+        <?php // echo $form->field($model, 'image_path')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+        <?php $model->published_at = $model->isNewRecord ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s', $model->published_at) ?>
+        <?= $form->field($model, 'published_at')->widget(TimePicker::className(), [
+            'language' => 'vi',
+            'mode' => 'datetime',
+            'clientOptions' => [
+                'dateFormat' => 'yy-mm-dd',
+                'timeFormat' => 'HH:mm:ss',
+                'showSecond' => true,
+            ],
+        ]) ?>
+        <?php // echo $form->field($model, 'is_hot')->checkbox() ?>
+        <?= $form->field($model, 'is_active')->checkbox() ?>
+    </div>
+    <div class="col-md-6">
         <?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
@@ -101,15 +103,15 @@ use yii\widgets\ActiveForm;
         <?php // $form->field($model, 'sold_quantity')->textInput() ?>
         <?php // $form->field($model, 'total_quantity')->textInput() ?>
         <?php // $form->field($model, 'total_revenue')->textInput() ?>
-        <?= $form->field($model, 'manufacturer')->textInput() ?>
+        <?php // echo $form->field($model, 'manufacturer')->textInput() ?>
         <?php
         if ($model->isNewRecord) {
-            $model->price = 0;
-            $model->original_price = 0;
+//            $model->price = 0;
+//            $model->original_price = 0;
             $model->review_score = 0;
         }
         ?>
-        <?php 
+        <?php /*
         echo $form->field($model, 'review_score', ['template' => '{label}<code style="display:none"></code>{input}{error}{hint}'])->widget(StarRating::classname(), [
             'pluginOptions' => [
                 'size'=>'sm',
@@ -120,10 +122,11 @@ use yii\widgets\ActiveForm;
                 'showClear' => false,
                 'showCaption' => false,
             ],
-        ]);
+        ]); */
         ?>
-        <?= $form->field($model, 'price')->textInput(['readonly' => true, 'type' => 'hidden'])->label(false) ?>
-        <?= $form->field($model, 'original_price')->textInput(['readonly' => true, 'type' => 'hidden'])->label(false) ?>
+        <?= $form->field($model, 'malterial')->textInput()->label() ?>
+        <?= $form->field($model, 'color')->textInput()->label() ?>
+        <?= $form->field($model, 'style')->textInput()->label() ?>
         <?php // $form->field($model, 'status')->textInput() ?>
     </div>
     

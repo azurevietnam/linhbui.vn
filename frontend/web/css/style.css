@@ -16,7 +16,7 @@
     outline: none;
 }
 html {
-    font-family: Segoe UI, Arial;
+    font-family: Arial;
     font-size: 14px;
     line-height: 24px;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABYCAMAAAADSm2EAAAARVBMVEX///7//vn//fX+/PH999/99NP66aT++un++OP99tv99df+++7++uz++eX888377rr766766qn88cj88MT877/77bX77LLjO6sZAAAAOElEQVQI11XBhQ0AMQwDwGcs0/6j1rKiqL1bLh05cMOKngtmTOj41J985aEfafmWhn/eh9twnU46UiMC5zWoZDsAAAAASUVORK5CYII=');
@@ -28,6 +28,7 @@ html {
 .paragraph {
     width: 100%;
     max-width: calc(100%);
+    color: #666;
 }
 
 .paragraph .title {
@@ -191,7 +192,7 @@ footer .info .title {
 
 .list-view {
     margin-top: 1em;
-    color: #555;
+    color: #666;
 }
 .list-view .list {
     text-align: justify;
@@ -232,7 +233,7 @@ footer .info .title {
 }
 .list-view .thumb {
     text-align: left;
-    padding: 1%;
+    margin: 0.5%;
     width: 32%;
     display: inline-block;
     vertical-align: top;
@@ -340,7 +341,7 @@ footer .info .title {
 }
 .pagination > .counter {
     float: left;
-    color: #555;
+    color: #666;
 }
 
 .breadcrumbs {
@@ -397,10 +398,32 @@ footer .info .title {
 
 @media screen and (min-width: 1000px) {
     .list-view .thumb {
-        width: 24%;
+        width: 23%;
     }
 }
 @media screen and (min-width: 741px) {
+    .list-view .thumb .desc {
+        position: absolute;
+        background: rgba(247, 215, 48, 0.5);
+        text-transform: uppercase;
+        color: #fff;
+        font-size: 1.15em;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        height: fit-content;
+        transition: all 0.3s;
+        opacity: 0;
+    }
+    .list-view .thumb:hover .desc {
+        opacity: 0.9;
+    }
+    .list-view .thumb:hover .img-wrap {
+        -webkit-filter: grayscale(100%);
+         filter: grayscale(100%);
+    }
     footer .inv-logo {
         float: left;
         margin: 0;
@@ -510,6 +533,6 @@ footer .info .title {
         width: 100%;
     }
     .list-view .thumb {
-        width: 49%;
+        width: 47%;
     }
 }

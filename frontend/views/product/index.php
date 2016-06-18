@@ -1,3 +1,14 @@
+<?php
+
+use frontend\models\SiteParam;
+
+?>
+<style>
+    .prop-name {
+        color: #000;
+        font-size: 1.05em;
+    }
+</style>
 <div class="wrap">
     <div class="col-6">
         <?= $this->render('//modules/slideshow-multi', [
@@ -26,7 +37,15 @@
         <div class="dsk-padl10">
             <article class="paragraph">
                 <h2 class="title"><?= $model->name ?></h2>
-                <?= $model->description ?>
+                <p><?= $model->description ?></p>
+                <br>
+                <p><span class="prop-name">Màu sắc:</span> <?= $model->color ?></p>
+                <br>
+                <p><span class="prop-name">Chất liệu:</span> <?= $model->malterial ?></p>
+                <br>
+                <p><span class="prop-name">Kiểu dáng:</span> <?= $model->style ?></p>
+                <br>
+                <p><span class="prop-name">Giá bán/ thuê:</span> <?= $model->price == 0 || $model->price == "" ? 'Vui lòng liên hệ ' . SiteParam::findOneByName(SiteParam::PARAM_PHONE_NUMBER)->value : $model->price ?></p>
             </article>
         </div>
     </div>
