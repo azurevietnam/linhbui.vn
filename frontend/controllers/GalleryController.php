@@ -45,7 +45,15 @@ class GalleryController extends BaseController
                 ];
             }
             
-            $model->updateCounters(['view_count' => 1]);
+            if ($model->comment_count == '') {
+                $model->comment_count = 0;
+            }
+            if ($model->view_count == '') {
+                $model->view_count = 1;
+                $model->save();
+            } else {
+                $model->updateCounters(['view_count' => 1]);
+            }
             
             return $this->render('index', [
                 'model' => $model,

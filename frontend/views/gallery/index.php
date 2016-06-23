@@ -4,6 +4,14 @@
     </div>
     <div class="col-9">
         <div class="dsk-padl10">
+            <div class="col-12 paragraph">
+                <h2 class="title"><?= $model->name ?></h2>
+                <div style="margin-top:-.5em;color:#888" class="paragraph">
+                    <span><i class="icons2 icon-eye"></i> Lượt xem: <span style="color:#dbbb6c"><?= $model->view_count ?></span></span>
+                    &nbsp; &nbsp;
+                    <span><i class="icons2 icon-chat"></i> Lượt bình luận: <span style="color:#dbbb6c"><?= $model->comment_count ?></span></span>
+                </div>
+            </div>
             <?= $this->render('//modules/slideshow-multi', [
                 'data' => $slideshow,
                 'options' => [
@@ -26,7 +34,6 @@
             ]);
             ?>
             <div class="paragraph col-12">
-                <h2 class="title"><?= $model->name ?></h2>
                 <?= $model->description ?>
             </div>
             <?= $this->render('//modules/comment') ?>

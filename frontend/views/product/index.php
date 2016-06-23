@@ -4,11 +4,43 @@ use frontend\models\SiteParam;
 
 ?>
 <style>
-    .prop-name {
-        color: #000;
-        font-size: 1.05em;
-    }
+.prop-name {
+    color: #000;
+    font-size: 1.05em;
+}
+.hidden {
+    display: none;
+}
+.hidden.active {
+    display: block;
+}
+.tab-name {
+    font-weight: normal !important;
+    padding-right: 1em;
+}
+.tab-name:not(:first-child) {
+    padding-left: 1em;
+    border-left: 1px solid #eee;
+}
+.tab-name.active {
+    color: #fc0 !important;
+}
+
 </style>
+<script>
+function showElem(id, e) {
+    var hiddens = document.getElementsByClassName("hidden");
+    for (var i = 0; i < hiddens.length; i++) {
+        hiddens[i].classList.remove("active");
+    }
+    var tabNames = document.getElementsByClassName("tab-name");
+    for (var i = 0; i < tabNames.length; i++) {
+        tabNames[i].classList.remove("active");
+    }
+    document.getElementById(id).classList.add("active");
+    e.classList.add("active");
+}
+</script>
 <div class="wrap">
     <div class="col-6">
         <?= $this->render('//modules/slideshow-multi', [
@@ -51,9 +83,23 @@ use frontend\models\SiteParam;
     </div>
     <div class="col-12">
         <div class="magt10">
-            <article class="paragraph">
-                <h2 class="title">Thông tin sản phẩm</h2>
+            <p class="paragraph magb10">
+                <a onclick="showElem('details', this)" href="javascript:;" class="tab-name active title">Thông tin sản phẩm</a>
+                <a onclick="showElem('comment', this)" href="javascript:;" class="tab-name title">Đánh giá</a>
+                <a onclick="showElem('contact', this)" href="javascript:;" class="tab-name title">Thông tin liên hệ</a>
+            </p>
+            <article id="details" class="active hidden paragraph">
                 <?= $model->details ?>
+            </article>
+            <article id="comment" class="hidden paragraph">
+                <?= $this->render('//modules/comment', [
+                    'id' => $model->id,
+                    'counter_url' => yii\helpers\Url::to(['product/counter'], true),
+                    'options' => ['class' => 'box-comment'],
+                ]) ?>
+            </article>
+            <article id="contact" class="hidden paragraph">
+                <?= frontend\models\Article::findOneByType(frontend\models\Article::TYPE_CONTACT_US)->content ?>
             </article>
         </div>
     </div>
