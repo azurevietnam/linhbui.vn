@@ -92,11 +92,21 @@ function showElem(id, e) {
                 <?= $model->details ?>
             </article>
             <article id="comment" class="hidden paragraph">
-                <?= $this->render('//modules/comment', [
+                <?php /* echo $this->render('//modules/comment', [
                     'id' => $model->id,
                     'counter_url' => yii\helpers\Url::to(['product/counter'], true),
                     'options' => ['class' => 'box-comment'],
-                ]) ?>
+                ]) */ ?>
+                <form id="comment" method="POST" action="product-comment/create">
+                    <label>Tên:</label>
+                    <input type="text" name="name">
+                    <br>
+                    <label>Email:</label>
+                    <input type="text" name="email">
+                    <br>
+                    <label>Nội dung:</label>
+                    <textarea name="content"></textarea>
+                </form>
             </article>
             <article id="contact" class="hidden paragraph">
                 <?= frontend\models\Article::findOneByType(frontend\models\Article::TYPE_CONTACT_US)->content ?>
@@ -120,3 +130,34 @@ function showElem(id, e) {
     }
     ?>
 </div>
+
+<script>
+var form = document.querySelector("#send-email form");
+var message = document.querySelector("#send-email .message");
+form.onsubmit = function(event) {
+    event.preventDefault();
+    var email_input = form.querySelector("input[name=email]");
+    var email = email_input.value;
+    email_input.value = "";
+    var url = form.action;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+            console.log(xhttp.responseText);
+            if (xhttp.responseText === "1") {
+                message.classList.remove("fail");
+                message.classList.add("success");
+                message.innerHTML = "Email đã được gửi, cảm ơn bạn!";
+            } else {
+                message.classList.remove("success");
+                message.classList.add("fail");
+                message.innerHTML = "Không gửi được. Hoặc email này đã tồn tại, hoặc không đúng định dạng.";
+            }
+        }
+    };
+    xhttp.open("POST", url);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("email=" + email + "&<?= Yii::$app->request->csrfParam; ?>=<?= Yii::$app->request->csrfToken; ?>");
+    return;
+};
+</script>
