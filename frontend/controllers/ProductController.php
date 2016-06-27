@@ -36,13 +36,6 @@ class ProductController extends BaseController
             }
             
             $slideshow = [];
-            $slideshow[] = [
-                'caption' => '',
-                'link' => '',
-                'img_src' => $model->getImage(),
-                'img_src_preview' => $model->getImage(\frontend\models\Product::IMAGE_MEDIUM),
-                'img_alt' => $model->name,
-            ];
             foreach ($model->productImages as $item) {
                 $slideshow[] = [
                     'caption' => $item->caption,

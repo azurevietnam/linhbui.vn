@@ -16,11 +16,12 @@ use frontend\models\SiteParam;
 }
 .tab-name {
     font-weight: normal !important;
+    white-space: nowrap;
     padding-right: 1em;
 }
-.tab-name:not(:first-child) {
-    padding-left: 1em;
-    border-left: 1px solid #eee;
+.tab-name:not(:last-child) {
+    margin-right: 1em;
+    border-right: 1px solid #eee;
 }
 .tab-name.active {
     color: #fc0 !important;
@@ -47,15 +48,15 @@ function showElem(id, e) {
             'data' => $slideshow,
             'options' => [
                 'box_width_preview' => $this->context->is_mobile ? '100%' : '100%',
-                'img_max_height_preview' => '450px',
+                'img_max_height_preview' => '500px',
                 'img_wph_ratio_preview' => 1,
-                'img_margin_preview' => isset($slideshow[1]) ? '2%' : '0%',
-                'img_number_preview' => $this->context->is_mobile ? 1 : 3,
+                'img_margin_preview' => '0',
+                'img_number_preview' => $this->context->is_mobile ? 1 : 1,
 
                 'box_width' => $this->context->is_mobile ? '100%' : '100%',
-                'img_max_width' => '',
+                'img_max_width' => '100%',
                 'img_max_height' => '100vh',
-                'img_wph_ratio' => 3,
+                'img_wph_ratio' => 0.5,
 
                 'time_slide' => 300,
                 'time_out' => 3000,

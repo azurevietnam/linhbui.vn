@@ -102,53 +102,52 @@ use yii\web\View;
         ?>
         if (e.target.id === "SelectOrientacao") {
             var new_select = $("<?= $new_select ?>");
-            var def_select = $("#SelectProporcao");
-            var cropbox = $("#SelecaoRecorte");
-            new_select.insertAfter(def_select);
+            var default_select = $("#SelectProporcao");
+            var crop_box = $("#SelecaoRecorte");
+            new_select.insertAfter(default_select);
             new_select.css({
                 "width":"100%",
-                "height":def_select.height() + "px",
-                "border":def_select.css("border")
+                "height":default_select.height() + "px",
+                "border":default_select.css("border")
             });
-            def_select.css({
+            default_select.css({
                 "width":"0px",
                 "height":"0px",
                 "border":"none",
                 "position":"absolute",
                 "visibility":"hidden"
             });
-            def_select.html(def_select.children("option[value=livre]")); // important !!!
-            def_select.prop("disabled",true);
+            default_select.html(default_select.children("option[value=livre]")); // important !!!
+            default_select.prop("disabled",true);
             var x = 2; // x > 1
             new_select.change(function(){
                 var r = new_select.val();
                 if ($.isNumeric(r)) {
-                    var p = cropbox.parent();
+                    crop_box.unbind("resize");
+                    var p = crop_box.parent();
+                    crop_box.css("max-width", p.width());
+                    crop_box.css("max-height", p.height());
                     if (p.width() / p.height() <= x * r) {
-                        cropbox.css("max-width", "calc(" + String(100 * (1 / x)) + "%)");
-                        cropbox.css("min-width", "calc(" + String(100 * (1 / x)) + "%)");
-                        cropbox.css("max-height", cropbox.width() / r + "px");
-                        cropbox.css("min-height", cropbox.width() / r + "px");
+                        crop_box.css("width", "calc(" + String(100 * (1 / x)) + "%)");
+                        crop_box.css("height", crop_box.width() / r + "px");
                     } else {
-                        cropbox.css("max-height", "calc(" + String(100 * (1 / x)) + "%)");
-                        cropbox.css("min-height", "calc(" + String(100 * (1 / x)) + "%)");
-                        cropbox.css("max-width", cropbox.height() * r + "px");
-                        cropbox.css("min-width", cropbox.height() * r + "px");
+                        crop_box.css("height", "calc(" + String(100 * (1 / x)) + "%)");
+                        crop_box.css("width", crop_box.height() * r + "px");
                     }
-                    cropbox.resize(function(){
-                        cropbox.css("max-height", "calc(" + String(100 * x) + "%)");
-                        cropbox.css("max-width", "calc(" + String(100 * x) + "%)");
-                        cropbox.css("min-width", "auto");
-                        cropbox.css("min-height", "auto");
-                        cropbox.height((cropbox.width() / r) + "px");
+                    crop_box.resize(function(){
+                        var height = (crop_box.width() / r) + "px";
+                        var width = (crop_box.height() * r) + "px";
+                        crop_box.height(height);
+                        crop_box.width(width);
+                        if (parseInt(crop_box.css("top")) + parseInt(crop_box.height()) > parseInt(p.height()) ) {
+                            crop_box.css("top", parseInt(p.height()) - parseInt(crop_box.height()) + "px");
+                        }
+                        if (parseInt(crop_box.css("left")) + parseInt(crop_box.width()) > parseInt(p.width()) ) {
+                            crop_box.css("left", parseInt(p.width()) - parseInt(crop_box.width()) + "px");
+                        }
                     });
                 } else {
-//                    cropbox.css("max-height", "auto");
-//                    cropbox.css("max-width", "auto");
-//                    cropbox.css("min-width", "auto");
-//                    cropbox.css("min-height", "auto");
-//                    cropbox.width("auto");
-//                    cropbox.height("auto");
+                    crop_box.unbind("resize");
                 }
             });
         }

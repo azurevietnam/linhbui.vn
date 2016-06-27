@@ -70,7 +70,7 @@ $id = uniqid('_');
     right: 0;
     margin: 0 auto;
     color: #fff;
-    background: rgba(20, 20, 20, 0.5);
+    /*background: rgba(20, 20, 20, 0.5);*/
 }
 #<?= $id ?> .bt-prev,
 #<?= $id ?> .bt-next {

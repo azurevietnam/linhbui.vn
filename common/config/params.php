@@ -28,7 +28,8 @@ return [
     'default_image' => '',
     
     'wph_ratios' => [
-        'product_image' => 3/4,
+        'product_slide_image' => 15/16.93,
+        'product_image' => 7.12/10.56,
         'product_category_image' => 1/1,
         'article_image' => 16/9, // 4^2 / 3^2
         'gallery_image' => 16/9,
