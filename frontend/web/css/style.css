@@ -35,8 +35,12 @@ html {
     font-size: 1.2em;
     color: #cea00e;
     font-weight: bold;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
     text-transform: uppercase;
+}
+
+.paragraph .info {
+    color:#888;
 }
 
 .clearfix {
@@ -189,7 +193,7 @@ footer .info .title {
     height: 10px;
     width: 14px;
 }
-.icons2 {
+.icon2 {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGUAAAAxCAMAAAD0vZccAAABLFBMVEUAAAClpqekpaeoqKqhoqSjpKarrK3JyctdXV20tbdnZ2eLi4ugoaO/wMHc3Nx+fn6ur7GwsLHFxcbU1NRxcXGCgoK4uLjMzMzW1thkZGRjY2NpaWlubm6GhoaRkZGUlJSYmJigoaXOztDd3d2lpqqlpqikpaf///+jp6qmp6n+/v8/Pz+jpKajpKiio6Woqas8PDyhoqT8/P3+/f2nqa2mp6u1tripqq1BQUE6Ojqio6exsrT5+fq4ubq0tbasra+gpKegoaOipqn29vfKysulqayEhIRDQ0P7+/vy8/Tt7e68vL2fn6Hm5ubU1dbPz9CZmZn///3p6evBwsRkZGRYWFhNTU1ISEji4uLf4OLb3N3X2NqVlZWMjIx9fX1TU1M3NzfExceOjo5qamqT3dNwAAAAJHRSTlMAbnJrdnJlLP1T5KF6Pgi5X1szF9GxSiYT7Ozh2auUkYl6IgQ/FO4lAAAD5klEQVRYw7WYh46bQBCGl/hakkvvvTHDDbvsUg+M+zVf7yW9vv87ZLAsJUqELTvhM822lo9/Zo0shOusfb6Q55/XnNBxHccJ3f1PC/LLVfEbD1sdmBANxqSth2JI+EkWfM2+R2HkuGHzY9/3+YP6czHkQc0iwAkhVAho1ebFAJJ+nU/rZ3UMnchZ/eHL+kZ7w+/LK2LArcWU0gAmhHRPEQHWboqChbqfSaYuz1bbTvOU3x06W9Eh7weauVnaJaKJs5AxpLSimTnBSMkXzyuz2t/ZkDL7ut3yd/ZY3b8hxE1LpRCQN3EW1AqIwUtFmtPCkPm8PX3vP76X1aXc25GtPd7LZ+KBRYECtL2lCemurK8vrax0EZV1W4h5mclsEGbto+yLK+w7jLhiXMMnQliaSFHsxUuTwopCBkRwicPc5t7zct7az+SCEE/ZyN1nyV2+hJpdgra9PPYSOzCkOSzYJXg5kfVaiGvy/N7djc7WzoUv77P1RZb59b4vXwr+rnR0nMQeb3KNWhmjlF1CkgOpa0LcsIS4vgYLXLMZUXD96tnFl6vXBXNZlWZRvY7aNcoQIiCa0qvJAdQtMTzxwtmjenZH/EGt1AKqcZICFHMDgEV2GR4iWuIXb25c+dMyWzqaVCt810BNROyioFRig4JZMZJZskswu23Haa6RVgTFapeQJ4BgjbZYpaMxbTusOW5AoRkxxxIkrI2xYGn3aXlwEw8PjAbGLkUZPSbLpdLRgMvsKF7HbZ0CBin3Zn1l6e++IMA/WxzXdfcBlVGa7LzbrcgSsmev3UEE8Lx4vSKLExVxDgwBQmJ71ViiiIvGbO9oQjR5VRXjLJshH35IewBUjeXoiKNwnKbrbJ8oVZElOopYsulwKI7TCSqysIMp9lHT3epU1JfCtBlyFD48bkE1ls1hlmYYOvsAWFUWnsuDJNuNIA1MNRbXLRwR3zWJKCCqLAtP4uZ2gwKFxvSqsjCrB0AKAFU3rqhi3JW3La2AEIH/hP1fC0Gr+Cm6obu6RhrIHvJ/LUo3OAgv7xoAGoJqLJS23ZA7ctJRPTS6oiy9dNkNo7eNXSggVY0FseFufcOgQwESAlZjWcf2+8auMRgYQuyl1Vi6cUAKFWmDoHqkKsrSXTKaeNEARPhP3a8FnpfYiRfE9pQQQkBjLLco9jydx6k9LaTIqLnRlmuUJImtvVhPb4HA3B9tubPo2V4ce6yaElAUWHfEaObs2GONPb0FDNXEGOZf2XHucc2mz6IW58U4Li8mdp7kU7efgtnLYjxzMwk3f+qKDZ+QjE8zQwY1TAgBEhGqYZLxzNdmEHBSlAJAq3ZbFPwEoN8x5XeyelQAAAAASUVORK5CYII=');
     background-size: auto;
     background-repeat: no-repeat;
@@ -207,8 +211,8 @@ footer .info .title {
 }
 .icon-play {
     background-position: -28px 0;
-    height: 40px;
-    width: 6px;
+    height: 50px;
+    width: 75px;
 }
 
 .list-view {
