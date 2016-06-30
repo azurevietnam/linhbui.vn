@@ -22,9 +22,10 @@ class FileUtils {
         '#' => '-', 
         '?' => '-', 
         '/' => '-',
+        '_' => '-',
         '&ndash;' => '-',
         ' - ' => '-',
-        ' ' => '-'
+        ' ' => '-',
     ];
     public static $allow_extensions = [
         'jpg',

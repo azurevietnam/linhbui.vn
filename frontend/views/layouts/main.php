@@ -81,12 +81,12 @@ function paragraphStyle() {
                 setStyle(els[i]);
             }
             function setStyle(el) {
-                el.style.maxWidth = "initial";
-                el.style.maxHeight = "initial";
-                el.style.minWidth = "initial";
-                el.style.minHeight = "initial";
                 el_w = parseInt(window.getComputedStyle(el, null).getPropertyValue("width"));
                 if (el_w > g_w) {
+                    el.style.maxWidth = "initial";
+                    el.style.maxHeight = "initial";
+                    el.style.minWidth = "initial";
+                    el.style.minHeight = "initial";
                     el.style.paddingRight = "0px";
                     el.style.paddingLeft = "0px";
                     el.style.boxSizing = "border-box";
@@ -118,7 +118,7 @@ if (!in_array(Yii::$app->controller->id, ['site'])) {
 </div>
 <!--FOOTER-->
 <?php require_once 'footer.php'; ?>
-<?php // require_once 'plugins.php'; ?>
+<?php require_once 'plugins.php'; ?>
 <?php $this->endBody() ?>
 </body>
 </html>

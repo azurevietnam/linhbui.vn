@@ -27,7 +27,7 @@ function updateCommentCount(id, url){
             var xhttp2 = new XMLHttpRequest();
             xhttp2.onreadystatechange = function() {
                 if (xhttp2.readyState == 4 && xhttp2.status == 200) {
-//                    console.log(xhttp2.responseText);
+                    console.log(xhttp2.responseText);
                 }
             }
             xhttp2.open("POST", url);

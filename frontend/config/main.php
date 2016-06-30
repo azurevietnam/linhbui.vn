@@ -56,6 +56,8 @@ return [
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
                 ['pattern' => "sitemap-<$alias>.xml", 'route' => 'sitemap/details'],
+                // Contact
+                ['pattern' => 'contact/create-with-email', 'route' => 'contact/create-with-email'],
                 // Sản phẩm
                 ['pattern' => 'product/counter', 'route' => 'product/counter'],
                 ['pattern' => 'san-pham', 'route' => 'product/view-all'],

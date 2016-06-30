@@ -4,7 +4,7 @@ return [
     'supportEmail' => 'support@linhbui.vn',
     'user.passwordResetTokenExpire' => 3600,
     
-    'fb_app_id' => '',
+    'fb_app_id' => '1080538282021653',
     'ga_id' => '',
     'gcse_cx' => '',
     

@@ -108,13 +108,13 @@ class MyActiveRecord extends ActiveRecord {
         $has_src = false;
         if (is_array($params)) {
             foreach ($params as $attr => $val) {
-                if ($attr == 0) {
-                    $result .= "class=\"$val\"";
-                } else if ($attr == 1) {
-                    $result .= "id=\"$val\"";
-                } else {
+//                if ($attr == 0) {
+//                    $result .= "class=\"$val\"";
+//                } else if ($attr == 1) {
+//                    $result .= "id=\"$val\"";
+//                } else {
                     $result .= "$attr=\"$val\"";
-                }
+//                }
                 if ($attr == 'src') {
                     $has_src = true;
                 }
@@ -128,6 +128,8 @@ class MyActiveRecord extends ActiveRecord {
             } else {
                 $result .= "src=\"{$this->getImage()}\">";
             }
+        } else {
+            $result .= ">";
         }
         return $result;
     }

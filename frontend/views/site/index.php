@@ -35,60 +35,86 @@ use yii\helpers\Url;
         'items' => $products
     ]) ?>
     
-    <section class="row list-view">
-        <div id="send-email" class="col-12">
-            <form class="row" method="POST" action="<?= Url::to(['contact/create-with-email'], true) ?>">
-                <label>Gửi email theo dõi</label>
-                <input type="input" name="email">
-                <button type="submit" name="submit">Gửi</button>
-            </form>
-            <div class="message"></div>
-        </div>
-    </section>
     
 </div>
+
+<section class="row">
+    <div id="send-email" class="col-12">
+        <strong class="title">Đăng ký nhận thông tin từ chúng tôi!</strong>
+        <p class="desc">Đăng ký email để nhận tin tức các sự kiện và chương trình giảm giá sớm nhất</p>
+        <form class="row" method="POST" action="<?= Url::to(['contact/create-with-email'], true) ?>">
+            <input type="input" name="email" placeholder="Nhập email của bạn">
+            <button type="submit" name="submit">Đăng ký</button>
+        </form>
+        <div class="message"></div>
+    </div>
+</section>
 
 <style>
 #send-email {
     background: #eee;
-    padding: 125px 0;
+    padding-top: 70px;
+    padding-bottom: 100px;
     
     margin-bottom: 1em;
+    background-image: url("<?= Yii::$app->params['images_url'] ?>/bg_email.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 #send-email > * {
     margin: 0 auto;
     width: 50%;
     min-width: 300px;
 }
-#send-email label {
+#send-email .title {
     display: block;
     width: 100%;
     text-align: center;
     
     text-transform: uppercase;
-    margin-bottom: 1em;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #cea00e;
+    font-size: 1.8em;
+    line-height: 1.4em;
+    color: #4d4d4d;
+    margin-bottom: 0.3em;
+}
+#send-email .desc {
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 1.8em;
 }
 #send-email input {
-    width: calc(99% - 5em);
+    width: calc(100% - 7em);
     float: left;
     
-    height: 2em;
-    padding: 0 5px;
-    border: 1px solid #ccc;
+    height: 3em;
+    padding: 0 1em;
+    border: none;
+    border-radius: 4px 0 0 4px;
     color: #cea00e;
 }
+#send-email input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ddd;
+}
+#send-email input::-moz-placeholder { /* Firefox 19+ */
+  color: #ddd;
+}
+#send-email input:-ms-input-placeholder { /* IE 10+ */
+  color: #ddd;
+}
+#send-email input:-moz-placeholder { /* Firefox 18- */
+  color: #ddd;
+}
 #send-email button {
-    width: 5em;
+    width: 7em;
     float: right;
     
-    height: 2em;
-    border: 1px solid #ccc;
-    background: #eee;
-    text-transform: uppercase;
-    color: #cea00e;
+    height: 3em;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    background: #d9ae5e;
+    color: #fff;
+    font-weight: bold;
     cursor: pointer;
 }
 #send-email input:focus,
@@ -96,12 +122,15 @@ use yii\helpers\Url;
     border-color: #cea00e;
 }
 #send-email .message {
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: 0.2em;
 }
 #send-email .success {
     color: #2a0;
 }
 #send-email .fail {
-    color: #e00;
+    color: #e0221a;
 }
 </style>
 
@@ -112,6 +141,9 @@ form.onsubmit = function(event) {
     event.preventDefault();
     var email_input = form.querySelector("input[name=email]");
     var email = email_input.value;
+    if (email === "") {
+        return;
+    }
     email_input.value = "";
     var url = form.action;
     var xhttp = new XMLHttpRequest();
@@ -125,7 +157,7 @@ form.onsubmit = function(event) {
             } else {
                 message.classList.remove("success");
                 message.classList.add("fail");
-                message.innerHTML = "Không gửi được. Hoặc email này đã tồn tại, hoặc không đúng định dạng.";
+                message.innerHTML = "Không gửi được. Có thể email này đã tồn tại hoặc không đúng định dạng.";
             }
         }
     };

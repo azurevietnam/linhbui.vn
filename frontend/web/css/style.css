@@ -429,7 +429,7 @@ footer .info .title {
         background: rgba(237, 194, 94, 0.5);
         text-transform: uppercase;
         color: #fff;
-        font-size: 1.15em;
+        font-size: 1.05em;
         top: 0;
         bottom: 0;
         right: 0;
@@ -440,11 +440,11 @@ footer .info .title {
         opacity: 0;
     }
     .list-view .thumb:hover .desc {
-        opacity: 0.9;
+        opacity: 0.95;
     }
     .list-view .thumb:hover .img-wrap {
-        -webkit-filter: grayscale(100%);
-         filter: grayscale(100%);
+        -webkit-filter: grayscale(90%);
+         filter: grayscale(90%);
     }
     footer .inv-logo {
         float: left;
@@ -468,8 +468,8 @@ footer .info .title {
 }
 @media screen and (min-width: 1000px) {
     .list-view .thumb {
-        width: 23.6%;
-        margin: 0.55%;
+        width: 23%;
+        margin: 0.6%;
     }
 }
 @media screen and (max-width: 740px) {

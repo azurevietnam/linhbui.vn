@@ -1,9 +1,15 @@
 <section class="row list-view">
+    <?php
+    if ($title != '') {
+    ?>
     <h2 class="title">
         <i></i>
         <span><?= $title ?></span>
         <i></i>
     </h2>
+    <?php
+    }
+    ?>
     <div class="list">
         <?php
         foreach ($items as $item) {
