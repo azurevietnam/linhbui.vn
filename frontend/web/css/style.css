@@ -427,6 +427,39 @@ footer .info .title {
     .list-view .thumb .desc {
         position: absolute;
         background: rgba(237, 194, 94, 0.5);
+        background: red; /* For browsers that do not support gradients */
+        /* For Safari 5.1 to 6.0 */
+        background: -webkit-linear-gradient(left,
+            rgba(237, 194, 94, 0.2),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.2));
+        /* For Opera 11.1 to 12.0 */
+        background: -o-linear-gradient(left,
+            rgba(237, 194, 94, 0.2),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.2));
+        /* For Fx 3.6 to 15 */
+        background: -moz-linear-gradient(left,
+            rgba(237, 194, 94, 0.2),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.2));
+        /* Standard syntax */
+        background: linear-gradient(left,
+            rgba(237, 194, 94, 0.2),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.8),
+            rgba(237, 194, 94, 0.6),
+            rgba(237, 194, 94, 0.2));
         text-transform: uppercase;
         color: #fff;
         font-size: 1.05em;

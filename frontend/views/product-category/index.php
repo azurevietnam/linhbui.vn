@@ -7,7 +7,7 @@
         <?= $category->banner != '' ? $category->img(['src' => $category->getBanner(), 'style' => 'width:100%']) : '' ?>
         <?php
             echo $this->render('//product/list-view', [
-                'title' => '',
+                'title' => $category->name,
                 'items' => $items,
             ]);
         ?>
