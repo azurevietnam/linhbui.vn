@@ -14,29 +14,33 @@ use yii\helpers\Url;
 ]);
 ?>
 <div class="wrap">
+    <br>
     <section class="row list-view">
         <h2 class="title">
-            <i></i>
-            <span>Chúng tôi là ai?</span>
-            <i></i>
+            <hr>
+            <strong>
+                <i></i>
+                <span>Chúng tôi là ai</span>
+                <i></i>
+            </strong>
         </h2>
         <div class="introtext paragraph col-12">
             <?= Article::findOneByType(Article::TYPE_ABOUT_US)->description ?>
         </div>
     </section>
-    
+    <br>
     <?= $this->render('//product-category/list-view', [
         'title' => 'Bộ sưu tập mới',
         'items' => $product_categories
     ]) ?>
-    
+    <br>
     <?= $this->render('//product/list-view', [
         'title' => 'Sản phẩm nổi bật',
         'items' => $products
     ]) ?>
-    
-    
 </div>
+
+<br>
 
 <section class="row">
     <div id="send-email" class="col-12">
@@ -49,6 +53,8 @@ use yii\helpers\Url;
         <div class="message"></div>
     </div>
 </section>
+
+<br>
 
 <style>
 #send-email {

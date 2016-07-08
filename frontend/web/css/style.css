@@ -216,7 +216,6 @@ footer .info .title {
 }
 
 .list-view {
-    margin-top: 1em;
     color: #666;
 }
 .list-view .list {
@@ -231,8 +230,8 @@ footer .info .title {
     font-size: 1.4em;
 }
 .list-view .title i {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     transform: rotate(45deg);
     background: #d9ae5e;
     display: inline-block;
@@ -242,7 +241,59 @@ footer .info .title {
 .list-view .title span {
     margin: 0 1.2em;
 }
+.title strong {
+    font-weight: normal;
+    padding: 0 1.2em;
+    background: #fff;
+    white-space: nowrap;
+}
+.title hr {
+    width: 90%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 1px;
+    border: none;
+    background: rgba(220, 220, 220, 0.5);
+    /* For Safari 5.1 to 6.0 */
+    background: -webkit-linear-gradient(left,
+        rgba(220, 220, 220, 0.2),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.2));
+    /* For Opera 11.1 to 12.0 */
+    background: -o-linear-gradient(left,
+        rgba(220, 220, 220, 0.2),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.2));
+    /* For Fx 3.6 to 15 */
+    background: -moz-linear-gradient(left,
+        rgba(220, 220, 220, 0.2),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.2));
+    /* Standard syntax */
+    background: linear-gradient(left,
+        rgba(220, 220, 220, 0.2),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.8),
+        rgba(220, 220, 220, 0.6),
+        rgba(220, 220, 220, 0.2));
+}
 .list-view .introtext {
+    text-align: justify;
 }
 .list-view .thumb .desc {
     padding: 0.5em 0;
@@ -265,7 +316,6 @@ footer .info .title {
     text-align: left;
     width: 100%;
     float: left;
-    border-top: 1px dotted #ccc;
     padding: 0.5em;
 }
 .list-view .thumb .img-wrap {
@@ -427,7 +477,6 @@ footer .info .title {
     .list-view .thumb .desc {
         position: absolute;
         background: rgba(237, 194, 94, 0.5);
-        background: red; /* For browsers that do not support gradients */
         /* For Safari 5.1 to 6.0 */
         background: -webkit-linear-gradient(left,
             rgba(237, 194, 94, 0.2),

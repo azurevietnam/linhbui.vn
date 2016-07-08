@@ -29,11 +29,14 @@
 }
 </style>
 <section class="row list-view">
-    <h1 class="title">
-        <i></i>
-        <span><?= $title ?></span>
-        <i></i>
-    </h1>
+    <h2 class="title">
+        <hr>
+        <strong>
+            <i></i>
+            <span><?= $title ?></span>
+            <i></i>
+        </strong>
+    </h2>
     <div class="list">
         <?php
         foreach ($items as $item) {

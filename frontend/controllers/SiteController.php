@@ -77,7 +77,7 @@ class SiteController extends BaseController
     {
         $this->link_canonical = Url::home(true);
         $slideshow = [];
-        foreach (SlideshowItem::find()->allActive() as $item) {
+        foreach (SlideshowItem::find()->orderBy('position asc')->allActive() as $item) {
             $slideshow[] = [
                 'caption' => $item->caption,
                 'link' => $item->link,
@@ -85,8 +85,8 @@ class SiteController extends BaseController
                 'img_alt' => $item->caption,
             ];
         }
-        $product_categories = ProductCategory::find()->limit(8)->orderBy('id desc')->allActive();
-        $products = Product::find()->limit(8)->orderBy('id desc')->allActive();
+        $product_categories = ProductCategory::find()->limit(8)->orderBy('position asc')->allActive();
+        $products = Product::find()->limit(8)->orderBy('published_at desc')->allActive();
         return $this->render('index', [
             'slideshow' => $slideshow,
             'product_categories' => $product_categories,

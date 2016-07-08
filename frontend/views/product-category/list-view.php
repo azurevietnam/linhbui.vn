@@ -1,16 +1,20 @@
 <section class="row list-view">
     <h2 class="title">
-        <i></i>
-        <span><?= $title ?></span>
-        <i></i>
+        <hr>
+        <strong>
+            <i></i>
+            <span><?= $title ?></span>
+            <i></i>
+        </strong>
     </h2>
+    <br>
     <div class="list">
         <?php
         foreach ($items as $item) {
         ?>
         <a class="thumb" href="<?= $item->getLink() ?>" title="<?= $item->name ?>">
             <div class="img-wrap">
-                <img src="<?= $item->getImage(\common\models\MyActiveRecord::IMAGE_SMALL) ?>" title="<?= $item->name ?>" alt="<?= $item->name ?>">
+                <img src="<?= $item->getImage(\common\models\MyActiveRecord::IMAGE_MEDIUM) ?>" title="<?= $item->name ?>" alt="<?= $item->name ?>">
             </div>
             <div class="desc">
                 <h3 class="name"><?= $item->name ?></h3>
@@ -22,3 +26,6 @@
         ?>
     </div>
 </section>
+<style>
+
+</style>
