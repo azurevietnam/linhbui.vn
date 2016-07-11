@@ -63,11 +63,15 @@ window.addEventListener("load", function() {
 });
 
 //Paragraph html
+paragraphStyle();
+thumnailStyle();
 window.addEventListener("load", function(){
     paragraphStyle();
+    thumnailStyle();
 });
 window.addEventListener("resize", function(){
     paragraphStyle();
+    thumnailStyle();
 });
 function paragraphStyle() {
     var g;
@@ -95,6 +99,19 @@ function paragraphStyle() {
                 }
             }
         }
+    }
+}
+
+function thumnailStyle() {
+    var ths = document.querySelectorAll(".list-view .thumb");
+    var d;
+    for (var i = 0; i < ths.length; i++) {
+        (function(index) {
+            ths[index].onmouseover = function() {
+                d = ths[index].querySelector(".desc");
+                d.style.marginTop = 0.5 * (ths[index].clientHeight - d.offsetHeight) + "px";
+            };
+        })(i);
     }
 }
 </script>
