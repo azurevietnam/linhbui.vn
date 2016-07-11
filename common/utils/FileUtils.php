@@ -174,7 +174,7 @@ class FileUtils {
             $img_name = str_replace('  ', ' ', $img_name);
         }
         $img_extension = trim(strrev(explode('.', strrev($img_name))[0]));
-        $img_basename = trim(rtrim($img_name, '.' . $img_extension));
+        $img_basename = trim(substr($img_name, 0, -1 - strlen($img_extension)));
         if (self::fileWithSuffixesExists($params['toFolder'], $img_name, $resize_suffixes)) {
             $suffix_rev_map = self::getSequenceSuffixRevMap($params['sequenceSuffixTemplate']);
             $img_basename = trim(strrev(preg_replace('/' . $suffix_rev_map[1] . '(|\s)[0-9](|\s)' . $suffix_rev_map[0] . '/', '', strrev($img_basename), 1)));
@@ -374,7 +374,8 @@ class FileUtils {
     // bị trùng với thư mục trên ftp thì thư mục trên ftp cũng sẽ được đồng nhất với thư mục trên local
     public static function generatePath($time)
     {
-        return '/' . date('Y', $time) . '/' . date('m', $time) . '/' . date('d', $time) . '/' . self::generateRandomString(2) . '/';
+//        return '/' . date('Y', $time) . '/' . date('m', $time) . '/' . date('d', $time) . '/' . self::generateRandomString(2) . '/';
+        return '/' . date('Y', $time) . '/' . date('md', $time) . '/' . self::generateRandomString(2) . '/';
     }
 
     // private function

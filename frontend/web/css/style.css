@@ -136,7 +136,6 @@ html {
     color: #939393;
     font-size: 0.9em;
 }
-
 footer {
     background: #d9ae5e;
     padding: 1em;
@@ -475,6 +474,13 @@ footer .info .title {
 }
 
 @media screen and (min-width: 741px) {
+    .top-menu > ul > li > ul > li > ul > li > a::before {
+        content: "› ";
+    }
+    .top-menu > ul > li > ul > li > ul > li > a:hover {
+        margin-left: 2px;
+        margin-right: -2px;
+    }
     .list-view .thumb {
         width: 32%;
         margin: 0.5%;
