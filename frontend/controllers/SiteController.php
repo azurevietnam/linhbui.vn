@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\Article;
 use frontend\models\ContactForm;
 use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -87,10 +88,14 @@ class SiteController extends BaseController
         }
         $product_categories = ProductCategory::find()->limit(8)->orderBy('position asc')->allActive();
         $products = Product::find()->limit(8)->orderBy('published_at desc')->allActive();
+        $review = Article::findOneByType(Article::TYPE_CUSTOMER_REVIEW);
+        $about = Article::findOneByType(Article::TYPE_ABOUT_US);
         return $this->render('index', [
             'slideshow' => $slideshow,
             'product_categories' => $product_categories,
-            'products' => $products
+            'products' => $products,
+            'review' => $review,
+            'about' => $about
         ]);
     }
 

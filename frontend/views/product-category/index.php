@@ -15,3 +15,11 @@
         </div>
     </div>
 </div>
+<style>
+@media screen and (min-width: 1000px) {
+    .list-view .thumb {
+        width: calc(98.5% / 3 - 1em);
+        margin: 0.5em;
+    }
+}
+</style>

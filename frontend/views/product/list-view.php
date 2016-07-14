@@ -7,7 +7,7 @@
             <i></i>
         </strong>
     </h2>
-    <br>
+    <br class="clearfix">
     <div class="list">
         <?php
         foreach ($items as $item) {

@@ -5,7 +5,7 @@
         ?><figure>
             <img src="<?= $item['img_src'] ?>" alt="<?= $item['img_alt'] ?>">
             <?php
-            if ($item['caption'] != '') {
+            if ($item['caption'] != '' && false) {
             ?>
             <figcaption><?= $item['caption'] ?></figcaption>
             <?php

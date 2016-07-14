@@ -14,7 +14,8 @@ use yii\helpers\Url;
 ]);
 ?>
 <div class="wrap">
-    <br>
+    <br class="clearfix">
+    
     <section class="row list-view">
         <h2 class="title">
             <hr>
@@ -24,23 +25,41 @@ use yii\helpers\Url;
                 <i></i>
             </strong>
         </h2>
-        <div class="introtext paragraph col-12">
-            <?= Article::findOneByType(Article::TYPE_ABOUT_US)->description ?>
+        <div class="introtext paragraph col-12 magt10">
+            <?= $about->description ?>
         </div>
     </section>
-    <br>
+    
+    <br class="clearfix">
+    
     <?= $this->render('//product-category/list-view', [
         'title' => 'Bộ sưu tập mới',
         'items' => $product_categories
     ]) ?>
-    <br>
+    
+    <br class="clearfix">
+    <br class="clearfix">
+    
+    <section class="row list-view" id="review-box">
+        <strong class="title">Khách hàng nói về chúng tôi</strong>
+        <div class="line"></div>
+        <div class="introtext paragraph">
+            " <?= $review->description ?> "
+        </div>
+        <?= $review->img([], Article::IMAGE_TINY) ?>
+        <br>
+        <strong><?= $review->a() ?></strong>
+    </section>
+    
+    <br class="clearfix">
+    
     <?= $this->render('//product/list-view', [
         'title' => 'Sản phẩm nổi bật',
         'items' => $products
     ]) ?>
 </div>
 
-<br>
+<br class="clearfix">
 
 <section class="row">
     <div id="send-email" class="col-12">
@@ -54,9 +73,39 @@ use yii\helpers\Url;
     </div>
 </section>
 
-<br>
+<br class="clearfix">
 
 <style>
+#review-box {
+    background-image: url("<?= Yii::$app->params['images_url'] ?>/bg_review.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+    padding: 1em;
+    text-align: center;
+}
+#review-box .title {
+    font-size: 1.8em;
+    line-height: 1.4em;
+    color: #4d4d4d;
+    margin-top: 0;
+}
+#review-box .introtext {
+    max-width: 600px;
+    margin: 1em auto;
+}
+#review-box img {
+    width: 120px;
+    border-radius: 5px;
+}
+#review-box .line {
+    width: 200px;
+    height: 1px;
+    background: #333;
+    margin: 0 auto;
+}
+
 #send-email {
     background: #eee;
     padding-top: 70px;

@@ -218,7 +218,12 @@ footer .info .title {
     color: #666;
 }
 .list-view .list {
-    text-align: left;
+    text-align: justify;
+    /*text-align-last: justify;*/
+}
+.list-view .list * {
+    text-align: initial;
+    /*text-align-last: initial;*/
 }
 .list-view .title {
     text-align: center;
@@ -482,8 +487,8 @@ footer .info .title {
         margin-right: -2px;
     }
     .list-view .thumb {
-        width: 32%;
-        margin: 0.5%;
+        width: calc(98.5% / 3 - 1em);
+        margin: 0.5em;
     }
     .list-view .thumb .desc {
         display: table;
@@ -563,8 +568,8 @@ footer .info .title {
 }
 @media screen and (min-width: 1000px) {
     .list-view .thumb {
-        width: 23%;
-        margin: 0.6%;
+        width: calc(98.5% / 4 - 1em);
+        margin: 0.5em;
     }
 }
 @media screen and (max-width: 740px) {
@@ -656,8 +661,8 @@ footer .info .title {
         width: 100%;
     }
     .list-view .thumb {
-        width: 48%;
-        margin: 0.5%;
+        width: calc(98.5% / 2 - 0.5em);
+        margin: 0.25em;
     }
     .list-view .list {
         text-align: justify;
