@@ -301,7 +301,7 @@ class Article extends \common\models\Article
             [['created_at', 'updated_at', 'published_at', 'article_category_ids', 'tag_ids'], 'safe'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
-            [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
+            [['customer_name', 'customer_job', 'image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
             [['slug', 'name', 'page_title', 'meta_title', 'meta_description', 'description'], 'unique'],
         ];
     }
@@ -343,7 +343,9 @@ class Article extends \common\models\Article
             'published_at' => 'Thời gian kích hoạt',
             'is_active' => 'Kích hoạt',
             'article_category_ids' => 'Danh mục tin tức',
-            'tag_ids' => 'Tags'
+            'tag_ids' => 'Tags',
+            'customer_name' => 'Họ tên của khách hàng',
+            'customer_job' => 'Nghề nghiệp của khách hàng',
         ];
     }
 

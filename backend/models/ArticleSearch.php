@@ -78,6 +78,8 @@ class ArticleSearch extends Article
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'customer_name', $this->customer_name])
+            ->andFilterWhere(['like', 'customer_job', $this->customer_job])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'old_slugs', $this->old_slugs])

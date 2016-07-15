@@ -117,7 +117,7 @@ class Article extends \common\models\Article
             [['content', 'long_description'], 'string'],
             [['name', 'slug', 'description', 'image_path', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1'], 'string', 'max' => 511],
             [['old_slugs'], 'string', 'max' => 2000],
-            [['image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
+            [['customer_name', 'customer_job', 'image', 'created_by', 'updated_by', 'auth_alias'], 'string', 'max' => 255],
             [['article_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleCategory::className(), 'targetAttribute' => ['article_category_id' => 'id']],
         ];
     }

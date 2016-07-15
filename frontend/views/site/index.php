@@ -25,7 +25,7 @@ use yii\helpers\Url;
                 <i></i>
             </strong>
         </h2>
-        <div class="introtext paragraph col-12 magt10">
+        <div class="introtext paragraph col-12 magt5">
             <?= $about->description ?>
         </div>
     </section>
@@ -37,21 +37,25 @@ use yii\helpers\Url;
         'items' => $product_categories
     ]) ?>
     
-    <br class="clearfix">
+</div>
+
     <br class="clearfix">
     
     <section class="row list-view" id="review-box">
         <strong class="title">Khách hàng nói về chúng tôi</strong>
         <div class="line"></div>
         <div class="introtext paragraph">
-            " <?= $review->description ?> "
+            &ldquo;&nbsp;<?= $review->description ?>&nbsp;&rdquo;
         </div>
-        <?= $review->img([], Article::IMAGE_TINY) ?>
-        <br>
-        <strong><?= $review->a() ?></strong>
+        <div class="img" style="background-image:url('<?= $review->getImage() ?>')">
+        </div>
+        <p class="customer-name"><?= $review->customer_name ?></p>
+        <p class="customer-job"><?= $review->customer_job ?></p>
     </section>
     
     <br class="clearfix">
+    
+<div class="wrap">    
     
     <?= $this->render('//product/list-view', [
         'title' => 'Sản phẩm nổi bật',
@@ -82,10 +86,11 @@ use yii\helpers\Url;
     background-position: center;
     background-size: cover;
     
-    padding: 1em;
+    padding: 30px 0;
     text-align: center;
 }
 #review-box .title {
+    font-weight: bold;
     font-size: 1.8em;
     line-height: 1.4em;
     color: #4d4d4d;
@@ -94,16 +99,31 @@ use yii\helpers\Url;
 #review-box .introtext {
     max-width: 600px;
     margin: 1em auto;
+    text-align: center;
 }
-#review-box img {
-    width: 120px;
+#review-box .img {
+    width: 70px;
+    height: 70px;
     border-radius: 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 0.5em auto;
 }
 #review-box .line {
     width: 200px;
     height: 1px;
     background: #333;
-    margin: 0 auto;
+    margin: 20px auto;
+}
+#review-box .customer-name {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+#review-box .customer-job {
+    font-weight: bold;
+    font-size: 0.85em;
+    opacity: 0.9;
 }
 
 #send-email {

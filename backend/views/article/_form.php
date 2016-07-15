@@ -41,7 +41,11 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'is_active')->checkbox() ?>
     </div>
     <div class="col-md-6">
-            <?= $form->field($model, 'type')->dropDownList(Article::$types) ?>
+        <?php echo $form->field($model, 'type')->dropDownList(Article::$types, ['onchange' => 'if(this.value==="' . Article::TYPE_CUSTOMER_REVIEW . '"){document.getElementById("customer-info").style.display="block";}else{document.getElementById("customer-info").style.display="none";}']) ?>
+        <div id="customer-info" style="<?= $model->type != Article::TYPE_CUSTOMER_REVIEW ? 'display:none;' : '' ?>border:2px solid #fc3;padding:5px;margin-bottom:10px;">
+		<?= $form->field($model, 'customer_name')->textInput(['maxlength' => true]) ?>
+		<?= $form->field($model, 'customer_job')->textInput(['maxlength' => true]) ?>
+        </div>
 		<?= $form->field($model, 'page_title')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
