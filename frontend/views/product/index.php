@@ -1,6 +1,8 @@
 <?php
 
+use frontend\models\Article;
 use frontend\models\SiteParam;
+use yii\helpers\Url;
 
 ?>
 <style>
@@ -81,7 +83,7 @@ function showElem(id, e) {
             <article id="comment" class="hidden col-9">
                 <?php echo $this->render('//modules/comment', [
                     'id' => $model->id,
-                    'counter_url' => yii\helpers\Url::to(['product/counter'], true),
+                    'counter_url' => Url::to(['product/counter'], true),
                     'options' => ['class' => 'box-comment'],
                 ]) ?>
 <!--                <form id="comment" method="POST" action="product-comment/create">
@@ -96,7 +98,7 @@ function showElem(id, e) {
                 </form>-->
             </article>
             <article id="contact" class="hidden paragraph">
-                <?= frontend\models\Article::findOneByType(frontend\models\Article::TYPE_CONTACT_US)->content ?>
+                <?= Article::findOneByType(Article::TYPE_CONTACT_US)->content ?>
             </article>
         </div>
     </div>

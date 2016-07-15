@@ -1,45 +1,104 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\ContactForm */
+/* @var $this View */
+/* @var $form ActiveForm */
+/* @var $model ContactForm */
 
-use yii\helpers\Html;
+use frontend\models\Article;
+use frontend\models\ContactForm;
+use frontend\models\SiteParam;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
+use yii\helpers\Html;
+use yii\web\View;
 
-$this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="wrap">
+<div class="col-12">
+    <div class="map-container">
+        <iframe frameborder="0" src="<?= SiteParam::findOneByName(SiteParam::PARAM_GOOGLE_MAP)->value ?>">
+        </iframe>
+    </div>
+</div>
+<div class="col-6">
+    <article class="paragraph magt10">
+        <h2 class="title">Thông tin liên hệ</h2>
+        <?= Article::findOneByType(Article::TYPE_CONTACT_US)->content ?>
+    </article>
+</div>
+<div class="col-6">
+    <article class="paragraph magt10">
+        <h2 class="title">Thông tin phản hồi</h2>
+<?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
-    <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-    </p>
+    <?php // echo $form->field($model, 'name')->label(false) ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Nhập email của bạn'])->label(false) ?>
 
-                <?= $form->field($model, 'name') ?>
+    <?php // echo $form->field($model, 'subject')->label(false) ?>
 
-                <?= $form->field($model, 'email') ?>
+    <?= $form->field($model, 'body')->textArea(['rows' => 6, 'placeholder' => 'Nội dung phản hồi'])->label(false) ?>
 
-                <?= $form->field($model, 'subject') ?>
+    <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+        'template' => '<div class="row"><div class="col-12"><div class="fluid">{image}</div></div><div class="col-6"><div class="fluid">{input}</div></div></div>',
+        'options' => [
+            'placeholder' => 'Mã xác minh',
+        ]
+    ])->label(false) ?>
 
-                <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
-
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
+    <div class="form-group">
+        <?= Html::submitButton('Send', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
     </div>
 
+<?php ActiveForm::end(); ?>
+    </article>
 </div>
+</div>
+<style>
+.map-container {
+	position: relative;
+	padding-bottom: 36%;
+	height: 0;
+	overflow: hidden;
+}
+.map-container iframe,
+.map-container object,
+.map-container embed {
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+#contact-form {
+    
+}
+#contact-form input[type="text"],
+#contact-form textarea {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 3px;
+    border: solid #aaa 1px;
+    resize: vertical;
+}
+#contact-form [type="submit"] {
+    background: #d9ae5e;
+    padding: 0.6em 1.2em;
+    text-transform: uppercase;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+#contact-form [type="submit"]:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+#contact-form .form-group {
+    margin-bottom: 1em;
+}
+#contact-form .help-block {
+    font-size: 0.9em;
+    font-style: italic;
+}
+</style>

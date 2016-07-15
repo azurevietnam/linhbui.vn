@@ -11,6 +11,7 @@ class SiteParam extends MyActiveRecord{
     const PARAM_INSTAGRAM = 'instagram';
     const PARAM_GOOGLE_PLUS = 'google_plus';
     const PARAM_PINGTEREST = 'pingterest';
+    const PARAM_GOOGLE_MAP = 'google_map';
     
     public static $params = [
         self::PARAM_PHONE_NUMBER => 'Số điện thoại',
@@ -22,5 +23,6 @@ class SiteParam extends MyActiveRecord{
         self::PARAM_INSTAGRAM => 'Instagram',
         self::PARAM_GOOGLE_PLUS => 'Google+',
         self::PARAM_PINGTEREST => 'Pingterest',
+        self::PARAM_GOOGLE_MAP => 'Google map',
     ];
 }
