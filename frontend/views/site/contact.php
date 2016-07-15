@@ -23,7 +23,9 @@ use yii\web\View;
 <div class="col-6">
     <article class="paragraph magt10">
         <h2 class="title">Thông tin liên hệ</h2>
-        <?= Article::findOneByType(Article::TYPE_CONTACT_US)->content ?>
+        <div class="magt10 magb10">
+            <?= Article::findOneByType(Article::TYPE_CONTACT_US)->content ?>
+        </div>
     </article>
 </div>
 <div class="col-6">

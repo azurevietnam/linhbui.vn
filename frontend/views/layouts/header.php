@@ -22,6 +22,7 @@ use yii\helpers\Url;
                     <?php
                     if (($children = $item->getChildren()) !== []) {
                     ?>
+                    <i class="down-arrow"></i>
                     <button type="button">+</button>
                     <ul>
                         <?php
