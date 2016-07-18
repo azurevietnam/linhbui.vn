@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\PageGroup;
 use frontend\models\Product;
+use frontend\models\ProductImage;
 use frontend\models\Redirect;
 use Yii;
 use yii\helpers\Url;
@@ -41,7 +42,7 @@ class ProductController extends BaseController
                     'caption' => $item->caption,
                     'link' => '',
                     'img_src' => $item->getImage(),
-                    'img_src_preview' => $item->getImage(\frontend\models\ProductImage::IMAGE_MEDIUM),
+                    'img_src_preview' => $item->getImage($this->is_mobile ? ProductImage::IMAGE_LARGE : ProductImage::IMAGE_HUGE),
                     'img_alt' => $item->caption,
                 ];
             }

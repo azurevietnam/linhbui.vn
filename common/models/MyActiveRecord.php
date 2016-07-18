@@ -7,18 +7,17 @@ use Yii;
 use yii\db\ActiveRecord;
 
 class MyActiveRecord extends ActiveRecord {
-    // 500, 400, 80, 160, 90, 350, 170
-    const IMAGE_HUGE = '500x500';
-    const IMAGE_LARGE = '400x400';
+    const IMAGE_HUGE = '600x600';
+    const IMAGE_LARGE = '500x500';
     const IMAGE_MEDIUM = '350x350';
     const IMAGE_SMALL = '230x230';
     const IMAGE_TINY = '120x120';
     
-    const BANNER_HUGE = '600x600';
-    const BANNER_LARGE = '340x340';
-    const BANNER_MEDIUM = '230x230';
-    const BANNER_SMALL = '120x120';
-    const BANNER_TINY = '60x60';
+    const BANNER_HUGE = '900x900';
+    const BANNER_LARGE = '750x750';
+    const BANNER_MEDIUM = '450x450';
+//    const BANNER_SMALL = '120x120';
+//    const BANNER_TINY = '60x60';
     
     public static $image_resizes = [
         'huge' => self::IMAGE_HUGE,
@@ -32,8 +31,8 @@ class MyActiveRecord extends ActiveRecord {
         'huge' => self::BANNER_HUGE,
         'large' => self::BANNER_LARGE,
         'medium' => self::BANNER_MEDIUM,
-        'small' => self::BANNER_SMALL,
-        'tiny' => self::BANNER_TINY,
+//        'small' => self::BANNER_SMALL,
+//        'tiny' => self::BANNER_TINY,
     ];
     
     /** 

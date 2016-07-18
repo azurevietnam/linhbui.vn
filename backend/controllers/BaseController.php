@@ -1,6 +1,8 @@
 <?php
 namespace backend\controllers;
 
+use Yii;
+use yii\helpers\Inflector;
 use yii\web\Controller;
 
 /**
