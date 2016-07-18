@@ -2,9 +2,8 @@
 namespace backend\controllers;
 
 use backend\models\ProductCategory;
-use PhpThumbFactory;
+use common\utils\FileUtils;
 use Yii;
-use yii\db\Connection;
 
 class TestController extends BaseController
 {
@@ -12,6 +11,20 @@ class TestController extends BaseController
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    
+    public function actionRemoveProductImages($slug)
+    {
+        $category = ProductCategory::find()->where(['slug' => $slug])->one();
+        FileUtils::removeFolder(Yii::$app->params['images_folder'] . $category->image_path);
+        $products = $category->products;
+        foreach ($products as $item) {
+            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $item->image_path);
+            foreach ($item->productImages as $image) {
+                $image->delete();
+            }
+            echo "$item->slug <br><br>";
+        }
     }
     
     public function actionMigrateProductCategory()

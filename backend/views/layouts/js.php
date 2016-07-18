@@ -72,8 +72,24 @@ use yii\web\View;
 //            MaximumSize                 : 2048,
             EnableMaximumSize           : false,
             UploadedCallback            : function(data){
-                picturecut_image_container.siblings("input").val(data["currentFileName"]);
+                var image_name = data["currentFileName"];
+                picturecut_image_container.siblings("input").val(image_name);
                 textCount(picturecut_image_container.siblings("input"), false);
+                
+                $.post(
+                    "<?= yii\helpers\Url::to(['file/check-file-exists'], true) ?>",
+                    {
+                        <?= Yii::$app->request->csrfParam; ?>: '<?= Yii::$app->request->csrfToken; ?>',
+                        image_name: image_name,
+                    },
+                    function(d, textStatus, jqXHR){
+                        if (d === "1") {
+                            alert("Ảnh bị trùng tên, vui lòng tải ảnh có tên khác!");
+                        }
+                    }
+                ).fail(function(jqXHR, textStatus, errorThrown){
+                    
+                });
             }
         });
     });

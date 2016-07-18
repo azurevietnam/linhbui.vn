@@ -16,7 +16,7 @@ class FileUtils {
     const SUFFIX_TEMPLATE = '--{x}x{y}';
     const SEQUENCE_TEMPLATE = '--{sequence}';
 
-    const ALLOW_REMOVE_FOLDER_CONTAINS_LESS = 30;
+    const ALLOW_REMOVE_FOLDER_CONTAINS_LESS = 100;
     
     public static $tiny_keys = [
         '9Ahno1_2RsMdPeokXMDsXRwiQsoJz2RP', // quyettvq@gmail.com
@@ -524,7 +524,7 @@ class FileUtils {
         return '';
     }
 
-    private static function fileWithSuffixesExists($container, $filename, $suffixes = [])
+    public static function fileWithSuffixesExists($container, $filename, $suffixes = [])
     {
         if (is_file($container . $filename)) {
             return true;

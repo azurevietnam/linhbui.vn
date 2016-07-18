@@ -49,8 +49,10 @@ class FileController extends Controller
             if (!is_dir(Yii::$app->params['uploads_folder'])){
                 mkdir(Yii::$app->params['uploads_folder'], 0755, true);
             }
-            if (!$uploadedFile->saveAs($targetPath)) {
-                $message = 'Không lưu được ảnh. Vui lòng thử lại!';
+            if (static::checkFileExits($filename)) {
+                $message = 'Ảnh bị trùng tên, vui lòng tải ảnh có tên khác!';
+            } else if (!$uploadedFile->saveAs($targetPath)) {
+                $message = 'Không lưu được ảnh, vui lòng thử lại!';
             } else {
                 $message = 'Tải lên thành công!';
             }
@@ -58,5 +60,62 @@ class FileController extends Controller
         $funcNum = Yii::$app->request->get('CKEditorFuncNum');
         echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$targetUrl', '$message');</script>";
     }
+    
+    public function actionCheckFileExists()
+    {
+        
+        $file_name = Yii::$app->request->post('image_name', '');
+        
+        return static::checkFileExits($file_name)
+            ? 1
+            : 0;
+
+    }
+    
+    public static function checkFileExits($filename = '')
+    {
+        $key = 'uploaded_filenames';
+        
+        $uploaded_filenames = Yii::$app->session->get($key, []);
+        
+        if (in_array($filename, $uploaded_filenames)) {
+            return true;
+        }
+        
+        $path = '';
+        
+        $model_name = Yii::$app->session->get('model_name', '');
+        $model_id = Yii::$app->session->get('model_id', '');
+        
+        if ($model_name != '' && $model_id != '') {
+            $class_name = "\\backend\\models\\$model_name";
+            if (class_exists($class_name)) {
+                $model = $class_name::findOne($model_id);
+                if ($model) {
+                    if (isset($model->image_path)) {
+                        $path = $model->image_path;
+                    }
+                }
+            }
+        }
+        
+        if ($path == '') {
+            $path = FileUtils::generatePath(time(), Yii::$app->params['images_folder']);
+        }
+        
+        if ($path != '' && $filename != '') {
+            $container = Yii::$app->params['images_folder'] . $path;
+            if (FileUtils::fileWithSuffixesExists($container, $filename)) {
+                return true;
+            }
+        }
+        
+        $uploaded_filenames[] = $filename;
+        
+        Yii::$app->session->set($key, $uploaded_filenames);
+        
+        return false;
+    }
+    
 }
 
