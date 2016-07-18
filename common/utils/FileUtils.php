@@ -13,8 +13,8 @@ use Yii;
 
 class FileUtils {
 
-    const SUFFIX_TEMPLATE = '--{x}x{y}';
-    const SEQUENCE_TEMPLATE = '--{sequence}';
+    const SUFFIX_TEMPLATE = '-{x}x{y}';
+    const SEQUENCE_TEMPLATE = '-{sequence}';
 
     const ALLOW_REMOVE_FOLDER_CONTAINS_LESS = 100;
     

@@ -41,8 +41,7 @@ class ProductController extends BaseController
                 $slideshow[] = [
                     'caption' => $item->caption,
                     'link' => '',
-                    'img_src' => $item->getImage(),
-                    'img_src_preview' => $item->getImage($this->is_mobile ? ProductImage::IMAGE_LARGE : ProductImage::IMAGE_HUGE),
+                    'img_src' => $item->getImage($this->is_mobile ? ProductImage::IMAGE_LARGE : ProductImage::IMAGE_HUGE),
                     'img_alt' => $item->caption,
                 ];
             }
