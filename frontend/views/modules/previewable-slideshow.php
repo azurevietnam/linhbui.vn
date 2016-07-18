@@ -101,6 +101,7 @@
 #photo-slideshow .preview button {
     height: 2.3em;
     width: 2.3em;
+    <?= count($data) <= $preview_options['items_per_page'] ? 'display: none;' : '' ?>
 </style>
 <script>
 var slideshow = document.getElementById("photo-slideshow");
@@ -216,4 +217,15 @@ slideshow.setActiveClass = function(){
         }
     }
 };
+
+
+slideshow.autorun = setInterval(view.next, 4000);
+slideshow.onmouseout = function(){
+    slideshow.autorun = setInterval(view.next, 4000);
+};
+slideshow.onmouseover = function(){
+    clearInterval(slideshow.autorun);
+};
+slideshow.autorun;
+
 </script>

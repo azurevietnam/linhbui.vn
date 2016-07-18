@@ -7,17 +7,20 @@
             <i></i>
         </strong>
     </h2>
+    <br class="clearfix">
     <div class="list">
         <?php
         foreach ($items as $item) {
         ?>
-        <div class="row detail">
-            <h3 class="name"><a href="<?= $item->getLink() ?>" title="<?= $item->name ?>"><?= $item->name ?></a></h3>
-            <a class="img-wrap" href="<?= $item->getLink() ?>" title="<?= $item->name ?>">
-                <img src="<?= $item->getImage(frontend\models\Article::IMAGE_TINY) ?>" title="<?= $item->name ?>" alt="<?= $item->name ?>">
-            </a>
-            <p class="desc"><?= $item->desc() ?></p>
-        </div>
+        <a class="thumb" href="<?= $item->getLink() ?>" title="<?= $item->name ?>">
+            <div class="img-wrap">
+                <img src="<?= $item->getImage(\common\models\MyActiveRecord::IMAGE_MEDIUM) ?>" title="<?= $item->name ?>" alt="<?= $item->name ?>">
+            </div>
+            <div class="desc">
+                <h3 class="name"><?= $item->name ?></h3>
+            </div>
+            <div class="clearfix"></div>
+        </a>
         <?php
         }
         ?>

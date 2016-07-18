@@ -123,7 +123,7 @@ function thumnailStyle() {
 <?php require_once 'header.php'; ?>
 <!--MAIN CONTENT-->
 <?php
-if (!in_array(Yii::$app->controller->id, ['site'])) {
+if (!in_array(Yii::$app->requestedRoute, ['site/index'])) {
 ?>
 <?= $this->render('//modules/breadcrumbs') ?>
 <?php

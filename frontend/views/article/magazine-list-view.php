@@ -23,3 +23,8 @@
         ?>
     </div>
 </section>
+<style>
+    .list-view .detail .name {
+        text-transform: uppercase;
+    }
+</style>

@@ -6,7 +6,7 @@ use frontend\models\SiteParam;
 ?>
 <footer class="container">
     <div class="wrap">
-        <div class="col-4">
+        <div class="col-5">
             <div class="inv-logo">
             </div>
             <div class="clearfix"></div>
@@ -52,9 +52,9 @@ use frontend\models\SiteParam;
                 ?>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-3">
             <div class="info">
-                <p class="title">Theo dõi chúng tôi trên</p>
+                <p class="title">Theo dõi chúng tôi</p>
                 <p>
                     <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_FACEBOOK)->value ?>" title="Facebook" target="_blank">
                         <i class="icon icon-facebook"></i>

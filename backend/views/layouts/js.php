@@ -272,12 +272,44 @@ use yii\web\View;
     }
     
     function special_chars_filter(str) {
+        
+        var special_chars = [];
+        
+        for (var i = 0; i < str.length; i++) {
+            if (!/^[a-zA-Z0-9- ]*$/.test(str[i])) {
+                has = false;
+                if (!/^[/_.,]*$/.test(str[i])) {
+                    for (var j = 0; j < special_chars.length; j++) {
+                        if (special_chars[j].char == str[i]) {
+                            special_chars[j].count += 1;
+                            has = true;
+                            break;
+                        }
+                    }
+                    if (!has) {
+                        special_chars.push({char:str[i], count:1});
+                    }
+                }
+                str = str.substr(0, i) + " " + str.substr(i + 1);
+            }
+        }
+        
+        if (special_chars.length > 0) {
+            var msg = "Phát hiện ký tự đặc biệt: \n";
+            for (var i = 0; i < special_chars.length; i++) {
+                msg += "\n     " + special_chars[i].char + "     (" + special_chars[i].count + " lần)";
+            }
+            msg += "\n\n Vui lòng kiểm tra Slug.";
+            
+            alert(msg);
+        }
+        
         str = str.trim();
-        str = str.replace(/\u201c|\u201d|%E2%80%9C|%E2%80%9D/g, " ");
-        str = str.replace(/  /g, " ");
-        str = str.replace(/ - | /g, "-");
-        str = str.replace(/\/|\#|\?/g, "-");
-        str = str.replace(/\u2013|%u2013|%E2%80%93/g, "-");
+        str = str.replace(/ /g, "-");
+        while (str.indexOf("--") !== -1) {
+            str = str.replace(/--/g, "-");
+        }
+        
         return str;
     }
     

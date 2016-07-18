@@ -111,9 +111,23 @@ class ProductCategoryController extends BaseController
             'total' => $total,
         ];
 
+        $slideshow = [];
+        $i = 0;
+        foreach ($items as $item) {
+            if ($item->banner != '' && ++ $i < 6) {
+                $slideshow[] = [
+                    'caption' => $item->name,
+                    'link' => $item->getLink(),
+                    'img_src' => $item->getBanner(),
+                    'img_alt' => $item->name,
+                ];
+            }
+        }
+        
         return $this->render('view-all', [
             'items' => $items,
             'pagination' => $pagination,
+            'slideshow' => $slideshow,
         ]);
     }
 

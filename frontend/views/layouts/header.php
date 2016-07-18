@@ -17,7 +17,7 @@ use yii\helpers\Url;
             <ul>
             <?php
             foreach (Menu::getTopParents() as $item) {
-            ?><li>
+            ?><li class="<?= $item->isCurrent() ? 'active' : '' ?>">
                     <?= $item->a() ?>
                     <?php
                     if (($children = $item->getChildren()) !== []) {

@@ -1,14 +1,13 @@
 <?php
 
-use frontend\models\Article;
 use yii\helpers\Url;
 
 ?>
 <?= $this->render('//modules/slideshow', [
     'data' => $slideshow,
     'options' => [
-        'time_slide' => 600,
-        'time_out' => 3000,
+        'time_slide' => 800,
+        'time_out' => 4000,
         'img_max_width' => '1010px'
     ]
 ]);
@@ -139,8 +138,8 @@ use yii\helpers\Url;
 }
 #send-email > * {
     margin: 0 auto;
-    width: 50%;
-    min-width: 300px;
+    width: 100%;
+    max-width: 640px;
 }
 #send-email .title {
     display: block;

@@ -2,16 +2,7 @@
     <div id="slideshow-images">
     <div class="wrap"><?php
     foreach ($data as $item) {
-        ?><figure>
-            <img src="<?= $item['img_src'] ?>" alt="<?= $item['img_alt'] ?>">
-            <?php
-            if ($item['caption'] != '' && false) {
-            ?>
-            <figcaption><?= $item['caption'] ?></figcaption>
-            <?php
-            }
-            ?>
-        </figure><?php
+        ?><figure><img src="<?= $item['img_src'] ?>" alt="<?= $item['img_alt'] ?>"></figure><?php
     }
     ?></div>
     </div>
@@ -41,22 +32,16 @@
 }
 #slideshow-images {
     width: 100%;
-    max-width: <?= isset($options['img_max_width']) ? $options['img_max_width'] : 'calc(100%)' ?>;
+    <?= isset($options['img_max_width']) ? "max-width: {$options['img_max_width']}" : '' ?>;
     margin: 0 auto;
 }
 #slideshow-images figure {
     position: relative;
     width: 100%;
-    margin: 0 0%;
     vertical-align: top;
     display: inline-block;
+    line-height: 0;
     opacity: 0.4;
-}
-#slideshow-images figure:first-child {
-    margin: 0 0% 0 0;
-}
-#slideshow-images figure:last-child {
-    margin: 0 0 0 0%;
 }
 #slideshow-images figure.active {
     opacity: 1;
@@ -121,9 +106,7 @@
     #slideshow-images {
         width: 100%;
     }
-    #slideshow-images figure,
-    #slideshow-images figure:first-child,
-    #slideshow-images figure:last-child {
+    #slideshow-images figure {
         width: 100%;
         margin: 0;
     }

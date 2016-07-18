@@ -40,7 +40,7 @@ class GalleryController extends BaseController
                     'caption' => $item->caption,
                     'link' => 'javascript:void(0)',
                     'img_src' => $item->getImage(),
-                    'img_src_preview' => $item->getImage(\frontend\models\GalleryImage::IMAGE_SMALL),
+//                    'img_src_preview' => $item->getImage(\frontend\models\GalleryImage::IMAGE_SMALL),
                     'img_alt' => $item->caption,
                 ];
             }

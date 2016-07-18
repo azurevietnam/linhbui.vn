@@ -95,6 +95,9 @@ html {
     color: #cea00e;
     text-transform: uppercase;
 }
+.top-menu > ul > li.active > a {
+    color: #f1cc01;
+}
 .top-menu a:hover {
     color: #f1cc01;
 }
