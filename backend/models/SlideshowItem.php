@@ -20,28 +20,8 @@ use Yii;
  * @property integer $updated_at
  * @property string $updated_by
  */
-class SlideshowItem extends \yii\db\ActiveRecord
+class SlideshowItem extends \common\models\SlideshowItem
 {
-        
-    /**
-    * function ->getImage ($suffix, $refresh)
-    */
-    public $_image;
-    public function getImage ($suffix = null, $refresh = false)
-    {
-        if ($this->_image === null || $refresh == true) {
-            $this->_image = FileUtils::getImage([
-                'imageName' => $this->image,
-                'imagePath' => $this->image_path,
-                'imagesFolder' => Yii::$app->params['images_folder'],
-                'imagesUrl' => Yii::$app->params['images_url'],
-                'suffix' => $suffix,
-                'defaultImage' => Yii::$app->params['default_image']
-            ]);
-        }
-        return $this->_image;
-    }
-    
     /**
     * function ->getLink ()
     */
@@ -80,10 +60,8 @@ class SlideshowItem extends \yii\db\ActiveRecord
             $model->created_at = $now;
             $model->created_by = $username;
                 
-            do {
-                $path = FileUtils::generatePath($now);
-            } while (file_exists(Yii::$app->params['images_folder'] . $path));
-            $model->image_path = $path;
+            $model->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
+            
             $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
@@ -92,7 +70,7 @@ class SlideshowItem extends \yii\db\ActiveRecord
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(self::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -134,23 +112,20 @@ class SlideshowItem extends \yii\db\ActiveRecord
             $this->updated_at = $now;
             $this->updated_by = $username;
                   
-            if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
-                $path = $this->image_path;
-            } else {
-                do {
-                    $path = FileUtils::generatePath($now);
-                } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            if ($this->image_path == null || trim($this->image_path) == '' || !is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
+                $this->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
             }
-            $this->image_path = $path;
+
             $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
             
             if (!empty($data['slideshowitem-image'])) {
-                $copyResult = FileUtils::copyImage([
+                $copyResult = FileUtils::updateImage([
                     'imageName' => $this->image,
+                    'oldImageName' => $this->getOldAttribute('image'),
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    'resize' => [[120, 120], [200, 200]],
+                    'resize' => array_values(self::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -177,12 +152,11 @@ class SlideshowItem extends \yii\db\ActiveRecord
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;    
-        $model = $this;
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
             $log->object_class = 'SlideshowItem';
-            $log->object_pk = $model->id;
+            $log->object_pk = $this->id;
             $log->created_at = $now;
             $log->is_success = 0;
             $log->save();
@@ -192,7 +166,20 @@ class SlideshowItem extends \yii\db\ActiveRecord
                 $log->is_success = 1;
                 $log->save();
             }
-            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $model->image_path);
+            if ($this->image_path != '') {
+                $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
+                $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
+
+                FileUtils::updateImage([
+                    'imageName' => '',
+                    'oldImageName' => $this->image,
+                    'fromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
+                ]);
+
+            }
+
             return true;
         }
         return false;

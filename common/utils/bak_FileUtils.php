@@ -17,19 +17,15 @@ class FileUtils {
     const SEQUENCE_TEMPLATE = '--{sequence}';
 
     const ALLOW_REMOVE_FOLDER_CONTAINS_LESS = 30;
-    
-    public static $tiny_keys = [
-        '9Ahno1_2RsMdPeokXMDsXRwiQsoJz2RP', // quyettvq@gmail.com
-        'xeIvN0N63V1ItVFyqkJAgBDzGFpmkgcZ', // quyettv93@gmail.com
-    ];
 
     public static $file_name_replace = [
         '#' => '-', 
         '?' => '-', 
         '/' => '-',
+        '_' => '-',
         '&ndash;' => '-',
         ' - ' => '-',
-        ' ' => '-'
+        ' ' => '-',
     ];
     public static $allow_extensions = [
         'jpg',
@@ -46,12 +42,6 @@ class FileUtils {
         'rar',
         'zip'
     ];
-    
-    public static function getTinyKey()
-    {
-        $keys = array_values(self::$tiny_keys);
-        return $keys[rand(0, count($keys) - 1)];
-    }
 
 
     // Hàm kiểm tra file có tồn tại trên url không
@@ -86,7 +76,7 @@ class FileUtils {
 //            } else {
 //                $suffix = $params['suffix'];
 //            }
-            $suffix = self::getResizeSuffix(self::parseArray($params['suffix']));
+            $suffix = self::getResizeSuffix(self::dimArray($params['suffix']));
         } else {
             $suffix = null;
         }
@@ -256,7 +246,7 @@ class FileUtils {
 //                            }
                             if (count($params['resize']) > 0) {
                                 foreach ($params['resize'] as $dim) {
-                                    $dim = self::parseArray($dim);
+                                    $dim = self::dimArray($dim);
                                     $thumb = PhpThumbFactory::create($params['toFolder'] . $img_name);
                                     $thumb->setOptions(['jpegQuality' => $params['resizeQuality']]);
                                     switch ($params['resizeType']) {
@@ -346,105 +336,6 @@ class FileUtils {
         }
         return $content;
     }
-    
-    public static function removeImageWithSuffixes($params = [])
-    {
-        isset($params['resizeSuffixTemplate']) or $params['resizeSuffixTemplate'] = self::SUFFIX_TEMPLATE;
-        $params['folder'] = rtrim(trim($params['folder']), '/') . '/';
-        isset($params['resize']) or $params['resize'] = [];
-        
-        $name_map = explode('.', $params['imageName']);
-        if (count($name_map) >= 2) {
-            $extension = $name_map[count($name_map) - 1];
-            $basename = substr($params['imageName'], 0, -(1 + strlen($extension)));
-            foreach ($params['resize'] as $dim) {
-                $dim = self::parseArray($dim);
-                $suffix = self::getResizeSuffix($dim, $params['resizeSuffixTemplate']);
-                if (is_file($params['folder'] . $basename . $suffix . '.' . $extension)) {
-                    unlink($params['folder'] . $basename . $suffix . '.' . $extension);
-                }
-            }
-            if (is_file($params['folder'] . $basename . '.' . $extension)) {
-                unlink($params['folder'] . $basename . '.' . $extension);
-            }
-            
-            return true;
-        }
-        
-        return false;
-    }
-
-
-    public static function updateImage($params = [])
-    {
-        self::removeImageWithSuffixes([
-            'imageName' => $params['oldImageName'],
-            'folder' => $params['toFolder'],
-            'resize' => isset($params['resize']) ? $params['resize'] : [],
-            'resizeSuffixTemplate' => isset($params['resizeSuffixTemplate']) ? $params['resizeSuffixTemplate'] : self::SUFFIX_TEMPLATE,
-        ]);
-        if (isset($params['imageName']) && $params['imageName'] != '') {
-            return self::copyImage($params);
-        }
-        return;
-    }
-    
-    public static function updateContentImages($params = [])
-    {
-        if (empty($params['regex'])) {
-            $regex = '/(http|https):\/\/+[^\"]+.(';
-            foreach (self::$allow_extensions as $i => $ext) {
-                $regex .= ($i > 0 ? '|' : '') . $ext . '|' . strtoupper($ext);
-            }
-            $regex .= ')/';
-        }
-        isset($params['removeInputImage']) or $params['removeInputImage'] = false;
-        isset($params['createWatermark']) or $params['createWatermark'] = false;
-        if (isset($params['defaultFromFolder'])) {
-            $params['defaultFromFolder'] = rtrim($params['defaultFromFolder'], '/') . '/';
-        }
-        $toFolder = rtrim($params['toFolder'], '/') . '/';
-        $toUrl = rtrim($params['toUrl'], '/') . '/';
-        $content = $params['content'];
-        $oldContent = $params['oldContent'];
-        
-        $matches = [];
-        $oldMatches = [];
-        preg_match_all($regex, $content, $matches);
-        preg_match_all($regex, $oldContent, $oldMatches);
-        
-        foreach ($oldMatches[0] as $img_url) {
-            if (!in_array($img_url, $matches[0])) {
-                $img_name = strrev(explode('/', strrev($img_url))[0]);
-                if (is_file($toFolder . $img_name)) {
-                    @unlink($toFolder . $img_name);
-                }
-            }
-        }
-        
-        foreach ($matches[0] as $img_url) {
-            if (!in_array($img_url, $oldMatches[0]) && strpos($img_url, $toUrl) === false) {
-                $img_name = strrev(explode('/', strrev($img_url))[0]);
-                if (!isset($params['defaultFromFolder']) || !is_file($params['defaultFromFolder'] . $img_name)) {
-                    $fromFolder = substr($img_url, 0, strlen($img_url) - strlen($img_name));
-                } else {
-                    $fromFolder = $params['defaultFromFolder'];
-                }
-                $copyResult = self::copyImage([
-                    'imageName' => $img_name,
-                    'fromFolder' => $fromFolder,
-                    'toFolder' => $params['toFolder'],
-                    'removeInputImage' => $params['removeInputImage'],
-                    'createWatermark' => $params['createWatermark'],
-                ]);
-                if ($copyResult['success']) {
-                    $content = str_replace($img_url, $toUrl . $copyResult['imageName'], $content);
-                }
-            }
-        }
-        
-        return $content;
-    }
 
     public static function removeFolder($dir)
     {
@@ -481,9 +372,10 @@ class FileUtils {
     // Nếu đường dẫn thư mục ảnh không tồn tại trên local nhưng tồn tại trên ftp 
     // khi xảy ra trường hợp thư mục mới (sẽ không trùng với thư mục nào trên local cho đến giới hạn xác suất nhưng)
     // bị trùng với thư mục trên ftp thì thư mục trên ftp cũng sẽ được đồng nhất với thư mục trên local
-    public static function generatePath($time, $base_path)
+    public static function generatePath($time)
     {
-        return date('/Y/m/', $time);
+//        return '/' . date('Y', $time) . '/' . date('m', $time) . '/' . date('d', $time) . '/' . self::generateRandomString(2) . '/';
+        return '/' . date('Y', $time) . '/' . date('md', $time) . '/' . self::generateRandomString(2) . '/';
     }
 
     // private function
@@ -542,13 +434,10 @@ class FileUtils {
         return false;
     }
     
-    private static function parseArray($dim)
+    private static function dimArray($dim)
     {
         if (!is_array($dim)) {
             $dim = explode('x', $dim);
-        }
-        foreach ($dim as &$item) {
-            $item = (int) $item;
         }
         return $dim;
     }

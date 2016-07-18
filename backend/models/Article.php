@@ -119,10 +119,8 @@ class Article extends \common\models\Article
             $model->created_by = $username;
             $model->published_at = strtotime($model->published_at);
                 
-            do {
-                $path = FileUtils::generatePath($now);
-            } while (file_exists(Yii::$app->params['images_folder'] . $path));
-            $model->image_path = $path;
+            $model->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
+            
             $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
@@ -195,23 +193,23 @@ class Article extends \common\models\Article
             $this->published_at = strtotime($this->published_at);
             
             if ($this->slug != $this->getOldAttribute('slug')) {
-                $old_slugs_arr = json_decode($this->old_slugs, true); is_array($old_slugs_arr) or $old_slugs_arr = array(); $old_slugs_arr[$now] = $this->getOldAttribute('slug'); $this->old_slugs = json_encode($old_slugs_arr);
+                $old_slugs_arr = json_decode($this->old_slugs, true);
+                is_array($old_slugs_arr) or $old_slugs_arr = array();
+                $old_slugs_arr[$now] = $this->getOldAttribute('slug');
+                $this->old_slugs = json_encode($old_slugs_arr);
             }
                   
-            if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
-                $path = $this->image_path;
-            } else {
-                do {
-                    $path = FileUtils::generatePath($now);
-                } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            if ($this->image_path == null || trim($this->image_path) == '' || !is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
+                $this->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
             }
-            $this->image_path = $path;
+           
             $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
             
             if (!empty($data['article-image'])) {
-                $copyResult = FileUtils::copyImage([
+                $copyResult = FileUtils::updateImage([
                     'imageName' => $this->image,
+                    'oldImageName' => $this->getOldAttribute('image'),
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
                     'resize' => array_values(Article::$image_resizes),
@@ -222,16 +220,18 @@ class Article extends \common\models\Article
                     $this->image = $copyResult['imageName'];
                 }
             }
-            $this->content = FileUtils::copyContentImages([
+            $this->content = FileUtils::updateContentImages([
                 'content' => $this->content,
+                'oldContent' => $this->getOldAttribute('content'),
                 'defaultFromFolder' => Yii::$app->params['uploads_folder'],
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
                 'createWatermark' => true,
             ]);
-            $this->long_description = FileUtils::copyContentImages([
+            $this->long_description = FileUtils::updateContentImages([
                 'content' => $this->long_description,
+                'oldContent' => $this->getOldAttribute('long_description'),
                 'defaultFromFolder' => Yii::$app->params['uploads_folder'],
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
@@ -258,12 +258,11 @@ class Article extends \common\models\Article
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;    
-        $model = $this;
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
             $log->object_class = 'Article';
-            $log->object_pk = $model->id;
+            $log->object_pk = $this->id;
             $log->created_at = $now;
             $log->is_success = 0;
             $log->save();
@@ -273,7 +272,35 @@ class Article extends \common\models\Article
                 $log->is_success = 1;
                 $log->save();
             }
-            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $model->image_path);
+            if ($this->image_path != '') {
+                $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
+                $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
+
+                FileUtils::updateImage([
+                    'imageName' => '',
+                    'oldImageName' => $this->image,
+                    'fromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
+                ]);
+
+                FileUtils::updateContentImages([
+                    'content' => '',
+                    'oldContent' => $this->content,
+                    'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'toUrl' => $targetUrl,
+                ]);
+
+                FileUtils::updateContentImages([
+                    'content' => '',
+                    'oldContent' => $this->long_description,
+                    'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'toUrl' => $targetUrl,
+                ]);
+
+            }
             return true;
         }
         return false;

@@ -39,10 +39,8 @@ class ProductImage extends \common\models\ProductImage
                 $log->save();
             }
             
-            do {
-                $path = FileUtils::generatePath($now);
-            } while (file_exists(Yii::$app->params['images_folder'] . $path));
-            $model->image_path = $path;
+            $model->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
+            
             $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
@@ -91,20 +89,17 @@ class ProductImage extends \common\models\ProductImage
             }
             
                   
-            if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
-                $path = $this->image_path;
-            } else {
-                do {
-                    $path = FileUtils::generatePath($now);
-                } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            if ($this->image_path == null || trim($this->image_path) == '' || !is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
+                $this->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
             }
-            $this->image_path = $path;
+            
             $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
             
             if (!empty($data['productimage-image'])) {
-                $copyResult = FileUtils::copyImage([
+                $copyResult = FileUtils::updateImage([
                     'imageName' => $this->image,
+                    'oldImageName' => $this->getOldAttribute('image'),
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
                     'resize' => array_values(ProductImage::$image_resizes),
@@ -134,12 +129,11 @@ class ProductImage extends \common\models\ProductImage
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;    
-        $model = $this;
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
             $log->object_class = 'ProductImage';
-            $log->object_pk = $model->id;
+            $log->object_pk = $this->id;
             $log->created_at = $now;
             $log->is_success = 0;
             $log->save();
@@ -149,7 +143,19 @@ class ProductImage extends \common\models\ProductImage
                 $log->is_success = 1;
                 $log->save();
             }
-            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $model->image_path);
+            if ($this->image_path != '') {
+                $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
+                $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
+
+                FileUtils::updateImage([
+                    'imageName' => '',
+                    'oldImageName' => $this->image,
+                    'fromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
+                ]);
+
+            }
             return true;
         }
         return false;

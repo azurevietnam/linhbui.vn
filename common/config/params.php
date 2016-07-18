@@ -30,7 +30,7 @@ return [
     'wph_ratios' => [
         'product_slide_image' => 15/16.93,
         'product_image' => 7.12/10.56,
-        'product_category_image' => 1/1,
+        'product_category_image' => 7.12/10.56,
         'article_image' => 16/9, // 4^2 / 3^2
         'gallery_image' => 16/9,
         'video_image' => 16/9,

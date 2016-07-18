@@ -91,10 +91,9 @@ if(isset($tableSchema->columns['slug'])) { ?>
 } ?>
 <?php 
 if (isset($tableSchema->columns['image_path'])) { ?>                
-            do {
-                $path = FileUtils::generatePath($now);
-            } while (file_exists(Yii::$app->params['images_folder'] . $path));
-            $model->image_path = $path;
+
+            $model->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
+
             $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
@@ -105,7 +104,7 @@ if (isset($tableSchema->columns['image_path'])) { ?>
                     'imageName' => $model-><?= $column->name ?>,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    //'resize' => array(),
+                    'resize' => array_values(self::$<?= $column->name ?>_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -179,25 +178,22 @@ if (!empty($tableSchema->columns['slug']) && isset($tableSchema->columns['old_sl
 <?php } ?>
 <?php 
 if (isset($tableSchema->columns['image_path'])) { ?>                  
-            if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
-                $path = $this->image_path;
-            } else {
-                do {
-                    $path = FileUtils::generatePath($now);
-                } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            if ($this->image_path == null || trim($this->image_path) == '' || !is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
+                $this->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
             }
-            $this->image_path = $path;
+            
             $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
             
 <?php foreach($tableSchema->columns as $column) { ?>
-<?php if(preg_match('/^(image|avatar|banner|banner1|banner2|banner3|banner4|banner5|top_banner|bottom_banner|middle_banner|left_banner|right_banner)$/i', $column->name)) { ?>
+<?php if(preg_match('/^(image|avatar|banner)$/i', $column->name)) { ?>
             if (!empty($data['<?= strtolower($modelClass) . '-' . $column->name ?>'])) {
-                $copyResult = FileUtils::copyImage([
+                $copyResult = FileUtils::updateImage([
                     'imageName' => $this-><?= $column->name ?>,
+                    'oldImageName' => $this->getOldAttribute('<?= $column->name ?>'),
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
-                    //'resize' => array(),
+                    'resize' => array_values(self::$<?= $column->name ?>_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -207,8 +203,9 @@ if (isset($tableSchema->columns['image_path'])) { ?>
 <?php }} ?>
 <?php foreach ($tableSchema->columns as $column) { 
 if ($column->type === 'text') { ?>
-            $this-><?= $column->name ?> = FileUtils::copyContentImages([
+            $this-><?= $column->name ?> = FileUtils::updateContentImages([
                 'content' => $this-><?= $column->name ?>,
+                'oldContent' => $this->getOldAttribute('<?= $column->name ?>'),
                 'defaultFromFolder' => Yii::$app->params['uploads_folder'],
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
@@ -235,12 +232,11 @@ if ($column->type === 'text') { ?>
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;    
-        $model = $this;
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
             $log->object_class = '<?= $modelClass ?>';
-            $log->object_pk = $model->id;
+            $log->object_pk = $this->id;
             $log->created_at = $now;
             $log->is_success = 0;
             $log->save();
@@ -251,8 +247,35 @@ if ($column->type === 'text') { ?>
                 $log->save();
             }
 <?php if(isset($tableSchema->columns['image_path'])) { ?>
-            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $model->image_path);
+            if ($this->image_path != '') {
+                $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
+                $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
+            
+<?php foreach($tableSchema->columns as $column) { ?>
+<?php if(preg_match('/^(image|avatar|banner)$/i', $column->name)) { ?>
+                FileUtils::updateImage([
+                    'imageName' => '',
+                    'oldImageName' => $this-><?= $column->name ?>,
+                    'fromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$<?= $column->name ?>_resizes),
+                ]);
+                
+<?php }} ?>
+<?php foreach ($tableSchema->columns as $column) { 
+if ($column->type === 'text') { ?>
+                FileUtils::updateContentImages([
+                    'content' => '',
+                    'oldContent' => $this-><?= $column->name ?>,
+                    'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'toUrl' => $targetUrl,
+                ]);
+                
+<?php }} ?>
+            }
 <?php } ?>
+            
             return true;
         }
         return false;

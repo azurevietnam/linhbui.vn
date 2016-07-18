@@ -58,7 +58,6 @@ use Yii;
 class Product extends \common\models\Product
 {
     
-    
     public $_link;
     public function getLink()
     {
@@ -91,10 +90,8 @@ class Product extends \common\models\Product
             $model->created_at = $now;
             $model->created_by = $username;
                 
-            do {
-                $path = FileUtils::generatePath($now);
-            } while (file_exists(Yii::$app->params['images_folder'] . $path));
-            $model->image_path = $path;
+            $model->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
+            
             $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
@@ -181,20 +178,17 @@ class Product extends \common\models\Product
                 $this->old_slugs = json_encode($old_slugs_arr);
             }
                   
-            if ($this->image_path != null && trim($this->image_path) != '' && is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
-                $path = $this->image_path;
-            } else {
-                do {
-                    $path = FileUtils::generatePath($now);
-                } while (file_exists(Yii::$app->params['images_folder'] . $path));
+            if ($this->image_path == null || trim($this->image_path) == '' || !is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
+                $this->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
             }
-            $this->image_path = $path;
+            
             $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
             
             if (!empty($data['product-image'])) {
-                $copyResult = FileUtils::copyImage([
+                $copyResult = FileUtils::updateImage([
                     'imageName' => $this->image,
+                    'oldImageName' => $this->getOldAttribute('image'),
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
                     'resize' => array_values(Product::$image_resizes),
@@ -206,8 +200,9 @@ class Product extends \common\models\Product
                 }
             }
             if (!empty($data['product-banner'])) {
-                $copyResult = FileUtils::copyImage([
+                $copyResult = FileUtils::updateImage([
                     'imageName' => $this->banner,
+                    'oldImageName' => $this->getOldAttribute('banner'),
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
                     'resize' => array_values(Product::$banner_resizes),
@@ -217,15 +212,17 @@ class Product extends \common\models\Product
                     $this->banner = $copyResult['imageName'];
                 }
             }
-            $this->details = FileUtils::copyContentImages([
+            $this->details = FileUtils::updateContentImages([
                 'content' => $this->details,
+                'oldContent' => $this->getOldAttribute('details'),
                 'defaultFromFolder' => Yii::$app->params['uploads_folder'],
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
             ]);
-            $this->long_description = FileUtils::copyContentImages([
+            $this->long_description = FileUtils::updateContentImages([
                 'content' => $this->long_description,
+                'oldContent' => $this->getOldAttribute('long_description'),
                 'defaultFromFolder' => Yii::$app->params['uploads_folder'],
                 'toFolder' => $targetFolder,
                 'toUrl' => $targetUrl,
@@ -251,12 +248,11 @@ class Product extends \common\models\Product
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;    
-        $model = $this;
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
             $log->object_class = 'Product';
-            $log->object_pk = $model->id;
+            $log->object_pk = $this->id;
             $log->created_at = $now;
             $log->is_success = 0;
             $log->save();
@@ -266,7 +262,44 @@ class Product extends \common\models\Product
                 $log->is_success = 1;
                 $log->save();
             }
-            FileUtils::removeFolder(Yii::$app->params['images_folder'] . $model->image_path);
+            if ($this->image_path != '') {
+                $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
+                $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
+
+                FileUtils::updateImage([
+                    'imageName' => '',
+                    'oldImageName' => $this->image,
+                    'fromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
+                ]);
+
+                FileUtils::updateImage([
+                    'imageName' => '',
+                    'oldImageName' => $this->banner,
+                    'fromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
+                ]);
+
+                FileUtils::updateContentImages([
+                    'content' => '',
+                    'oldContent' => $this->details,
+                    'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'toUrl' => $targetUrl,
+                ]);
+
+                FileUtils::updateContentImages([
+                    'content' => '',
+                    'oldContent' => $this->long_description,
+                    'defaultFromFolder' => Yii::$app->params['uploads_folder'],
+                    'toFolder' => $targetFolder,
+                    'toUrl' => $targetUrl,
+                ]);
+
+            }
+
             return true;
         }
         return false;

@@ -293,7 +293,7 @@ class Generator extends \yii\gii\Generator
         } elseif (preg_match('/^(image_path)$/i', $column->name)) {
             return "\t<?php // echo \$form->field(\$model, '$attribute')->textInput(['maxlength' => true, 'readonly' => true]) ?>\n";
         } elseif (preg_match('/^(image|avatar|banner|banner1|banner2|banner3|banner4|banner5|top_banner|bottom_banner|middle_banner|left_banner|right_banner)$/i', $column->name)) {
-            return "\t<?= \$form->field(\$model, '$attribute', ['template' => '{label}<div class=\"picturecut_image_container\" ' . (!\$model->isNewRecord ? 'style=\"background-image:url(' . \$model->get" . Inflector::id2camel($column->name, '_') . "() . ')\"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>\n";
+            return "\t<?= \$form->field(\$model, '$attribute', ['template' => '{label}<div class=\"PictureCutImageContainer\" ' . (!\$model->isNewRecord ? 'style=\"background-image:url(' . \$model->get" . Inflector::id2camel($column->name, '_') . "() . ')\"' : '') . '></div>{input}{error}{hint}'])->textInput(['maxlength' => true, 'readonly' => true]) ?>\n";
         } else {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
                 $input = 'passwordInput';
