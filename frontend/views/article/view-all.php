@@ -8,19 +8,19 @@
         switch ($type) {
             case frontend\models\Article::TYPE_NEWS:
                 echo $this->render('news-list-view', [
-                    'title' => 'Tin tức',
+//                    'title' => 'Tin tức',
                     'items' => $items,
                 ]);
                 break;
             case frontend\models\Article::TYPE_MAGAZINE:
                 echo $this->render('magazine-list-view', [
-                    'title' => 'Góc báo chí',
+//                    'title' => 'Góc báo chí',
                     'items' => $items,
                 ]);
                 break;
             case frontend\models\Article::TYPE_CUSTOMER_REVIEW:
                 echo $this->render('customer-review-list-view', [
-                    'title' => 'Ý kiến khách hàng',
+//                    'title' => 'Ý kiến khách hàng',
                     'items' => $items,
                 ]);
                 break;

@@ -11,7 +11,7 @@ use yii\helpers\Url;
 
 class ProductController extends BaseController
 {
-    const ITEMS_PER_PAGE = 10;
+    const ITEMS_PER_PAGE = 12;
     
     public function actionIndex()
     {
@@ -44,6 +44,31 @@ class ProductController extends BaseController
                     'img_src' => $item->getImage($this->is_mobile ? ProductImage::IMAGE_LARGE : ProductImage::IMAGE_HUGE),
                     'img_alt' => $item->caption,
                 ];
+            }
+            
+            switch ($model->status) {
+                case Product::STATUS_INDEX_FOLLOW:
+                    $this->meta_index = 'index';
+                    $this->meta_follow = 'follow';
+                    break;
+                
+                case Product::STATUS_NOINDEX_NOFOLLOW:
+                    $this->meta_index = 'noindex';
+                    $this->meta_follow = 'nofollow';
+                    break;
+                
+                case Product::STATUS_INDEX_NOFOLLOW:
+                    $this->meta_index = 'index';
+                    $this->meta_follow = 'nofollow';
+                    break;
+                
+                case Product::STATUS_NOINDEX_FOLLOW:
+                    $this->meta_index = 'noindex';
+                    $this->meta_follow = 'follow';
+                    break;
+                
+                default:
+                    break;
             }
             
             if ($model->comment_count == '') {

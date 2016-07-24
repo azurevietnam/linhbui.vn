@@ -154,10 +154,10 @@ class MyActiveRecord extends ActiveRecord {
     
     public function desc($column = 'description', $length = 40)
     {
-        return StringUtils::summaryText($this->$column, $length);
+        return StringUtils::summaryText($this->$column, $length, ' [...]');
     }
     
-    public function date($column = 'published_at', $format = 'd-m-Y H:i')
+    public function date( $format = 'd-m-Y H:i', $column = 'published_at')
     {
         return date($format, $this->$column);
     }
@@ -197,4 +197,16 @@ class MyActiveRecord extends ActiveRecord {
         return $query;
     }
     
+    //================================
+    const STATUS_INDEX_FOLLOW = 0;
+    const STATUS_NOINDEX_NOFOLLOW = 1;
+    const STATUS_INDEX_NOFOLLOW = 2;
+    const STATUS_NOINDEX_FOLLOW = 3;
+    
+    public static $statuses = [
+        self::STATUS_INDEX_FOLLOW => 'index, follow',
+        self::STATUS_NOINDEX_NOFOLLOW => 'noindex, nofollow',
+        self::STATUS_INDEX_NOFOLLOW => 'index, nofollow',
+        self::STATUS_NOINDEX_FOLLOW => 'noindex, follow',
+    ];
 }

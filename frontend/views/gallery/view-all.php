@@ -6,7 +6,7 @@
         <div class="dsk-padl10">
         <?php
             echo $this->render('list-view', [
-                'title' => 'Thư viện ảnh',
+//                'title' => 'Thư viện ảnh',
                 'items' => $items,
             ]);
         ?>

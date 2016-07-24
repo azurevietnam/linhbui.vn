@@ -21,6 +21,7 @@ class ArticleController extends BaseController
             if (!Redirect::compareUrl($this->link_canonical)) {
                 $this->redirect($this->link_canonical);
             }
+            $related_items = [];
             if ($type_alias != '') {
                 $this->breadcrumbs[] = ['label' => Article::getNameOfType($model->type), 'url' => Url::to(['article/view-all', PageGroup::URL_TYPE => Article::getAliasOfType($model->type)])];            
                 $related_items = Article::find()->where(['<>', 'id', $model->id])->orderBy('published_at desc')->limit(8)->allPublished();
@@ -47,10 +48,13 @@ class ArticleController extends BaseController
                 $model->updateCounters(['view_count' => 1]);
             }
             
-            return $this->render('index', [
-                'model' => $model,
-                'related_items' => isset($related_items) ? $related_items : array()
-            ]);
+            return $this->render(
+                in_array($model->type, [Article::TYPE_ABOUT_US, Article::TYPE_CONTACT_US])
+                    ? 'info' : 'index',
+                [
+                    'model' => $model,
+                    'related_items' => $related_items
+                ]);
         } else {
             Redirect::go();
         }

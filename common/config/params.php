@@ -31,10 +31,10 @@ return [
         'product_slide_image' => 15/16.93,
         'product_image' => 7.12/10.56,
         'product_category_image' => 7.12/10.56,
-        'article_image' => 16/9, // 4^2 / 3^2
-        'gallery_image' => 16/9,
-        'video_image' => 16/9,
-        'slideshow_image' => 64/27, // 4^3 / 3^3
+        'article_image' => 3/2,
+        'gallery_image' => 3/2,
+        'video_image' => 3/2,
+        'slideshow_image' => 64/27,
     ],
 
     'decive_types' => [

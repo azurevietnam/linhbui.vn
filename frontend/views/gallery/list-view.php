@@ -1,4 +1,7 @@
 <section class="row list-view">
+    <?php
+    if (isset($title) && $title != '') {
+    ?>
     <h2 class="title">
         <hr>
         <strong>
@@ -8,6 +11,9 @@
         </strong>
     </h2>
     <br class="clearfix">
+    <?php
+    }
+    ?>
     <div class="list">
         <?php
         foreach ($items as $item) {

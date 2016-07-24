@@ -6,7 +6,7 @@
         <div class="dsk-padl10">
         <?php
             echo $this->render('list-view', [
-                'title' => 'Video clips',
+//                'title' => 'Video clips',
                 'items' => $items,
             ]);
         ?>
