@@ -2,13 +2,14 @@
 
 namespace frontend\models;
 
+use common\utils\FileUtils;
 use Yii;
 
 /**
  * This is the model class for table "seo_info".
  *
  * @property integer $id
- * @property integer $page_group_id
+ * @property string $url
  * @property integer $type
  * @property integer $is_active
  * @property string $meta_title
@@ -23,44 +24,88 @@ use Yii;
  * @property string $created_by
  * @property integer $updated_at
  * @property string $updated_by
- *
- * @property PageGroup $pageGroup
- * @property SeoInfoToPageGroup[] $seoInfoToPageGroups
- * @property PageGroup[] $pageGroups
  */
-class SeoInfo extends \common\models\MyActiveRecord
-{
+class SeoInfo extends \common\models\MyActiveRecord {
+
+    /**
+     * function ->getImage ($suffix, $refresh)
+     */
+    public $_image;
+
+    public function getImage($suffix = null, $refresh = false) {
+        if ($this->_image === null || $refresh == true) {
+            $this->_image = FileUtils::getImage([
+                    'imageName' => $this->image,
+                    'imagePath' => $this->image_path,
+                    'suffix' => $suffix,
+                    'defaultImage' => null
+            ]);
+        }
+        return $this->_image;
+    }
+
+    public static function getCurrent() {
+        $url = rtrim(Yii::$app->request->absoluteUrl, '/');
+
+        $question_mark_pos = strpos($url, '?');
+        if (is_numeric($question_mark_pos)) {
+            $url = substr($url, 0, $question_mark_pos - strlen($url));
+        }
+        
+//        $relative_url = str_replace(Yii::$app->request->hostInfo, '', $url);
+        if ($model = static::find()
+                ->where(['in', 'url', [
+                        $url,
+//                        $relative_url,
+                        $url . '/',
+//                        $relative_url . '/',
+//                        '/' . $url,
+//                        '/' . $relative_url,
+//                        '/' . $url . '/',
+//                        '/' . $relative_url . '/',
+//                        rtrim($url, '/'),
+//                        rtrim($relative_url, '/'),
+//                        ltrim($url, '/'),
+//                        ltrim($relative_url, '/'),
+//                        trim($url, '/'),
+//                        trim($relative_url, '/'),
+                    ]])
+                ->andWhere(['is_active' => 1])
+                ->one()
+        ) {
+            return $model;
+        }
+        return false;
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'seo_info';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['page_group_id', 'type', 'is_active', 'created_at', 'updated_at'], 'integer'],
-            [['meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'created_at', 'created_by'], 'required'],
+            [['url', 'meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'created_at', 'created_by'], 'required'],
+            [['type', 'is_active'], 'integer'],
             [['long_description'], 'string'],
-            [['meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'image', 'image_path'], 'string', 'max' => 511],
-            [['created_by', 'updated_by'], 'string', 'max' => 255],
-            [['page_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => PageGroup::className(), 'targetAttribute' => ['page_group_id' => 'id']],
+            [['created_at', 'updated_at'], 'safe'],
+            [['url', 'meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'image', 'image_path'], 'string', 'max' => 511],
+            [['created_by', 'updated_by'], 'string', 'max' => 255]
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
-            'page_group_id' => 'Page Group ID',
+            'url' => 'Url',
             'type' => 'Type',
             'is_active' => 'Is Active',
             'meta_title' => 'Meta Title',
@@ -78,27 +123,4 @@ class SeoInfo extends \common\models\MyActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPageGroup()
-    {
-        return $this->hasOne(PageGroup::className(), ['id' => 'page_group_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSeoInfoToPageGroups()
-    {
-        return $this->hasMany(SeoInfoToPageGroup::className(), ['seo_info_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPageGroups()
-    {
-        return $this->hasMany(PageGroup::className(), ['id' => 'page_group_id'])->viaTable('seo_info_to_page_group', ['seo_info_id' => 'id']);
-    }
 }

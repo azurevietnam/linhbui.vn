@@ -15,6 +15,8 @@ use Yii;
  */
 class Contact extends \yii\db\ActiveRecord
 {
+    public $verifyCode;
+
     /**
      * @inheritdoc
      */
@@ -22,7 +24,7 @@ class Contact extends \yii\db\ActiveRecord
     {
         return 'contact';
     }
-
+    
     /**
      * @inheritdoc
      */
@@ -30,9 +32,11 @@ class Contact extends \yii\db\ActiveRecord
     {
         return [
             ['email', 'required'],
-            ['email', 'unique'],
             ['email', 'email'],
             [['name', 'email', 'phone_number', 'address'], 'string', 'max' => 255],
+            ['message', 'string', 'max' => 2023],
+//            ['verifyCode', 'captcha', 'on' => 'index'],
+            [['email', 'message'], 'unique', 'targetAttribute' => ['email', 'message']],
         ];
     }
 
@@ -47,6 +51,8 @@ class Contact extends \yii\db\ActiveRecord
             'email' => 'Email',
             'phone_number' => 'Phone Number',
             'address' => 'Address',
+            'message' => 'Nội dung',
+            'verifyCode' => 'Mã xác thực',
         ];
     }
 }

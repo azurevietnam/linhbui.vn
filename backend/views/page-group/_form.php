@@ -1,14 +1,14 @@
 <?php
 
+use backend\models\Article;
+use backend\models\PageGroup;
 use yii\helpers\Html;
-use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
-use janisto\timepicker\TimePicker;
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\PageGroup */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $this View */
+/* @var $model PageGroup */
+/* @var $form ActiveForm */
 ?>
 
 <div class="page-group-form">
@@ -17,15 +17,17 @@ use janisto\timepicker\TimePicker;
     
     <div class="col-md-6">
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'route')->dropDownList(backend\models\PageGroup::$routes, ['prompt' => 'Chọn']) ?>
+        <?= $form->field($model, 'route')->dropDownList(PageGroup::$routes, ['prompt' => 'Chọn']) ?>
     </div>
     <div class="col-md-6">
         <?php
         $model->isNewRecord ?: $model->url_params = (array) json_decode($model->url_params);
-        foreach (backend\models\PageGroup::$all_url_params as $item) {
-        ?>
-        <?= $form->field($model, "url_params[{$item['name']}]")->textInput(['maxLength' => true])->label($item['label']) ?>
-        <?php
+        foreach (PageGroup::$all_url_params as $item) {
+//            if ($item['name'] == PageGroup::URL_TYPE) {
+//                echo $form->field($model, "url_params[{$item['name']}]")->dropDownList(Article::$types, ['prompt' => '- Chọn -'])->label($item['label']);
+//            } else {
+                echo $form->field($model, "url_params[{$item['name']}]")->textInput(['maxLength' => true])->label($item['label']);
+//            }
         }
         ?>
     </div>

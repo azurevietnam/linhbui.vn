@@ -24,9 +24,9 @@ return [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => '',
-                'username' => '',
-                'password' => '',
+                'host' => 'mail.linhbui.vn',
+                'username' => 'info@linhbui.vn',
+                'password' => '@1234567890#',
 //                'port' => '587',
 //                'encryption' => 'tls',
                 'port' => '465',

@@ -24,7 +24,7 @@
             <div class="info">
                 <span class="auth"><?= $item->auth() ?></span>,
                 <span class="date"><?= $item->date('d/m/Y') ?></span>
-                <?= $item->a(['class' => 'link'], '&Gt;') ?>
+                <?= $item->a(['class' => 'link'], '') ?>
             </div>
         </div>
         <?php

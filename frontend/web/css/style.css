@@ -345,6 +345,7 @@ footer .info .title {
 }
 .list-view .detail .name a:hover {
     text-decoration: underline;
+    color: #f1cc01;
 }
 .list-view .thumb .img-wrap img,
 .list-view .detail .img-wrap img {
@@ -357,6 +358,8 @@ footer .info .title {
     float: right;
     text-align: justify;
     text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.05em;
 }
 .list-view .detail .desc {
     width: calc(100% - 270px);
@@ -381,9 +384,15 @@ footer .info .title {
     opacity: 0.8;
 }
 .list-view .detail .link {
-    color: #cea00e;
-    font-weight: bold;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACoSURBVHjaTNA9TgIBEAbQt2RjiZfgDlzCGMF4ARP+DmAMFUplYaeFUsC2hEBhUHsPwAHovAYNNN8mTDOZ5GVm8hW7qrnHC+a4wD8G+JJq4BUz3OOAD6xwVaMyoEg/4jnzGl18l8Gf2TrL/BS4QafYVU1ntcQ1LnP6D63yDIyyvhcwRRs3NRriLaDKuUd08NtAH+8BC0wwxi1+6ggeAhfJqYc7bOs/TgMAg5AjNk2QqTMAAAAASUVORK5CYII=');
+    height: 9px;
+    width: 9px;
+    display: block;
     float: right;
+    margin-top: 0.5em;
+}
+.list-view .detail .link:hover {
+    color: #f1cc01;
 }
 .row:after {
     content: "";

@@ -118,7 +118,7 @@ class ProductCategoryController extends BaseController
                 $slideshow[] = [
                     'caption' => $item->name,
                     'link' => $item->getLink(),
-                    'img_src' => $item->getBanner(),
+                    'img_src' => $item->getBanner($this->is_mobile ? ProductCategory::BANNER_MEDIUM : ProductCategory::BANNER_LARGE),
                     'img_alt' => $item->name,
                 ];
             }

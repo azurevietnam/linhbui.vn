@@ -9,22 +9,26 @@ use Yii;
  * This is the model class for table "seo_info".
  *
  * @property integer $id
- * @property string $url
+ * @property integer $page_group_id
  * @property integer $type
  * @property integer $is_active
  * @property string $meta_title
  * @property string $meta_keywords
  * @property string $meta_description
- * @property string $long_description
  * @property string $h1
+ * @property string $page_title
+ * @property string $long_description
  * @property string $image
  * @property string $image_path
  * @property integer $created_at
  * @property string $created_by
  * @property integer $updated_at
  * @property string $updated_by
+ *
+ * @property PageGroup $pageGroup
+ * @property SeoInfoToPageGroup[] $seoInfoToPageGroups
  */
-class SeoInfo extends \yii\db\ActiveRecord
+class SeoInfo extends \common\models\SeoInfo
 {
         
     /**
@@ -35,33 +39,15 @@ class SeoInfo extends \yii\db\ActiveRecord
     {
         if ($this->_image === null || $refresh == true) {
             $this->_image = FileUtils::getImage([
-               'imageName' => $this->image,
-               'imagePath' => $this->image_path,
-               'imagesFolder' => Yii::$app->params['images_folder'],
-               'imagesUrl' => Yii::$app->params['images_url'],
-               'suffix' => $suffix,
-               'defaultImage' => Yii::$app->params['default_image']
-           ]);
+                'imageName' => $this->image,
+                'imagePath' => $this->image_path,
+                'imagesFolder' => Yii::$app->params['images_folder'],
+                'imagesUrl' => Yii::$app->params['images_url'],
+                'suffix' => $suffix,
+                'defaultImage' => Yii::$app->params['default_image']
+            ]);
         }
         return $this->_image;
-    }
-    
-    /**
-    * function ->getLink ()
-    */
-    public $_link;
-    public function getLink ()
-    {
-        if ($this->_link === null) {
-            $_link = '';
-            if (preg_match("/(http:|https:)/i", $this->url)) {
-                $_link = $this->url;
-            } else {
-                $_link = Yii::$app->params['frontend_url'] . '/' . trim($this->url, '/');
-            }
-            $this->_link = $_link;
-        }
-        return $this->_link;
     }
 
     /**
@@ -86,7 +72,7 @@ class SeoInfo extends \yii\db\ActiveRecord
             $model->created_by = $username;
                 
             $model->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
-               
+            
             $targetFolder = Yii::$app->params['images_folder'] . $model->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $model->image_path;
             
@@ -95,6 +81,7 @@ class SeoInfo extends \yii\db\ActiveRecord
                     'imageName' => $model->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -109,7 +96,6 @@ class SeoInfo extends \yii\db\ActiveRecord
                 'toUrl' => $targetUrl,
                 'removeInputImage' => true,
             ]);
-        
             if ($model->save()) {
                 if ($log) {
                     $log->object_pk = $model->id;
@@ -148,16 +134,17 @@ class SeoInfo extends \yii\db\ActiveRecord
             if ($this->image_path == null || trim($this->image_path) == '' || !is_dir(Yii::$app->params['images_folder'] . $this->image_path)) {
                 $this->image_path = FileUtils::generatePath($now, Yii::$app->params['images_folder']);
             }
-           
+
             $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
             $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
             
             if (!empty($data['seoinfo-image'])) {
                 $copyResult = FileUtils::updateImage([
                     'imageName' => $this->image,
-                    'oldImageName' => $this->getOldAttribute('image'),
+                    'oldImageName' => $this->getOldAttribute('image'), 
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
                     'removeInputImage' => true,
                 ]);
                 if ($copyResult['success']) {
@@ -192,12 +179,11 @@ class SeoInfo extends \yii\db\ActiveRecord
     {
         $now = strtotime('now');
         $username = Yii::$app->user->identity->username;    
-        $model = $this;
         if ($log = new UserLog()) {
             $log->username = $username;
             $log->action = 'Delete';
             $log->object_class = 'SeoInfo';
-            $log->object_pk = $model->id;
+            $log->object_pk = $this->id;
             $log->created_at = $now;
             $log->is_success = 0;
             $log->save();
@@ -207,7 +193,6 @@ class SeoInfo extends \yii\db\ActiveRecord
                 $log->is_success = 1;
                 $log->save();
             }
-            
             if ($this->image_path != '') {
                 $targetFolder = Yii::$app->params['images_folder'] . $this->image_path;
                 $targetUrl = Yii::$app->params['images_url'] . $this->image_path;
@@ -217,6 +202,7 @@ class SeoInfo extends \yii\db\ActiveRecord
                     'oldImageName' => $this->image,
                     'fromFolder' => Yii::$app->params['uploads_folder'],
                     'toFolder' => $targetFolder,
+                    'resize' => array_values(self::$image_resizes),
                 ]);
 
                 FileUtils::updateContentImages([
@@ -242,18 +228,19 @@ class SeoInfo extends \yii\db\ActiveRecord
         return 'seo_info';
     }
 
+    
+    public $page_group_ids;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['url', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1', 'created_at', 'created_by'], 'required', 'message' => '{attribute} không thể để trống'],
-            [['type', 'is_active'], 'integer', 'message' => '{attribute} phải là số tự nhiên'],
-            [['url'], 'unique', 'message' => '{attribute} bị trùng lặp'],
+            [['page_group_id', 'type', 'is_active'], 'integer'],
+            [['meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'created_at', 'created_by'], 'required'],
             [['long_description'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['url', 'page_title', 'meta_title', 'meta_keywords', 'meta_description', 'h1', 'image', 'image_path'], 'string', 'max' => 511],
+            [['page_group_ids', 'created_at', 'updated_at'], 'safe'],
+            [['meta_title', 'meta_keywords', 'meta_description', 'h1', 'page_title', 'image', 'image_path'], 'string', 'max' => 511],
             [['created_by', 'updated_by'], 'string', 'max' => 255]
         ];
     }
@@ -265,21 +252,37 @@ class SeoInfo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'url' => 'Url',
-            'type' => 'Loại',
-            'is_active' => 'Kích hoạt',
-            'page_title' => 'Tiêu đề trang',
+            'page_group_id' => 'Page Group ID',
+            'type' => 'Type',
+            'is_active' => 'Is Active',
             'meta_title' => 'Meta Title',
             'meta_keywords' => 'Meta Keywords',
             'meta_description' => 'Meta Description',
-            'long_description' => 'Mô tả chi tiết',
             'h1' => 'H1',
-            'image' => 'Ảnh đại diện',
-            'image_path' => 'Đường dẫn ảnh',
-            'created_at' => 'Thêm mới lúc',
-            'created_by' => 'Thêm bởi',
-            'updated_at' => 'Cập nhật lúc',
-            'updated_by' => 'Cập nhật bởi',
+            'page_title' => 'Page Title',
+            'long_description' => 'Long Description',
+            'image' => 'Image',
+            'image_path' => 'Image Path',
+            'created_at' => 'Created At',
+            'created_by' => 'Created By',
+            'updated_at' => 'Updated At',
+            'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPageGroup()
+    {
+        return $this->hasOne(PageGroup::className(), ['id' => 'page_group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSeoInfoToPageGroups()
+    {
+        return $this->hasMany(SeoInfoToPageGroup::className(), ['seo_info_id' => 'id']);
     }
 }

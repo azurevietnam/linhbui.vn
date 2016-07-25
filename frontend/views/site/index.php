@@ -69,7 +69,7 @@ use yii\helpers\Url;
         <strong class="title">Đăng ký nhận thông tin từ chúng tôi!</strong>
         <p class="desc">Đăng ký email để nhận tin tức các sự kiện và chương trình giảm giá sớm nhất</p>
         <form class="row" method="POST" action="<?= Url::to(['contact/create-with-email'], true) ?>">
-            <input type="input" name="email" placeholder="Nhập email của bạn">
+            <input type="text" name="email" placeholder="Nhập email của bạn">
             <button type="submit" name="submit">Đăng ký</button>
         </form>
         <div class="message"></div>

@@ -2,18 +2,18 @@
 
 namespace backend\controllers;
 
-use backend\controllers\BaseController;
-use backend\models\SeoInfo;
-use backend\models\SeoInfoSearch;
 use Yii;
-use yii\filters\VerbFilter;
+use backend\models\Contact;
+use backend\models\ContactSearch;
+use yii\web\Controller;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
- * SeoInfoController implements the CRUD actions for SeoInfo model.
+ * ContactController implements the CRUD actions for Contact model.
  */
-class SeoInfoController extends BaseController
+class ContactController extends Controller
 {
     public function behaviors()
     {
@@ -28,14 +28,16 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Lists all SeoInfo models.
+     * Lists all Contact models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SeoInfoSearch();
+        $searchModel = new ContactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        Url::remember();
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -43,7 +45,7 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Displays a single SeoInfo model.
+     * Displays a single Contact model.
      * @param integer $id
      * @return mixed
      */
@@ -59,16 +61,16 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Creates a new SeoInfo model.
+     * Creates a new Contact model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
         $username = Yii::$app->user->identity->username;
-        $model = new SeoInfo();
+        $model = new Contact();
         
-        if (Yii::$app->request->isPost && $model = SeoInfo::create(Yii::$app->request->post())) {
+        if (Yii::$app->request->isPost && $model = Contact::create(Yii::$app->request->post())) {
             return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -79,7 +81,7 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Updates an existing SeoInfo model.
+     * Updates an existing Contact model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -102,7 +104,7 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Deletes an existing SeoInfo model.
+     * Deletes an existing Contact model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,15 +120,15 @@ class SeoInfoController extends BaseController
     }
 
     /**
-     * Finds the SeoInfo model based on its primary key value.
+     * Finds the Contact model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SeoInfo the loaded model
+     * @return Contact the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SeoInfo::findOne($id)) !== null) {
+        if (($model = Contact::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'link') ?>
+    <?= $form->field($model, 'page_group_id') ?>
 
     <?= $form->field($model, 'type') ?>
 
@@ -29,9 +29,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'meta_description') ?>
 
-    <?php // echo $form->field($model, 'long_description') ?>
-
     <?php // echo $form->field($model, 'h1') ?>
+
+    <?php // echo $form->field($model, 'page_title') ?>
+
+    <?php // echo $form->field($model, 'long_description') ?>
 
     <?php // echo $form->field($model, 'image') ?>
 

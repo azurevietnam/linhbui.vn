@@ -59,6 +59,12 @@ use yii\helpers\Html;
                 ];
             }
             
+            if (Yii::$app->controller->id == 'contact') {
+                $menuItems = [
+//                    ['label' => 'Danh sách', 'url' => ['user-log/index']],
+                ];
+            }
+            
             if (Yii::$app->controller->id == 'site') {
                 $menuItems = [
                 ];

@@ -6,6 +6,7 @@ use frontend\models\Article;
 use frontend\models\Menu;
 use frontend\models\PageGroup;
 use frontend\models\ProductCategory;
+use frontend\models\SeoInfo;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -54,7 +55,7 @@ class BaseController extends Controller {
     public function beforeAction($action) {
         parent::beforeAction($action);
         
-        if ($seoInfo = PageGroup::seoInfo()) {
+        if ($seoInfo = SeoInfo::getCurrent()) {
             $this->seo_exist = true;
             $this->page_title = $seoInfo->page_title;
             $this->h1 = $seoInfo->h1;

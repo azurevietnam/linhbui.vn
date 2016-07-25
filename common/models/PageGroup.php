@@ -20,7 +20,11 @@ class PageGroup extends MyActiveRecord {
         'site/index' => 'Trang chủ',
         'article/index' => 'Bài viết',
         'article-category/index' => 'Danh mục bài viết',
-        'tag/index' => 'Tìm kiếm (tag)',
+        'article-category/view-all' => 'Danh mục bài viết (tất cả)',
+        'product/index' => 'Sản phẩm',
+        'product-category/index' => 'Danh mục sản phẩm',
+        'product-category/view-all' => 'Danh mục sản phẩm (tất cả)',
+//        'tag/index' => 'Tìm kiếm (tag)',
     ];
 
     public static function arrayIdToName()

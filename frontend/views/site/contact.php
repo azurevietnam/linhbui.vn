@@ -12,6 +12,7 @@ use yii\captcha\Captcha;
 use yii\helpers\Html;
 use yii\web\View;
 
+$this->registerJsFile('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js');
 ?>
 <div class="wrap">
 <div class="col-12">

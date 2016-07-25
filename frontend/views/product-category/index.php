@@ -1,3 +1,8 @@
+<?php
+
+use frontend\models\ProductCategory;
+
+?>
 <div class="wrap">
     <div class="col-3">
         <?= $this->render('//layouts/left') ?>
@@ -5,7 +10,7 @@
     <div class="col-9">
         <div class="dsk-padl10">
             <div class="banner">
-                <?= $category->banner != '' ? $category->img(['src' => $category->getBanner(), 'style' => 'width:100%']) : '' ?>
+                <?= $category->banner != '' ? $category->img(['src' => $category->getBanner($this->context->is_mobile ? ProductCategory::BANNER_MEDIUM : ProductCategory::BANNER_LARGE), 'style' => 'width:100%']) : '' ?>
             </div>
             <br class="clearfix">
             <?php

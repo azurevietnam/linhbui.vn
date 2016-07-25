@@ -53,11 +53,11 @@ return [
                 // Trang chủ
                 ['pattern' => '', 'route' => 'site/index'],
                 ['pattern' => '', 'route' => 'site/index', 'suffix' => '/'],
-                ['pattern' => 'lien-he', 'route' => 'site/contact', 'suffix' => '.html'],
                 // Sitemap
                 ['pattern' => 'sitemap.xml', 'route' => 'sitemap/index'],
                 ['pattern' => "sitemap-<$alias>.xml", 'route' => 'sitemap/details'],
                 // Contact
+                ['pattern' => 'lien-he', 'route' => 'contact/index', 'suffix' => '.html'],
                 ['pattern' => 'contact/create-with-email', 'route' => 'contact/create-with-email'],
                 // Sản phẩm
                 ['pattern' => 'product/counter', 'route' => 'product/counter'],

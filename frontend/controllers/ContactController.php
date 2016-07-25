@@ -4,14 +4,28 @@ namespace frontend\controllers;
 
 use frontend\models\Contact;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 
-class ContactController extends Controller
+class ContactController extends BaseController
 {
+
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Contact;
+        
+        if (Yii::$app->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Cảm ơn bạn đã phản hồi!');
+                $model = new Contact;
+            } else {
+                Yii::$app->session->setFlash('error', 'Chưa gửi được, bạn vui lòng kiểm tra lại thông tin!');
+            }
+            
+        }
+        
+        return $this->render('index', ['model' => $model]);
     }
 
     public function actionCreateWithEmail()
@@ -21,8 +35,9 @@ class ContactController extends Controller
         }
         $model = new Contact;
         $model->email = Yii::$app->request->post('email', '');
+        $model->message = '';
+        
         if ($model->save()) {
-            
             return 1;
         }
         
