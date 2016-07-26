@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Article;
 use yii\helpers\Url;
 
 ?>
@@ -46,8 +47,7 @@ use yii\helpers\Url;
         <div class="introtext paragraph">
             &ldquo;&nbsp;<?= $review->description ?>&nbsp;&rdquo;
         </div>
-        <div class="img" style="background-image:url('<?= $review->getImage() ?>')">
-        </div>
+        <div class="img"></div>
         <p class="customer-name"><?= $review->customer_name ?></p>
         <p class="customer-job"><?= $review->customer_job ?></p>
     </section>
@@ -104,10 +104,11 @@ use yii\helpers\Url;
     width: 70px;
     height: 70px;
     border-radius: 5px;
+    margin: 0.5em auto;
+    background-image: url('<?= $review->getImage(Article::IMAGE_TINY) ?>');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    margin: 0.5em auto;
 }
 #review-box .line {
     width: 200px;

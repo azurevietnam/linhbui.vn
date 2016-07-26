@@ -13,7 +13,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii::$app->language ?>" itemscope itemtype="http://schema.org/WebPage">
 <meta charset="<?= Yii::$app->charset ?>">
 <?php require_once 'meta.php'; ?>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
@@ -33,14 +33,15 @@ var menu = {
             if (u.classList.contains("open")) {
                 u.classList.remove("open");
                 u.style.height = "0px";
+                if (!e.classList.contains("main-button")) {
+                    e.innerHTML = "<i class=\"right-orange-arrow\"></i>";
+                }
             } else {
                 u.classList.add("open");
                 u.style.height = u.scrollHeight + "px";
-            }
-            if (e.innerHTML === "+") {
-                e.innerHTML = "-";
-            } else if (e.innerHTML === "-") {
-                e.innerHTML = "+";
+                if (!e.classList.contains("main-button")) {
+                    e.innerHTML = "<i class=\"down-orange-arrow\"></i>";
+                }
             }
         }, timeout);
         setTimeout(function() {

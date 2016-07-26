@@ -1,6 +1,11 @@
-<title><?= $this->context->page_title ?></title>
-<meta name="description" content="<?= $this->context->meta_description ?>">
-<meta name="keywords" content="<?= $this->context->meta_keywords ?>">
+<?php
+
+use yii\helpers\Url;
+
+?>
+<title itemprop="name"><?= $this->context->page_title ?></title>
+<meta name="description" content="<?= $this->context->meta_description ?>" itemprop="description">
+<meta name="keywords" content="<?= $this->context->meta_keywords ?>" itemprop="keywords">
 <meta name="robots" content="<?= $this->context->meta_index ?>, <?= $this->context->meta_follow ?>">
 <meta name="robots" content="NOODP, NOYDIR">
 <meta name="p:domain_verify" content="f499ac4524c7ccfc7064d9c38774e229">
@@ -8,7 +13,7 @@
 <meta name="geo.placename" content="Hà Nội">
 <meta name="geo.position" content="21.033953;105.785002">
 <meta name="ICBM" content="21.033953, 105.785002">
-<meta name="DC.Source" content="<?= \yii\helpers\Url::home() ?>">
+<meta name="DC.Source" content="<?= Url::home() ?>">
 <meta name="DC.Coverage" content="Vietnam">
 <meta name="RATING" content="GENERAL">
 <meta name="COPYRIGHT" content="<?= Yii::$app->name ?>">
@@ -19,10 +24,10 @@
 <meta property="og:url" content="<?= $this->context->link_canonical ?>">
 <meta property="og:image" content="<?= $this->context->meta_image ?>">
 <meta property="og:site_name" content="<?= Yii::$app->name ?>">
-<link rel="canonical" href="<?= $this->context->link_canonical ?>">
-<link rel="image_src" type="image/jpeg" href="<?= $this->context->meta_image ?>">
+<link rel="canonical" href="<?= $this->context->link_canonical ?>" itemprop="url">
+<link rel="image_src" type="image/jpeg" href="<?= $this->context->meta_image ?>" itemprop="image">
 <link rel="alternate" media="handheld" href="<?= $this->context->link_canonical ?>">
-<link rel="shortcut icon" href="<?= Yii::$app->params['frontend_url'] ?>/favicon.ico">
+<link rel="icon" type="image/x-icon" href="<?= Url::home(true) ?>favicon.ico" />
 <!-- Chrome for Android theme color -->
 <meta name="theme-color" content="#303F9F">
 <meta name="REVISIT-AFTER" content="1 DAYS">

@@ -2,7 +2,7 @@
 
 use frontend\models\Article;
 use frontend\models\SiteParam;
-
+$this->registerCss('.info .item .right-white-arrow, .info .item a{vertical-align:middle}');
 ?>
 <footer class="container">
     <div class="wrap">
@@ -47,7 +47,7 @@ use frontend\models\SiteParam;
                         ->orderBy('position asc, published_at desc')
                         ->allPublished();
                 foreach ($items as $item) {
-                    echo "<p>&rsaquo; {$item->a()}</p>";
+                    echo "<p class=\"item\"><i class=\"right-white-arrow\"></i> {$item->a()}</p>";
                 }
                 ?>
             </div>

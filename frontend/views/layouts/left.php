@@ -10,21 +10,20 @@ if (!$this->context->is_mobile) {
     <ul>
         <li class="title">
             <a href="javascript:;" title="Menu">
-                <svg fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <!--<path d="M0 0h24v24H0z" fill="none"/>-->
-                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                </svg>
+                <i class="menu-button"></i>
+                &nbsp;
                 <span>Menu</span>
             </a>
         </li>
     <?php
     foreach (Menu::getTopParents() as $item) {
-    ?><li class="<?= $item->isCurrent() ? 'active' : '' ?>">
+        $children = $item->getChildren();
+    ?><li class="<?= $item->isCurrent() ? 'active' : '' ?> <?= $children !== [] ? 'multi-level' : '' ?>">
             <?= $item->a() ?>
             <?php
-            if (($children = $item->getChildren()) !== []) {
+            if ($children !== []) {
             ?>
-            <button type="button"><?= $item->isCurrent() ? '-' : '+' ?></button>
+            <button type="button"><?= $item->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>
             <ul class="<?= $item->isCurrent() ? 'open' : '' ?>">
                 <?php
                 foreach ($children as $c) {
@@ -33,7 +32,7 @@ if (!$this->context->is_mobile) {
                     <?php
                     if (($children2 = $c->getChildren()) !== []) {
                     ?>
-                    <button type="button"><?= $c->isCurrent() ? '-' : '+' ?></button>
+                    <button type="button"><?= $c->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>
                     <ul class="<?= $c->isCurrent() ? 'open' : '' ?>">
                         <?php
                         foreach ($children2 as $c2) {
@@ -123,6 +122,10 @@ if (!$this->context->is_mobile) {
     border-top-width: 0;
     color: #cea00e;
     text-transform: uppercase;
+}
+.side-menu li.multi-level {
+    border-left: 3px solid #d9ae5e;
+    padding-left: 2px;
 }
 @media screen and (max-width: 740px) {
     .side-menu {
