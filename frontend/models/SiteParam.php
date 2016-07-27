@@ -13,15 +13,36 @@ use Yii;
  */
 class SiteParam extends \common\models\SiteParam
 {
-    public static function findOneByName($name)
+    private static $_data;
+    public static function indexData()
     {
-        $result = static::find()->where(['name' => $name])->one();
-        
-        if (!$result) {
-            $result = new SiteParam;
+        if (!is_array(self::$_data)) {
+            self::$_data = self::find()->indexBy('id')->orderBy('id desc')->all();
+        }
+        return self::$_data;
+    }
+
+    public static function findAllByName($name)
+    {
+        $result = [];
+        foreach (self::indexData() as $item) {
+            if ($item->name == $name) {
+                $result[] = $item;
+            }
         }
         
         return $result;
+    }
+
+    public static function findOneByName($name)
+    {
+        foreach (self::indexData() as $item) {
+            if ($item->name == $name) {
+                return $item;
+            }
+        }
+        
+        return new self;
     }
     
     /**

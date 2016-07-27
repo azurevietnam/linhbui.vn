@@ -32,8 +32,8 @@ return [
         'product_image' => 7.12/10.56,
         'product_category_image' => 7.12/10.56,
         'article_image' => 3/2,
-        'gallery_image' => 3/2,
         'video_image' => 3/2,
+        'gallery_image' => 16/9,
         'slideshow_image' => 64/27,
     ],
 

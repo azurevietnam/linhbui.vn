@@ -1,3 +1,7 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /backend
 Disallow: /article/counter
+Disallow: /product/counter
+Disallow: /video/counter
+Disallow: /gallery/counter

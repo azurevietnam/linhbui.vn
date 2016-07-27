@@ -32,7 +32,7 @@ $this->registerCss('.info .item .right-white-arrow, .info .item a{vertical-align
                 </table>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-3">
             <div class="info">
                 <p class="title">Chăm sóc khách hàng</p>
                 <?php
@@ -52,18 +52,22 @@ $this->registerCss('.info .item .right-white-arrow, .info .item a{vertical-align
                 ?>
             </div>
         </div>
-        <div class="col-3">
-            <div class="info">
-                <p class="title">Theo dõi chúng tôi</p>
+        <div class="col-4">
+            <div class="info dsk-fr">
+                <p class="title">Theo dõi chúng tôi trên</p>
                 <p>
                     <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_FACEBOOK)->value ?>" title="Facebook" target="_blank">
                         <i class="icon icon-facebook"></i>
                     </a>
-                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
                     <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_GOOGLE_PLUS)->value ?>" title="Google Plus" target="_blank">
                         <i class="icon icon-google-plus"></i>
                     </a>
-                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_TWITTER)->value ?>" title="Twitter" target="_blank">
+                        <i class="twitter-icon"></i>
+                    </a>
+                    &nbsp;&nbsp;
                     <a href="<?= SiteParam::findOneByName(SiteParam::PARAM_INSTAGRAM)->value ?>" title="Instagram" target="_blank">
                         <i class="icon icon-instagram"></i>
                     </a>

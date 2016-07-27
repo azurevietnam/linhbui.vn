@@ -214,4 +214,8 @@ code {
 body {
     background: #222d32 !important;
 }
+
+table td {
+    word-break: break-all;
+}
 </style>

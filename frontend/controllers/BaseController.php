@@ -7,6 +7,7 @@ use frontend\models\Menu;
 use frontend\models\PageGroup;
 use frontend\models\ProductCategory;
 use frontend\models\SeoInfo;
+use frontend\models\SiteParam;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -55,6 +56,10 @@ class BaseController extends Controller {
     public function beforeAction($action) {
         parent::beforeAction($action);
         
+        Yii::$app->params['fb_app_id'] = SiteParam::findOneByName(SiteParam::PARAM_FB_APP_ID)->value;
+        Yii::$app->params['ga_id'] = SiteParam::findOneByName(SiteParam::PARAM_GA_ID)->value;
+        Yii::$app->params['gcse_cx'] = SiteParam::findOneByName(SiteParam::PARAM_GCSE_CX)->value;
+                
         if ($seoInfo = SeoInfo::getCurrent()) {
             $this->seo_exist = true;
             $this->page_title = $seoInfo->page_title;
