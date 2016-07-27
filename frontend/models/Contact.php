@@ -31,7 +31,7 @@ class Contact extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['email', 'required'],
+            [['name', 'email', 'message'], 'required'],
             ['email', 'email'],
             [['name', 'email', 'phone_number', 'address'], 'string', 'max' => 255],
             ['message', 'string', 'max' => 2023],
@@ -47,9 +47,9 @@ class Contact extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Họ tên',
             'email' => 'Email',
-            'phone_number' => 'Phone Number',
+            'phone_number' => 'Số điện thoại',
             'address' => 'Address',
             'message' => 'Nội dung',
             'verifyCode' => 'Mã xác thực',

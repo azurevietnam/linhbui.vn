@@ -34,11 +34,11 @@ $this->registerJsFile('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery
         <h2 class="title">Thông tin phản hồi</h2>
 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
-    <?php // echo $form->field($model, 'name')->label(false) ?>
-
-    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Nhập email của bạn'])->label(false) ?>
-
-    <?php // echo $form->field($model, 'subject')->label(false) ?>
+    <?= $form->field($model, 'name')->textInput(['placeholder' => 'Họ tên'])->label(false) ?>
+        
+    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email'])->label(false) ?>
+        
+    <?= $form->field($model, 'phone_number')->textInput(['placeholder' => 'Số điện thoại'])->label(false) ?>
 
     <?= $form->field($model, 'message')->textArea(['rows' => 6, 'placeholder' => 'Nội dung phản hồi'])->label(false) ?>
 
