@@ -3,6 +3,14 @@
 use frontend\models\Menu;
 use yii\helpers\Url;
 
+$this->registerCss('.triangle-arrow{'
+        . 'transform:scale(1,1.3);'
+        . '-webkit-transform:scale(1,1.3);'
+        . 'display:inline-block;'
+        . '}'
+        . '@media screen and (max-width: 741px) {'
+        . '.triangle-arrow{display:none}'
+        . '}');
 ?>
 <div class="header container magb10">
     <div class="wrap">
@@ -37,7 +45,7 @@ use yii\helpers\Url;
                                 <?php
                                 foreach ($children2 as $c2_item) {
                                 ?><li>
-                                    <?= $c2_item->a() ?>
+                                    <?= $c2_item->a([], "<span class=\"triangle-arrow\">&#9656;</span> $c2_item->label") ?>
                                 </li><?php
                                 }
                                 ?>

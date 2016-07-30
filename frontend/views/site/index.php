@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <hr>
             <strong>
                 <i></i>
-                <span>Chúng tôi là ai</span>
+                <span>Chúng tôi là ai ?</span>
                 <i></i>
             </strong>
         </h2>

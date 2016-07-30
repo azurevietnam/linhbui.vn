@@ -18,16 +18,18 @@ if (!$this->context->is_mobile) {
     <?php
     foreach (Menu::getTopParents() as $item) {
         $children = $item->getChildren();
+        if ($children == []) {
     ?><li class="<?= $item->isCurrent() ? 'active' : '' ?> <?= $children !== [] ? 'multi-level' : '' ?>">
             <?= $item->a() ?>
             <?php
-            if ($children !== []) {
+    } else {
+//            if ($children !== []) {
             ?>
-            <button type="button"><?= $item->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>
-            <ul class="<?= $item->isCurrent() ? 'open' : '' ?>">
+            <!--<button type="button"><?= $item->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>-->
+            <!--<ul class="<?= $item->isCurrent() ? 'open' : '' ?>">-->
                 <?php
                 foreach ($children as $c) {
-                    ?><li class="<?= $c->isCurrent() ? 'active' : '' ?>">
+                    ?><li class="<?= $c->isCurrent() ? 'active' : '' ?> multi-level">
                     <?= $c->a() ?>
                     <?php
                     if (($children2 = $c->getChildren()) !== []) {
@@ -48,7 +50,7 @@ if (!$this->context->is_mobile) {
                 </li><?php
                 }
                 ?>
-            </ul>
+            <!--</ul>-->
             <?php
             }
             ?>
@@ -67,7 +69,7 @@ if (!$this->context->is_mobile) {
     background: none;
     position: absolute;
     border: none;
-    width: 3.2em;
+    width: 2.6em;
     line-height: calc(3.2em - 1px);
     height: 3.2em;
     top: 0;
@@ -80,6 +82,9 @@ if (!$this->context->is_mobile) {
     overflow: hidden;
     height: 0;
 }
+.side-menu li:not(.title) > a:hover {
+    color: #f1cc01;
+}
 .side-menu li.active > ul {
     height: auto;
 }
@@ -89,6 +94,10 @@ if (!$this->context->is_mobile) {
 }
 .side-menu > ul > li ul > li {
     padding-left: 0.5em;
+    text-transform: none;
+}
+.side-menu > ul > li ul > li:not(:first-of-type) {
+    border-top: 1px solid #fdebc4;
 }
 .side-menu .title {
     color: #fff;
@@ -96,14 +105,6 @@ if (!$this->context->is_mobile) {
     border-top-width: 1px;
     background: #d9ae5e;
     border-color: #d9ae5e;
-}
-.side-menu .title svg {
-    width: 2em;
-    height: 2em;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.5em;
-    margin-top: -0.3em
 }
 .side-menu li a {
     width: 100%;
@@ -123,9 +124,9 @@ if (!$this->context->is_mobile) {
     color: #cea00e;
     text-transform: uppercase;
 }
-.side-menu li.multi-level {
+.side-menu li.multi-level.active {
     border-left: 3px solid #d9ae5e;
-    padding-left: 2px;
+    margin-top: -1px;
 }
 @media screen and (max-width: 740px) {
     .side-menu {
