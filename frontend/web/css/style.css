@@ -572,8 +572,8 @@ footer .info .title {
         -webkit-transition: 0.1s;
     }
     .top-menu > ul > li > ul > li > ul > li > a:hover {
-        margin-left: 0.4em;
-        margin-right: -0.4em;
+        margin-left: 0.9em;
+        margin-right: 0.1em;
     }
     .top-menu .down-arrow {
         transform: rotateZ(135deg);
