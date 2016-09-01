@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
                 'showSecond' => true,
             ],
         ]) ?>
-        <?php // echo $form->field($model, 'is_hot')->checkbox() ?>
+        <?php echo $form->field($model, 'is_hot')->checkbox() ?>
         <?= $form->field($model, 'is_active')->checkbox() ?>
     </div>
     <div class="col-md-6">
@@ -127,7 +127,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'malterial')->textInput()->label() ?>
         <?= $form->field($model, 'color')->textInput()->label() ?>
         <?= $form->field($model, 'style')->textInput()->label() ?>
-        <?php // $form->field($model, 'status')->textInput() ?>
+        <?php echo $form->field($model, 'status')->dropDownList(Product::$statuses, ['prompt' => '- Chọn -']) ?>
     </div>
     
     <div class="col-md-12">

@@ -77,3 +77,28 @@ $this->registerCss('.info .item .right-white-arrow, .info .item a{vertical-align
         <div class="clearfix"></div>
     </div>
 </footer>
+<?php
+$ads = frontend\models\Adsense::findOneByType(frontend\models\Adsense::TYPE_BOTTOM_OVERLAY);
+if ($ads !== null) {
+?>
+<style>
+.bottom-overlay-adsense {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    display: block;
+    width: 100%;
+}
+.bottom-overlay-adsense img {
+    display: block;
+    margin: 0 auto;
+}
+</style>
+<a href="<?= $ads->link ?>" title="<?= $ads->caption ?>" class="bottom-overlay-adsense paragraph">
+    <img src="<?= $ads->getImage() ?>" title="<?= $ads->caption ?>">
+</a>
+<?php
+}
+?>

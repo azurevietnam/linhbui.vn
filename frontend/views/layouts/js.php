@@ -60,25 +60,47 @@ function paragraphStyle() {
     for (var k = 0; k < gs.length; k++) {
         g = gs[k];
         if (typeof(g) !== "undefined" && g !== null) {
-            var g_w = parseInt(window.getComputedStyle(g, null).getPropertyValue("width"));
-            var els = g.querySelectorAll("*");
-            for (var i = 0; i < els.length; i++) {
-                setStyle(els[i]);
-            }
-            function setStyle(el) {
-                el_w = parseInt(window.getComputedStyle(el, null).getPropertyValue("width"));
-                if (el_w > g_w) {
-                    el.style.maxWidth = "initial";
-                    el.style.maxHeight = "initial";
-                    el.style.minWidth = "initial";
-                    el.style.minHeight = "initial";
-                    el.style.paddingRight = "0px";
-                    el.style.paddingLeft = "0px";
-                    el.style.boxSizing = "border-box";
-                    el.style.height = "auto";
-                    el.style.width = "100%";
+            fitContent(g);
+        }
+    }
+    function fitContent(p) {
+        var p_es = p.querySelectorAll("img, table, video, object, iframe");
+        p.onload = function() {
+            setStyle(p);
+        };
+        for (var i = 0; i < p_es.length; i++) {
+            (function(e){
+                e.onload = function() {
+                    setStyle(p);
+                };
+            })(p_es[i]);
+        };
+    };
+    function setStyle(e) {
+        var e_style = window.getComputedStyle(e, null);
+        var e_bsz = e_style.getPropertyValue("box-sizing");
+        e.style.boxSizing = "content-box";
+        var e_w = parseInt(e_style.getPropertyValue("width"));
+        e.style.boxSizing = e_bsz;
+        for (var i = 0; i < e.children.length; i++) {
+            (function(c) {
+                var c_style = window.getComputedStyle(c, null);
+                var c_maw = c_style.getPropertyValue("maxWidth");
+                c.style.maxWidth = "initial";
+
+                var c_bsz = c_style.getPropertyValue("box-sizing");
+                c.style.boxSizing = "border-box";
+                var c_w = parseInt(c_style.getPropertyValue("width"));
+                c.style.boxSizing = c_bsz;
+                if (c_w > e_w) {
+                    c.style.boxSizing = "border-box";
+                    c.style.height = "auto";
+                    c.style.width = "100%";
                 }
-            }
+
+                c.style.maxWidth = c_maw;
+                setStyle(c);
+            })(e.children[i]);
         }
     }
 }

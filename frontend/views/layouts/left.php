@@ -2,63 +2,8 @@
 
 use frontend\models\Menu;
 
-?>
-<?php
 if (!$this->context->is_mobile) {
 ?>
-<div class="menu side-menu fluid">
-    <ul>
-        <li class="title">
-            <a href="javascript:;" title="Menu">
-                <i class="menu-button"></i>
-                &nbsp;
-                <span>Menu</span>
-            </a>
-        </li>
-    <?php
-    foreach (Menu::getTopParents() as $item) {
-        $children = $item->getChildren();
-        if ($children == []) {
-    ?><li class="<?= $item->isCurrent() ? 'active' : '' ?> <?= $children !== [] ? 'multi-level' : '' ?>">
-            <?= $item->a() ?>
-            <?php
-    } else {
-//            if ($children !== []) {
-            ?>
-            <!--<button type="button"><?= $item->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>-->
-            <!--<ul class="<?= $item->isCurrent() ? 'open' : '' ?>">-->
-                <?php
-                foreach ($children as $c) {
-                    ?><li class="<?= $c->isCurrent() ? 'active' : '' ?> multi-level">
-                    <?= $c->a() ?>
-                    <?php
-                    if (($children2 = $c->getChildren()) !== []) {
-                    ?>
-                    <button type="button"><?= $c->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>
-                    <ul class="<?= $c->isCurrent() ? 'open' : '' ?>">
-                        <?php
-                        foreach ($children2 as $c2) {
-                        ?><li class="<?= $c2->isCurrent() ? 'active' : '' ?>">
-                            <?= $c2->a() ?>
-                        </li><?php
-                        }
-                        ?>
-                    </ul>
-                    <?php
-                    }
-                    ?>
-                </li><?php
-                }
-                ?>
-            <!--</ul>-->
-            <?php
-            }
-            ?>
-        </li><?php
-    }
-    ?>
-    </ul>
-</div>
 <style>
 .side-menu {
     margin-top: 0;
@@ -134,5 +79,85 @@ if (!$this->context->is_mobile) {
     }
 }
 </style>
+<div class="menu side-menu fluid">
+    <ul>
+        <li class="title">
+            <a href="javascript:;" title="Menu">
+                <i class="menu-button"></i>
+                &nbsp;
+                <span>Menu</span>
+            </a>
+        </li>
+    <?php
+    foreach (Menu::getTopParents() as $item) {
+        $children = $item->getChildren();
+        if ($children == []) {
+    ?><li class="<?= $item->isCurrent() ? 'active' : '' ?> <?= $children !== [] ? 'multi-level' : '' ?>">
+            <?= $item->a() ?>
+    <?php
+    } else {
+            foreach ($children as $c) {
+                ?><li class="<?= $c->isCurrent() ? 'active' : '' ?> multi-level">
+                <?= $c->a() ?>
+                <?php
+                if (($children2 = $c->getChildren()) !== []) {
+                ?>
+                <button type="button"><?= $c->isCurrent() ? '<i class="down-orange-arrow"></i>' : '<i class="right-orange-arrow"></i>' ?></button>
+                <ul class="<?= $c->isCurrent() ? 'open' : '' ?>">
+                    <?php
+                    foreach ($children2 as $c2) {
+                    ?><li class="<?= $c2->isCurrent() ? 'active' : '' ?>">
+                        <?= $c2->a() ?>
+                    </li><?php
+                    }
+                    ?>
+                </ul>
+                <?php
+                }
+                ?>
+            </li><?php
+            }
+        }
+        ?>
+    </li><?php
+    }
+    ?>
+    </ul>
+</div>
 <?php
 }
+?>
+<style>
+.aside-adsense {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+}
+.aside-adsense img {
+    display: block;
+    width: 100%;
+}
+.aside-last-child {
+    margin-bottom: 20px;
+}
+</style>
+
+<?php
+$ads = frontend\models\Adsense::findAllByType([frontend\models\Adsense::TYPE_BOTTOM_ASIDE]);
+if ($ads !== []) {
+?>
+<div class="fluid">
+<?php
+foreach ($ads as $item) {
+?>
+<a href="<?= $item->link ?>" title="<?= $item->caption ?>" class="aside-adsense">
+    <img src="<?= $item->getImage() ?>" alt="<?= $item->caption ?>">
+</a>
+<?php
+}
+?>
+</div>
+<?php
+}
+?>
+<div class="aside-last-child"></div>

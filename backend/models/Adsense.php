@@ -176,7 +176,7 @@ class Adsense extends \common\models\Adsense
     public function rules()
     {
         return [
-            [['type'], 'integer'],
+            [['type', 'is_active'], 'integer'],
             [['image', 'image_path', 'caption', 'link'], 'string', 'max' => 255]
         ];
     }
@@ -193,6 +193,7 @@ class Adsense extends \common\models\Adsense
             'caption' => 'Caption',
             'link' => 'Link',
             'type' => 'Type',
+            'is_active' => 'Is Active',
         ];
     }
 }

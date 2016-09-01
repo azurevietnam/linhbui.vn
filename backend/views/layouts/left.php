@@ -89,6 +89,16 @@
                     <li class="<?= Yii::$app->controller->id == 'gallery' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('gallery/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
                 </ul>
             </li>
+             <!-- Adsense --> 
+            <li class="treeview <?= in_array(Yii::$app->controller->id, ['adsense']) ? 'active' : '' ?>">
+                <a href="#">
+                    <i class="fa fa-television"></i> <span>Adsense</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?= Yii::$app->controller->id == 'adsense' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('adsense/index') ?>"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'adsense' && Yii::$app->controller->action->id == 'create' ? 'active' : '' ?>"><a href="<?= Yii::$app->urlManager->createUrl('adsense/create') ?>"><i class="fa fa-circle-o"></i> Thêm mới</a></li>
+                </ul>
+            </li>
              <!--Slideshow--> 
             <li class="treeview <?= in_array(Yii::$app->controller->id, ['slideshow-item']) ? 'active' : '' ?>">
                 <a href="#">

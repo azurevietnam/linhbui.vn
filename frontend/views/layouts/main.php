@@ -13,7 +13,6 @@ AppAsset::register($this);
 <head>
 <?php require_once 'meta.php'; ?>
 <?php require_once 'css.min.php'; ?>
-<?php require_once 'js.min.php'; ?>
 <?php $this->head() ?>
 </head>
 <body>
@@ -34,6 +33,7 @@ if (!in_array(Yii::$app->requestedRoute, ['site/index'])) {
 </div>
 <!--FOOTER-->
 <?php require_once 'footer.php'; ?>
+<?php require_once 'js.php'; ?>
 <?php require_once 'plugins.php'; ?>
 <?php $this->endBody() ?>
 </body>

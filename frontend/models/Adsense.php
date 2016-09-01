@@ -19,9 +19,7 @@ class Adsense extends \common\models\Adsense
 {
     private static $_indexData;
     public static function indexData() {
-        if (!is_array(self::$_indexData)) {
-            self::indexData() = self::find()->indexBy('id')->orderBy('id desc')->allActive();
-        }
+        self::$_indexData = self::find()->indexBy('id')->orderBy('id desc')->allActive();
         
         return self::$_indexData;
     }
@@ -33,7 +31,18 @@ class Adsense extends \common\models\Adsense
                 return $item;
             }
         }
-        return new self;
+        return null;
+    }
+    
+    public static function findAllByType($types) {
+        $result = [];
+        $data = self::indexData();
+        foreach ($data as $item) {
+            if (in_array($item->type, $types)) {
+                $result[] = $item;
+            }
+        }
+        return $result;
     }
 
     /**

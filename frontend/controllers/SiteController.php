@@ -87,7 +87,7 @@ class SiteController extends BaseController
             ];
         }
         $product_categories = ProductCategory::find()->limit(8)->orderBy('position asc')->allActive();
-        $products = Product::find()->limit(8)->orderBy('published_at desc')->allActive();
+        $products = Product::find()->limit(8)->orderBy('is_hot desc, published_at desc')->allActive();
         $review = Article::findOneByType(Article::TYPE_CUSTOMER_REVIEW);
         $about = Article::findOneByType(Article::TYPE_ABOUT_US);
         return $this->render('index', [
@@ -140,20 +140,28 @@ class SiteController extends BaseController
     public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            }
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->name = $model->email;
+            $model->subject = $model->email;
+            if ($model->validate()) {
+                if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                    die('ok');
+                    Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                } else {
+                    var_dump($model->errors);die;
+                    Yii::$app->session->setFlash('error', 'There was an error sending email.');
+                }
 
             return $this->refresh();
+            }
         } else {
             return $this->render('contact', [
                 'model' => $model,
             ]);
         }
     }
+
 
     /**
      * Displays about page.
