@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Adsense;
 use frontend\models\Article;
 use frontend\models\SiteParam;
 $this->registerCss('.info .item .right-white-arrow, .info .item a{vertical-align:middle}');
@@ -78,7 +79,7 @@ $this->registerCss('.info .item .right-white-arrow, .info .item a{vertical-align
     </div>
 </footer>
 <?php
-$ads = frontend\models\Adsense::findOneByType(frontend\models\Adsense::TYPE_BOTTOM_OVERLAY);
+$ads = Adsense::findOneByType(Adsense::TYPE_BOTTOM_OVERLAY);
 if ($ads !== null) {
 ?>
 <style>
@@ -91,14 +92,42 @@ if ($ads !== null) {
     display: block;
     width: 100%;
 }
+.bottom-overlay-adsense a {
+    display: block;
+}
 .bottom-overlay-adsense img {
     display: block;
     margin: 0 auto;
 }
+.bottom-overlay-adsense .remove-icon {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    background-color: #fff;
+    border-radius: 100px;
+    cursor: pointer;
+     filter: sepia(30%) saturate(5);
+     -webkit-filter: sepia(30%) saturate(5);
+}
 </style>
-<a href="<?= $ads->link ?>" title="<?= $ads->caption ?>" class="bottom-overlay-adsense paragraph">
-    <img src="<?= $ads->getImage() ?>" title="<?= $ads->caption ?>">
-</a>
+<div class="bottom-overlay-adsense container paragraph">
+    <div class="wrap">
+        <a href="<?= $ads->link ?>" title="<?= $ads->caption ?>">
+            <img src="<?= $ads->getImage() ?>" title="<?= $ads->caption ?>">
+        </a>
+        <span class="icon remove-icon" onclick="this.parentElement.style.display='none';"></span>
+    </div>
+</div>
 <?php
 }
 ?>
+<script>
+window.onscroll = function() {
+    var e = document.getElementsByClassName("bottom-overlay-adsense")[0];
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        e.style.display = "none";
+    } else {
+        e.style.display = "block";
+    }
+};
+</script>
